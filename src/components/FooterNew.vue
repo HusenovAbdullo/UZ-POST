@@ -1,0 +1,335 @@
+<template>
+   <div>
+      <!--Footer Section-->
+      <footer class="footer__section bgadd">
+         <div class="container">
+            <div class="footer__top pt-40 pb-40">
+               <div class="row g-4">
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+                     <div class="footer__item">
+                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
+                           Biz haqimizda
+                        </a>
+                        <ul class="quick__link">
+                           <li>
+                              <a href="about.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Yangiliklar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"
+                                 class="fz-18 fw-400 inter cef__pra d-block">
+                                 Rivojlanish strategiyasi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Boshqaruv organlari
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Filiallar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Bo'sh ish o'rinlari
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Xaridlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Normativ baza
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Korrupsiyaga qarshi kurashish
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Tashkilot tuzilmasi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Ochiq maʼlumotlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Xalqaro hamkorlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Statistika
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Markalar katalogi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Pochta tarixi
+                              </a>
+                           </li>
+
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+                     <div class="footer__item">
+                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
+                           Onlayn xizmatlar
+                        </a>
+                        <ul class="quick__link">
+                           <li>
+                              <a href="about.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Jo'natmani kuzatish
+                              </a>
+                           </li>
+                           <li>
+                              <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"
+                                 class="fz-18 fw-400 inter cef__pra d-block">
+                                 Jo'natma kalkulyatori
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Pochta indeksini aniqlash
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Pochta bo‘limlari xaritasi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Obunani rasmiylashtirish
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Xabar yuborish
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+                     <div class="footer__item">
+                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
+                           Aksiyadorlarga
+                        </a>
+                        <ul class="quick__link">
+                           <li>
+                              <a href="about.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Aksiyadorlar burchagi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"
+                                 class="fz-18 fw-400 inter cef__pra d-block">
+                                 Jamiyat nizomi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Choraklik hisobotlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Yillik hisobotlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Filiallar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Muhim faktlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Emitent toʻgʻrisida maʼlumot
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Forum
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 E'lonlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Tashkilot tuzilmasi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Dividendlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Chiquvchi pullik ayirboshlash
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Ichki hujjatlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Tadbirlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Qimmatli qogʻozlar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Affillangan shaxslar
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Biznes rejaning bajarilishi
+                              </a>
+                           </li>
+                           <li>
+                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Aksiyalarni olish
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+                     style="width: 25%; margin-top: 80px;">
+                     <div class="footer__item">
+                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
+                           Biz bilan aloqa
+                        </a>
+                        <ul class="footer__contact">
+                           <li>
+                              <a href="javascript:void(0)"
+                                 class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
+                                 <i class="bi bi-telephone-plus cmn__icon cmn__icon"></i>
+                                 <span>
+                                    1165
+                                 </span>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0)"
+                                 class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
+                                 <i class="bi bi-envelope-open cmn__icon"></i>
+                                 <span>
+                                    <span class="__cf_email__"
+                                       data-cfemail="d7beb9b1b897b2afb6baa7bbb2f9b4b8ba">info@pochta.uz</span>
+                                 </span>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0)"
+                                 class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
+                                 <i class="bi bi-geo-alt cmn__icon"></i>
+                                 <span>
+                                    Yunusobod tumani Oloy 1- ko'cha
+                                 </span>
+                              </a>
+                           </li>
+                        </ul>
+                        <br>
+                        <br>
+                        <br>
+                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
+                           Bizga obuna bo'ling
+                        </a>
+                        <p class="pfz-18 fw-400 inter cef__pra  mb-24">
+                           Bizning eng so'nggi yangiliklarimizdan xabardor bo'lib turish uchun obuna bo'ling
+                        </p>
+                        <ul class="social d-flex align-items-center">
+                           <li>
+                              <a href="javascript:void(0)">
+                                 <i class="bi bi-facebook"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0)">
+                                 <i class="bi bi-twitter"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0)">
+                                 <i class="bi bi-telegram"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="javascript:void(0)">
+                                 <i class="bi bi-instagram"></i>
+                              </a>
+                           </li>
+
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="footer__bottom d-flex align-items-center">
+               <p class="fz-16 fw-400 inter text-white">
+                  Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; “O‘zbekiston pochtasi”
+                  aksiyadorlik jamiyati<a href="https://chiko.uz" class="base3"></a>
+               </p>
+               <ul class="help__support d-flex align-items-center">
+                  <li>
+                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+                        Help & Support
+                     </a>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+                        Privacy policy
+                     </a>
+                  </li>
+                  <li>
+                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+                        Terms & Conditions
+                     </a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </footer>
+      <!--Footer Section-->
+   </div>
+</template>
+
+// Footer.vue faylida
+<script>
+export default {
+   name: 'FooterNew' // Yoki 'BaseFooter'
+}
+</script>
