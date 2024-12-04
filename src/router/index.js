@@ -9,7 +9,6 @@ import TahrirlashView from '@/views/TahrirlashView.vue';
 import YangiliklarView from '@/views/YangiliklarView.vue';
 import KalkulyatorView from '@/views/KalkulyatorView.vue';
 import TrackingView from '@/views/TrackingView.vue';
-import YangilikView from '@/views/YangilikView.vue';
 import MarkalarView from '@/views/MarkalarView.vue';
 import MarkaView from '@/views/MarkaView.vue';
 import AloqaView from '@/views/AloqaView.vue';
@@ -23,6 +22,12 @@ import YuridikView from '@/views/YuridikView.vue';
 import RivojlantirishView from '@/views/RivojlantirishView.vue';
 import XatView from '@/views/XatView.vue';
 import Xat1View from '@/views/Xat1View.vue';
+import Yangilik2View from '@/views/Yangilik2View.vue';
+import Yangilik3View from '@/views/Yangilik3View.vue';
+import Yangilik4View from '@/views/Yangilik4View.vue';
+import Yangilik5View from '@/views/Yangilik5View.vue';
+import Yangilik6View from '@/views/Yangilik6View.vue';
+
 
 const routes = [
   {
@@ -77,9 +82,29 @@ const routes = [
     component: YangiliklarView
   },
   {
-    path: '/yangilik',
-    name: 'yangilik',
-    component: YangilikView
+    path: '/yangilik2',
+    name: 'yangilik2',
+    component: Yangilik2View
+  },
+  {
+    path: '/yangilik3',
+    name: 'yangilik3',
+    component: Yangilik3View
+  },
+  {
+    path: '/yangilik4',
+    name: 'yangilik4',
+    component: Yangilik4View
+  },
+  {
+    path: '/yangilik5',
+    name: 'yangilik5',
+    component: Yangilik5View
+  },
+  {
+    path: '/yangilik6',
+    name: 'yangilik6',
+    component: Yangilik6View
   },
   {
     path: '/markalar',

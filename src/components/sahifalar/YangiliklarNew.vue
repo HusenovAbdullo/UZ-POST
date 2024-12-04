@@ -37,36 +37,92 @@
             <div class="row g-4">
                 <div class="col-xl-8 col-lg-8">
                     <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
+                    <div class="bt__one mb-20">
+                        <video class="round16 w-101" controls>
+                            <source src="/assets/img/service/12.MP4" type="video/mp4">
+                                Sizning brauzeringiz video formatni qo'llab-quvvatlamaydi.
+                        </video>
+                    </div>
+                    <div class="blog__content">
+                        <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
+                            <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                <i class="bi bi-calendar3 ptext2"></i>
+                                18.11.2024 
+                            </li>
+                            <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                <i class="bi bi-eye ptext2"></i>
+                                515
+                            </li>
+                        </ul>
+                        <h3 class="title mb-24">
+                            <router-link to="/yangilik2" class="title">
+                                18-noyabr Davlat bayrog‘i kuni ("O'zbekiston pochtasi" AJ Buxoro filiali)
+                            </router-link>
+                        </h3>
+                        <router-link to="/yangilik2" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                            <span>
+                                Batafsil
+                            </span>
+                            <span class="mt-1">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </span>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
+                    <div class="bt__one mb-20">
+                        <img src="assets/img/service/bayroq.jpg" alt="balance" class="round16 w-101">
+                    </div>
+                    <div class="blog__content">
+                        <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
+                            <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                <i class="bi bi-calendar3 ptext2"></i>
+                                18.11.2024
+                            </li>
+                            <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                <i class="bi bi-eye ptext2"></i>
+                                456
+                            </li>
+                        </ul>
+                        <h3 class="title mb-24">
+                            <router-link to="/yangilik3" class="title">
+                                18-noyabr Davlat bayrog‘i kuni
+                            </router-link>
+                        </h3>
+                        <p class="fz-16 fw-400 mb-40 ptext2 inter">
+                            Davlat bayrog‘i – mustaqillik ramzi
+                        </p>
+                        <router-link to="/yangilik3" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                            <span>
+                                Batafsil
+                            </span>
+                            <span class="mt-1">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </span>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
                         <div class="bt__one mb-20">
-                            <img src="assets/img/service/377A0985.png" alt="balance" class="round16 w-101">
+                            <img src="assets/img/service/1e4563610069470abf302b7759b7179d.jpg" alt="balance" class="round16 w-101">
                         </div>
                         <div class="blog__content">
                             <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
                                 <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
                                     <i class="bi bi-calendar3 ptext2"></i>
-                                    12.11.2024
+                                    13.11.2024 
                                 </li>
                                 <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
                                     <i class="bi bi-eye ptext2"></i>
-                                    456
-                                </li>
-                                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                                    <i class="bi bi-chat-text ptext2"></i>
-                                    32 Izoh
+                                    346
                                 </li>
                             </ul>
                             <h3 class="title mb-24">
-                                <router-link to="/yangilik" class="title">
-                                    Umumjahon Pochta Ittifoqining Pochta xavfsizligi bo‘yicha ikkinchi seminari start
-                                    oldi
+                                <router-link to="/yangilik4" class="title">
+                                    “O‘zbekiston pochtasi” AJ aksiyadorlarining navbatdan tashqari umumiy yig‘ilishi o‘tkazilishi to‘g‘risida xabarnoma
                                 </router-link>
                             </h3>
-                            <p class="fz-16 fw-400 mb-40 ptext2 inter">
-                                Bugun, 2024-yilning 13-may sanasida Umumjahon Pochta Ittifoqining Elektron tijoratning
-                                operatsion samaradorligini oshirish va rivojlantirish bo‘yicha mintaqaviy loyihasi
-                                (ORE3)
-                            </p>
-                            <router-link to="/yangilik" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                            <router-link to="/yangilik4" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
@@ -78,37 +134,28 @@
                     </div>
                     <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
                         <div class="bt__one mb-20">
-                            <img src="assets/img/service/2.jpg" alt="balance" class="round16 w-101">
+                            <img src="assets/img/service/ustozlar.jpg" alt="balance" class="round16 w-101">
                         </div>
                         <div class="blog__content">
                             <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
                                 <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
                                     <i class="bi bi-calendar3 ptext2"></i>
-                                    12.11.2024
+                                    21.10.2024 
                                 </li>
                                 <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
                                     <i class="bi bi-eye ptext2"></i>
-                                    456
-                                </li>
-                                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                                    <i class="bi bi-chat-text ptext2"></i>
-                                    32 Izoh
+                                    574
                                 </li>
                             </ul>
                             <h3 class="title mb-24">
-                                <router-link to="/yangilik" class="title">
-                                    “O‘zbekiston pochtasi” AJ aksiyadorlarining yillik umumiy yig‘ilishi o‘tkazilishi
-                                    to‘g‘risida xabarnoma
+                                <router-link to="/yangilik5" class="title">
+                                    21-oktyabr – O‘zbek tili bayrami kuni
                                 </router-link>
                             </h3>
                             <p class="fz-16 fw-400 mb-40 ptext2 inter">
-                                “O‘zbekiston pochtasi” aksiyadorlik jamiyati aksiyadorlarining yillik umumiy yig‘ilishi
-                                2024-yil
-                                27-iyun kuni soat 12:00 da masofadan turib elektron ovoz berish tizimi www.evote.uz
-                                orqali
-                                o‘tkaziladi.
+                                Ona tilimiz obro‘yi oshib bormoqda
                             </p>
-                            <router-link to="/yangilik" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                            <router-link to="/yangilik5" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
@@ -118,7 +165,39 @@
                             </router-link>
                         </div>
                     </div>
-
+                    <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
+                        <div class="bt__one mb-20">
+                            <img src="assets/img/service/e38d18fbac6a40a5a905a396029bc51f.png" alt="balance" class="round16 w-101">
+                        </div>
+                        <div class="blog__content">
+                            <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
+                                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                    <i class="bi bi-calendar3 ptext2"></i>
+                                    16.10.2024   
+                                </li>
+                                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                                    <i class="bi bi-eye ptext2"></i>
+                                    243
+                                </li>
+                            </ul>
+                            <h3 class="title mb-24">
+                                <router-link to="/yangilik6" class="title">
+                                    «АNTIKORRUPSIYA/расмий» ijtimoiy telegram kanalida e'lon qilingan postga  RASMIY MUNOSABAT
+                                </router-link>
+                            </h3>
+                            <p class="fz-16 fw-400 mb-40 ptext2 inter">
+                                “ANTIKORRUPSIYA/расмий” telegram-kanalida 2024-yil 16-oktyabr sanasida 13:26 da “Pochta bo‘linmasi sotilganligi tasdiqlanmoqda” sarlavhasi bilan joylashtirilgan postga nisbatan RASMIY MUNOSABAT
+                            </p>
+                            <router-link to="/yangilik6" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                                <span>
+                                    Batafsil
+                                </span>
+                                <span class="mt-1">
+                                    <i class="bi bi-arrow-up-right"></i>
+                                </span>
+                            </router-link>
+                        </div>
+                    </div>
                     <ul class="pagination justify-content-center mt-40">
                         <li>
                             <a href="#0">
@@ -126,25 +205,35 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#0">
+                            <a href="/yangiliklar">
                                 1
                             </a>
                         </li>
-                        <li>
-                            <a href="#0">
+                        <!-- <li>
+                            <a href="/yangiliklar2">
                                 2
                             </a>
                         </li>
                         <li>
-                            <a href="#0">
+                            <a href="/yangiliklar3">
                                 3
                             </a>
                         </li>
                         <li>
-                            <a href="#0">
-                                ...
+                            <a href="/yangiliklar4">
+                                4
                             </a>
                         </li>
+                        <li>
+                            <a href="/yangiliklar5">
+                                5
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                ...
+                            </a>
+                        </li> -->
                         <li>
                             <a href="#0">
                                 <i class="bi bi-chevron-right"></i>
@@ -156,127 +245,52 @@
                     <div class="blog__sidebar">
                         <div class="blog__common__item bgwhite round16 mb-24">
                             <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                                Izlash
-                            </h4>
-                            <form action="#0"
-                                class="d-flex mb-24 filter__search align-items-center justify-content-between">
-                                <input type="text" placeholder="Izlash">
-                                <i class="bi bi-search"></i>
-                            </form>
-                        </div>
-                        <div class="blog__common__item bgwhite round16 mb-24">
-                            <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                                Kategoriyalar
-                            </h4>
-                            <ul class="blog__categories">
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center rad4">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/airound.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Jamiyat yangiliklari
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/aimacine.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Xizmatlar va tariflar yangiliklari
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/inter.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Rasmiy munosabatlar
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/aibrain.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Bo'limlar yangiliklari
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/deep-learning.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Hamkorlik yangiliklari
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog-details.html" class="d-flex align-items-center">
-                                        <!-- <span class="cateicon">
-                           <img src="assets/img/custom-icon/umacine.png" alt="round">
-                        </span> -->
-                                        <span class="fz-18 title inter">
-                                            Ijtimoiy loyihalar
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="blog__common__item bgwhite round16 mb-24">
-                            <h4 class="head fw-600 bborderdash title pb-24 mb-24">
                                 Ko‘p ko‘rilgan maqolalar
                             </h4>
                             <ul class="recent__post">
                                 <li>
-                                    <a href="blog-details.html"
+                                    <a href="/yangilik5"
                                         class="recent___item bborderdash mb-24 pb-24 d-flex align-items-center">
                                         <span class="cateicon">
-                                            <img src="assets/img/service/1.jpg" alt="round"
-                                                style="width: 100px; height: 100px;">
+                                            <img src="assets/img/service/ustozlar.jpg" alt="round"
+                                                style="width: 100px; height: 90px;">
                                         </span>
                                         <span class="fz-20 post__content fw-600 title inter">
-                                            Umumjahon Pochta Ittifoqining Pochta xavfsizligi ...
+                                            21-oktyabr – O‘zbek tili bayrami kuni
                                             <span class="d-block fz-18 fw-400 base inter">
-                                                14.06.2024
+                                                21.10.2024
                                             </span>
                                         </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="blog-details.html"
+                                    <a href="/yangilik2"
                                         class="recent___item mb-24 bborderdash pb-24 d-flex align-items-center">
                                         <span class="cateicon">
-                                            <img src="assets/img/service/377A0985.png" alt="round"
-                                                style="width: 100px; height: 100px;">
+                                            <video class="round16 w-101" controls style="width: 80px; height: 100px;">
+                                                <source src="/assets/img/service/12.MP4" type="video/mp4">
+                                                Sizning brauzeringiz video formatni qo'llab-quvvatlamaydi.
+                                            </video>
                                         </span>
                                         <span class="fz-20 post__content fw-600 title inter">
-                                            Mavzusi
+                                            18-noyabr Davlat bayrog‘i kuni ...
                                             <span class="d-block fz-18 fw-400 base inter">
-                                                02.04.2024
+                                                18.11.2024
                                             </span>
                                         </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="blog-details.html"
+                                    <a href="/yangilik4"
                                         class="recent___item mb-24 bborderdash pb-24 d-flex align-items-center">
                                         <span class="cateicon">
-                                            <img src="assets/img/service/c2575dba444e4fb48883a1500799e9f3.jpg"
-                                                alt="round" style="width: 100px; height: 100px;">
+                                            <img src="assets/img/service/1e4563610069470abf302b7759b7179d.jpg"
+                                                alt="round" style="width: 100px; height: 90px;">
                                         </span>
                                         <span class="fz-20 post__content fw-600 title inter">
-                                            Mavzusi
+                                            “O‘zbekiston pochtasi” AJ aksiyadorlarining ...
                                             <span class="d-block fz-18 fw-400 base inter">
-                                                03.05.2024
+                                                13.11.2024
                                             </span>
                                         </span>
                                     </a>
@@ -289,28 +303,18 @@
                             </h4>
                             <ul class="social d-flex align-items-center">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://www.facebook.com/uzpochta">
                                         <i class="bi bi-facebook"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://www.instagram.com/uzpost_/">
                                         <i class="bi bi-instagram"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="bi bi-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="bi bi-twitch"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="bi bi-skype"></i>
+                                    <a href="https://t.me/uzpostuz">
+                                        <i class="bi bi-telegram"></i>
                                     </a>
                                 </li>
                             </ul>
