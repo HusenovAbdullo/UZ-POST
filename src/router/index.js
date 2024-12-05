@@ -27,6 +27,8 @@ import Yangilik3View from '@/views/Yangilik3View.vue';
 import Yangilik4View from '@/views/Yangilik4View.vue';
 import Yangilik5View from '@/views/Yangilik5View.vue';
 import Yangilik6View from '@/views/Yangilik6View.vue';
+import Markalar2View from '@/views/Markalar2View.vue';
+import Marka2View from '@/views/Marka2View.vue';
 
 
 const routes = [
@@ -112,9 +114,19 @@ const routes = [
     component: MarkalarView
   },
   {
+    path: '/markalar2',
+    name: 'markalar2',
+    component: Markalar2View
+  },
+  {
     path: '/marka',
     name: 'marka',
     component: MarkaView
+  },
+  {
+    path: '/marka2/:id',
+    name: 'marka2',
+    component: Marka2View
   },
   {
     path: '/aloqa',

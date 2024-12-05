@@ -43,12 +43,9 @@
             <div class="blog__content">
                <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
                   <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                     <i class="bi bi-calendar3 ptext2">
                         21.10.2024 
-                     </i>
                   </li>
                   <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                     <i class="bi bi-eye ptext2"></i>
                      574
                   </li>            
                </ul>
