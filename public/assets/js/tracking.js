@@ -1,85 +1,112 @@
-async function fetchTrackingData() {
-    const trackingNumber = document.getElementById('trackingNumberInput').value;
-    const response = await fetch(`http://209.97.184.213/api/v1/public/track/${trackingNumber}/`);
-    const data = await response.json();
+export default {
+   data() {
+       return {
+           trackingNumber: '',
+           loading: false,
+           trackingData: null,
+           combinedTracking: [],
+           errorMessage: null,
+       };
+   },
+   methods: {
+       fetchTrackingData() {
+           this.loading = true;
+           this.trackingData = null;
+           this.combinedTracking = [];
+           this.errorMessage = null;
 
-    // Update header information
-    document.getElementById('trackingNumberDisplay').innerText = data.header.data.order_number;
-    document.getElementById('senderCountry').innerText = data.header.data.locations[0].address_city || 'O\'zbekistan';
-    document.getElementById('senderAddress').innerText = data.header.data.locations[0].address;
-    document.getElementById('senderPostcode').innerText = data.header.data.locations[0].postcode;
-    document.getElementById('recipientCountry').innerText = data.header.data.locations[1].address_city || 'O\'zbekistan';
-    document.getElementById('recipientAddress').innerText = data.header.data.locations[1].address;
-    document.getElementById('recipientPostcode').innerText = data.header.data.locations[1].postcode;
+           const xhr = new XMLHttpRequest();
+           xhr.open('GET', `https://new.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+           xhr.onload = () => {
+               this.loading = false;
+               if (xhr.status >= 200 && xhr.status < 300) {
+                   const data = JSON.parse(xhr.responseText);
 
-    // Combine and sort Shipox and Gdeposilka data by date descending
-    let combinedList = [];
+                   if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+                       const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
+                       this.trackingData = {
+                           number: mailItem.InternationalId,
+                           senderCountry: mailItem.OrigCountry.Name || '',
+                           senderAddress: mailItem.OrigAddress || '',
+                           senderPostcode: mailItem.OrigPostcode || '',
+                           recipientCountry: mailItem.DestCountry.Name || '',
+                           recipientAddress: mailItem.DestAddress || '',
+                           recipientPostcode: mailItem.DestPostcode || ''
+                       };
 
-    if (data.shipox && data.shipox.data && data.shipox.data.list) {
-       combinedList = [
-          ...data.shipox.data.list.map(item => ({
-             date: new Date(item.date),
-             location: item.warehouse ? item.warehouse.name : '',
-             status: getStatusText(item.status_desc),
-             country_code: data.header.data.locations[1].country.code
-          }))
-       ];
-    }
+                       this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
+                   } else {
+                       this.processAlternativeData(data);
+                   }
+               } else {
+                   this.errorMessage = 'Ma\'lumot topilmadi';
+               }
+           };
+           xhr.onerror = () => {
+               this.loading = false;
+               this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+           };
+           xhr.send();
+       },
+       processEvents(events, countryCode) {
+           this.combinedTracking = events.map(event => ({
+               date: new Date(event.LocalDateTime),
+               date1: new Date(event.GmtDateTime),
+               location: event.EventOffice.Name,
+               status: event.IPSEventType.Name,
+               malumot: event.RetentionReason.Name,
+               malumot2: event.NonDeliveryReason.Name,
+               country_code: countryCode
+           })).sort((a, b) => b.date - a.date);
+       },
+       processAlternativeData(data) {
+           this.trackingData = {
+               number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+               senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
+               senderAddress: data.header?.data?.locations?.[0]?.address || '',
+               senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
+               recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
+               recipientAddress: data.header?.data?.locations?.[1]?.address || '',
+               recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+           };
 
-    if (data.gdeposilka && data.gdeposilka.data && data.gdeposilka.data.checkpoints) {
-       combinedList = [
-          ...combinedList,
-          ...data.gdeposilka.data.checkpoints.map(item => ({
-             date: new Date(item.time),
-             location: item.location_translated,
-             status: getStatusText(item.status_name),
-             country_code: item.courier.country_code
-          }))
-       ];
-    }
+           let shipoxList = [];
+           let gdeposilkaList = [];
 
-    const sortedCombinedList = combinedList.sort((a, b) => b.date - a.date);
+           if (data.shipox && data.shipox.data && data.shipox.data.list) {
+               shipoxList = data.shipox.data.list.map(item => ({
+                   date: new Date(item.date),
+                   data: item.data || 'UzPost',
+                   location: item.warehouse ? item.warehouse.name : '',
+                   status: this.getStatusText(item.status_desc),
+                   country_code: 'UZ'
+               }));
+           }
 
-    const combinedHtmlList = sortedCombinedList.map(item => 
-       `<li>
-          <a href="#0" class="d-flex align-items-center">
-             <span class="fz-12 fw-500 title inter">${item.date.toLocaleString()}</span>
-             <span class="cateicon">
-  <img src="assets/img/flags/${item.country_code.toLowerCase()}.svg" alt="flag" class="flag-icon">
-</span>
-             <span class="fz-12 fw-500 inter title d-block">${item.location}</span>
-             <span class="fz-12 d-block fw-500 inter success2">${item.status}</span>
-          </a>
-       </li>`
-    ).join('');
+           if (data.gdeposilka && data.gdeposilka.data && data.gdeposilka.data.checkpoints) {
+               gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
+                   date: new Date(item.time),
+                   location: item.location_translated,
+                   region: item.courier.name,
+                   status: this.getStatusText(item.status_name),
+                   country_code: item.courier.country_code
+               }));
+           }
 
-    document.getElementById('combinedTracking').innerHTML = combinedHtmlList;
- }
+           // Shipox ma'lumotlarini birinchi o'rinda, Gdeposilka ma'lumotlarini esa undan keyin qo'shib, vaqt bo'yicha saralash
+           // Shipox va Gdeposilka ro'yxatlarini alohida-alohida vaqt bo'yicha saralash
+           const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
+           const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
- function getStatusText(status) {
-    switch (status) {
-       case 'Issued to recipient':
-          return 'Qabul qiluvchiga berilgan';
-       case 'Order Received':
-          return 'Tayinlanmagan';
-       case 'In sorting facility':
-          return 'Saralash markazida';
-       case 'Ready for delivery':
-          return 'Jo\'natish uchun tayyor';
-       case 'In Transit':
-          return 'Yo\'lda';
-       case 'В пути - Покинула промежуточный пункт':
-          return 'Yo\'lda - yo\'l nuqtasini tark etdi';
-       case 'Проведен осмотр с использованием ТСТК':
-          return 'Tekshiruv TSTC yordamida amalga oshirildi';
-       case 'Прибыла на таможню':
-          return 'Bojxonaga yetib keldi';
-       case 'Экспорт из страны отправления':
-          return 'Ishlab chiqarilgan mamlakatdan eksport qilish';
-       case 'Посылка принята':
-          return 'Posilka qabul qilindi';
-       default:
-          return status; // Return original status if no custom mapping
-    }
- }
- 
+           // Shipox va Gdeposilka ro'yxatlarining birinchi elementlari asosida umumiy ro'yxatni tartibga solish
+           this.combinedTracking =
+               new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
+                   ? [...sortedShipoxList, ...sortedGdeposilkaList]
+                   : [...sortedGdeposilkaList, ...sortedShipoxList];
+
+       },
+       getStatusText(statusDesc) {
+           return statusDesc || 'Status noaniq';
+       }
+   }
+};

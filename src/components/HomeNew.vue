@@ -824,6 +824,7 @@
                                                     <strong><span class="textrang">bu yerda</span></strong>
                                                 </a> tanishishingiz mumkin!
                                             </p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -911,6 +912,7 @@
                                                     <strong><span class="textrang">MENING INDEKSIM</span></strong>
                                                 </a>
                                             </p>
+
                                         </div>
                                     </div>
                                 </div>

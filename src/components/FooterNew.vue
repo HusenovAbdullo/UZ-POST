@@ -303,6 +303,7 @@
                   Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; “O‘zbekiston pochtasi”
                   aksiyadorlik jamiyati<a href="https://chiko.uz" class="base3"></a>
                </p>
+               <p><a href="https://t.me/Husenov_Abdullo" style="text-decoration: none; color: #00000000;">A</a></p>
                <ul class="help__support d-flex align-items-center">
                   <li>
                      <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">

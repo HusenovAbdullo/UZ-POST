@@ -1,8 +1,4 @@
 <template>
-    <section class="banner__carousel ralt container">
-        
-    </section>
-
     <section class="task__sectiontop ralt pt-120 pb-120">
         <div class="container">
             <div class="row justify-content-center">
@@ -17,10 +13,17 @@
                                 <span><i class="bi bi-search fz-12"></i></span>
                             </button>
                         </form>
-
-                        <div v-if="loading" class="loading-text">
-                            <span>Ma'lumotlar yuklanmoqda...</span>
+                        <div v-if="loading" class="loader truckWrapper" id="loader">
+                            <video autoplay muted loop class="loaderVideo">
+                                <source src="assets/img/bosh/postman7.mp4" type="video/mp4">
+                                Sizning brauzeringiz video teglamasini qo‘llab-quvvatlamaydi.
+                            </video>
                         </div>
+                        <div v-else>
+                            <!-- Header End -->
+                            <!-- Include your popup section here -->
+                        </div>
+
                         <!-- Error message if no data is found -->
                         <div v-if="errorMessage" class="error-text">
                             <span>{{ errorMessage }}</span>
@@ -53,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div v-if="trackingData.recipientCountry" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
@@ -77,16 +79,13 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-8 col-lg-8">
                     <div class="service__detailswrapper">
                         <div class="trending__based mb-40 bgwhite round16 shadow1">
                             <div class="based__content border round16 bgwhite">
                                 <div class="freelancer__education bborderdash pb-30 mb-30">
-                                    <!-- <span class="fz-20 mb-24 d-block inter title fw-600">Kuzatuv</span> -->
                                     <h3 class="title2">Kuzatuv</h3>
                                     <ul class="blog__categories" id="combinedTracking">
-                                        <!-- Shipox kuzatuv ma'lumotlari shu yerga kiritiladi -->
                                         <li v-for="(event, index) in combinedTracking" :key="index">
                                             <a href="#0" class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
@@ -101,10 +100,19 @@
                                                     event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
                                                     }}</span>
-                                                <span class="fz-12 d-block fw-500 inter success2">{{ event.status
-                                                    }}</span>
+                                                <span>
+                                                    <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
+                                                        }}</span>
+                                                    <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
+                                                        style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
+                                                        {{ event.malumot }}
+                                                    </span>
+                                                    <span v-if="event.malumot2" class="fz-12 fw-500 inter success2"
+                                                        style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
+                                                        {{ event.malumot2 }}
+                                                    </span>
+                                                </span>
                                             </a>
-
                                         </li>
                                     </ul>
                                 </div>
@@ -147,15 +155,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-    
-
-    
 </template>
-
 <script>
 export default {
     data() {
@@ -210,8 +213,11 @@ export default {
         processEvents(events, countryCode) {
             this.combinedTracking = events.map(event => ({
                 date: new Date(event.LocalDateTime),
+                date1: new Date(event.GmtDateTime),
                 location: event.EventOffice.Name,
                 status: event.IPSEventType.Name,
+                malumot: event.RetentionReason.Name,
+                malumot2: event.NonDeliveryReason.Name,
                 country_code: countryCode
             })).sort((a, b) => b.date - a.date);
         },
