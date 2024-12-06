@@ -90,12 +90,7 @@
                                                 Vakansiyalar
                                             </span>
                                         </router-link>
-
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                         </div>

@@ -407,7 +407,7 @@
                                 berish
                                 xizmati
                             </p>
-                            <router-link to="/xizmat" class="cmn--btn outline__btn">
+                            <router-link to="/kuryerlikXizmati" class="cmn--btn outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
@@ -432,7 +432,7 @@
                                 garovidir.
                             </p>
                             <br>
-                            <router-link to="/xizmat" class="cmn--btn outline__btn">
+                            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
@@ -455,7 +455,7 @@
                             <p class="fz-14 fw-400 inter pra mb-40">
                                 Marketpleys va onlayn-do'konlardan jo'natmalarni UzPost bo'limlarida qabul qilish
                             </p>
-                            <router-link to="/xizmat" class="cmn--btn outline__btn">
+                            <router-link to="/pochtaBolimi" class="cmn--btn outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
@@ -468,7 +468,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-40">
+        <!-- <div class="text-center mt-40">
             <router-link to="/xizmatlar" class="cmn--btn outline__btn">
                 <span>
                     Barchasini ko'rish
@@ -477,7 +477,7 @@
                     <i class="bi bi-arrow-up-right"></i>
                 </span>
             </router-link>
-        </div>
+        </div> -->
         <br>
         <br>
         <br>
@@ -819,11 +819,10 @@
                               border-bottom-left-radius: 4px;
                           ">
                                             <p>
-                                                <a> Xizmatlar tariflari bilan <a
-                                                        href="https://uz.post/uz/tariflar-uz?id=806"><strong><span
-                                                                class="textrang">bu
-                                                                yerda</span></strong></a> tanishishingiz
-                                                    mumkin!</a>
+                                                Xizmatlar tariflari bilan
+                                                <a href="https://uz.post/uz/tariflar-uz?id=806">
+                                                    <strong><span class="textrang">bu yerda</span></strong>
+                                                </a> tanishishingiz mumkin!
                                             </p>
                                         </div>
                                     </div>
@@ -906,10 +905,11 @@
                               border-bottom-left-radius: 4px;
                           ">
                                             <p>
-                                                <a> Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim indeksini bu
-                                                    yerda aniqlashingiz mumkin - <a
-                                                        href="https://uz.post/uz/mening-pochta-indeksim"><strong><span
-                                                                class="textrang">MENING INDEKSIM</span></strong></a></a>
+                                                Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim indeksini bu yerda
+                                                aniqlashingiz mumkin -
+                                                <a href="https://uz.post/uz/mening-pochta-indeksim">
+                                                    <strong><span class="textrang">MENING INDEKSIM</span></strong>
+                                                </a>
                                             </p>
                                         </div>
                                     </div>

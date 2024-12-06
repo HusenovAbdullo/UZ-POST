@@ -29,6 +29,9 @@ import Yangilik5View from '@/views/Yangilik5View.vue';
 import Yangilik6View from '@/views/Yangilik6View.vue';
 import Markalar2View from '@/views/Markalar2View.vue';
 import Marka2View from '@/views/Marka2View.vue';
+import KuryerlikXizmatiView from '@/views/KuryerlikXizmatiView.vue';
+import XalqaroPochtaView from '@/views/XalqaroPochtaView.vue';
+import PochtaBolimiView from '@/views/PochtaBolimiView.vue';
 
 
 const routes = [
@@ -58,6 +61,21 @@ const routes = [
     name: 'tariflar',
     component: TariflarView
   },
+  {
+    path: '/kuryerlikXizmati',
+    name: 'kuryerlikXizmati',
+    component: KuryerlikXizmatiView
+  },
+  {
+    path: '/xalqaroPochta',
+    name: 'xalqaroPochta',
+    component: XalqaroPochtaView
+  }, 
+  {
+    path: '/pochtaBolimi',
+    name: 'pochtaBolimi',
+    component: PochtaBolimiView
+  }, 
   {
     path: '/tarif',
     name: 'tarif',

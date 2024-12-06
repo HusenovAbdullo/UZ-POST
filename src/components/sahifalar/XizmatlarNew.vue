@@ -59,14 +59,14 @@
                                 berish
                                 xizmati
                             </p>
-                            <a href="freelancer.html" class="cmn--btn outline__btn">
+                            <router-link to="/kuryerlikXizmati" class="cmn--btn outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
                                 <span>
                                     <i class="bi bi-arrow-up-right"></i>
                                 </span>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -103,14 +103,14 @@
                                 Ushbu xizmat jo'natmalarni butun dunyo bo'ylab 7-15 kun ichida yetkazib berish
                                 garovidir.
                             </p>
-                            <a href="freelancer-details.html" class="cmn--btn outline__btn">
+                            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">
                                 <span>
                                     Batafsil
                                 </span>
                                 <span>
                                     <i class="bi bi-arrow-up-right"></i>
                                 </span>
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
