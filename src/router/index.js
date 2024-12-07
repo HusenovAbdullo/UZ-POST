@@ -32,6 +32,11 @@ import Marka2View from '@/views/Marka2View.vue';
 import KuryerlikXizmatiView from '@/views/KuryerlikXizmatiView.vue';
 import XalqaroPochtaView from '@/views/XalqaroPochtaView.vue';
 import PochtaBolimiView from '@/views/PochtaBolimiView.vue';
+import BoshqaruvOrganlariView from "@/views/BoshqaruvOrganlariView.vue";
+import IjroiyaApparatiView from "@/views/IjroiyaApparatiView.vue";
+import NormativBazaView from "@/views/NormativBazaView.vue";
+import KorrupsiyaView from "@/views/KorrupsiyaView.vue";
+import XalqaroHamkorlarView from "@/views/XalqaroHamkorlarView.vue";
 
 
 const routes = [
@@ -190,6 +195,31 @@ const routes = [
     path: '/rivojlantirish',
     name: 'rivojlantirish',
     component: RivojlantirishView
+  },
+  {
+    path: '/boshqaruvOrganlari',
+    name: 'boshqaruvOrganlari',
+    component: BoshqaruvOrganlariView
+  },
+  {
+    path: '/ijroiyaApparati',
+    name: 'ijroiyaApparati',
+    component: IjroiyaApparatiView
+  },
+  {
+    path: '/normativBaza',
+    name: 'normativBaza',
+    component: NormativBazaView
+  },
+  {
+    path: '/korrupsiya',
+    name: 'korrupsiya',
+    component: KorrupsiyaView
+  },
+  {
+    path: '/xalqaroHamkorlar',
+    name: 'xalqaroHamkorlar',
+    component: XalqaroHamkorlarView
   },
   {
     path: '/xat',

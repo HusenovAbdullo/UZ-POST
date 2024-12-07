@@ -12,20 +12,25 @@
                         </a>
                         <ul class="quick__link">
                            <li>
-                              <a href="about.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/yangiliklar" class="fz-18 fw-400 inter cef__pra d-block">
                                  Yangiliklar
-                              </a>
+                              </router-link>
                            </li>
+                           <!--<li>-->
+                           <!--   <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"-->
+                           <!--      class="fz-18 fw-400 inter cef__pra d-block">-->
+                           <!--      Rivojlanish strategiyasi-->
+                           <!--   </a>-->
+                           <!--</li>-->
                            <li>
-                              <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"
-                                 class="fz-18 fw-400 inter cef__pra d-block">
-                                 Rivojlanish strategiyasi
-                              </a>
-                           </li>
-                           <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/boshqaruvOrganlari" class="fz-18 fw-400 inter cef__pra d-block">
                                  Boshqaruv organlari
-                              </a>
+                              </router-link>
+                           </li>
+                           <li>
+                              <router-link to="/ijroiyaApparati" class="fz-18 fw-400 inter cef__pra d-block">
+                                Ijroiya Apparati
+                              </router-link>
                            </li>
                            <li>
                               <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
@@ -33,55 +38,55 @@
                               </a>
                            </li>
                            <li>
-                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/vakansiyalar" class="z-18 fw-400 inter cef__pra d-block">
                                  Bo'sh ish o'rinlari
-                              </a>
+                              </router-link>
                            </li>
+                           <!--<li>-->
+                           <!--   <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
+                           <!--      Xaridlar-->
+                           <!--   </a>-->
+                           <!--</li>-->
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
-                                 Xaridlar
-                              </a>
-                           </li>
-                           <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/normativBaza" class="fz-18 fw-400 inter cef__pra d-block">
                                  Normativ baza
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/korrupsiya" class="fz-18 fw-400 inter cef__pra d-block">
                                  Korrupsiyaga qarshi kurashish
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <a href="https://uz.post/storage/media/%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.pdf" class="fz-18 fw-400 inter cef__pra d-block">
                                  Tashkilot tuzilmasi
                               </a>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <a href="https://uz.post/storage/media/2024%20%D0%91%D0%A0.pdf" class="fz-18 fw-400 inter cef__pra d-block">
                                  Ochiq maʼlumotlar
                               </a>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/xalqaroHamkorlar" class="fz-18 fw-400 inter cef__pra d-block">
                                  Xalqaro hamkorlar
-                              </a>
+                              </router-link>
                            </li>
+                           <!--<li>-->
+                           <!--   <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
+                           <!--      Statistika-->
+                           <!--   </a>-->
+                           <!--</li>-->
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
-                                 Statistika
-                              </a>
-                           </li>
-                           <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/markalar" class="fz-18 fw-400 inter cef__pra d-block">
                                  Markalar katalogi
-                              </a>
+                              </router-link>
                            </li>
-                           <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
-                                 Pochta tarixi
-                              </a>
-                           </li>
+                           <!--<li>-->
+                           <!--   <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
+                           <!--      Pochta tarixi-->
+                           <!--   </a>-->
+                           <!--</li>-->
 
                         </ul>
                      </div>
