@@ -32,6 +32,9 @@ import Marka2View from '@/views/Marka2View.vue';
 import KuryerlikXizmatiView from '@/views/KuryerlikXizmatiView.vue';
 import XalqaroPochtaView from '@/views/XalqaroPochtaView.vue';
 import PochtaBolimiView from '@/views/PochtaBolimiView.vue';
+import SinginView from '@/views/SinginView.vue';
+import SingupView from '@/views/SingupView.vue';
+import MapView from '@/views/MapView.vue';
 import BoshqaruvOrganlariView from "@/views/BoshqaruvOrganlariView.vue";
 import IjroiyaApparatiView from "@/views/IjroiyaApparatiView.vue";
 import NormativBazaView from "@/views/NormativBazaView.vue";
@@ -49,12 +52,18 @@ const routes = [
   {
     path: '/profil',
     name: 'profil',
-    component: ProfilView
+    component: ProfilView,
+    meta: { requiresAuth: true } // Tahrirlash sahifasi faqat autentifikatsiyadan o'tgan foydalanuvchilar uchun mavjud
   },
   {
     path: '/xizmatlar',
     name: 'xizmatlar',
     component: XizmatlarView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SingupView
   },
   {
     path: '/xizmat',
@@ -89,7 +98,8 @@ const routes = [
   {
     path: '/tahrirlash',
     name: 'tahrirlash',
-    component: TahrirlashView
+    component: TahrirlashView,
+    meta: { requiresAuth: true } // Tahrirlash sahifasi faqat autentifikatsiyadan o'tgan foydalanuvchilar uchun mavjud
   },
   {
     path: '/tracking',
@@ -159,7 +169,8 @@ const routes = [
   {
     path: '/chat',
     name: 'chat',
-    component: ChatView
+    component: ChatView,
+    meta: { requiresAuth: true } // Tahrirlash sahifasi faqat autentifikatsiyadan o'tgan foydalanuvchilar uchun mavjud
   },
   {
     path: '/vakansiyalar',
@@ -230,6 +241,16 @@ const routes = [
     path: '/xat1',
     name: 'xat1',
     component: Xat1View
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: MapView
+  },
+  {
+    path: '/singin',
+    name: 'singin',
+    component: SinginView
   }
   
 ];
@@ -238,5 +259,20 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+// Navigation guard qo'shing
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('id_token');
+  
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    // Foydalanuvchi tizimga kirmagan bo'lsa, login sahifasiga yo'naltiriladi
+    next({ name: 'singin' });
+  } else {
+    // Aks holda, yo'naltirilgan sahifaga o'tish
+    next();
+  }
+});
+
+
 
 export default router;

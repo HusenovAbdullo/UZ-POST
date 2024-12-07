@@ -206,7 +206,10 @@
                                              class="bi bi-check checks d-flex align-items-center justify-content-center"></i>
                                        </div>
                                        <div class="flex-grow-1">
-                                          <h5 class="fz-20 fw-600 title inter mb-0">Abdullo</h5>
+                                          <h5 class="fz-20 fw-600 title inter mb-0">Xush kelibsiz!</h5>
+                                          <h5 class="fz-20 fw-600 title inter mb-0">
+                                             Mehmon {{ userName }}
+                                          </h5>
                                           <span class="d-block fw-400 inter pra fz-16"><a
                                                 href="https://pixner.net/cdn-cgi/l/email-protection"
                                                 class="__cf_email__"

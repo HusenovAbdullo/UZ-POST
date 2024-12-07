@@ -22,52 +22,14 @@
                   <span class="d4 mb-24">
                      Kalkulyator
                   </span>
-                  <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
-                  <li>
-                     <a href="index.html" class="fz-16 fw-400 inter text-white">
-                        Bosh sahifa
-                     </a>
-                  </li>
-                  <li>
-                     <i class="bi bi-chevron-right"></i>
-                  </li>
-                  <li>
-                     <a href="#0" class="fz-16 fw-400 inter text-white">
-                        User Profile
-                     </a>
-                  </li>
-                  <li>
-                     <i class="bi bi-chevron-right"></i>
-                  </li>
-                  <li>
-                     <a href="#0" class="fz-16 fw-400 inter base2">
-                        Profile     
-                     </a>
-                  </li>
-               </ul> -->
                </div>
             </div>
-            <!-- <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">
-               <div class="logout__btn">
-                  <a href="kirish.html" class="cmn--logout">
-                     <span>
-                        <i class="bi bi-box-arrow-right"></i>
-                     </span>
-                     <span class="fz-16 fw-600 inter">
-                        Kabinetdan chiqish
-                     </span>
-                  </a>
-               </div>
-            </div> -->
          </div>
       </div>
    </div>
 </div>
 </section>
 <!-- Hero Section End -->
-
-
-
 <!-- profile section Here -->
 <section class="profile__section sectionbg9 pb-120">
 <div class="container">
@@ -83,9 +45,6 @@
                      Xarajatlarni va etkazib berish vaqtini hisoblang
                   </p>
                   <br>
-
-
-
                   <div class="tab bor">
                      <button class="tablinks active" onclick="openCity(event, 'London')" id="defaultOpen">
                         <img src="assets/img/custom-icon/1.png" alt="" style="width:30px;height:30px;">
@@ -108,23 +67,15 @@
                         <p>Kuryer</p>
                      </button>
                   </div>
-
-
-
                   <br>
-
                   <div id="London" class="tabcontent" style="display: block;">
-
                      <div class="tab bor" style="color: #222E48;">
                         <p>
                            Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
                            madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
                         </p>
-
                      </div>
                      <br>
-
-
                      <h4 class="title mb-20">
                         Yuboruvchi manzili
                      </h4>
@@ -143,7 +94,6 @@
                                  </select>
                               </div>
                            </div>
-
                            <div class="col-lg-4 tuman">
                               <div class="frm__grp">
                                  <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
@@ -156,32 +106,21 @@
                                  </select>
                               </div>
                            </div>
-
-                           <!-- <div class="col-lg-4 manzil">
-                              <div class="frm__grp">
-                                 <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
-                                 <input type="text" id="address" name="address" class="form-control"
-                                    placeholder="Manzil">
-                              </div>
-                           </div> -->
-
-
                            <div class="col-lg-4 manzil">
                               <div class="frm__grp">
                                  <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                  <div style="position: relative;">
                                     <input type="text" id="address" name="address" class="form-control"
                                        placeholder="Manzil">
-                                    <!-- <button type="button" id="map-btn" style="position: absolute; top: 0; right: 0;">📍</button> -->
+                                    
                                     <button type="button" id="map-btn"
                                        style="position: absolute; top: 0; right: 0; background-color: transparent; border: none;">
-                                       <i class="bi bi-geo-alt-fill" style="font-size: 24px; color: #303294;"></i>
+                                       <!-- <i class="bi bi-geo-alt-fill" style="font-size: 24px; color: #303294;"></i> -->
                                        <!-- geo-alt-fill ikonkasi va ko'k rang -->
                                     </button>
                                  </div>
                               </div>
                            </div>
-
                            <!-- Popup oynasi uchun Modal -->
                            <div id="mapModal" class="modal">
                               <div class="modal-content">
@@ -272,11 +211,11 @@
                            </div>
                            <div id="Pochtam" class="tabcontent1">
                               <h2 class="title mb-20">
-                                 Yetkazib berish imkoniyatlari
+                                 Tez kunda
                               </h2>
-                              <iframe
+                              <!-- <iframe
                                  src="https://www.google.com/maps/d/embed?mid=1e0t-Lqdqk3T2oX0ls7OPfnT7gGZB7FE&ehbc=2E312F&noprof=1"
-                                 width="640" height="480"></iframe>
+                                 width="640" height="480"></iframe> -->
                            </div>
 
                            <div id="Davlat" class="tabcontent1">
@@ -378,7 +317,7 @@
                                     <!-- <button type="button" id="map-btn" style="position: absolute; top: 0; right: 0;">📍</button> -->
                                     <button type="button" id="map-btn"
                                        style="position: absolute; top: 0; right: 0; background-color: transparent; border: none;">
-                                       <i class="bi bi-geo-alt-fill" style="font-size: 24px; color: #303294;"></i>
+                                       <!-- <i class="bi bi-geo-alt-fill" style="font-size: 24px; color: #303294;"></i> -->
                                        <!-- geo-alt-fill ikonkasi va ko'k rang -->
                                     </button>
                                  </div>
@@ -472,9 +411,9 @@
                            <div id="Pochtam2" class="tabcontent1">
                               <h2 class="title mb-20">
                               </h2>
-                              <iframe
+                              <!-- <iframe
                                  src="https://yandex.com/map-widget/v1/?um=constructor%3A7f49943c188ad070f0ad7b6fbacf7e167a05d72f8a38ce93dc1c21ee7902ef14&amp;source=constructor"
-                                 width="933" height="585" frameborder="0"></iframe>
+                                 width="933" height="585" frameborder="0"></iframe> -->
                            </div>
 
                            <div id="Davlat2" class="tabcontent1">
@@ -670,9 +609,9 @@
                            <div id="Pochtam1" class="tabcontent1">
                               <h2 class="title mb-20">
                               </h2>
-                              <iframe
+                              <!-- <iframe
                                  src="https://www.google.com/maps/d/embed?mid=1e0t-Lqdqk3T2oX0ls7OPfnT7gGZB7FE&ehbc=2E312F&noprof=1"
-                                 width="640" height="480"></iframe>
+                                 width="640" height="480"></iframe> -->
                            </div>
 
                            <div id="Davlat1" class="tabcontent1">

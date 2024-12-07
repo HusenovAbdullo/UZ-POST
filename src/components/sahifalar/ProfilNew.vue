@@ -48,7 +48,7 @@
                   </div>
                   <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">
                      <div class="logout__btn">
-                        <a href="kirish.html" class="cmn--logout">
+                        <a href="#" class="cmn--logout" @click.prevent="handleLogout">
                            <span>
                               <i class="bi bi-box-arrow-right"></i>
                            </span>
@@ -735,3 +735,22 @@
    </section>
    <!-- profile section End -->
 </template>
+<script>
+export default {
+    data() {
+        return {
+            // Boshqa sahifalar uchun kerakli data qismini shu yerda aniqlang
+        };
+    },
+    methods: {
+        handleLogout() {
+            // Tokenni mahalliy saqlashdan o'chirish
+            localStorage.removeItem('id_token');
+            
+            // Bosh sahifaga yo'naltirish
+            this.$router.push({ name: 'home' });
+        },
+        // Boshqa methodlarni shu yerga qo'shing
+    }
+};
+</script>
