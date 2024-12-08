@@ -53,10 +53,10 @@
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
                            <div class="tab bor" style="color: #222E48;">
-                              <p>
-                                 <!-- Xizmat tavsifini dinamik ko'rsatish -->
-                                 {{ services.find(service => service.id === activeService)?.description }}
-                              </p>
+                              <!-- <p>
+                                 Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
+                                 madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
+                              </p> -->
                            </div>
                            <br />
 
@@ -145,7 +145,8 @@
                                        </div>
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
-                                       <router-link :to="{ name: 'map' }" style="color: blue;">
+                                       <router-link :to="{ name: 'map' }"
+                                          style="color: blue;">
                                           Indeks
                                        </router-link>
                                        bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
@@ -226,7 +227,7 @@
                                     </div>
                                  </div>
                                  <h3 class="title mb-20" style="    position: relative; top: -40px;">
-
+                                    
                                  </h3>
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
@@ -315,29 +316,8 @@ export default {
          index: null,
          weight: null,
          activeTab: 'Index',
-         services: [
-            {
-               id: 'posilka',
-               name: 'Posilka',
-               description: 'Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari, madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.',
-            },
-            {
-               id: 'xat',
-               name: 'Xat',
-               description: 'Xat — bu odatda yozma shakldagi aloqa vositasi.',
-            },
-            {
-               id: 'birQadam',
-               name: 'Bir Qadam',
-               description: 'Bir Qadam — tez yetkazib berish xizmat turi.',
-            },
-            {
-               id: 'maydaPaketlar',
-               name: 'Mayda paketlar',
-               description: 'Mayda paketlar — kichik hajmdagi pochta jo’natmalari uchun xizmat turi.',
-            },
-         ], // Xizmatlar ro'yxati
-         activeService: 'posilka', // Boshlang'ich tanlangan xizmat
+         services: [], // Xizmatlar ro'yxati
+         activeService: null, // Faol xizmat IDsi
          regions1: {},
          regions2: {},
          locations: {},
