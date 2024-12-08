@@ -418,54 +418,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
-                    <div class="task__item round16 bgwhite d-flex align-items-center">
-                        <div class="thumb">
-                            <img src="assets/img/task/3.png" alt="img">
-                        </div>
-                        <div class="content">
-                            <h3 class="inter title mb-24">
-                                EMS: Xalqaro Tezkor Pochta
-                            </h3>
-                            <p class="fz-14 fw-400 inter pra mb-40">
-                                Ushbu xizmat jo'natmalarni butun dunyo bo'ylab 7-15 kun ichida yetkazib berish
-                                garovidir.
-                            </p>
-                            <br>
-                            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">
-                                <span>
-                                    Batafsil
-                                </span>
-                                <span>
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </span>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
-                    <div class="task__item round16 bgwhite d-flex align-items-center">
-                        <div class="thumb">
-                            <img src="assets/img/task/buyurt.png" alt="img">
-                        </div>
-                        <div class="content">
-                            <h3 class="inter title mb-24">
-                                Buyurtmalarni pochta bo'limlarida qabul qilish
-                            </h3>
-                            <p class="fz-14 fw-400 inter pra mb-40">
-                                Marketpleys va onlayn-do'konlardan jo'natmalarni UzPost bo'limlarida qabul qilish
-                            </p>
-                            <router-link to="/pochtaBolimi" class="cmn--btn outline__btn">
-                                <span>
-                                    Batafsil
-                                </span>
-                                <span>
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </span>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">-->
+                <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
+                <!--        <div class="thumb">-->
+                <!--            <img src="assets/img/task/3.png" alt="img">-->
+                <!--        </div>-->
+                <!--        <div class="content">-->
+                <!--            <h3 class="inter title mb-24">-->
+                <!--                EMS: Xalqaro Tezkor Pochta-->
+                <!--            </h3>-->
+                <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
+                <!--                Ushbu xizmat jo'natmalarni butun dunyo bo'ylab 7-15 kun ichida yetkazib berish-->
+                <!--                garovidir.-->
+                <!--            </p>-->
+                <!--            <br>-->
+                <!--            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">-->
+                <!--                <span>-->
+                <!--                    Batafsil-->
+                <!--                </span>-->
+                <!--                <span>-->
+                <!--                    <i class="bi bi-arrow-up-right"></i>-->
+                <!--                </span>-->
+                <!--            </router-link>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+                <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">-->
+                <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
+                <!--        <div class="thumb">-->
+                <!--            <img src="assets/img/task/buyurt.png" alt="img">-->
+                <!--        </div>-->
+                <!--        <div class="content">-->
+                <!--            <h3 class="inter title mb-24">-->
+                <!--                Buyurtmalarni pochta bo'limlarida qabul qilish-->
+                <!--            </h3>-->
+                <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
+                <!--                Marketpleys va onlayn-do'konlardan jo'natmalarni UzPost bo'limlarida qabul qilish-->
+                <!--            </p>-->
+                <!--            <router-link to="/pochtaBolimi" class="cmn--btn outline__btn">-->
+                <!--                <span>-->
+                <!--                    Batafsil-->
+                <!--                </span>-->
+                <!--                <span>-->
+                <!--                    <i class="bi bi-arrow-up-right"></i>-->
+                <!--                </span>-->
+                <!--            </router-link>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
             </div>
         </div>
         <!-- <div class="text-center mt-40">
