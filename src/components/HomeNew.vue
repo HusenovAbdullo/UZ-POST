@@ -10,7 +10,7 @@
                             Xizmat haqida batafsil
                         </span>
                     </router-link>
-                    <router-link to="/yangilik" class="cmn--btn custom-button">
+                    <router-link to="/map" class="cmn--btn custom-button">
                         <span>
                             "Bir Qadam" bo'limlari xaritasi
                         </span>
@@ -34,13 +34,13 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <router-link to="/yangilik" class="titleq">
+                                    <router-link to="/map" class="titleq">
                                         Pochta bo'limni qidirish
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
-                        <router-link to="/yangilik" class="d-flex readmore align-items-center gap-2">
+                        <router-link to="/map" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
                                 Batafsil
                             </span>
@@ -131,13 +131,13 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <router-link to="/tracking" class="titleq">
+                                    <router-link to="/map" class="titleq">
                                         Mening pochta indeksim
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
-                        <router-link to="/tracking" class="d-flex readmore align-items-center gap-2">
+                        <router-link to="/map" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
                                 Batafsil
                             </span>
@@ -204,7 +204,7 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
                         <router-link to="/yangilik" class="thumb round16 w-100">
-                            <img src="assets/img/service/1.jpg" class="round16 w-100" alt="service" />
+                            <img src="assets/img/service/bayroq.jpg" class="round16 w-100" alt="service" />
                         </router-link>
                         <div class="service__content">
                             <div class="d-flex mb-16 align-items-center justify-content-between">
@@ -213,14 +213,12 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    Umumjahon Pochta Ittifoqining Pochta xavfsizligi bo‘yicha ikkinchi seminari start
-                                    oldi
+                                    Davlat bayrog‘i – mustaqillik ramzi
                                 </router-link>
                                 <br>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    Bugun, 2024-yilning 13-may sanasida Umumjahon Pochta Ittifoqining Elektron
-                                    tijoratning operatsion samaradorligini oshirish...
+                                    O‘zbekiston aholisini davlatimiz mustaqilligi va asosiy qadriyatlarimizni aks ettiruvchi davlat bayrog‘i qabul qilingan kun bilan tabriklaymiz. Yurtimizning barcha fuqarolarini tabriklaymiz hamda shaxsiy, kasbiy va ijtimoiy hayotda baxt-saodat va farovonlik tilaymiz
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -247,14 +245,12 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    Umumjahon Pochta Ittifoqining Pochta xavfsizligi bo‘yicha ikkinchi seminari start
-                                    oldi
+                                    “O‘zbekiston pochtasi” AJ aksiyadorlarining navbatdan tashqari umumiy yig‘ilishi o‘tkazilishi to‘g‘risida xabarnoma
                                 </router-link>
                                 <br>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    Bugun, 2024-yilning 13-may sanasida Umumjahon Pochta Ittifoqining Elektron
-                                    tijoratning operatsion samaradorligini oshirish...
+                                    Aksiyadorlarni ro‘yxatga olish soat 09:00 dan 10:55 gacha amalga oshiriladi....
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -272,7 +268,7 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
                         <router-link to="/yangilik" class="thumb round16 w-100">
-                            <img src="assets/img/service/3.jpg" class="round16 w-100" alt="service">
+                            <img src="assets/img/service/ustozlar.jpg" class="round16 w-100" alt="service">
                         </router-link>
                         <div class="service__content">
                             <div class="d-flex mb-16 align-items-center justify-content-between">
@@ -281,14 +277,12 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    Umumjahon Pochta Ittifoqining Pochta xavfsizligi bo‘yicha ikkinchi seminari start
-                                    oldi
+                                    21-oktyabr – O‘zbek tili bayrami kuni
                                 </router-link>
                                 <br>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    Bugun, 2024-yilning 13-may sanasida Umumjahon Pochta Ittifoqining Elektron
-                                    tijoratning operatsion samaradorligini oshirish...
+                                    Unda O‘zbekiston Yozuvchilar uyushmasi a’zosi, shoir, “Shuhrat” medali sohibi Turob Niyoz qatnashib, ishtirokchilarga o‘zbek tilining ahamiyati va jamiyatimizda tutgan o‘rni to‘g‘risida gapirdi:
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -306,7 +300,7 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
                         <router-link to="/yangilik" class="thumb round16 w-100">
-                            <img src="assets/img/service/1.jpg" class="round16 w-100" alt="service">
+                            <img src="assets/img/service/e38d18fbac6a40a5a905a396029bc51f.png" class="round16 w-100" alt="service">
                         </router-link>
                         <div class="service__content">
                             <div class="d-flex mb-16 align-items-center justify-content-between">
@@ -315,14 +309,10 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    Umumjahon Pochta Ittifoqining Pochta xavfsizligi bo‘yicha ikkinchi seminari start
-                                    oldi
+                                    “ANTIKORRUPSIYA/расмий” telegram-kanalida 2024-yil 16-oktyabr sanasida 13:26 da “Pochta bo‘linmasi sotilganligi tasdiqlanmoqda” sarlavhasi bilan joylashtirilgan postga nisbatan RASMIY MUNOSABAT
                                 </router-link>
                                 <br>
-                                <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    Bugun, 2024-yilning 13-may sanasida Umumjahon Pochta Ittifoqining Elektron
-                                    tijoratning operatsion samaradorligini oshirish...
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -609,7 +599,7 @@
     </section>
     <!-- Perfoming section End -->
     <!-- Categoris section Here -->
-    <section class="freelancer__section1 ralt pt-120 pb-120 sectionbg5">
+    <!-- <section class="freelancer__section1 ralt pt-120 pb-120 sectionbg5">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
@@ -713,7 +703,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Categoris section End -->
     <!-- App Here -->
     <section class="app__section ralt bg__all pb-120 pt-120">
@@ -953,7 +943,7 @@
                         <img src="assets/img/markalar/marka (5).jpg" class="round16 w-100" alt="service" />
                     </router-link>
                     <h5 class="mt-24 mb-20">
-                        <router-link to="/marka" class="titley">
+                        <router-link to="/marka2" class="titley">
                             "Toshkent hayvonot bog`i" pochta markalari turkumi
                         </router-link>
                     </h5>
@@ -971,18 +961,18 @@
                         <span class="fz-18 fw-600 inter base">
                             1 000 so'm
                         </span>
-                        <router-link to="/marka"
+                        <router-link to="/marka2"
                             class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
                             <i class="bi bi-chevron-right title fz-16"></i>
                         </router-link>
                     </div>
                 </div>
                 <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka" class="thumb round16 w-100">
+                    <router-link to="/marka2" class="thumb round16 w-100">
                         <img src="assets/img/markalar/marka (1).jpg" class="round16 w-100" alt="service">
                     </router-link>
                     <h5 class="mt-24 mb-20">
-                        <router-link to="/marka" class="titley">
+                        <router-link to="/marka2" class="titley">
                             “O‘zbekiston oltin merosi” turkumi. “Seramika"
                         </router-link>
                     </h5>
@@ -1000,7 +990,7 @@
                         <span class="fz-18 fw-600 inter base">
                             12 700 so'm
                         </span>
-                        <router-link to="/marka"
+                        <router-link to="/marka2"
                             class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
                             <i class="bi bi-chevron-right title fz-16"></i>
                         </router-link>
@@ -1011,7 +1001,7 @@
                         <img src="assets/img/markalar/marka (9).jpg" class="round16 w-100" alt="service">
                     </router-link>
                     <h5 class="mt-24 mb-20">
-                        <router-link to="/marka" class="titley">
+                        <router-link to="/marka2" class="titley">
                             "O'zbekistonning noyob hayvonlari" turkumi
                         </router-link>
                     </h5>
@@ -1029,14 +1019,14 @@
                         <span class="fz-18 fw-600 inter base">
                             5 000 so'm
                         </span>
-                        <router-link to="/marka"
+                        <router-link to="/marka2"
                             class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
                             <i class="bi bi-chevron-right title fz-16"></i>
                         </router-link>
                     </div>
                 </div>
                 <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka" class="thumb round16 w-100">
+                    <router-link to="/marka2" class="thumb round16 w-100">
                         <img src="assets/img/markalar/marka (2).jpg" class="round16 w-100" alt="service">
                     </router-link>
                     <h5 class="mt-24 mb-20">
@@ -1069,7 +1059,7 @@
                         <img src="assets/img/markalar/marka (5).jpg" class="round16 w-100" alt="service">
                     </router-link>
                     <h5 class="mt-24 mb-20">
-                        <router-link to="/yangiliklar" class="titley">
+                        <router-link to="/marka2" class="titley">
                             "Toshkent hayvonot bog`i" pochta markalari turkumi
                         </router-link>
                     </h5>
@@ -1087,7 +1077,7 @@
                         <span class="fz-18 fw-600 inter base">
                             1 000 so'm
                         </span>
-                        <router-link to="/marka"
+                        <router-link to="/marka2"
                             class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
                             <i class="bi bi-chevron-right title fz-16"></i>
                         </router-link>
@@ -1095,7 +1085,7 @@
                 </div>
             </div>
             <div class="text-center mt-40">
-                <router-link to="/markalar" class="cmn--btn outline__btn">
+                <router-link to="/markalar2" class="cmn--btn outline__btn">
                     <span>
                         Barchasini ko'rish
                     </span>

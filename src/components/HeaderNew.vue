@@ -86,7 +86,7 @@
                                  </router-link>
                               </li>
                               <li>
-                                 <router-link to="/tariflar" class="custom-link">
+                                 <router-link to="/tarif" class="custom-link">
                                     <span style="text-transform: capitalize;">O'zbekiston </span>
                                     <span style="text-transform: lowercase;">bo'ylab </span>
                                     <span style="text-transform: lowercase;">yuborish</span>

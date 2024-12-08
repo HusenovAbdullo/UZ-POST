@@ -40,6 +40,7 @@ import IjroiyaApparatiView from "@/views/IjroiyaApparatiView.vue";
 import NormativBazaView from "@/views/NormativBazaView.vue";
 import KorrupsiyaView from "@/views/KorrupsiyaView.vue";
 import XalqaroHamkorlarView from "@/views/XalqaroHamkorlarView.vue";
+import SavollarView from '@/views/SavollarView.vue';
 import AksiyadorlarBurchagiView from "@/views/AksiyadorlarBurchagiView.vue";
 import JamiyatNizomiView from "@/views/JamiyatNizomiView.vue";
 import ChoraklikHisobotlarView from "@/views/ChoraklikHisobotlarView.vue";
@@ -63,6 +64,11 @@ const routes = [
     path: '/xizmatlar',
     name: 'xizmatlar',
     component: XizmatlarView
+  },
+  {
+    path: '/savollar',
+    name: 'savollar',
+    component: SavollarView
   },
   {
     path: '/signup',

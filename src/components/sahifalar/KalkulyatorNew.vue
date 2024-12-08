@@ -54,15 +54,16 @@
                            style="display: block;" v-show="activeService === service.id">
                            <div class="tab bor" style="color: #222E48;">
                               <p>
-                                 Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
-                                 madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
+                                 <!-- Xizmat tavsifini dinamik ko'rsatish -->
+                                 {{ services.find(service => service.id === activeService)?.description }}
                               </p>
                            </div>
                            <br />
 
-                           <h4 class="title mb-20">
-                              Yuboruvchi manzili
-                           </h4>
+                           <h3 class="title mb-20">
+                              Qayerdan
+                           </h3>
+                           <br>
 
                            <form @submit.prevent="calculatePrice" class="write__review">
                               <div class="row g-4 justify-content-center">
@@ -71,7 +72,7 @@
 
                                  <div class="col-lg-4 viloyat">
                                     <div class="frm__grp">
-                                       <label for="province" class="fz-18 fw-500 inter title mb-16">Viloyat</label>
+                                       <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
                                        <select id="province" name="province" class="form-control"
                                           v-model="selectedProvince1" @change="fetchDistricts1">
                                           <option value="" disabled selected>Viloyat tanlang</option>
@@ -85,7 +86,7 @@
                                  <!-- District Tanlash -->
                                  <div class="col-lg-4 tuman">
                                     <div class="frm__grp">
-                                       <label for="district" class="fz-18 fw-500 inter title mb-16">Tuman</label>
+                                       <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
                                        <select id="district" name="district" class="form-control"
                                           v-model="selectedDistrict1">
                                           <option value="" disabled selected>Tuman tanlang</option>
@@ -105,14 +106,23 @@
                                        </div>
                                     </div>
                                  </div>
+                                 <p style="color: blek; font-size: small;">Jo‘natuvchining shaharini yoki manzilini
+                                    kiriting.</p>
+                                 <br>
+                                 <br>
 
-                                 <div class="tabi bor">
+                                 <h3 class="title mb-20" style="margin-top: 30px;">
+                                    Qayerga
+                                 </h3>
+
+                                 <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
+
                                     <button class="tablinks1" :class="{ active: activeTab === 'Index' }"
-                                       @click="activeTab = 'Index'" id="firstTab" style="display: block;">
+                                       @click="activeTab = 'Index'" style="display: block;">
                                        <p>Index</p>
                                     </button>
                                     <button class="tablinks1" :class="{ active: activeTab === 'Manzil' }"
-                                       @click="activeTab = 'Manzil'" style="display: block;">
+                                       @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
                                        <p>Manzil</p>
                                     </button>
                                     <button class="tablinks1" :class="{ active: activeTab === 'Pochtam' }"
@@ -121,7 +131,7 @@
                                     </button>
                                     <button class="tablinks1" :class="{ active: activeTab === 'Davlat' }"
                                        @click="activeTab = 'Davlat'">
-                                       <p>Davlat</p>
+                                       <p>Boshqa mamlakatga</p>
                                     </button>
                                  </div>
 
@@ -129,23 +139,34 @@
                                     <div class="col-lg-4 index">
                                        <div class="frm__grp">
                                           <label for="index" class="fz-18 fw-500 inter title mb-16"></label>
-                                          <input type="text" id="index" name="index" class="form-control"
-                                             placeholder="Index" v-model="index" />
+                                          <input style="    position: relative; top: -60px;" type="text" id="index"
+                                             name="index" class="form-control" placeholder="Indeksni kiriting"
+                                             v-model="index" />
                                        </div>
                                     </div>
+                                    <p style="color: black; font-size: small; position: relative; top: -55px;">
+                                       <router-link :to="{ name: 'map' }" style="color: blue;">
+                                          Indeks
+                                       </router-link>
+                                       bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
+                                       olinadigan bo‘limga yetkaziladi. Qabul qiluvchi jo'natma kelganini bilishi uchun
+                                       rasmiylashtirishda kuzatuv uchun trek-raqamni qabul qiluvchiga yuboring.
+                                    </p>
+
                                  </div>
+
 
                                  <br>
                                  <br>
                                  <br>
                                  <br>
                                  <div id="Manzil" class="tabcontent1" v-show="activeTab === 'Manzil'">
-                                    <form action="#0" class="write__review">
-                                       <div class="row g-4 justify-content-center">
+                                    <form action="#0" class="write__review" style="margin-top: 20px;">
+                                       <div class="row g-4 justify-content-center"
+                                          style="    position: relative; top: -60px;">
                                           <div class="col-lg-4 viloyat2">
                                              <div class="frm__grp">
-                                                <label for="province"
-                                                   class="fz-18 fw-500 inter title mb-16">Viloyat</label>
+                                                <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
                                                 <select id="province" name="province" class="form-control"
                                                    v-model="selectedProvince2" @change="fetchDistricts2">
                                                    <option value="" disabled selected>Viloyat tanlang</option>
@@ -158,8 +179,7 @@
 
                                           <div class="col-lg-4 tuman">
                                              <div class="frm__grp">
-                                                <label for="district"
-                                                   class="fz-18 fw-500 inter title mb-16">Tuman</label>
+                                                <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
                                                 <select id="district" name="district" class="form-control"
                                                    v-model="selectedDistrict2">
                                                    <option value="" disabled selected>Tuman tanlang</option>
@@ -180,20 +200,22 @@
                                              </div>
                                           </div>
                                        </div>
+                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Aniqroq
+                                          hisob-kitob uchun to‘liq manzilni kiriting</p>
                                     </form>
                                  </div>
-                                 <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'">
-                                    <h3>Bu xizmat hozircha mavjud emas </h3>
+                                 <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
+                                    style="    position: relative; top: -60px;">
+                                    <h6 style="color: red; font-size: small;">Bu xizmat hozircha mavjud emas </h6>
                                  </div>
                                  <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
-                                    <div class="col-lg-4 index">
-                                       <div class="col-lg-4 viloyat">
+                                    <div class="col-lg-4 index" style="width: 90%;">
+                                       <div class="col-lg-4 viloyat" style="    position: relative; top: -60px;">
                                           <div class="frm__grp">
-                                             <label for="province" class="fz-18 fw-500 inter title mb-16">Davlatni
-                                                tanlang</label>
+                                             <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
                                              <select id="province" name="province" class="form-control"
-                                                v-model="selectedProvince3">
-                                                <option value="" disabled selected>Davlat</option>
+                                                style="    width: 200%;" v-model="selectedProvince3">
+                                                <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
                                                 <option v-for="province in provinces" :key="province.id"
                                                    :value="province.id">
                                                    {{ province.name }}
@@ -203,22 +225,22 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <h2 class="title mb-20">
-                                    Yetkazib berish imkoniyatlari
-                                 </h2>
-                                 <div class="row">
+                                 <h3 class="title mb-20" style="    position: relative; top: -40px;">
+
+                                 </h3>
+                                 <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16"></label>
+                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">Og'irligi</label>
                                           <input type="number" id="vesi" name="vesi" class="form-control"
-                                             placeholder="Og'irligi gramm" v-model="weight">
+                                             placeholder="gramm" v-model="weight">
                                        </div>
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="size" class="fz-180 fw-500 inter title mb-16"></label>
+                                          <label for="size" class="fz-180 fw-500 inter title mb-16">Hajmi</label>
                                           <select id="size" name="size" class="form-control">
-                                             <option value="" disabled selected>Hajmini tanlang</option>
+                                             <option value="" disabled selected>Tanlang</option>
                                              <option value="10x20x30">10x20x30</option>
                                              <option value="25x30x40">25x30x40</option>
                                              <option value="35x38x45">35x38x45</option>
@@ -226,7 +248,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="frm__grp mt-30">
+                                 <div class="frm__grp mt-30" style="position: relative; top: -40px;">
                                     <button type="submit" class="cmn--btn">
                                        <span>Hisoblash</span>
                                     </button>
@@ -253,12 +275,16 @@
                         <div class="form__price pb-24 d-flex align-items-center bborderdash">
                            <i class="bi bi-tags tags__icon"></i>
                            <span class="fz-16 d-flex align-items-center gap-2 fw-400 inter title">
-                              Jami
+                              Taxminan:
                               <span class="fssizing d-flex align-items-start gap-1">
                                  {{ totalPrice + " so'm" }}
                               </span>
                            </span>
+
                         </div>
+                        <p style="color: red; font-size: small;">Yuqoridagi summa berilgan og'irlikka nisbatan
+                           o'zgarishi mumkin.</p>
+
 
                         <a href="#0" class="cmn--btn mt-30 d-flex justify-content-center d-block">
                            <span>
@@ -289,8 +315,29 @@ export default {
          index: null,
          weight: null,
          activeTab: 'Index',
-         services: [], // Xizmatlar ro'yxati
-         activeService: null, // Faol xizmat IDsi
+         services: [
+            {
+               id: 'posilka',
+               name: 'Posilka',
+               description: 'Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari, madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.',
+            },
+            {
+               id: 'xat',
+               name: 'Xat',
+               description: 'Xat — bu odatda yozma shakldagi aloqa vositasi.',
+            },
+            {
+               id: 'birQadam',
+               name: 'Bir Qadam',
+               description: 'Bir Qadam — tez yetkazib berish xizmat turi.',
+            },
+            {
+               id: 'maydaPaketlar',
+               name: 'Mayda paketlar',
+               description: 'Mayda paketlar — kichik hajmdagi pochta jo’natmalari uchun xizmat turi.',
+            },
+         ], // Xizmatlar ro'yxati
+         activeService: 'posilka', // Boshlang'ich tanlangan xizmat
          regions1: {},
          regions2: {},
          locations: {},
@@ -307,28 +354,40 @@ export default {
    },
    methods: {
       // Xizmatlarni olish
+      // Xizmatlarni olish
       async fetchServices() {
-         if (this.activeTab === 'Index') {
-
-            try {
-               const response = await axios.get(
-                  "https://new.pochta.uz/api/v1/calculator/services/"
-               );
-               // Xizmatlarni olish va formatlash
-               this.services = response.data.service_types.data.list.map((service) => ({
+         try {
+            const response = await axios.get("https://new.pochta.uz/api/v1/calculator/services/");
+            const allowedServices = ["Posilka", "Xat", "Bir Qadam", "Mayda paketlar"];
+            this.services = response.data.service_types.data.list
+               .filter((service) => allowedServices.includes(service.name))
+               .map((service) => ({
                   id: service.id,
                   name: service.name,
-                  image: service.image,
+                  image: this.getServiceSVG(service.name),
                }));
-               // Birinchi xizmatni faol deb belgilash
-               if (this.services.length > 0) {
-                  this.activeService = this.services[0].id;
-               }
-            } catch (error) {
-               console.error("Xizmatlarni olishda xatolik:", error);
+            if (this.services.length > 0) {
+               this.activeService = this.services[0].id;
             }
+         } catch (error) {
+            console.error("Xizmatlarni olishda xatolik:", error);
          }
       },
+      getServiceSVG(serviceName) {
+         switch (serviceName) {
+            case "Posilka":
+               return "assets/img/kalkulyator/posilka.svg";
+            case "Xat":
+               return "assets/img/kalkulyator/xat.svg";
+            case "Bir Qadam":
+               return "assets/img/kalkulyator/bir.svg";
+            case "Mayda paketlar":
+               return "assets/img/kalkulyator/paket.svg";
+            default:
+               return "@/assets/svg/default.svg";
+         }
+      },
+
       // Xizmatni tanlash
       selectService(serviceId) {
          this.activeService = serviceId;
@@ -453,7 +512,7 @@ export default {
                console.error("Narxni hisoblashda xatolik", error);
             }
          }
-         if (this.activeTab === 'Davlat'){
+         if (this.activeTab === 'Davlat') {
             try {
                const response = await axios.get(
                   "https://new.pochta.uz/api/v1/calculator/order-price/",
@@ -467,7 +526,7 @@ export default {
                   }
                );
                this.totalPrice = response.data[0].data.list[0].price.total;
-            }catch (error) {
+            } catch (error) {
                console.log("Narxni hisoblashda xatolik", error)
             }
          }
