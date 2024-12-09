@@ -218,7 +218,10 @@
                                 <br>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    O‘zbekiston aholisini davlatimiz mustaqilligi va asosiy qadriyatlarimizni aks ettiruvchi davlat bayrog‘i qabul qilingan kun bilan tabriklaymiz. Yurtimizning barcha fuqarolarini tabriklaymiz hamda shaxsiy, kasbiy va ijtimoiy hayotda baxt-saodat va farovonlik tilaymiz
+                                    O‘zbekiston aholisini davlatimiz mustaqilligi va asosiy qadriyatlarimizni aks
+                                    ettiruvchi davlat bayrog‘i qabul qilingan kun bilan tabriklaymiz. Yurtimizning
+                                    barcha fuqarolarini tabriklaymiz hamda shaxsiy, kasbiy va ijtimoiy hayotda
+                                    baxt-saodat va farovonlik tilaymiz
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -245,7 +248,8 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    “O‘zbekiston pochtasi” AJ aksiyadorlarining navbatdan tashqari umumiy yig‘ilishi o‘tkazilishi to‘g‘risida xabarnoma
+                                    “O‘zbekiston pochtasi” AJ aksiyadorlarining navbatdan tashqari umumiy yig‘ilishi
+                                    o‘tkazilishi to‘g‘risida xabarnoma
                                 </router-link>
                                 <br>
                                 <br>
@@ -282,7 +286,9 @@
                                 <br>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
-                                    Unda O‘zbekiston Yozuvchilar uyushmasi a’zosi, shoir, “Shuhrat” medali sohibi Turob Niyoz qatnashib, ishtirokchilarga o‘zbek tilining ahamiyati va jamiyatimizda tutgan o‘rni to‘g‘risida gapirdi:
+                                    Unda O‘zbekiston Yozuvchilar uyushmasi a’zosi, shoir, “Shuhrat” medali sohibi Turob
+                                    Niyoz qatnashib, ishtirokchilarga o‘zbek tilining ahamiyati va jamiyatimizda tutgan
+                                    o‘rni to‘g‘risida gapirdi:
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -300,7 +306,8 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
                         <router-link to="/yangilik" class="thumb round16 w-100">
-                            <img src="assets/img/service/e38d18fbac6a40a5a905a396029bc51f.png" class="round16 w-100" alt="service">
+                            <img src="assets/img/service/e38d18fbac6a40a5a905a396029bc51f.png" class="round16 w-100"
+                                alt="service">
                         </router-link>
                         <div class="service__content">
                             <div class="d-flex mb-16 align-items-center justify-content-between">
@@ -309,7 +316,9 @@
                             </div>
                             <h5 class="mb-16">
                                 <router-link to="/yangilik" class="titley">
-                                    “ANTIKORRUPSIYA/расмий” telegram-kanalida 2024-yil 16-oktyabr sanasida 13:26 da “Pochta bo‘linmasi sotilganligi tasdiqlanmoqda” sarlavhasi bilan joylashtirilgan postga nisbatan RASMIY MUNOSABAT
+                                    “ANTIKORRUPSIYA/расмий” telegram-kanalida 2024-yil 16-oktyabr sanasida 13:26 da
+                                    “Pochta bo‘linmasi sotilganligi tasdiqlanmoqda” sarlavhasi bilan joylashtirilgan
+                                    postga nisbatan RASMIY MUNOSABAT
                                 </router-link>
                                 <br>
                                 <router-link to="/yangilik" class="titlet">
@@ -925,177 +934,60 @@
         </div>
     </section>
     <section class="app__section ralt bg__all1 pb-120 pt-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-xxl-6 col-xl-8 col-lg-8">
-                    <div class="section__title ralt mb-40">
-                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-                        </h4>
-                        <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">
-                            Markalar katalogi
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer__wrapper owl-theme owl-carousel">
-                <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka" class="thumb round16 w-100">
-                        <img src="assets/img/markalar/marka (5).jpg" class="round16 w-100" alt="service" />
-                    </router-link>
-                    <h5 class="mt-24 mb-20">
-                        <router-link to="/marka2" class="titley">
-                            "Toshkent hayvonot bog`i" pochta markalari turkumi
-                        </router-link>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            1995 yil
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            2095
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            1 000 so'm
-                        </span>
-                        <router-link to="/marka2"
-                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right title fz-16"></i>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka2" class="thumb round16 w-100">
-                        <img src="assets/img/markalar/marka (1).jpg" class="round16 w-100" alt="service">
-                    </router-link>
-                    <h5 class="mt-24 mb-20">
-                        <router-link to="/marka2" class="titley">
-                            “O‘zbekiston oltin merosi” turkumi. “Seramika"
-                        </router-link>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            2022 yil
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            2000
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            12 700 so'm
-                        </span>
-                        <router-link to="/marka2"
-                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right title fz-16"></i>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka" class="thumb round16 w-100">
-                        <img src="assets/img/markalar/marka (9).jpg" class="round16 w-100" alt="service">
-                    </router-link>
-                    <h5 class="mt-24 mb-20">
-                        <router-link to="/marka2" class="titley">
-                            "O'zbekistonning noyob hayvonlari" turkumi
-                        </router-link>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            1993 yil
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            14410
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            5 000 so'm
-                        </span>
-                        <router-link to="/marka2"
-                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right title fz-16"></i>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka2" class="thumb round16 w-100">
-                        <img src="assets/img/markalar/marka (2).jpg" class="round16 w-100" alt="service">
-                    </router-link>
-                    <h5 class="mt-24 mb-20">
-                        <router-link to="/marka" class="titley">
-                            “O‘zbekiston milliy taomlari” pochta markalari turkumi
-                        </router-link>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            2020 yil
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            8000
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            6 200 so'm
-                        </span>
-                        <router-link to="/marka"
-                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right title fz-16"></i>
-                        </router-link>
-                    </div>
-                </div>
-                <div class="frelancer__item shadow2 round16 bgwhite eni">
-                    <router-link to="/marka" class="thumb round16 w-100">
-                        <img src="assets/img/markalar/marka (5).jpg" class="round16 w-100" alt="service">
-                    </router-link>
-                    <h5 class="mt-24 mb-20">
-                        <router-link to="/marka2" class="titley">
-                            "Toshkent hayvonot bog`i" pochta markalari turkumi
-                        </router-link>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            1995 yil
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            2095
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            1 000 so'm
-                        </span>
-                        <router-link to="/marka2"
-                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-chevron-right title fz-16"></i>
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-40">
-                <router-link to="/markalar2" class="cmn--btn outline__btn">
-                    <span>
-                        Barchasini ko'rish
-                    </span>
-                    <span class="ps-1">
-                        <i class="bi bi-arrow-up-right"></i>
-                    </span>
-                </router-link>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-6 col-xl-8 col-lg-8">
+          <div class="section__title ralt mb-40">
+            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s"></h4>
+            <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">Markalar katalogi</h2>
+          </div>
         </div>
-    </section>
+      </div>
+      <!-- Grid view uchun asosiy container -->
+      <div class="freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
+        <div
+          class="frelancer__item shadow2 round16 bgwhite eni"
+          v-for="(mark, index) in marksToShow"
+          :key="index"
+        >
+          <router-link :to="'/marka2/' + mark.id" class="thumb round16 w-100">
+            <img :src="fixImageUrl(mark.save_image_uz)" class="round16 w-100" :alt="mark.title_uz" />
+          </router-link>
+          <h5 class="mt-24 mb-20">
+            <router-link :to="'/marka2/' + mark.id" class="titley">{{ mark.title_uz }}</router-link>
+          </h5>
+          <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
+            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+              <i class="bi bi-stopwatch"></i>
+              {{ mark.years }}
+            </div>
+            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+              <i class="bi bi-bar-chart"></i>
+              {{ mark.count_number || 0 }}
+            </div>
+          </div>
+          <div class="d-flex align-items-center mt-20 justify-content-between">
+            <span class="fz-18 fw-600 inter base">{{ mark.price_uz || 'Narx mavjud emas' }} so'm</span>
+            <router-link
+              :to="'/marka2/' + mark.id"
+              class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center"
+            >
+              <i class="bi bi-chevron-right title fz-16"></i>
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-40">
+        <router-link to="/markalar2" class="cmn--btn outline__btn">
+          <span>Barchasini ko'rish</span>
+          <span class="ps-1">
+            <i class="bi bi-arrow-up-right"></i>
+          </span>
+        </router-link>
+      </div>
+    </div>
+  </section>
+
     <section class="company__sectioni bgwhite pb-060 pt-060">
         <div class="container">
             <div class="row g-4">
@@ -1140,3 +1032,67 @@
     </section>
     <!-- Company Logo End -->
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      marks: [],
+    };
+  },
+  computed: {
+    marksToShow() {
+      return this.marks.slice(-4);
+    },
+  },
+  methods: {
+    fixImageUrl(url) {
+      return url.startsWith("http:") ? url.replace("http:", "https:") : url;
+    },
+  },
+  mounted() {
+    axios
+      .get("https://new.pochta.uz/api/v1/public/marks-page/")
+      .then((response) => {
+        if (response.data.results && Array.isArray(response.data.results)) {
+          this.marks = response.data.results;
+        } else {
+          console.error("Kutilgan formatdagi ma'lumotlar kelmadi");
+        }
+      })
+      .catch((error) => {
+        console.error("API'dan ma'lumot olishda xatolik:", error);
+      });
+  },
+};
+</script>
+
+<style scoped>
+/* Elementlar gorizontal tarzda chiqishi uchun */
+.freelancer__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem; /* Kartalar orasidagi masofa */
+}
+
+.frelancer__item {
+  flex: 1 1 calc(25% - 1.5rem); /* Har biri 4 qismga teng */
+  max-width: calc(25% - 1.5rem); /* Katta ekranlar uchun cheklash */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .frelancer__item {
+    flex: 1 1 calc(50% - 1.5rem); /* Mobilda 2 ta ustun */
+  }
+}
+@media (max-width: 480px) {
+  .frelancer__item {
+    flex: 1 1 100%; /* Juda kichik ekranda 1 ta ustun */
+  }
+}
+</style>
