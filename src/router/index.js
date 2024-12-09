@@ -45,8 +45,8 @@ import AksiyadorlarBurchagiView from "@/views/AksiyadorlarBurchagiView.vue";
 import JamiyatNizomiView from "@/views/JamiyatNizomiView.vue";
 import ChoraklikHisobotlarView from "@/views/ChoraklikHisobotlarView.vue";
 import YillikHisobotlarView from "@/views/YillikHisobotlarView.vue";
-
-
+import  Filiallar2View from "@/views/Filiallar2View.vue"
+import FilialView from '@/views/FilialView.vue';
 const routes = [
   {
     path: '/',
@@ -206,6 +206,17 @@ const routes = [
     path: '/filiallar',
     name: 'filiallar',
     component: FiliallarView
+  },
+  {
+    path: '/filiallar2',
+    name: 'filiallar2',
+    component: Filiallar2View
+  },
+  {
+    path: '/filial/:id',
+    name: 'filial',
+    component: FilialView,
+    props: true
   },
   {
     path: '/yuridik',

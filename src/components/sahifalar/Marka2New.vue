@@ -97,7 +97,7 @@ export default {
         years: data.years || "Noma'lum",
         price_uz: data.price_uz || "Noma'lum",
         count_number: data.count_number || "Noma'lum",
-        description_uz: data.description_uz || "Ma'lumot mavjud emas",
+        description_uz: data.text_uz || "Ma'lumot mavjud emas",
       };
       console.log(secureImageUrl)
     } catch (error) {
