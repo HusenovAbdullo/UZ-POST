@@ -462,7 +462,7 @@ export default {
                      params: {
                         service_type_id: this.activeService,
                         fromjurisdiction_id: this.selectedDistrict1,
-                        weight: this.weight / 1000,
+                        Weight: this.weight / 1000,
                         index: this.index,
                      },
                   }

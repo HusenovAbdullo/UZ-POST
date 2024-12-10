@@ -47,6 +47,7 @@ import ChoraklikHisobotlarView from "@/views/ChoraklikHisobotlarView.vue";
 import YillikHisobotlarView from "@/views/YillikHisobotlarView.vue";
 import  Filiallar2View from "@/views/Filiallar2View.vue"
 import FilialView from '@/views/FilialView.vue';
+import ErrorView from '@/views/ErrorView.vue';
 const routes = [
   {
     path: '/',
@@ -69,6 +70,11 @@ const routes = [
     path: '/savollar',
     name: 'savollar',
     component: SavollarView
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: ErrorView
   },
   {
     path: '/signup',
