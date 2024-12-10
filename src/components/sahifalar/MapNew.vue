@@ -35,9 +35,11 @@
                                     <ul v-if="suggestions.length > 0"
                                         class="suggestions-list position-absolute bg-white shadow p-2">
                                         <li v-for="(suggestion, index) in suggestions" :key="index"
-                                            class="suggestion-item p-1 cursor-pointer">
+                                            class="suggestion-item p-1 cursor-pointer"
+                                            @click="selectSuggestion(suggestion)">
                                             {{ suggestion }}
                                         </li>
+
                                     </ul>
 
                                 </form>
@@ -203,8 +205,41 @@ export default defineComponent({
 
         selectSuggestion(suggestion) {
             this.searchQuery = suggestion; // Qidiruv qatoriga tanlangan taklifni o'rnating
-            this.updateSuggestions(); // Yangi qidiruv amalga oshirilganda yangi takliflarni yangilang
-            this.searchData(); // Tanlangan natijaga asoslangan ma'lumotlarni qidiring
+            const selectedWarehouse = this.warehouses.find((warehouse) => {
+                const { postal_office } = warehouse;
+                const { index, name_uz, region, district } = postal_office || {};
+                return (
+                    suggestion.includes(index) ||
+                    suggestion.includes(name_uz) ||
+                    suggestion.includes(region) ||
+                    suggestion.includes(district)
+                );
+            });
+
+            if (selectedWarehouse) {
+                this.focusMarker(selectedWarehouse.postal_office); // Xaritada markerga o'ting
+            }
+        },
+        focusMarker(postalOffice) {
+            const { lat, lng } = postalOffice;
+
+            if (lat && lng) {
+                const markerLat = parseFloat(lat);
+                const markerLng = parseFloat(lng);
+
+                this.map.setView([markerLat, markerLng], 14); // Xaritada kerakli joyni ko'rsatish
+
+                // Aloqa bo'limining popup'ini ochish
+                const popup = L.popup()
+                    .setLatLng([markerLat, markerLng])
+                    .setContent(`
+                    <h3>${postalOffice.name_uz || "Noma'lum nom"}</h3>
+                    <p>Hudud: ${postalOffice.region || "Noma'lum"}, ${postalOffice.district || "Noma'lum"}</p>
+                    <p>Indeks: ${postalOffice.index || "Noma'lum"}</p>
+                    <a href="${postalOffice.geolocation || "#"}" target="_blank">Joylashuv</a>
+                `);
+                popup.openOn(this.map);
+            }
         },
         async searchData() {
             try {

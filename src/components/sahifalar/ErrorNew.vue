@@ -1,11 +1,11 @@
 <template>
-    <!-- Cart Section Here -->
+   <!-- Cart Section Here -->
    <section class="error__section pt-120 pb-120">
       <div class="container">
          <div class="row justify-content-center">
             <div class="col-xl-8 col-lg-8">
                <div class="thum mb-40">
-                  <img src="assets/img/faq/error2.png" class="w-100" alt="img">
+                  <img src="assets/img/faq/error2.png" class="w-100" alt="img" style="width: 100% !important; height: 500px; object-fit: cover;">
                </div>
                <div class="error__content text-center">
                   <h2 class="title mb-24">
