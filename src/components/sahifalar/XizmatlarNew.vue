@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
+                <!-- <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
                             <img src="assets/img/task/buyurt.png" alt="img">
@@ -136,12 +136,12 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>
 
-            <div class="row justify-content-center">
+            <!-- <div class="row justify-content-center">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
                     <div class="section__title text-center ralt mb-60">
                         <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="0s">
@@ -255,7 +255,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
 
         </div>

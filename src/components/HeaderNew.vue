@@ -147,7 +147,7 @@
                                  </router-link>
                               </li>
                               <li>
-                                 <router-link to="/tracking" class="custom-link">
+                                 <router-link to="/map" class="custom-link">
                                     <span style="text-transform: capitalize;">Pochta </span>
                                     <span style="text-transform: lowercase;">indeksim</span>
                                  </router-link>
@@ -176,10 +176,13 @@
                               </div>
                            </div>
                            <div class="dropdown">
-                              <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
+                              <router-link to="/map" class="link glose__icon d-flex align-items-center">
+                                 <i class="bi-geo-alt"></i>
+                              </router-link>
+                              <!-- <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
                                  data-bs-offset="0,14" aria-expanded="true">
                                  <i class="bi-geo-alt"></i>
-                              </a>
+                              </a> -->
                            </div>
                            <div class="dropdown">
                               <router-link to="/aloqa" class="link glose__icon d-flex align-items-center">

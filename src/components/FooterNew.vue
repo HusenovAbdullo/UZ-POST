@@ -16,12 +16,7 @@
                                  Yangiliklar
                               </router-link>
                            </li>
-                           <!--<li>-->
-                           <!--   <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"-->
-                           <!--      class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Rivojlanish strategiyasi-->
-                           <!--   </a>-->
-                           <!--</li>-->
+
                            <li>
                               <router-link to="/boshqaruvOrganlari" class="fz-18 fw-400 inter cef__pra d-block">
                                  Boshqaruv organlari
@@ -29,14 +24,15 @@
                            </li>
                            <li>
                               <router-link to="/ijroiyaApparati" class="fz-18 fw-400 inter cef__pra d-block">
-                                Ijroiya Apparati
+                                 Ijroiya Apparati
                               </router-link>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/filiallar" class="fz-18 fw-400 inter cef__pra d-block">
                                  Filiallar
-                              </a>
+                              </router-link>
                            </li>
+
                            <li>
                               <router-link to="/vakansiyalar" class="z-18 fw-400 inter cef__pra d-block">
                                  Bo'sh ish o'rinlari
@@ -58,12 +54,14 @@
                               </router-link>
                            </li>
                            <li>
-                              <a href="https://uz.post/storage/media/%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.pdf" class="fz-18 fw-400 inter cef__pra d-block">
+                              <a href="https://uz.post/storage/media/%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0%20%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8.pdf"
+                                 class="fz-18 fw-400 inter cef__pra d-block">
                                  Tashkilot tuzilmasi
                               </a>
                            </li>
                            <li>
-                              <a href="https://uz.post/storage/media/2024%20%D0%91%D0%A0.pdf" class="fz-18 fw-400 inter cef__pra d-block">
+                              <a href="https://uz.post/storage/media/2024%20%D0%91%D0%A0.pdf"
+                                 class="fz-18 fw-400 inter cef__pra d-block">
                                  Ochiq maʼlumotlar
                               </a>
                            </li>
@@ -78,7 +76,7 @@
                            <!--   </a>-->
                            <!--</li>-->
                            <li>
-                              <router-link to="/markalar" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/markalar2" class="fz-18 fw-400 inter cef__pra d-block">
                                  Markalar katalogi
                               </router-link>
                            </li>
@@ -98,35 +96,34 @@
                         </a>
                         <ul class="quick__link">
                            <li>
-                              <a href="about.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/tracking" class="fz-18 fw-400 inter cef__pra d-block">
                                  Jo'natmani kuzatish
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="file:///C:/Users/Chiko.uz/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/uz.post/yordam.html#Jonatma_turlari.html"
-                                 class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/kalkulyator" class="fz-18 fw-400 inter cef__pra d-block">
                                  Jo'natma kalkulyatori
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/map" class="fz-18 fw-400 inter cef__pra d-block">
                                  Pochta indeksini aniqlash
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="tariflar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/map" class="fz-18 fw-400 inter cef__pra d-block">
                                  Pochta bo‘limlari xaritasi
-                              </a>
+                              </router-link>
                            </li>
                            <li>
-                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <a href="https://e-obuna.uz/uz" class="fz-18 fw-400 inter cef__pra d-block">
                                  Obunani rasmiylashtirish
                               </a>
                            </li>
                            <li>
-                              <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/aloqa" class="fz-18 fw-400 inter cef__pra d-block">
                                  Xabar yuborish
-                              </a>
+                              </router-link>
                            </li>
                         </ul>
                      </div>
@@ -143,8 +140,7 @@
                               </router-link>
                            </li>
                            <li>
-                              <router-link to="/jamiyatNizomi"
-                                 class="fz-18 fw-400 inter cef__pra d-block">
+                              <router-link to="/jamiyatNizomi" class="fz-18 fw-400 inter cef__pra d-block">
                                  Jamiyat nizomi
                               </router-link>
                            </li>

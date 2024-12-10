@@ -203,7 +203,7 @@
             <div class="row justify-content-center g-4">
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link to="/yangilik" class="thumb round16 w-100">
+                        <router-link to="/yangilik3" class="thumb round16 w-100">
                             <img src="assets/img/service/bayroq.jpg" class="round16 w-100" alt="service" />
                         </router-link>
                         <div class="service__content">
@@ -212,12 +212,12 @@
                                 </div>
                             </div>
                             <h5 class="mb-16">
-                                <router-link to="/yangilik" class="titley">
+                                <router-link to="/yangilik3" class="titley">
                                     Davlat bayrog‘i – mustaqillik ramzi
                                 </router-link>
                                 <br>
                                 <br>
-                                <router-link to="/yangilik" class="titlet">
+                                <router-link to="/yangilik3" class="titlet">
                                     O‘zbekiston aholisini davlatimiz mustaqilligi va asosiy qadriyatlarimizni aks
                                     ettiruvchi davlat bayrog‘i qabul qilingan kun bilan tabriklaymiz. Yurtimizning
                                     barcha fuqarolarini tabriklaymiz hamda shaxsiy, kasbiy va ijtimoiy hayotda
@@ -238,7 +238,7 @@
                 </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link to="/yangilik" class="thumb round16 w-100">
+                        <router-link to="/yangilik4" class="thumb round16 w-100">
                             <img src="assets/img/service/2.jpg" class="round16 w-100" alt="service" />
                         </router-link>
                         <div class="service__content">
@@ -247,13 +247,13 @@
                                 </div>
                             </div>
                             <h5 class="mb-16">
-                                <router-link to="/yangilik" class="titley">
+                                <router-link to="/yangilik4" class="titley">
                                     “O‘zbekiston pochtasi” AJ aksiyadorlarining navbatdan tashqari umumiy yig‘ilishi
                                     o‘tkazilishi to‘g‘risida xabarnoma
                                 </router-link>
                                 <br>
                                 <br>
-                                <router-link to="/yangilik" class="titlet">
+                                <router-link to="/yangilik4" class="titlet">
                                     Aksiyadorlarni ro‘yxatga olish soat 09:00 dan 10:55 gacha amalga oshiriladi....
                                 </router-link>
                             </h5>
@@ -271,7 +271,7 @@
                 </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link to="/yangilik" class="thumb round16 w-100">
+                        <router-link to="/yangilik5" class="thumb round16 w-100">
                             <img src="assets/img/service/ustozlar.jpg" class="round16 w-100" alt="service">
                         </router-link>
                         <div class="service__content">
@@ -280,12 +280,12 @@
                                 </div>
                             </div>
                             <h5 class="mb-16">
-                                <router-link to="/yangilik" class="titley">
+                                <router-link to="/yangilik5" class="titley">
                                     21-oktyabr – O‘zbek tili bayrami kuni
                                 </router-link>
                                 <br>
                                 <br>
-                                <router-link to="/yangilik" class="titlet">
+                                <router-link to="/yangilik5" class="titlet">
                                     Unda O‘zbekiston Yozuvchilar uyushmasi a’zosi, shoir, “Shuhrat” medali sohibi Turob
                                     Niyoz qatnashib, ishtirokchilarga o‘zbek tilining ahamiyati va jamiyatimizda tutgan
                                     o‘rni to‘g‘risida gapirdi:
@@ -305,7 +305,7 @@
                 </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link to="/yangilik" class="thumb round16 w-100">
+                        <router-link to="/yangilik6" class="thumb round16 w-100">
                             <img src="assets/img/service/e38d18fbac6a40a5a905a396029bc51f.png" class="round16 w-100"
                                 alt="service">
                         </router-link>
@@ -315,13 +315,13 @@
                                 </div>
                             </div>
                             <h5 class="mb-16">
-                                <router-link to="/yangilik" class="titley">
+                                <router-link to="/yangilik6" class="titley">
                                     “ANTIKORRUPSIYA/расмий” telegram-kanalida 2024-yil 16-oktyabr sanasida 13:26 da
                                     “Pochta bo‘linmasi sotilganligi tasdiqlanmoqda” sarlavhasi bilan joylashtirilgan
                                     postga nisbatan RASMIY MUNOSABAT
                                 </router-link>
                                 <br>
-                                <router-link to="/yangilik" class="titlet">
+                                <router-link to="/yangilik6" class="titlet">
                                 </router-link>
                             </h5>
                             <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
@@ -785,9 +785,10 @@
                                  border-bottom-left-radius: 4px;
                              ">
                                                 <p>
-                                                    <a href="https://uz.post/uz/otdeleniya"><strong><span
-                                                                class="textrang">BO'LIMLAR
-                                                                XARITASI</span></strong></a>
+                                                    <router-link to="map" class="textrang" target="_blank">
+                                                        <strong><span>BO'LIMLAR XARITASI</span></strong>
+                                                    </router-link>
+
                                                 </p>
                                             </div>
                                         </div>
@@ -819,9 +820,10 @@
                           ">
                                             <p>
                                                 Xizmatlar tariflari bilan
-                                                <a href="https://uz.post/uz/tariflar-uz?id=806">
-                                                    <strong><span class="textrang">bu yerda</span></strong>
-                                                </a> tanishishingiz mumkin!
+                                                <router-link :to="{ path: '/tariflar', query: { id: 806 } }"
+                                                    class="textrang">
+                                                    <strong><span>bu yerda</span></strong>
+                                                </router-link> tanishishingiz mumkin!
                                             </p>
 
                                         </div>
@@ -907,9 +909,10 @@
                                             <p>
                                                 Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim indeksini bu yerda
                                                 aniqlashingiz mumkin -
-                                                <a href="https://uz.post/uz/mening-pochta-indeksim">
-                                                    <strong><span class="textrang">MENING INDEKSIM</span></strong>
-                                                </a>
+                                                <router-link to="/map" class="textrang">
+                                                    <strong><span>MENING INDEKSIM</span></strong>
+                                                </router-link>
+
                                             </p>
 
                                         </div>
@@ -934,59 +937,53 @@
         </div>
     </section>
     <section class="app__section ralt bg__all1 pb-120 pt-120">
-    <div class="container">
-      <div class="row">
-        <div class="col-xxl-6 col-xl-8 col-lg-8">
-          <div class="section__title ralt mb-40">
-            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s"></h4>
-            <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">Markalar katalogi</h2>
-          </div>
-        </div>
-      </div>
-      <!-- Grid view uchun asosiy container -->
-      <div class="freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
-        <div
-          class="frelancer__item shadow2 round16 bgwhite eni"
-          v-for="(mark, index) in marksToShow"
-          :key="index"
-        >
-          <router-link :to="'/marka2/' + mark.id" class="thumb round16 w-100">
-            <img :src="fixImageUrl(mark.save_image_uz)" class="round16 w-100" :alt="mark.title_uz" />
-          </router-link>
-          <h5 class="mt-24 mb-20">
-            <router-link :to="'/marka2/' + mark.id" class="titley">{{ mark.title_uz }}</router-link>
-          </h5>
-          <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-              <i class="bi bi-stopwatch"></i>
-              {{ mark.years }}
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-8 col-lg-8">
+                    <div class="section__title ralt mb-40">
+                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s"></h4>
+                        <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">Markalar katalogi</h2>
+                    </div>
+                </div>
             </div>
-            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-              <i class="bi bi-bar-chart"></i>
-              {{ mark.count_number || 0 }}
+            <div class="freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
+                <div class="frelancer__item shadow2 round16 bgwhite eni" v-for="(mark, index) in marksToShow"
+                    :key="index">
+                    <router-link :to="'/marka2/' + mark.id" class="thumb round16 w-100">
+                        <img :src="fixImageUrl(mark.save_image_uz)" class="round16 w-100" :alt="mark.title_uz" />
+                    </router-link>
+                    <h5 class="mt-24 mb-20">
+                        <router-link :to="'/marka2/' + mark.id" class="titley">{{ mark.title_uz }}</router-link>
+                    </h5>
+                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
+                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                            <i class="bi bi-stopwatch"></i>
+                            {{ mark.years }}
+                        </div>
+                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                            <i class="bi bi-bar-chart"></i>
+                            {{ mark.count_number || 0 }}
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-20 justify-content-between">
+                        <span class="fz-18 fw-600 inter base">{{ mark.price_uz || 'Narx mavjud emas' }} so'm</span>
+                        <router-link :to="'/marka2/' + mark.id"
+                            class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-chevron-right title fz-16"></i>
+                        </router-link>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="d-flex align-items-center mt-20 justify-content-between">
-            <span class="fz-18 fw-600 inter base">{{ mark.price_uz || 'Narx mavjud emas' }} so'm</span>
-            <router-link
-              :to="'/marka2/' + mark.id"
-              class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center"
-            >
-              <i class="bi bi-chevron-right title fz-16"></i>
-            </router-link>
-          </div>
+            <div class="text-center mt-40">
+                <router-link to="/markalar2" class="cmn--btn outline__btn">
+                    <span>Barchasini ko'rish</span>
+                    <span class="ps-1">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+                </router-link>
+            </div>
         </div>
-      </div>
-      <div class="text-center mt-40">
-        <router-link to="/markalar2" class="cmn--btn outline__btn">
-          <span>Barchasini ko'rish</span>
-          <span class="ps-1">
-            <i class="bi bi-arrow-up-right"></i>
-          </span>
-        </router-link>
-      </div>
-    </div>
-  </section>
+    </section>
 
     <section class="company__sectioni bgwhite pb-060 pt-060">
         <div class="container">
@@ -1037,62 +1034,69 @@
 import axios from "axios";
 
 export default {
-  data() {
-    return {
-      marks: [],
-    };
-  },
-  computed: {
-    marksToShow() {
-      return this.marks.slice(-4);
+    data() {
+        return {
+            marks: [],
+        };
     },
-  },
-  methods: {
-    fixImageUrl(url) {
-      return url.startsWith("http:") ? url.replace("http:", "https:") : url;
+    computed: {
+        marksToShow() {
+            return this.marks.slice(-4);
+        },
     },
-  },
-  mounted() {
-    axios
-      .get("https://new.pochta.uz/api/v1/public/marks-page/")
-      .then((response) => {
-        if (response.data.results && Array.isArray(response.data.results)) {
-          this.marks = response.data.results;
-        } else {
-          console.error("Kutilgan formatdagi ma'lumotlar kelmadi");
-        }
-      })
-      .catch((error) => {
-        console.error("API'dan ma'lumot olishda xatolik:", error);
-      });
-  },
+    methods: {
+        fixImageUrl(url) {
+            return url.startsWith("http:") ? url.replace("http:", "https:") : url;
+        },
+    },
+    mounted() {
+        axios
+            .get("https://new.pochta.uz/api/v1/public/marks-page/")
+            .then((response) => {
+                if (response.data.results && Array.isArray(response.data.results)) {
+                    this.marks = response.data.results;
+                } else {
+                    console.error("Kutilgan formatdagi ma'lumotlar kelmadi");
+                }
+            })
+            .catch((error) => {
+                console.error("API'dan ma'lumot olishda xatolik:", error);
+            });
+    },
 };
 </script>
 
 <style scoped>
 /* Elementlar gorizontal tarzda chiqishi uchun */
 .freelancer__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem; /* Kartalar orasidagi masofa */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    /* Kartalar orasidagi masofa */
 }
 
 .frelancer__item {
-  flex: 1 1 calc(25% - 1.5rem); /* Har biri 4 qismga teng */
-  max-width: calc(25% - 1.5rem); /* Katta ekranlar uchun cheklash */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    flex: 1 1 calc(25% - 1.5rem);
+    /* Har biri 4 qismga teng */
+    max-width: calc(25% - 1.5rem);
+    /* Katta ekranlar uchun cheklash */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
 @media (max-width: 768px) {
-  .frelancer__item {
-    flex: 1 1 calc(50% - 1.5rem); /* Mobilda 2 ta ustun */
-  }
+    .frelancer__item {
+        flex: 1 1 calc(50% - 1.5rem);
+        /* Mobilda 2 ta ustun */
+    }
 }
+
 @media (max-width: 480px) {
-  .frelancer__item {
-    flex: 1 1 100%; /* Juda kichik ekranda 1 ta ustun */
-  }
+    .frelancer__item {
+        flex: 1 1 100%;
+        /* Juda kichik ekranda 1 ta ustun */
+    }
 }
 </style>

@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                                 <p class="fz-16 fw-400 title inter">
-                                    Hisobingiz bormi? <a href="signup.html" class="base">Ro'yxatdan o'tish</a>
+                                    Hisobingiz bormi? <a href="signup" class="base">Ro'yxatdan o'tish</a>
                                 </p>
                                 <div class="col-lg-6">
                                     <div class="frm__grp">
