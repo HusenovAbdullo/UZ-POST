@@ -164,11 +164,11 @@
                            <!--      Filiallar-->
                            <!--   </a>-->
                            <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Muhim faktlar-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/muhimFaktlar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Muhim faktlar
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Emitent toʻgʻrisida maʼlumot-->
@@ -179,26 +179,26 @@
                            <!--      Forum-->
                            <!--   </a>-->
                            <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      E'lonlar-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/elonlar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 E'lonlar
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Tashkilot tuzilmasi-->
                            <!--   </a>-->
                            <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Dividendlar-->
-                           <!--   </a>-->
-                           <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Chiquvchi pullik ayirboshlash-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/dividendlar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Dividendlar
+                              </router-link>
+                           </li>
+                           <li>
+                              <router-link to="/pulAyirboshlash" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Chiquvchi pullik ayirboshlash
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Ichki hujjatlar-->

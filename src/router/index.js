@@ -48,6 +48,10 @@ import YillikHisobotlarView from "@/views/YillikHisobotlarView.vue";
 import  Filiallar2View from "@/views/Filiallar2View.vue"
 import FilialView from '@/views/FilialView.vue';
 import ErrorView from '@/views/ErrorView.vue';
+import MuhimFaktlarView from "@/views/MuhimFaktlarView.vue";
+import ElonlarView from "@/views/ElonlarView.vue";
+import DividendlarView from "@/views/DividendlarView.vue";
+import PulAyirboshlashView from "@/views/PulAyirboshlashView.vue";
 const routes = [
   {
     path: '/',
@@ -278,6 +282,26 @@ const routes = [
     path: '/yillikHisobotlar',
     name: 'yillikHisobotlar',
     component: YillikHisobotlarView
+  },
+  {
+    path: '/muhimFaktlar',
+    name: 'muhimFaktlar',
+    component: MuhimFaktlarView
+  },
+  {
+    path: '/elonlar',
+    name: 'elonlar',
+    component: ElonlarView
+  },
+  {
+    path: '/dividendlar',
+    name: 'dividendlar',
+    component: DividendlarView,
+  },
+  {
+    path: '/pulAyirboshlash',
+    name: 'pulAyirboshlash',
+    component: PulAyirboshlashView,
   },
   {
     path: '/xat',
