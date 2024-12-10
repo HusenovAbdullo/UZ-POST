@@ -23,6 +23,11 @@
                               </router-link>
                            </li>
                            <li>
+                              <router-link to="/rivojlantirish" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Rivojlantirish Strategiyasi
+                              </router-link>
+                           </li>
+                           <li>
                               <router-link to="/ijroiyaApparati" class="fz-18 fw-400 inter cef__pra d-block">
                                  Ijroiya Apparati
                               </router-link>

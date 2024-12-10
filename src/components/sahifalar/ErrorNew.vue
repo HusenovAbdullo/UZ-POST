@@ -5,7 +5,7 @@
          <div class="row justify-content-center">
             <div class="col-xl-8 col-lg-8">
                <div class="thum mb-40">
-                  <img src="assets/img/faq/error1.avif" class="w-100" alt="img">
+                  <img src="assets/img/faq/error2.png" class="w-100" alt="img">
                </div>
                <div class="error__content text-center">
                   <h2 class="title mb-24">
@@ -15,14 +15,14 @@
                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                      et dolore magna aliqua.
                   </p>
-                  <a href="index.html" class="cmn--btn">
+                  <router-link to="/" class="cmn--btn">
                      <span>
                         Back To Home
                      </span>
                      <span>
                         <i class="bi bi-arrow-up-right"></i>
                      </span>
-                  </a>
+                  </router-link>
                </div>
             </div>
          </div>
@@ -30,3 +30,12 @@
    </section>
    <!-- Cart Section End -->
 </template>
+
+<style scoped>
+.thum mb-40 {
+width: 350px;
+height: 250px;
+}
+
+
+</style>
