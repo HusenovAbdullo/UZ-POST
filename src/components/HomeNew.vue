@@ -107,13 +107,13 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <router-link to="/kalkulyator" class="titleq">
+                                    <router-link to="/ordering" class="titleq">
                                         Jo'natmani rasmiylashtirish
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
-                        <router-link to="/kalkulyator" class="d-flex readmore align-items-center gap-2">
+                        <router-link to="/ordering" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
                                 Batafsil
                             </span>
@@ -919,7 +919,7 @@
                                     </div>
                                 </div>
                                 <!--Accordion items-->
-                                <div class="text-center mt-40">
+                                <!-- <div class="text-center mt-40">
                                     <router-link to="/savollar" class="cmn--btn outline__btn"
                                         style="text-transform: none;">
                                         <span>
@@ -929,7 +929,7 @@
                                             <i class="bi bi-arrow-up-right"></i>
                                         </span>
                                     </router-link>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

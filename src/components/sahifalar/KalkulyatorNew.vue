@@ -1,4 +1,20 @@
 <template>
+   <div id="error-message" class="error-message" style="display: none;">
+      Narxni hisoblashda xatolik!
+   </div>
+   <div id="error-posilka" class="error-posilka" style="display: none;">
+      Posilka xizmatida vazni 30 kgdan oshmasligi kerak!
+   </div>
+   <div id="error-maydapaket" class="error-maydapaket" style="display: none;">
+      Mayda paket vazni 2kg dan oshmasligi kerak!
+   </div>
+   <div id="error-xat" class="error-xat" style="display: none;">
+      Xat vazni 2kg dan oshmasligi kerak!
+   </div>
+   <div id="error-birqadam" class="error-birqadam" style="display: none;">
+      Bir qadam vazni 20 kgdan oshmasligi kerak!
+   </div>
+
    <section class="banner__breadcumn ralt">
       <div id="searchPopup" class="search__popup">
          <form action="#" class="popup-content d-flex align-items-center">
@@ -34,10 +50,10 @@
                   <div class="chatbot__developers">
                      <div class="chatbot__items featiredjob__details round16 mb-24 shadow2 bgwhite">
                         <p class="title mb-20" style="font-size: 32px;">
-                           Jo’natma narxini hisoblang
+                           Posilka yoki xatni joylashtiring
                         </p>
                         <p class="fz-18 fw-400 inter pra" style="color: #183e98;">
-                           Xarajatlarni va yetkazib berish taxminiy vaqtini aniqlang
+                           Xarajatlarni va etkazib berish vaqtini hisoblang
                         </p>
                         <br>
 
@@ -102,11 +118,12 @@
                                        <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                        <div style="position: relative;">
                                           <input type="text" id="address" name="address" class="form-control"
-                                             placeholder="Manzil">
+                                             placeholder="Manzil" v-model="address">
                                        </div>
                                     </div>
                                  </div>
-                                 <p style="color: blek; font-size: small;">Jo’natuvchining hududini tanlang yoki manzilini kiriting</p>
+                                 <p style="color: blek; font-size: small;">Jo‘natuvchining shaharini yoki manzilini
+                                    kiriting.</p>
                                  <br>
                                  <br>
 
@@ -115,10 +132,9 @@
                                  </h3>
 
                                  <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
-
-                                    <button class="tablinks1" :class="{ active: activeTab === 'Index' }"
+                                    <button class="tablinks1" :class="{ active: $route.activeTab === 'Index' }"
                                        @click="activeTab = 'Index'" style="display: block;">
-                                       <p>Indeks</p>
+                                       <p>Index</p>
                                     </button>
                                     <button class="tablinks1" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
@@ -144,11 +160,12 @@
                                        </div>
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
-                                       <router-link :to="{ name: 'map' }"
-                                          style="color: blue;">
+                                       <router-link :to="{ name: 'map' }" style="color: blue;">
                                           Indeks
                                        </router-link>
-                                       bo’yicha jo’natish - bu O’zbekiston bo’ylab ixtiyoriy pochta bo’limidan siz belgilagan indeks ostidagi pochta bo’limigacha yetkazib berish. Qabul qiluvchi shaxs jo’natma holatidan xabardor bo’lib turishi uchun jo’natuvchi shaxs jo’natmaning trek-kodini qabul qiluvchi shaxsga yuborishi lozim.
+                                       bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
+                                       olinadigan bo‘limga yetkaziladi. Qabul qiluvchi jo'natma kelganini bilishi uchun
+                                       rasmiylashtirishda kuzatuv uchun trek-raqamni qabul qiluvchiga yuboring.
                                     </p>
 
                                  </div>
@@ -198,7 +215,8 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Qabul qiluvchi shaxs hududini tanlang yoki manzilini kiriting</p>
+                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Aniqroq
+                                          hisob-kitob uchun to‘liq manzilni kiriting</p>
                                     </form>
                                  </div>
                                  <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
@@ -223,7 +241,7 @@
                                     </div>
                                  </div>
                                  <h3 class="title mb-20" style="    position: relative; top: -40px;">
-                                    
+
                                  </h3>
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
@@ -283,14 +301,14 @@
                            o'zgarishi mumkin.</p>
 
 
-                        <a href="#0" class="cmn--btn mt-30 d-flex justify-content-center d-block" style="text-transform: none;">
+                        <button type="button" class="cmn--btn" @click="nextPage">
                            <span>
                               Buyurtmani yaratish
                            </span>
                            <span>
                               <i class="bi bi-arrow-up-right"></i>
                            </span>
-                        </a>
+                        </button>
                      </div>
 
                   </div>
@@ -309,6 +327,7 @@ import axios from "axios";
 export default {
    data() {
       return {
+         address: '',
          index: null,
          weight: null,
          activeTab: 'Index',
@@ -329,8 +348,81 @@ export default {
       };
    },
    methods: {
-      // Xizmatlarni olish
-      // Xizmatlarni olish
+      nextPage() {
+         const selectedService = this.services.find(service => service.id === this.activeService);
+         console.log(selectedService)
+         if (this.activeTab === 'Index') {
+            // Ma'lumotlarni ordering sahifasiga jo'natish
+            this.$router.push({
+               name: 'ordering',
+               query: {
+                  index: this.index,
+                  province1: this.selectedProvince1,
+                  district1: this.selectedDistrict1,
+                  address: this.address,
+                  weight: this.weight,
+                  serviceId: this.activeService,
+                  serviceName: selectedService.name,
+                  activeTab: this.activeTab,
+                  totalPrice: this.totalPrice,
+               }
+            });
+         }
+         if (this.activeTab === 'Manzil') {
+            this.$router.push({
+               name: 'ordering',
+               query: {
+                  index: this.index,
+                  province1: this.selectedProvince1,
+                  district1: this.selectedDistrict1,
+                  address: this.address,
+                  weight: this.weight,
+                  serviceId: this.activeService, // tanlangan service ID
+                  activeTab: this.activeTab,
+                  province2: this.selectedProvince2,
+                  district2: this.selectedDistrict2
+               }
+            });
+         }
+         if (this.activeTab === 'Pochtam') {
+            // Ma'lumotlarni ordering sahifasiga jo'natish
+            this.$router.push({
+               name: 'ordering',
+               query: {
+                  index: this.index,
+                  province: this.selectedProvince1,
+                  district: this.selectedDistrict1,
+                  address: this.address,
+                  weight: this.weight,
+                  serviceId: this.activeService,
+                  serviceName: this.serviceName, // tanlangan service ID
+                  activeTab: this.activeTab
+               }
+            });
+         }
+         if (this.activeTab === 'Davlat') {
+            // Ma'lumotlarni ordering sahifasiga jo'natish
+            this.$router.push({
+               name: 'ordering',
+               query: {
+                  index: this.index,
+                  province: this.selectedProvince1,
+                  district: this.selectedDistrict1,
+                  address: this.address,
+                  weight: this.weight,
+                  serviceId: this.activeService, // tanlangan service ID
+                  activeTab: this.activeTab,
+                  totalPrice: this.totalPrice
+               }
+            });
+         }
+      },
+
+
+
+
+
+
       async fetchServices() {
          try {
             const response = await axios.get("https://new.pochta.uz/api/v1/calculator/services/");
@@ -349,6 +441,9 @@ export default {
             console.error("Xizmatlarni olishda xatolik:", error);
          }
       },
+
+
+
       getServiceSVG(serviceName) {
          switch (serviceName) {
             case "Posilka":
@@ -364,22 +459,24 @@ export default {
          }
       },
 
-      // Xizmatni tanlash
+
       selectService(serviceId) {
          this.activeService = serviceId;
       },
-      // Regionlarni olish
+
+
       async fetchRegions1() {
          try {
             const response = await axios.get(
                "https://new.pochta.uz/api/v1/calculator/regions/uzb/"
             );
-            // Regionlarni saqlash
             this.regions1 = response.data;
          } catch (error) {
             console.error("Regionlarni olishda xatolik:", error);
          }
       },
+
+
       async fetchRegions2() {
          try {
             const response = await axios.get(
@@ -392,14 +489,12 @@ export default {
          }
       },
 
-      // Districtlarni olish
       async fetchDistricts1() {
          if (!this.selectedProvince1) {
             // Agar region tanlanmagan bo'lsa, districtlarni to'ldirishni to'xtatish
             this.districts1 = {}; // Districtlarni tozalash
             return;
          }
-
          try {
             const response = await axios.get(
                "https://new.pochta.uz/api/v1/calculator/locations-district/uzb/",
@@ -414,13 +509,13 @@ export default {
             console.error("Districtlarni olishda xatolik:", error);
          }
       },
+
+
       async fetchDistricts2() {
          if (!this.selectedProvince2) {
-            // Agar region tanlanmagan bo'lsa, districtlarni to'ldirishni to'xtatish
             this.districts2 = {}; // Districtlarni tozalash
             return;
          }
-
          try {
             const response = await axios.get(
                "https://new.pochta.uz/api/v1/calculator/locations-district/uzb/",
@@ -435,22 +530,23 @@ export default {
             console.error("Districtlarni olishda xatolik:", error);
          }
       },
-      // Province (Davlat) select'ni to'ldirish
+
+
       async fetchProvinces() {
          try {
             const response = await axios.get(
                "https://new.pochta.uz/api/v1/calculator/locations-others/uzb/"
             );
-            // API'dan olingan viloyatlarni provinces arrayga saqlash
             this.provinces = response.data.data
             console.log(this.provinces)
          } catch (error) {
             console.error("Davlatlarni olishda xatolik:", error);
          }
       },
+
+
       async calculatePrice() {
          if (this.activeTab === 'Index') {
-            console.log(this.activeTab)
             try {
                const response = await axios.get(
                   "https://new.pochta.uz/api/v1/calculator/order-price-index/",
@@ -463,10 +559,51 @@ export default {
                      },
                   }
                );
-               this.totalPrice = response.data[0].data.list[0].price.total;
-               console.log(this.totalPrice)
+               if (this.activeService === 136 && this.weight > 30000) {
+                  document.getElementById("error-posilka").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-posilka").style.display = "none";
+                  }, 5000);
+               }
+
+                  if (this.activeService === 135 && this.weight > 2000) {
+                     document.getElementById("error-maydapaket").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-maydapaket").style.display = "none";
+                     }, 5000);
+                  }
+                  if (this.activeService === 33 && this.weight > 2000) {
+                     document.getElementById("error-xat").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-xat").style.display = "none";
+                     }, 5000);
+                  }
+                  if (this.activeService === 209 && this.weight > 20000) {
+                     document.getElementById("error-birqadam").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-birqadam").style.display = "none";
+                     }, 5000);
+                  }
+                  if (response.data[0].total === 0) {
+                     document.getElementById("error-message").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-message").style.display = "none";
+                     }, 5000);
+                  }
+
+
+               
+                  this.totalPrice = response.data[0].data.list[0].price.total;
+                  document.getElementById("error-message").style.display = "none";
+
+               
             } catch (error) {
                console.error("Narxni hisoblashda xatolik:", error);
+               document.getElementById("error-message").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message").style.display = "none";
+               }, 5000);
+
             }
          }
          if (this.activeTab === 'Manzil') {
@@ -483,9 +620,51 @@ export default {
                      }
                   }
                );
-               this.totalPrice = response.data[0].data.list[0].price.total;
+               if (this.activeService === 136 && this.weight > 30000) {
+                  document.getElementById("error-posilka").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-posilka").style.display = "none";
+                  }, 5000);
+               }
+
+                  if (this.activeService === 135 && this.weight > 2000) {
+                     document.getElementById("error-maydapaket").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-maydapaket").style.display = "none";
+                     }, 5000);
+                  }
+                  if (this.activeService === 33 && this.weight > 2000) {
+                     document.getElementById("error-xat").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-xat").style.display = "none";
+                     }, 5000);
+                  }
+                  if (this.activeService === 209 && this.weight > 20000) {
+                     document.getElementById("error-birqadam").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-birqadam").style.display = "none";
+                     }, 5000);
+                  }
+                  if (response.data[0].total === 0) {
+                     document.getElementById("error-message").style.display = "block";
+                     setTimeout(() => {
+                        document.getElementById("error-message").style.display = "none";
+                     }, 5000);
+                  
+
+
+               }
+                  this.totalPrice = response.data[0].data.list[0].price.total;
+                  document.getElementById("error-message").style.display = "none";
+
+               
             } catch (error) {
-               console.error("Narxni hisoblashda xatolik", error);
+               console.error("Narxni hisoblashda xatolik:", error);
+               document.getElementById("error-message").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message").style.display = "none";
+               }, 5000);
+
             }
          }
          if (this.activeTab === 'Davlat') {
@@ -501,9 +680,48 @@ export default {
                      }
                   }
                );
-               this.totalPrice = response.data[0].data.list[0].price.total;
+               if (this.activeService === 136 && this.weight > 30000) {
+                  document.getElementById("error-posilka").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-posilka").style.display = "none";
+                  }, 5000);
+               }
+               if(this.activeService === 135 && this.weight > 2000){
+                  document.getElementById("error-maydapaket").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-maydapaket").style.display = "none";
+                  }, 5000);
+               }
+               if(this.activeService === 33 && this.weight > 2000){
+                  document.getElementById("error-xat").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-xat").style.display = "none";
+                  }, 5000);
+               }
+               if(this.activeService === 209 && this.weight > 20000){
+                  document.getElementById("error-birqadam").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-birqadam").style.display = "none";
+                  }, 5000);
+               }
+               if (response.data[0].total === 0){
+                  document.getElementById("error-message").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-message").style.display = "none";
+                  }, 5000);
+               
+
+
+               }
+                  this.totalPrice = response.data[0].data.list[0].price.total;
+                  document.getElementById("error-message").style.display = "none";
             } catch (error) {
-               console.log("Narxni hisoblashda xatolik", error)
+               console.error("Narxni hisoblashda xatolik:", error);
+               document.getElementById("error-message").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message").style.display = "none";
+               }, 5000);
+
             }
          }
       },
@@ -533,5 +751,115 @@ export default {
 
 .tabcontent[style*="display: block;"] {
    display: block;
+}
+
+.error-posilka {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
+}
+
+.error-birqadam {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
+}
+
+.error-xat {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
+}
+
+.error-maydapaket {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
+}
+
+.error-message {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
 }
 </style>

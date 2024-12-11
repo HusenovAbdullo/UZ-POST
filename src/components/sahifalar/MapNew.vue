@@ -76,7 +76,7 @@ export default defineComponent({
             url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             attribution: '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             zoom: 6,
-            center: [41.2995, 69.2401],
+            center: [41.2995, 65.2401],
             warehouses: [],
             markers: null,
             searchQuery: "",
@@ -132,31 +132,37 @@ export default defineComponent({
 
 
             this.warehouses.forEach((warehouse) => {
-                const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
-                const polygonCoordinates = warehouse.locations?.locations || [];
+        const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
+        const polygonCoordinates = warehouse.locations?.locations || [];
 
-                if (
-                    (filter === "all") ||
-                    (filter === "ems" && EMS === "Bor") ||
-                    (filter === "one_step" && one_step === "Bor")
-                ) {
-                    let markerLat = lat ? parseFloat(lat) : 41.2995;
-                    let markerLng = lng ? parseFloat(lng) : 69.2401;
+        // Latitude va Longitude mavjudligini tekshirish
+        if (!lat || !lng) {
+            console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
+            return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
+        }
 
-                    const marker = L.marker([markerLat, markerLng], { icon: customIcon })
-                        .bindPopup(`
-                    <h3>${name_uz || "Noma'lum nom"}</h3>
-                    <p>Hudud: ${region || "Noma'lum"}, ${district || "Noma'lum"}</p>
-                    <p>Indeks: ${index || "Noma'lum"}</p>
-                    <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
-                `)
-                        .on("click", () => {
-                            this.drawArea(polygonCoordinates);
-                        });
+        if (
+            (filter === "all") ||
+            (filter === "ems" && EMS === "Bor") ||
+            (filter === "one_step" && one_step === "Bor")
+        ) {
+            let markerLat = parseFloat(lat);
+            let markerLng = parseFloat(lng);
 
-                    this.markers.addLayer(marker);
-                }
-            });
+            const marker = L.marker([markerLat, markerLng], { icon: customIcon })
+                .bindPopup(`
+                <h3>${name_uz || "Noma'lum nom"}</h3>
+                <p>Hudud: ${region || "Noma'lum"}, ${district || "Noma'lum"}</p>
+                <p>Indeks: ${index || "Noma'lum"}</p>
+                <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
+            `)
+                .on("click", () => {
+                    this.drawArea(polygonCoordinates);
+                });
+
+            this.markers.addLayer(marker);
+        }
+    });
         },
         drawArea(polygonCoordinates) {
             if (!polygonCoordinates || !polygonCoordinates.length) return;

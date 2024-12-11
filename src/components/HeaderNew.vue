@@ -21,7 +21,7 @@
                <div class="container">
                   <div class="haderbar__top d-flex align-items-center  justify-content-between">
                      <div class="logo__left d-flex align-items-center">
-                        <router-link to="/" class="logo-container">
+                        <router-link to="/" class="logo-container" @click="refreshPage">
                            <img src="assets/img/logo/logo.svg" alt="logo" class="responsive-hide" />
                         </router-link>
                         <!-- how-work.html shuni o'rniga qo'yilgan -->
@@ -150,7 +150,7 @@
                      </ul>
                      <div class="menu__right__components d-flex align-items-center">
                         <div class="menu__components d-flex align-items-center">
-                           <div class="dropdown">
+                           <div class="dropdown"  title="Til">
                               <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
                                  data-bs-offset="0,14" aria-expanded="true">
                                  <i class="bi bi-globe"></i>
@@ -168,23 +168,33 @@
                                  </ul>
                               </div>
                            </div>
-                           <div class="dropdown">
+                           <div class="dropdown" title="Xarita">
                               <router-link to="/map" class="link glose__icon d-flex align-items-center">
                                  <i class="bi-geo-alt"></i>
                               </router-link>
-                              <!-- <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
+                           </div>
+                           <!-- <div class="dropdown">
+                              <router-link to="/map" class="link glose__icon d-flex align-items-center">
+                                 <i class="bi-geo-alt"></i>
+                              </router-link>
+                              <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
                                  data-bs-offset="0,14" aria-expanded="true">
                                  <i class="bi-geo-alt"></i>
-                              </a> -->
-                           </div>
-                           <div class="dropdown">
+                              </a>
+                           </div> -->
+                           <!-- <div class="dropdown">
                               <router-link to="/aloqa" class="link glose__icon d-flex align-items-center">
                                  <i class="bi bi-life-preserver"></i>
                               </router-link>
-                              <!-- <router-link to="/aloqa" class="link glose__icon d-flex align-items-center"
+                              <router-link to="/aloqa" class="link glose__icon d-flex align-items-center"
                                  data-bs-toggle="dropdown" data-bs-offset="0,14" aria-expanded="true">
                                  <i class="bi bi-life-preserver"></i>
-                              </router-link> -->
+                              </router-link>
+                           </div> -->
+                           <div class="dropdown" title="Yordam">
+                              <router-link to="/aloqa" class="link glose__icon d-flex align-items-center">
+                                 <i class="bi bi-life-preserver"></i>
+                              </router-link>
                            </div>
                            <div class="dropdown profie__dropdown">
                               <a href="#" class="link user__active" data-bs-toggle="dropdown" data-bs-offset="0,16"
@@ -422,6 +432,12 @@ export default {
       };
    },
    methods: {
+      refreshPage(event) {
+         // Sahifa yangilanayotgani uchun Vue Router hodisasini to'xtatamiz
+         event.preventDefault();
+         // Manzilni yangilash
+         window.location.href = "/";
+      },
       fetchTrackingData() {
          this.loading = true;
          this.trackingData = null;
@@ -623,5 +639,4 @@ li .sub-menu li a {
       /* Elementni yashirish */
    }
 }
-
 </style>

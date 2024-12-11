@@ -55,13 +55,25 @@ import PulAyirboshlashView from "@/views/PulAyirboshlashView.vue";
 import IchkiHujjatlarView from "@/views/IchkiHujjatlarView.vue";
 import QimmatliQogozlarView from "@/views/QimmatliQogozlarView.vue";
 import BiznesRejalarView from "@/views/BiznesRejalarView.vue";
+import Test5View from '@/views/Test5View.vue';
+import BuyurtmaYaratishView from '@/views/BuyurtmaYaratishView.vue';
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
   },
-
+  {
+    path: '/ordering',
+    name: 'ordering',
+    component: BuyurtmaYaratishView,
+    meta: { requiresAuth: true } // Tahrirlash sahifasi faqat autentifikatsiyadan o'tgan foydalanuvchilar uchun mavjud
+  },
+  {
+    path: '/test5',
+    name: 'test5',
+    component: Test5View
+  },
   {
     path: '/profil',
     name: 'profil',

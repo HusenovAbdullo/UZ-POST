@@ -40,7 +40,8 @@
       <div class="container">
         <header class="header">
           <h1 class="title">"Bir Qadam" xizmati</h1>
-          <a href="#" class="map-link">"Bir Qadam" bo'limlari xaritasi</a>
+          <router-link to="/map" class="map-link">"Bir Qadam" bo'limlari xaritasi</router-link>
+
         </header>
 
         <div class="description">
