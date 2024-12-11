@@ -2,9 +2,8 @@
     <section class="slideshow-container" id="slideshow">
         <div class="container">
             <div class="header-wrapper">
-                <img src="assets/img/bosh/2.png" alt="Image 1" class="desktop-img">
-                <img src="assets/img/bosh/image1-mobile.jpg" alt="Image 1 Mobile" class="mobile-img">
-                <div class="button-container" style="display: flex; gap: 7px; ">
+                <img src="assets/img/bosh/2.png" alt="Image 1">
+                <div class="button-container">
                     <router-link to="/xizmat" class="cmn--btn custom-button">
                         <span>
                             Xizmat haqida batafsil
@@ -16,6 +15,7 @@
                         </span>
                     </router-link>
                 </div>
+
             </div>
         </div>
     </section>
@@ -338,7 +338,7 @@
                 </div>
             </div>
             <div class="text-center mt-40">
-                <router-link to="/yangiliklar" class="cmn--btn outline__btn">
+                <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
                     <span>
                         Barchasini ko'rish
                     </span>
@@ -920,7 +920,8 @@
                                 </div>
                                 <!--Accordion items-->
                                 <div class="text-center mt-40">
-                                    <router-link to="/savollar" class="cmn--btn outline__btn">
+                                    <router-link to="/savollar" class="cmn--btn outline__btn"
+                                        style="text-transform: none;">
                                         <span>
                                             Barchasini ko'rish
                                         </span>
@@ -946,8 +947,8 @@
                     </div>
                 </div>
             </div>
-            <div class="freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
-                <div class="frelancer__item shadow2 round16 bgwhite eni" v-for="(mark, index) in marksToShow"
+            <div class="freelancer__wrapper2 freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
+                <div class="frelancer__item2 frelancer__item shadow2 round16 bgwhite eni" v-for="(mark, index) in marksToShow"
                     :key="index">
                     <router-link :to="'/marka2/' + mark.id" class="thumb round16 w-100">
                         <img :src="fixImageUrl(mark.save_image_uz)" class="round16 w-100" :alt="mark.title_uz" />
@@ -975,7 +976,7 @@
                 </div>
             </div>
             <div class="text-center mt-40">
-                <router-link to="/markalar2" class="cmn--btn outline__btn">
+                <router-link to="/markalar2" class="cmn--btn outline__btn" style="text-transform: none;">
                     <span>Barchasini ko'rish</span>
                     <span class="ps-1">
                         <i class="bi bi-arrow-up-right"></i>
@@ -1099,4 +1100,85 @@ export default {
         /* Juda kichik ekranda 1 ta ustun */
     }
 }
+
+/* Umumiy rasm uslubi */
+.header-wrapper img {
+    max-width: 100%;
+    height: auto;
+    /* Rasm nisbatlarini saqlab qoladi */
+    display: block;
+    margin: 0 auto;
+    /* Rasmni markazlashtirish uchun */
+}
+
+/* Kichik ekranlar uchun maxsus uslublar */
+@media (max-width: 768px) {
+    .header-wrapper img {
+        max-width: 90%;
+        /* Rasm ekran kengligining 90% gacha qisqaradi */
+    }
+}
+
+/* Juda kichik ekranlar uchun (mobil telefonlar) */
+@media (max-width: 480px) {
+    .header-wrapper img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* 768px yoki undan kichik ekranlar uchun */
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        /* Tugmalarni ustma-ust joylashtiradi */
+        gap: 10px;
+        /* Tugmalar orasidagi masofani moslaydi */
+        align-items: center;
+        /* Tugmalarni markazlaydi */
+        margin-top: 20px;
+        /* Yuqori chetidan masofa */
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* 480px yoki undan kichik ekranlar uchun */
+    .button-container {
+        margin-top: 50px;
+        /* Yuqoridan masofani oshiradi */
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .button-container {
+        display: none;
+    }
+}
+
+.freelancer__wrapper2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Elementlarni markazga hizalash */
+    gap: 16px; /* Elementlar orasidagi masofa */
+}
+
+
+
+@media (max-width: 992px) {
+    .frelancer__item2 {
+        flex: 1 1 calc(50% - 16px); /* O'rta ekran uchun 2 ustun */
+        max-width: calc(50% - 16px);
+    }
+}
+
+@media (max-width: 576px) {
+    .frelancer__item2 {
+        flex: 1 1 100%; /* Kichik ekran uchun 1 ustun */
+        max-width: 100%;
+    }
+}
+
 </style>

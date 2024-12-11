@@ -34,10 +34,10 @@
                   <div class="chatbot__developers">
                      <div class="chatbot__items featiredjob__details round16 mb-24 shadow2 bgwhite">
                         <p class="title mb-20" style="font-size: 32px;">
-                           Posilka yoki xatni joylashtiring
+                           Jo’natma narxini hisoblang
                         </p>
                         <p class="fz-18 fw-400 inter pra" style="color: #183e98;">
-                           Xarajatlarni va etkazib berish vaqtini hisoblang
+                           Xarajatlarni va yetkazib berish taxminiy vaqtini aniqlang
                         </p>
                         <br>
 
@@ -106,8 +106,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <p style="color: blek; font-size: small;">Jo‘natuvchining shaharini yoki manzilini
-                                    kiriting.</p>
+                                 <p style="color: blek; font-size: small;">Jo’natuvchining hududini tanlang yoki manzilini kiriting</p>
                                  <br>
                                  <br>
 
@@ -119,7 +118,7 @@
 
                                     <button class="tablinks1" :class="{ active: activeTab === 'Index' }"
                                        @click="activeTab = 'Index'" style="display: block;">
-                                       <p>Index</p>
+                                       <p>Indeks</p>
                                     </button>
                                     <button class="tablinks1" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
@@ -149,9 +148,7 @@
                                           style="color: blue;">
                                           Indeks
                                        </router-link>
-                                       bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
-                                       olinadigan bo‘limga yetkaziladi. Qabul qiluvchi jo'natma kelganini bilishi uchun
-                                       rasmiylashtirishda kuzatuv uchun trek-raqamni qabul qiluvchiga yuboring.
+                                       bo’yicha jo’natish - bu O’zbekiston bo’ylab ixtiyoriy pochta bo’limidan siz belgilagan indeks ostidagi pochta bo’limigacha yetkazib berish. Qabul qiluvchi shaxs jo’natma holatidan xabardor bo’lib turishi uchun jo’natuvchi shaxs jo’natmaning trek-kodini qabul qiluvchi shaxsga yuborishi lozim.
                                     </p>
 
                                  </div>
@@ -201,8 +198,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Aniqroq
-                                          hisob-kitob uchun to‘liq manzilni kiriting</p>
+                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Qabul qiluvchi shaxs hududini tanlang yoki manzilini kiriting</p>
                                     </form>
                                  </div>
                                  <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
@@ -287,7 +283,7 @@
                            o'zgarishi mumkin.</p>
 
 
-                        <a href="#0" class="cmn--btn mt-30 d-flex justify-content-center d-block">
+                        <a href="#0" class="cmn--btn mt-30 d-flex justify-content-center d-block" style="text-transform: none;">
                            <span>
                               Buyurtmani yaratish
                            </span>
@@ -460,10 +456,10 @@ export default {
                   "https://new.pochta.uz/api/v1/calculator/order-price-index/",
                   {
                      params: {
-                        service_type_id: this.activeService,
-                        fromjurisdiction_id: this.selectedDistrict1,
+                        ServiceTypeId: this.activeService,
+                        FromJurisdictionId: this.selectedDistrict1,
                         Weight: this.weight / 1000,
-                        index: this.index,
+                        Index: this.index,
                      },
                   }
                );

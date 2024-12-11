@@ -9,11 +9,10 @@
                </div>
                <div class="error__content text-center">
                   <h2 class="title mb-24">
-                     Oops! Page Not Found
+                     Oops! Sahifa topilmadi
                   </h2>
                   <p class="ptext2 fz-16 fw-400 inter mb-40">
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                     et dolore magna aliqua.
+                     Muammo bo'lsa bizga murojaat qiling 
                   </p>
                   <router-link to="/" class="cmn--btn">
                      <span>

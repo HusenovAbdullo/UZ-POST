@@ -4,8 +4,8 @@
       <footer class="footer__section bgadd">
          <div class="container">
             <div class="footer__top pt-40 pb-40">
-               <div class="row g-4">
-                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+               <div class="row2 g-4">
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp item2" style="width: 25%;">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
                            Biz haqimizda
@@ -94,7 +94,7 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp item2" style="width: 25%;">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
                            Onlayn xizmatlar
@@ -133,7 +133,7 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp" style="width: 25%;">
+                  <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp item2" style="width: 25%;">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
                            Aksiyadorlarga
@@ -232,7 +232,7 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp"
+                  <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp item2"
                      style="width: 25%; margin-top: 80px;">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
@@ -293,11 +293,11 @@
                                  <i class="bi bi-telegram"></i>
                               </a>
                            </li>
-                           <li>
+                           <!-- <li>
                               <a href="javascript:void(0)">
                                  <i class="bi bi-instagram"></i>
                               </a>
-                           </li>
+                           </li> -->
 
                         </ul>
                      </div>
@@ -340,3 +340,21 @@ export default {
    name: 'FooterNew' // Yoki 'BaseFooter'
 }
 </script>
+<style>
+.row2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Elementlar orasidagi bo'sh joy */
+}
+
+.item2 {
+    flex: 1 1 calc(25% - 16px); /* 4 ta element uchun kenglik */
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .item2 {
+        flex: 1 1 calc(50% - 16px); /* 2 ta element uchun kenglik */
+    }
+}
+</style>

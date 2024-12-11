@@ -96,9 +96,10 @@ export default {
         },
         async handleLogin() {
             try {
-                let recaptchaResponse = '';
-                if (window.grecaptcha) {
-                    recaptchaResponse = grecaptcha.getResponse();
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    this.errorMessage = 'Iltimos, ReCaptcha-ni tasdiqlang.';
+                    return;
                 }
 
                 const response = await axios.post('https://new.pochta.uz/api/v1/public/authenticate/', {

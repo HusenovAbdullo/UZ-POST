@@ -3595,11 +3595,11 @@ p {
 .freelancer__wrapper .owl-dots .owl-dot:hover span {
   background: var(--base);
 }
-.freelancer__wrapper .owl-nav {
+/* .freelancer__wrapper .owl-nav {
   position: absolute;
   top: -110px;
   right: 0;
-}
+} */
 .freelancer__wrapper .owl-nav button:hover {
   background: transparent;
 }

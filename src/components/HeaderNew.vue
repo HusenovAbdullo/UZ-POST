@@ -52,7 +52,7 @@
             <header class="header-section">
                <div class="container">
                   <div class="header-wrapper">
-                     <div class="logo-menu d-xl-none">
+                     <div class="logo-menu2 d-xl-none">
                         <a href="index.html" class="small__logo">
                            <img src="assets/img/logo/logolisht.png" alt="logo">
                         </a>
@@ -66,36 +66,30 @@
                               Yuborish
                               <i class="bi bi-chevron-down"></i>
                            </a>
-                           <ul class="sub-menu">
-                              <li>
-                                 <router-link to="/profil">
-                                    <span style="text-transform: capitalize;">Shaxsiy </span>
-                                    <span style="text-transform: lowercase;">kabinet</span>
+                           <ul class="sub-menu" style="top: 60%;">
+                              <li class="burchak ">
+                                 <router-link to="/profil" class="custom-link">
+                                    <span style="text-transform: none;">Shaxsiy kabinet</span>
                                  </router-link>
                               </li>
-                              <li>
+                              <li class="burchak">
                                  <router-link to="/tariflar" class="custom-link">
-                                    <span style="text-transform: capitalize;">Jo'natma </span>
-                                    <span style="text-transform: lowercase;">turlari</span>
+                                    <span style="text-transform: none;">Jo'natma turlari</span>
                                  </router-link>
                               </li>
-                              <li>
+                              <li class="burchak">
                                  <router-link to="/tariflar" class="custom-link">
-                                    <span style="text-transform: capitalize;">Taqiqlangan </span>
-                                    <span style="text-transform: lowercase;">joylanmalar</span>
+                                    <span style="text-transform: none;">Taqiqlangan joylanmalar</span>
                                  </router-link>
                               </li>
-                              <li>
+                              <li class="burchak">
                                  <router-link to="/tarif" class="custom-link">
-                                    <span style="text-transform: capitalize;">O'zbekiston </span>
-                                    <span style="text-transform: lowercase;">bo'ylab </span>
-                                    <span style="text-transform: lowercase;">yuborish</span>
+                                    <span style="text-transform: none;">O'zbekiston bo'ylab yuborish</span>
                                  </router-link>
                               </li>
-                              <li>
+                              <li class="burchak">
                                  <router-link to="/tariflar" class="custom-link">
-                                    <span style="text-transform: capitalize;">Xalqaro </span>
-                                    <span style="text-transform: lowercase;">jo'natmalar</span>
+                                    <span style="text-transform: none;">Xalqaro jo'natmalar</span>
                                  </router-link>
                               </li>
                            </ul>
@@ -115,11 +109,10 @@
                               Onlayn xizmatlar
                               <i class="bi bi-chevron-down"></i>
                            </a>
-                           <ul class="sub-menu">
-                              <li>
-                                 <router-link to="/tracking" class="link-style">
-                                    <span style="text-transform: capitalize;">Jo'natmani </span>
-                                    <span style="text-transform: lowercase;">kuzatish</span>
+                           <ul class="sub-menu" style="top: 60%;">
+                              <li class="burchak">
+                                 <router-link to="/tracking" class="custom-link">
+                                    <span style="text-transform: none;">Jo'natmani kuzatish</span>
                                  </router-link>
                               </li>
                               <li>
@@ -529,5 +522,106 @@ export default {
       }
    }
 };
+document.querySelectorAll('.sub-menu li').forEach(item => {
+   item.addEventListener('mouseenter', () => {
+      const link = item.querySelector('a');
+      if (link) {
+         link.style.color = 'white';
+         link.style.backgroundColor = '#183e98';
+      }
+   });
+   item.addEventListener('mouseleave', () => {
+      const link = item.querySelector('a');
+      if (link) {
+         link.style.color = 'black';
+         link.style.backgroundColor = 'transparent';
+      }
+   });
+});
+
 
 </script>
+<style>
+/* Sub-menu uchun asosiy uslub */
+.sub-menu {
+   background-color: white;
+   /* Orqa fon oq */
+   border: 1px solid #ccc;
+   /* Chegara */
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   display: none;
+   /* Menyu yashirin bo'ladi */
+   position: absolute;
+   z-index: 1000;
+}
+
+/* Sub-menu ichidagi <li> uslubi */
+.sub-menu li {
+   padding: 1px;
+   cursor: pointer;
+   transition: background-color 0.3s ease, color 0.3s ease;
+   /* Silliq o‘tish */
+}
+
+/* <li> ichidagi <a> uchun asosiy uslub */
+.sub-menu li a {
+   color: black;
+   /* Oqim holatida qora yozuv */
+   text-decoration: none;
+   display: block;
+   /* Link butun <li>ni qamrab oladi */
+   width: 100%;
+}
+
+/* Hover effekti: <li> fon ko‘k, <a> yozuv oq */
+.sub-menu li:hover {
+   background-color: #ffffff;
+   /* Ko'k fon */
+}
+
+.sub-menu li:hover a {
+   color: white !important;
+   /* Oq yozuv, !important ustuvorligini oshiradi */
+}
+
+/* Ochiq menyu uchun ko'rsatiladigan holat */
+li:hover .sub-menu {
+   display: block;
+   /* Menyu ko'rsatiladi */
+}
+
+.burchak {
+   border-radius: 4px;
+   border-top-left-radius: 4px;
+   border-top-right-radius: 4px;
+   border-bottom-right-radius: 4px;
+   border-bottom-left-radius: 4px;
+   margin-left: -1px;
+}
+
+/* Hover effektini to‘liq ishlashi uchun yuqori ustuvorlik */
+li:hover>.sub-menu li:hover>a {
+   color: white !important;
+   /* Oq yozuv */
+   background-color: #183e98 !important;
+   /* Ko'k fon */
+}
+
+/* Asosiy linkning boshlang‘ich rangi */
+li .sub-menu li a {
+   color: black !important;
+   /* Oqim qora */
+}
+
+
+/* Ekran kengligi 500px dan kichik bo'lsa */
+@media (max-width: 500px) {
+   .logo-menu2 {
+      display: none;
+      /* Elementni yashirish */
+   }
+}
+
+</style>

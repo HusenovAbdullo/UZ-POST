@@ -8,18 +8,20 @@
                             class="overview__gitwrapper bgwhite round16 border p-3 d-flex flex-column align-items-center">
                             <!-- Buttons for filtering -->
                             <div class="flex-container mb-4">
-                                <button class="burchak outline__btn" @click="filterData('all')"
-                                    style="font-size: 14px; padding: 8px 15px;">
+                                <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
+                                    @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
                                     Barchasi
                                 </button>
-                                <button class="burchak outline__btn" @click="filterData('one_step')"
-                                    style="font-size: 14px; padding: 8px 15px;">
+                                <button class="burchak outline__btn"
+                                    :class="{ 'active-btn': activeButton === 'one_step' }"
+                                    @click="filterData('one_step')" style="font-size: 14px; padding: 8px 15px;">
                                     Bir qadam
                                 </button>
-                                <button class="burchak outline__btn" @click="filterData('ems')"
-                                    style="font-size: 14px; padding: 8px 15px;">
+                                <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'ems' }"
+                                    @click="filterData('ems')" style="font-size: 14px; padding: 8px 15px;">
                                     EMS
                                 </button>
+
 
                                 <!-- Search Form -->
                                 <form @submit.prevent="searchData" class="d-flex align-items-center position-relative">
@@ -80,6 +82,7 @@ export default defineComponent({
             searchQuery: "",
             suggestions: [],
             map: null,
+            activeButton: "all", // Default active button
         };
     },
     mounted() {
@@ -103,6 +106,7 @@ export default defineComponent({
                 zoom: this.zoom,
                 maxBounds: L.latLngBounds([[-90, -180], [90, 180]]),
                 maxBoundsViscosity: 1.0,
+                zoomAnimation: false
             });
             L.tileLayer(this.url, {
                 attribution: this.attribution,
@@ -124,6 +128,8 @@ export default defineComponent({
                 iconAnchor: [15, 30],
                 popupAnchor: [0, -30],
             });
+
+
 
             this.warehouses.forEach((warehouse) => {
                 const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
@@ -270,6 +276,7 @@ export default defineComponent({
             }
         },
         filterData(filter) {
+            this.activeButton = filter; // Faol tugmani o'rnatish
             this.addMarkersToCluster(filter);
             this.searchQuery = ""; // Qidirish maydonini tozalash
             this.suggestions = []; // Takliflarni tozalash
@@ -285,7 +292,6 @@ export default defineComponent({
 
                 this.addMarkersToCluster(filter); // So'ralgan filtr bo'yicha markerlarni yangilash
             }, 500); // Ma'lumotni olish va qayta ishlash uchun qisqa kutish
-
         },
     },
 });
@@ -368,5 +374,14 @@ body {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
+}
+
+.active-btn {
+    background-color: #f07824;
+    /* Tugmaning faol holatdagi rangi */
+    color: white;
+    /* Matn rangi */
+    border: 1px solid #f07824;
+    /* Ramka rangi */
 }
 </style>

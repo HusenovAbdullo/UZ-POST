@@ -346,21 +346,31 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  // Sahifadan sahifaga o'tganda scroll pozitsiyasini boshqarish
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition; // Foydalanuvchi oldingi pozitsiyasiga qaytadi
+    } else {
+      return { top: 0 }; // Har doim sahifaning yuqorisidan boshlanadi
+    }
+  }
 });
 
-// Navigation guard qo'shing
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('id_token');
   
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-    // Foydalanuvchi tizimga kirmagan bo'lsa, login sahifasiga yo'naltiriladi
-    next({ name: 'singin' });
+    // Kirishni xohlagan yo'lni saqlab qo'yamiz
+    localStorage.setItem('redirectAfterLogin', to.fullPath);
+    // Login sahifasiga yo'naltiramiz
+    next({ name: 'singin' }); // Login sahifangiz nomi
   } else {
     // Aks holda, yo'naltirilgan sahifaga o'tish
     next();
   }
 });
+
 
 
 

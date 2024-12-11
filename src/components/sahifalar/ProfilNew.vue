@@ -79,7 +79,7 @@
                         </div>
                         <div class="darrell__content mt-40 text-center">
                            <h4 class="title mb-16">
-                              Husenov Abdullo
+                              
                            </h4>
                            <!-- <span class="fz-16 fw-400 inter title">
                      Machine Learner
