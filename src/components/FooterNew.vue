@@ -199,31 +199,31 @@
                                  Chiquvchi pullik ayirboshlash
                               </router-link>
                            </li>
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Ichki hujjatlar-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/ichkiHujjatlar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Ichki hujjatlar
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Tadbirlar-->
                            <!--   </a>-->
                            <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Qimmatli qogʻozlar-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/qimmatliQogozlar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Qimmatli qogʻozlar
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Affillangan shaxslar-->
                            <!--   </a>-->
                            <!--</li>-->
-                           <!--<li>-->
-                           <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
-                           <!--      Biznes rejaning bajarilishi-->
-                           <!--   </a>-->
-                           <!--</li>-->
+                           <li>
+                              <router-link to="/biznesRejalar" class="fz-18 fw-400 inter cef__pra d-block">
+                                 Biznes rejaning bajarilishi
+                              </router-link>
+                           </li>
                            <!--<li>-->
                            <!--   <a href="yangiliklar.html" class="fz-18 fw-400 inter cef__pra d-block">-->
                            <!--      Aksiyalarni olish-->

@@ -52,6 +52,9 @@ import MuhimFaktlarView from "@/views/MuhimFaktlarView.vue";
 import ElonlarView from "@/views/ElonlarView.vue";
 import DividendlarView from "@/views/DividendlarView.vue";
 import PulAyirboshlashView from "@/views/PulAyirboshlashView.vue";
+import IchkiHujjatlarView from "@/views/IchkiHujjatlarView.vue";
+import QimmatliQogozlarView from "@/views/QimmatliQogozlarView.vue";
+import BiznesRejalarView from "@/views/BiznesRejalarView.vue";
 const routes = [
   {
     path: '/',
@@ -302,6 +305,21 @@ const routes = [
     path: '/pulAyirboshlash',
     name: 'pulAyirboshlash',
     component: PulAyirboshlashView,
+  },
+  {
+    path: '/ichkiHujjatlar',
+    name: 'ichkiHujjatlar',
+    component: IchkiHujjatlarView,
+  },
+  {
+    path: '/qimmatliQogozlar',
+    name: 'qimmatliQogozlar',
+    component: QimmatliQogozlarView,
+  },
+  {
+    path: '/biznesRejalar',
+    name: 'biznesRejalar',
+    component: BiznesRejalarView,
   },
   {
     path: '/xat',
