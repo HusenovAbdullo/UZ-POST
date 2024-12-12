@@ -1,8 +1,6 @@
 
 
 "user strict";
-
-
 $(document).ready(function () {
 
 	//--Owl Carousel--

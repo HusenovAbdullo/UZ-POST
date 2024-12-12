@@ -55,7 +55,7 @@
 
                         <p class="fz-16 fw-400 title inter">
                            Hisobingiz bormi?
-                           <a href="signin" class="base">Kirish</a>
+                           <a href="singin" class="base">Kirish</a>
                         </p>
                         <div class="col-lg-6" style="width: 300%;">
                            <div class="frm__grp">

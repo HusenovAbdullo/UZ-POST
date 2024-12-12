@@ -368,6 +368,7 @@
  export default {
     data() {
        return {
+         orderNumber: '',
           isOrderVisible: false, // Tegni ko'rsatish/yashirish holati
           toastMessage: null,
           toastType: 'success', // yoki 'error'

@@ -9,6 +9,7 @@
                             Xizmat haqida batafsil
                         </span>
                     </router-link>
+
                     <router-link to="/map" class="cmn--btn custom-button">
                         <span>
                             "Bir Qadam" bo'limlari xaritasi
@@ -58,7 +59,7 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <a class="titleq">
+                                    <a href="/yangiliklar" class="titleq">
                                         Yangiliklar
                                     </a>
                                 </h4>
@@ -948,8 +949,8 @@
                 </div>
             </div>
             <div class="freelancer__wrapper2 freelancer__wrapper d-flex flex-wrap justify-content-center gap-4">
-                <div class="frelancer__item2 frelancer__item shadow2 round16 bgwhite eni" v-for="(mark, index) in marksToShow"
-                    :key="index">
+                <div class="frelancer__item2 frelancer__item shadow2 round16 bgwhite eni"
+                    v-for="(mark, index) in marksToShow" :key="index">
                     <router-link :to="'/marka2/' + mark.id" class="thumb round16 w-100">
                         <img :src="fixImageUrl(mark.save_image_uz)" class="round16 w-100" :alt="mark.title_uz" />
                     </router-link>
@@ -1161,24 +1162,27 @@ export default {
 .freelancer__wrapper2 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Elementlarni markazga hizalash */
-    gap: 16px; /* Elementlar orasidagi masofa */
+    justify-content: center;
+    /* Elementlarni markazga hizalash */
+    gap: 16px;
+    /* Elementlar orasidagi masofa */
 }
 
 
 
 @media (max-width: 992px) {
     .frelancer__item2 {
-        flex: 1 1 calc(50% - 16px); /* O'rta ekran uchun 2 ustun */
+        flex: 1 1 calc(50% - 16px);
+        /* O'rta ekran uchun 2 ustun */
         max-width: calc(50% - 16px);
     }
 }
 
 @media (max-width: 576px) {
     .frelancer__item2 {
-        flex: 1 1 100%; /* Kichik ekran uchun 1 ustun */
+        flex: 1 1 100%;
+        /* Kichik ekran uchun 1 ustun */
         max-width: 100%;
     }
 }
-
 </style>

@@ -4,7 +4,12 @@ async function fetchCurrencyRates() {
       const data = await response.json();
 
       const currencyList = document.getElementById('currency-list');
-      currencyList.innerHTML = ''; // Clear existing content
+      if (!currencyList) {
+        console.error('Xatolik: "currency-list" IDga ega element topilmadi.');
+        return;
+      }
+      currencyList.innerHTML = '.'; // Clear existing content
+      
 
       const requiredCurrencies = ['USD', 'EUR', 'RUB', 'CNY', 'TRY', 'XDR'];
       const filteredData = data.filter(currency => requiredCurrencies.includes(currency.Ccy));

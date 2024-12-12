@@ -98,7 +98,7 @@
 
       <div class="video-container">
         <video width="1237" height="716" controls>
-          <source src="path/to/your/video.mp4" type="video/mp4">
+          <source src="https://youtu.be/gZ2T8RQTHFo" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>

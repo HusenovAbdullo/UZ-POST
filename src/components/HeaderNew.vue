@@ -57,9 +57,9 @@
                            <img src="assets/img/logo/logolisht.png" alt="logo">
                         </a>
                      </div>
-                     <div class="l">
+                     <!-- <div class="l">
                         <l>.</l>
-                     </div>
+                     </div> -->
                      <ul class="main-menu">
                         <li>
                            <a href="javascript:void(0)" class="fz-24">
@@ -424,11 +424,13 @@
 export default {
    data() {
       return {
+         userName: '',
          trackingNumber: '',
          loading: false,
          trackingData: null,
          combinedTracking: [],
          errorMessage: null,
+         isLoading: false,
       };
    },
    methods: {

@@ -371,7 +371,26 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('id_token');
-  
+
+  // Tokenning eskirganligini tekshirish funksiyasi
+  function isTokenExpired(token) {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1])); // JWT payloadini o'qiymiz
+      const currentTime = Math.floor(Date.now() / 1000); // Hozirgi vaqtni soniyalarda olamiz
+      return payload.exp < currentTime; // Agar amal muddati o'tgan bo'lsa, true qaytadi
+    } catch (error) {
+      return true; // Noto'g'ri token bo'lsa, true qaytadi
+    }
+  }
+
+  if (loggedIn && isTokenExpired(loggedIn)) {
+    // Token eskirgan bo'lsa, foydalanuvchini chiqarib yuboramiz
+    localStorage.removeItem('id_token');
+    localStorage.setItem('redirectAfterLogin', to.fullPath); // Kirishni xohlagan yo'lni saqlab qo'yamiz
+    next({ name: 'singin' }); // Login sahifangiz nomi
+    return;
+  }
+
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
     // Kirishni xohlagan yo'lni saqlab qo'yamiz
     localStorage.setItem('redirectAfterLogin', to.fullPath);
@@ -382,6 +401,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 
 
 

@@ -999,9 +999,6 @@
                             </h3>
                         </div>
                     </div>
-                    <ul id="currency-list" class=" d-flex align-items-center justify-content-between">
-                        <!-- List items will be dynamically inserted here -->
-                    </ul>
                 </div>
             </div>
         </div>
