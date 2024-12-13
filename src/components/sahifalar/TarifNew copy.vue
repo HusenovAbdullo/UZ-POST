@@ -20,6 +20,29 @@
               <div class="breadcumnd__content">
                 <span class="d4 mb-24">
                 </span>
+                <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
+                 <li>
+                    <a href="index.html" class="fz-16 fw-400 inter text-white">
+                       Home
+                    </a>
+                 </li>
+                 <li>
+                    <i class="bi bi-chevron-right"></i>
+                 </li>
+                 <li>
+                    <a href="#0" class="fz-16 fw-400 inter text-white">
+                       User Profile
+                    </a>
+                 </li>
+                 <li>
+                    <i class="bi bi-chevron-right"></i>
+                 </li>
+                 <li>
+                    <a href="#0" class="fz-16 fw-400 inter base2">
+                       Payments
+                    </a>
+                 </li>
+              </ul> -->
               </div>
             </div>
 

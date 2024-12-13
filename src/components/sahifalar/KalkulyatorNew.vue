@@ -14,7 +14,9 @@
    <div id="error-birqadam" class="error-birqadam" style="display: none;">
       Bir qadam vazni 20 kgdan oshmasligi kerak!
    </div>
-
+   <div id="error-message1" class="error-message1" style="display: none;">
+      Barcha maydonlarni to'ldiring
+   </div>
    <section class="banner__breadcumn ralt">
       <div id="searchPopup" class="search__popup">
          <form action="#" class="popup-content d-flex align-items-center">
@@ -69,10 +71,22 @@
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
                            <div class="tab bor" style="color: #222E48;">
-                              <!-- <p>
+                              <p v-if="service.id === 136">
                                  Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
                                  madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
-                              </p> -->
+                              </p>
+                              <p v-if="service.id === 135">
+                                 Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
+                                 jo'natma turida kiyim-kechak, aksessuarlar va boshqa kichik sinmaydigan mahsulotlarni
+                                 yuborish mumkin.
+                              </p>
+                              <p v-if="service.id === 33">
+                                 Xat - bu ichida yozma xat-xabar, hujjatlar bo’lgan pochta jo'natmasi
+                              </p>
+                              <p v-if="service.id === 209">
+                                 “Bir Qadam” xizmati orqali jo'natmalaringizni 1 KUNda butun O'zbekiston bo'ylab
+                                 belgilangan bo'limlar orasida yetkazib beramiz.
+                              </p>
                            </div>
                            <br />
 
@@ -81,7 +95,7 @@
                            </h3>
                            <br>
 
-                           <form @submit.prevent="calculatePrice" class="write__review">
+                           <form class="write__review">
                               <div class="row g-4 justify-content-center">
                                  <!-- Region Tanlash -->
 
@@ -132,19 +146,20 @@
                                  </h3>
 
                                  <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
-                                    <button class="tablinks1" :class="{ active: $route.activeTab === 'Index' }"
-                                       @click="activeTab = 'Index'" style="display: block;">
+                                    <button class="tablinks1" type="button"
+                                       :class="{ active: $route.activeTab === 'Index' }" @click="activeTab = 'Index'"
+                                       style="display: block;">
                                        <p>Index</p>
                                     </button>
-                                    <button class="tablinks1" :class="{ active: activeTab === 'Manzil' }"
+                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
                                        <p>Manzil</p>
                                     </button>
-                                    <button class="tablinks1" :class="{ active: activeTab === 'Pochtam' }"
+                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Pochtam' }"
                                        @click="activeTab = 'Pochtam'">
                                        <p>Pochtomat</p>
                                     </button>
-                                    <button class="tablinks1" :class="{ active: activeTab === 'Davlat' }"
+                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
                                        @click="activeTab = 'Davlat'">
                                        <p>Boshqa mamlakatga</p>
                                     </button>
@@ -264,7 +279,7 @@
                                     </div>
                                  </div>
                                  <div class="frm__grp mt-30" style="position: relative; top: -40px;">
-                                    <button type="submit" class="cmn--btn">
+                                    <button type="button" class="cmn--btn" @click="validateForm">
                                        <span>Hisoblash</span>
                                     </button>
                                  </div>
@@ -297,7 +312,8 @@
                            </span>
 
                         </div>
-                        <p style="color: red; font-size: small;">Yuqoridagi summa berilgan og'irlikka nisbatan
+                        <p v-if="showtotalMessage" style="color: red; font-size: small;">Yuqoridagi summa berilgan
+                           og'irlikka nisbatan
                            o'zgarishi mumkin.</p>
 
 
@@ -345,12 +361,13 @@ export default {
          districts2: {}, // Districtlar ro'yxati
          provinces: {}, // Davlatlar ro'yxati
          totalPrice: 0,
+         showError: false,
+         showtotalMessage: false,// Xabarni ko'rsatish uchun bayroq
       };
    },
    methods: {
       nextPage() {
          const selectedService = this.services.find(service => service.id === this.activeService);
-         console.log(selectedService)
          if (this.activeTab === 'Index') {
             // Ma'lumotlarni ordering sahifasiga jo'natish
             this.$router.push({
@@ -538,15 +555,60 @@ export default {
                "https://new.pochta.uz/api/v1/calculator/locations-others/uzb/"
             );
             this.provinces = response.data.data
-            console.log(this.provinces)
          } catch (error) {
             console.error("Davlatlarni olishda xatolik:", error);
          }
       },
+      validateForm() {
+         if (this.activeTab === 'Index') {
+            if (!this.selectedProvince1 || !this.selectedDistrict1 || !this.index || !this.weight) {
+               this.totalPrice = 0;
+               document.getElementById("error-message1").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message1").style.display = "none";
+               }, 5000);
+            }
+            else {
+               this.showError = false;
+               this.calculatePrice(); // Narxni hisoblash funksiyasini chaqirish
+            }
+         }
+         if (this.activeTab === 'Manzil') {
+            if (!this.selectedProvince1 || !this.selectedDistrict1 || !this.selectedDistrict2 || !this.weight) {
+               this.totalPrice = 0;
 
+               document.getElementById("error-message1").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message1").style.display = "none";
+               }, 5000);
+            }
+            else {
+               this.showError = false;
+               this.calculatePrice(); // Narxni hisoblash funksiyasini chaqirish
+            }
+         }
+         if (this.activeTab === 'Davlat') {
+            if (!this.selectedProvince1 || !this.selectedProvince3 || !this.weight) {
+               this.totalPrice = 0;
+
+               document.getElementById("error-message1").style.display = "block";
+               setTimeout(() => {
+                  document.getElementById("error-message1").style.display = "none";
+               }, 5000);
+            }
+            else {
+               this.showError = false;
+               this.calculatePrice(); // Narxni hisoblash funksiyasini chaqirish
+            }
+         }
+
+
+
+      },
 
       async calculatePrice() {
          if (this.activeTab === 'Index') {
+            this.totalPrice = 0;
             try {
                const response = await axios.get(
                   "https://new.pochta.uz/api/v1/calculator/order-price-index/",
@@ -564,50 +626,59 @@ export default {
                   setTimeout(() => {
                      document.getElementById("error-posilka").style.display = "none";
                   }, 5000);
+                  this.totalPrice = 0;
                }
 
-                  if (this.activeService === 135 && this.weight > 2000) {
-                     document.getElementById("error-maydapaket").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-maydapaket").style.display = "none";
-                     }, 5000);
-                  }
-                  if (this.activeService === 33 && this.weight > 2000) {
-                     document.getElementById("error-xat").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-xat").style.display = "none";
-                     }, 5000);
-                  }
-                  if (this.activeService === 209 && this.weight > 20000) {
-                     document.getElementById("error-birqadam").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-birqadam").style.display = "none";
-                     }, 5000);
-                  }
-                  if (response.data[0].total === 0) {
-                     document.getElementById("error-message").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-message").style.display = "none";
-                     }, 5000);
-                  }
+               if (this.activeService === 135 && this.weight > 2000) {
+                  document.getElementById("error-maydapaket").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-maydapaket").style.display = "none";
+                  }, 5000);
+                  this.totalPrice = 0;
+               }
+               if (this.activeService === 33 && this.weight > 2000) {
+                  document.getElementById("error-xat").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-xat").style.display = "none";
+                  }, 5000);
+                  this.totalPrice = 0;
+               }
+               if (this.activeService === 209 && this.weight > 20000) {
+                  document.getElementById("error-birqadam").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-birqadam").style.display = "none";
+                  }, 5000);
+                  this.totalPrice = 0;
+               }
+               if (response.data[0].total === 0) {
+                  document.getElementById("error-message").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-message").style.display = "none";
+                  }, 5000);
+                  this.totalPrice = 0;
+               }
 
 
-               
-                  this.totalPrice = response.data[0].data.list[0].price.total;
-                  document.getElementById("error-message").style.display = "none";
 
-               
+               this.totalPrice = response.data[0].data.list[0].price.total;
+               this.showtotalMessage = true;
+
+               document.getElementById("error-message").style.display = "none";
+
+
             } catch (error) {
                console.error("Narxni hisoblashda xatolik:", error);
                document.getElementById("error-message").style.display = "block";
                setTimeout(() => {
                   document.getElementById("error-message").style.display = "none";
                }, 5000);
+               this.totalPrice = 0;
 
             }
          }
          if (this.activeTab === 'Manzil') {
-            console.log(this.activeTab)
+            this.totalPrice = 0;
+
             try {
                const response = await axios.get(
                   "https://new.pochta.uz/api/v1/calculator/order-price/",
@@ -627,39 +698,40 @@ export default {
                   }, 5000);
                }
 
-                  if (this.activeService === 135 && this.weight > 2000) {
-                     document.getElementById("error-maydapaket").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-maydapaket").style.display = "none";
-                     }, 5000);
-                  }
-                  if (this.activeService === 33 && this.weight > 2000) {
-                     document.getElementById("error-xat").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-xat").style.display = "none";
-                     }, 5000);
-                  }
-                  if (this.activeService === 209 && this.weight > 20000) {
-                     document.getElementById("error-birqadam").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-birqadam").style.display = "none";
-                     }, 5000);
-                  }
-                  if (response.data[0].total === 0) {
-                     document.getElementById("error-message").style.display = "block";
-                     setTimeout(() => {
-                        document.getElementById("error-message").style.display = "none";
-                     }, 5000);
-                  
+               if (this.activeService === 135 && this.weight > 2000) {
+                  document.getElementById("error-maydapaket").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-maydapaket").style.display = "none";
+                  }, 5000);
+               }
+               if (this.activeService === 33 && this.weight > 2000) {
+                  document.getElementById("error-xat").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-xat").style.display = "none";
+                  }, 5000);
+               }
+               if (this.activeService === 209 && this.weight > 20000) {
+                  document.getElementById("error-birqadam").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-birqadam").style.display = "none";
+                  }, 5000);
+               }
+               if (response.data[0].total === 0) {
+                  document.getElementById("error-message").style.display = "block";
+                  setTimeout(() => {
+                     document.getElementById("error-message").style.display = "none";
+                  }, 5000);
+
 
 
                }
-                  this.totalPrice = response.data[0].data.list[0].price.total;
-                  document.getElementById("error-message").style.display = "none";
+               this.totalPrice = response.data[0].data.list[0].price.total;
+               this.showtotalMessage = true;
 
-               
+               document.getElementById("error-message").style.display = "none";
+
+
             } catch (error) {
-               console.error("Narxni hisoblashda xatolik:", error);
                document.getElementById("error-message").style.display = "block";
                setTimeout(() => {
                   document.getElementById("error-message").style.display = "none";
@@ -668,6 +740,8 @@ export default {
             }
          }
          if (this.activeTab === 'Davlat') {
+            this.totalPrice = 0;
+
             try {
                const response = await axios.get(
                   "https://new.pochta.uz/api/v1/calculator/order-price/",
@@ -686,37 +760,38 @@ export default {
                      document.getElementById("error-posilka").style.display = "none";
                   }, 5000);
                }
-               if(this.activeService === 135 && this.weight > 2000){
+               if (this.activeService === 135 && this.weight > 2000) {
                   document.getElementById("error-maydapaket").style.display = "block";
                   setTimeout(() => {
                      document.getElementById("error-maydapaket").style.display = "none";
                   }, 5000);
                }
-               if(this.activeService === 33 && this.weight > 2000){
+               if (this.activeService === 33 && this.weight > 2000) {
                   document.getElementById("error-xat").style.display = "block";
                   setTimeout(() => {
                      document.getElementById("error-xat").style.display = "none";
                   }, 5000);
                }
-               if(this.activeService === 209 && this.weight > 20000){
+               if (this.activeService === 209 && this.weight > 20000) {
                   document.getElementById("error-birqadam").style.display = "block";
                   setTimeout(() => {
                      document.getElementById("error-birqadam").style.display = "none";
                   }, 5000);
                }
-               if (response.data[0].total === 0){
+               if (response.data[0].total === 0) {
                   document.getElementById("error-message").style.display = "block";
                   setTimeout(() => {
                      document.getElementById("error-message").style.display = "none";
                   }, 5000);
-               
+
 
 
                }
-                  this.totalPrice = response.data[0].data.list[0].price.total;
-                  document.getElementById("error-message").style.display = "none";
+               this.totalPrice = response.data[0].data.list[0].price.total;
+               this.showtotalMessage = true;
+
+               document.getElementById("error-message").style.display = "none";
             } catch (error) {
-               console.error("Narxni hisoblashda xatolik:", error);
                document.getElementById("error-message").style.display = "block";
                setTimeout(() => {
                   document.getElementById("error-message").style.display = "none";
@@ -739,7 +814,28 @@ export default {
 
 
 <style>
-/* Stilni kerakli joylarda o'zingiz moslab o'zgartirishingiz mumkin */
+.error-message1 {
+   position: fixed;
+   bottom: 20px;
+   /* Ekraning pastki qismidan 20px yuqoriga */
+   right: 20px;
+   /* Ekranning o'ng qismidan 20px ichkariga */
+   background-color: red;
+   /* Xatolik rangini qizil qilish */
+   color: white;
+   /* Matn rangini oq qilish */
+   padding: 10px 20px;
+   /* Xabarni biroz o'ralash */
+   border-radius: 5px;
+   /* Burchaklarni yumaloq qilish */
+   font-size: 16px;
+   /* Matnning o'lchamini sozlash */
+   display: none;
+   /* Dastlab yashirish */
+   z-index: 9999;
+   /* Boshqa elementlardan yuqorida bo'lishi uchun */
+}
+
 .tablinks.active {
    background-color: #183e98;
    color: white;
