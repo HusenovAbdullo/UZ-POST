@@ -1,5 +1,33 @@
 <template>
-  <div class="container">
+<section class="banner__breadcumn ralt">
+
+        <!--Search Popup-->
+        <div id="searchPopup" class="search__popup">
+            <form action="#" class="popup-content d-flex align-items-center">
+                <input type="text" placeholder="Search Here">
+                <button id="closeButton">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </form>
+        </div>
+        <!--Search Popup-->
+        <div class="breadcumnd__wrapper">
+            <div class="container">
+                <div class="profile__wrapper">
+                    <div class="row g-4 align-items-center justify-content-between">
+                        <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
+                            <div class="breadcumnd__content">
+                                <span class="d4 mb-24">
+                                    Korrupsiyaga Qarshi Kurashish
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  <div class="article-list">
     <h1 class="title">Korrupsiya holatlari haqiqa xabar berish uchun bog'lanish raqami "1165"</h1>
 
     <div class="management-section">
@@ -81,7 +109,7 @@
 </template>
 
 <style scoped>
-.container {
+.article-list {
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
