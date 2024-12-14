@@ -482,7 +482,7 @@ export default {
             }
          }
          if (this.activeTab === 'Manzil') {
-            if (!this.senderName || !this.senderPhone || !this.senderAddress || !this.selectedProvince1 || !this.selectedDistrict1 || !this.receiverName || !this.receiverPhone || !this.address || !this.selectedDistrict2 || !this.weight) {
+            if (!this.senderName || !this.senderPhone || !this.senderAddress || !this.selectedProvince1 || !this.selectedDistrict1 || !this.receiverName || !this.receiverPhone  || !this.selectedDistrict2 || !this.weight) {
                this.totalPrice = 0;
 
                document.getElementById("error-message1").style.display = "block";
@@ -577,6 +577,8 @@ export default {
                });
                if (response.status === 200) {
                   this.showToast('Buyurtma yaratildi!', 'success');
+                  this.orderNumber = response.data.data.order_number; // Shtrix kodni saqlash
+                  this.isOrderVisible = true; // Tegni ko'rsatish
 
                } else {
                   this.showToast('Buyurtma yaratishda xatolik yuz berdi.', 'error');

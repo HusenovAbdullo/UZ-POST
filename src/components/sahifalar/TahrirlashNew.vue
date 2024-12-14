@@ -57,7 +57,7 @@
                         </div>
                         <div class="darrell__content mt-40 text-center">
                            <h4 class="title mb-16">
-                              
+
                            </h4>
                            <!-- <span class="fz-16 fw-400 inter title">
                      Machine Learner
@@ -183,7 +183,7 @@
                                                 raqam:</label>
                                              <input type="text" id="numbr" placeholder="Telefon raqamingiz">
                                           </div>
-                                          
+
                                           <div class="col-lg-12 ">
                                              <span class="fz-20 fw-500 inter title mb-16 d-block">
                                                 Jinsingiz:
@@ -274,29 +274,19 @@
                                  <div id="collapseTwo" class="accordion-collapse collapse show"
                                     aria-labelledby="headingTwo">
                                     <div class="accordion-body">
-                                       <span class="fz-20 d-block fw-500 inter title mb-16">
-                                          Manzil:
-                                       </span>
-                                       <select name="text" class="mb-16 round16">
-                                          <option value="1">
-                                             Mamlakatni tanlang
-                                          </option>
-                                          <option value="1">
-                                             Toshkent
-                                          </option>
-                                          <option value="1">
-                                             Buxoro
-                                          </option>
-                                          <option value="1">
-                                             Navoiy
-                                          </option>
-                                       </select>
+                                       
+                                       <div class="col-lg-6 basig__grpinput">
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">Viloyat:</label>
+                                          <input type="text" id="address" placeholder="Manzilni tanlang">
+                                       </div>
+                                       <br>
+                                       <div class="col-lg-6 basig__grpinput">
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">Tuman:</label>
+                                             <input type="text" id="address" placeholder="Manzilni kiriting">
+                                       </div>
                                        <br>
                                        <form action="#0" class="row g-4">
-                                          <div class="col-lg-6 basig__grpinput">
-                                             <label for="address" class="fz-20 fw-500 inter mb-16 title">Manzil:</label>
-                                             <input type="text" id="address" placeholder="Manzilni kiriting">
-                                          </div>
+                                          
                                           <!-- <div class="col-lg-6 basig__grpinput">
                                     <label for="email2s" class="fz-20 fw-500 inter mb-16 title">Address line 2 <span class="pra">(Optional)</span> :</label>
                                     <input type="text" id="email2s" placeholder="Enter adress 2">

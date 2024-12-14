@@ -1,7 +1,8 @@
 <template>
     <section class="slideshow-container" id="slideshow">
         <div class="container">
-            <div class="header-wrapper">
+            <div class="header-wrapper" style="position: relative; /* Z-index ishlashi uchun relative o'rnatiladi */
+    z-index: 1; /* Bu element dropdowndan past bo'ladi */">
                 <img src="assets/img/bosh/2.png" alt="Image 1">
                 <div class="button-container">
                     <router-link to="/xizmat" class="cmn--btn custom-button">

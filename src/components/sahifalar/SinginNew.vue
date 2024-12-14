@@ -28,7 +28,7 @@
                                                 <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                             </button>
                                         </div>
-                                        <a href="#" class="base fz-14 inter d-flex justify-content-end mt-2">Parolni unutdingizmi?</a>
+                                        <!-- <a href="#" class="base fz-14 inter d-flex justify-content-end mt-2">Parolni unutdingizmi?</a> -->
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

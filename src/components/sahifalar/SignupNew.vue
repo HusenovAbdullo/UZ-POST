@@ -198,6 +198,7 @@ export default {
             // Axios POST so'rovi
             axios.post("https://new.pochta.uz/api/v1/public/register/3/", {
                phone_number: phoneNumber,
+               first_name: this.name,
                code: this.smsCode,
                password: this.password,
             })
