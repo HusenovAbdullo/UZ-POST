@@ -119,6 +119,8 @@
                         <input type="text" id="numbers" placeholder="Telefon raqamingizni kiriting">
                      </div>
                   </div>
+                  <br>
+                  <br>
                   <div style=" align-items: center; font-family: Arial, sans-serif;">
                      <label for="file-upload"
                         style="font-weight: bold; margin-right: 10px;color:#080000">Fayl</label><br>

@@ -244,7 +244,7 @@
                                  class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
                                  <i class="bi bi-telephone-plus cmn__icon cmn__icon"></i>
                                  <span>
-                                    1165
+                                    1165 yoki +998 (71) 233-57-47
                                  </span>
                               </a>
                            </li>

@@ -34,8 +34,8 @@
   <!-- description body Section Here -->
   <section class="setting__section pb-120">
     <div class="container__customizemain pb-120 round16" style="max-width: 1400px;">
-      <img class="rasmm pb-120 round16" src="assets/img/Xizmatlar/1.jpg" alt="Misol rasm tavsifi" width="1398"
-        height="950">
+      <img class="rasmm pb-120 round16 responsive-img" src="assets/img/Xizmatlar/1.jpg" alt="Misol rasm tavsifi">
+
 
       <div class="container">
         <header class="header">
@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div class="jo-natish-shartlari">
+      <div class="jo-natish-shartlari ">
         <h2>Jo'natish shartlari:</h2>
         <ol style="color: #000000;">
           <li>{{ line1 }}</li>
@@ -98,7 +98,7 @@
 
       <div class="video-container">
         <video width="1237" height="716" controls>
-          <source src="https://youtu.be/gZ2T8RQTHFo" type="video/mp4">
+          <source src="/assets/img/Xizmatlar/qadam1.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -444,6 +444,32 @@ p {
 
   .info-section {
     gap: 15px;
+  }
+}
+
+.responsive-img {
+  width: 100%;
+  /* Rasm konteynerning kengligiga moslashadi */
+  height: auto;
+  /* Nisbatni saqlaydi */
+  max-width: none;
+  /* Maksimal kenglikni cheklamaydi */
+  border-radius: 4px;
+  /* Dumaloq burchaklar */
+  padding-bottom: 120px;
+  /* Pastki bo'shliq */
+  object-fit: cover;
+  /* Rasmni to'liq ko'rsatish uchun */
+}
+
+@media (max-width: 768px) {
+
+  /* Kichik ekranlar (planshet yoki telefonlar) */
+  .responsive-img {
+    width: 100vw;
+    /* Ekranning 100% kengligi */
+    height: auto;
+    /* Nisbatni buzmaydi */
   }
 }
 </style>

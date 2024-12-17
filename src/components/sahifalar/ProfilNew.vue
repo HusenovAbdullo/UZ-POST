@@ -78,6 +78,11 @@
                            <ul class="social justify-content-center mt-30 mb-40 d-flex align-items-center">
                               <li>
                                  <a href="javascript:void(0)">
+                                    <i class="bi bi-telegram base"></i>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="javascript:void(0)">
                                     <i class="bi bi-facebook base"></i>
                                  </a>
                               </li>
@@ -86,21 +91,13 @@
                                     <i class="bi bi-instagram base"></i>
                                  </a>
                               </li>
+                              
                               <li>
                                  <a href="javascript:void(0)">
-                                    <i class="bi bi-twitter base"></i>
+                                    <i class="bi bi-linkedin base"></i>
                                  </a>
                               </li>
-                              <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-pinterest base"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-dribbble base"></i>
-                                 </a>
-                              </li>
+                              
                            </ul>
                            <router-link to="/tahrirlash" class="cmn--btn outline__btn">
                               <span>Profilni tahrirlash</span>

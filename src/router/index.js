@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '@/views/HomeView.vue';
+// const HomeView = () => import('@/views/HomeView.vue');
+
 import ProfilView from '@/views/ProfilView.vue';
 import XizmatlarView from '@/views/XizmatlarView.vue';
 import XizmatView from '@/views/XizmatView.vue';
@@ -57,6 +59,11 @@ import QimmatliQogozlarView from "@/views/QimmatliQogozlarView.vue";
 import BiznesRejalarView from "@/views/BiznesRejalarView.vue";
 import Test5View from '@/views/Test5View.vue';
 import BuyurtmaYaratishView from '@/views/BuyurtmaYaratishView.vue';
+import Tariflar1View from '@/views/Tariflar1View.vue';
+import JonatmaturlariView from '@/views/JonatmaturlariView.vue';
+import TaqiqlanganjoylanmalarView from '@/views/TaqiqlanganjoylanmalarView.vue';
+import Tariflar2View from '@/views/Tariflar2View.vue';
+import YangilikView from '@/views/YangilikView.vue';
 const routes = [
   {
     path: '/',
@@ -73,6 +80,26 @@ const routes = [
     path: '/test5',
     name: 'test5',
     component: Test5View
+  },
+  {
+    path: '/taqiqlanganjoylanmalar',
+    name: 'taqiqlanganjoylanmalar',
+    component: TaqiqlanganjoylanmalarView
+  },
+  {
+    path: '/tariflar1',
+    name: 'tariflar1',
+    component: Tariflar1View
+  },
+  {
+    path: '/tariflar2',
+    name: 'tariflar2',
+    component: Tariflar2View
+  },
+  {
+    path: '/turlari',
+    name: 'turlari',
+    component: JonatmaturlariView
   },
   {
     path: '/profil',
@@ -150,6 +177,11 @@ const routes = [
     path: '/yangiliklar',
     name: 'yangiliklar',
     component: YangiliklarView
+  },
+  {
+    path: '/yangilik/:id',
+    name: 'yangilik',
+    component: YangilikView
   },
   {
     path: '/yangilik2',

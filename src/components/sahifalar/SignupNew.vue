@@ -24,34 +24,43 @@
                                     class="form-control" style="width: 20%;" v-if="smsSent" />
                               </div>
 
-                              <p v-if="smsSent" style="font-size: 14px; padding-top: 20px; color: green;">
+                              <p v-if="smsSent && !codeVerified"
+                                 style="font-size: 14px; padding-top: 20px; color: green;">
                                  Raqamga SMS kod yubordik
                               </p>
 
-                              <p v-if="smsSent" class="timer" id="timer">
+                              <p v-if="smsSent && !codeVerified" class="timer" id="timer">
                                  {{ formattedTimer }}
                               </p>
+
                            </div>
                         </div>
 
                         <div v-if="codeVerified" class="col-lg-12">
+                           <br>
                            <div class="frm__grp">
-                              <label for="nameInput" class="fz-18 fw-500 inter title mb-16">Ismingiz</label>
+                              <label for="nameInput" class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px;">Ismingiz</label>
                               <input v-model="name" type="text" id="nameInput" placeholder="Ismingizni kiriting"
                                  class="form-control" />
                            </div>
+                           <br>
                            <div class="frm__grp">
-                              <label for="passwordInput" class="fz-18 fw-500 inter title mb-16">Parol</label>
+                              <label for="passwordInput" class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px;">Parol</label>
                               <input v-model="password" type="password" id="passwordInput"
                                  placeholder="Parolni kiriting" class="form-control" />
                            </div>
+                           <br>
                            <div class="frm__grp">
-                              <label for="confirmPasswordInput" class="fz-18 fw-500 inter title mb-16">Parolni
+                              <label for="confirmPasswordInput" class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px;">Parolni
                                  takrorlang</label>
                               <input v-model="confirmPassword" type="password" id="confirmPasswordInput"
                                  placeholder="Parolni qayta kiriting" class="form-control" />
                            </div>
                         </div>
+                        <br>
 
                         <p class="fz-16 fw-400 title inter">
                            Hisobingiz bormi?
@@ -62,7 +71,7 @@
                               <button type="submit" class="cmn--btn basebor outline__btn" :disabled="loading">
                                  <span>
                                     {{ smsSent ? (codeVerified ? "Ro'yxatdan o'tish" : "Tasdiqlash") :
-                                    "SMSkodiniso'rang" }}
+                                       "SMS kodini so'rang" }}
                                  </span>
                                  <span>
                                     <i class="bi bi-arrow-up-right"></i>
@@ -83,12 +92,19 @@
             </div>
          </div>
       </div>
+
+      <!-- Popup qismi -->
+      <div v-if="popupVisible" class="popup">
+         <div class="popup-content">
+            <p>{{ popupMessage }}</p>
+            <button @click="closePopup">Yopish</button>
+         </div>
+      </div>
    </section>
 </template>
 
 <script>
-
-import axios from 'axios';
+import axios from "axios";
 
 export default {
    data() {
@@ -103,6 +119,8 @@ export default {
          timer: 120,
          loading: false,
          timerInterval: null,
+         popupVisible: false,
+         popupMessage: "",
       };
    },
    computed: {
@@ -113,6 +131,16 @@ export default {
       },
    },
    methods: {
+      showPopup(message) {
+         this.popupMessage = message;
+         this.popupVisible = true;
+         setTimeout(() => {
+            this.popupVisible = false;
+         }, 3000); // 3 soniyadan keyin yopiladi
+      },
+      closePopup() {
+         this.popupVisible = false;
+      },
       formatPhoneInput() {
          let value = this.phoneInput.replace(/[^\d]/g, "");
          if (!value.startsWith("998")) {
@@ -134,7 +162,7 @@ export default {
          if (!this.smsSent) {
             const phoneNumber = this.phoneInput.replace(/[^\d]/g, "");
             if (phoneNumber.length !== 12) {
-               alert("Telefon raqamingizni to'g'ri kiriting!");
+               this.showPopup("Telefon raqamingizni to'g'ri kiriting!");
                return;
             }
             this.loading = true;
@@ -147,16 +175,24 @@ export default {
             })
                .then((response) => {
                   if (!response.ok) {
-                     throw new Error("SMS yuborishda xatolik yuz berdi!");
+                     throw new Error("Bu raqam oldin ro'yxatdan o'tgan!");
                   }
                   return response.json();
                })
                .then(() => {
                   this.smsSent = true;
                   this.startTimer();
+
+                  // SMS kod maydoniga avtomatik fokus
+                  this.$nextTick(() => {
+                     const smsCodeInput = document.getElementById("smsCode");
+                     if (smsCodeInput) {
+                        smsCodeInput.focus();
+                     }
+                  });
                })
                .catch((error) => {
-                  alert(error.message);
+                  this.showPopup(error.message);
                })
                .finally(() => {
                   this.loading = false;
@@ -180,22 +216,21 @@ export default {
                   this.codeVerified = true;
                })
                .catch((error) => {
-                  alert(error.message);
+                  this.showPopup(error.message);
                });
          } else {
             if (!this.name || !this.password || !this.confirmPassword) {
-               alert("Barcha maydonlarni to'ldiring!");
+               this.showPopup("Barcha maydonlarni to'ldiring!");
                return;
             }
             if (this.password !== this.confirmPassword) {
-               alert("Parollar bir xil emas!");
+               this.showPopup("Parollar bir xil emas!");
                return;
             }
 
             const phoneNumber = this.phoneInput.replace(/[^\d]/g, "").substring(3);
             this.loading = true;
 
-            // Axios POST so'rovi
             axios.post("https://new.pochta.uz/api/v1/public/register/3/", {
                phone_number: phoneNumber,
                first_name: this.name,
@@ -204,32 +239,22 @@ export default {
             })
                .then((response) => {
                   const data = response.data;
-                  console.log(data)
                   if (data) {
                      window.location.href = "/profil"; // Profil sahifasiga yo'naltirish
                   } else {
                      throw new Error("Token topilmadi yoki noto'g'ri format!");
                   }
                })
-               // .then((authResponse) => {
-               //    const authData = authResponse.data;
-               //    if (authData && authData.data && authData.data.id_token) {
-               //       localStorage.setItem("auth_token", authData.data.id_token);
-               //       window.location.href = "/profil"; // Profil sahifasiga yo'naltirish
-               //    } else {
-               //       throw new Error("Kirish uchun token topilmadi!");
-               //    }
-               // })
                .catch((error) => {
-                  alert(error.response?.data?.message || error.message || "Xatolik yuz berdi!");
+                  this.showPopup(error.response?.data?.message || error.message || "Xatolik yuz berdi!");
                })
                .finally(() => {
                   this.loading = false;
                });
          }
-
       },
    },
+
    beforeUnmount() {
       if (this.timerInterval) {
          clearInterval(this.timerInterval);
@@ -242,5 +267,45 @@ export default {
 .signup__section {
    padding-top: 120px;
    padding-bottom: 120px;
+}
+
+.popup {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 1000;
+}
+
+.popup-content {
+   background: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   text-align: center;
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content p {
+   margin: 0 0 20px;
+   font-size: 16px;
+}
+
+.popup-content button {
+   padding: 10px 20px;
+   background: #183e98;
+   border: none;
+   border-radius: 5px;
+   color: #fff;
+   cursor: pointer;
+   font-size: 16px;
+}
+
+.popup-content button:hover {
+   background: #183e98;
 }
 </style>

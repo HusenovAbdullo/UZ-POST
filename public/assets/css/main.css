@@ -66,8 +66,17 @@ Section css
 }
 
 @font-face {
+  font-family: 'Roboto-Condensed-Italik'; /* Shriftning nomi */
+  src: url('fonts/RobotoCondensed-Italic.ttf') format('truetype'); /* TTF faylning yo'li */
+}
+
+@font-face {
   font-family: 'Roboto'; /* Shriftning nomi */
   src: url('fonts/Roboto-Italic.ttf') format('truetype'); /* TTF faylning yo'li */
+}
+
+.Roboto-Condensed-Italik {
+  font-family: "Roboto-Condensed-Italic", sans-serif;
 }
 
 body {

@@ -58,7 +58,7 @@
                            Posilka yoki xatni joylashtiring
                         </p>
                         <p class="fz-18 fw-400 inter pra" style="color: #183e98;">
-                           Xarajatlarni va etkazib berish vaqtini hisoblang
+                           Xarajatlarni va yetkazib berish vaqtini hisoblang
                         </p>
                         <br>
 
@@ -73,20 +73,20 @@
 
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
-                           <div class="tab bor" style="color: #222E48;">
-                              <p v-if="service.id === 136">
+                           <div class="tab bor" style="color: #183e98;">
+                              <p v-if="service.id === 136" class="service-description" >
                                  Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
                                  madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
                               </p>
-                              <p v-if="service.id === 135">
+                              <p v-if="service.id === 135" class="service-description">
                                  Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
                                  jo'natma turida kiyim-kechak, aksessuarlar va boshqa kichik sinmaydigan mahsulotlarni
                                  yuborish mumkin.
                               </p>
-                              <p v-if="service.id === 33">
+                              <p v-if="service.id === 33" class="service-description">
                                  Xat - bu ichida yozma xat-xabar, hujjatlar bo’lgan pochta jo'natmasi
                               </p>
-                              <p v-if="service.id === 209">
+                              <p v-if="service.id === 209" class="service-description">
                                  “Bir Qadam” xizmati orqali jo'natmalaringizni 1 KUNda butun O'zbekiston bo'ylab
                                  belgilangan bo'limlar orasida yetkazib beramiz.
                               </p>
@@ -99,16 +99,23 @@
                               <div class="col-lg-4 viloyat" style="max-width: 40%; flex: 0 0 40%;">
                                  <div class="frm__grp" style="position: relative;" v-if="profile">
                                     <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
-                                    <input type="text" id="from" name="from" class="form-control" placeholder="Kimdan"
-                                       v-model="senderName">
+                                    <div class="input-wrapperfrom">
+                                       <input type="text" id="from" name="from" class="form-control"
+                                          placeholder="Kimdan" v-model="senderName">
+                                       <span v-if="!senderName" class="red-starinputfrom">*</span>
+                                    </div>
+
                                  </div>
                               </div>
 
                               <div class="col-lg-4 tuman">
                                  <div class="frm__grp">
                                     <label for="phone_number2" class="fz-18 fw-500 inter title mb-16"></label>
-                                    <input type="text" id="phone_number" name="phone_number" class="form-control"
-                                       placeholder="Telefon raqam" v-model="senderPhone">
+                                    <div class="input-wrapperphone">
+                                       <input type="text" id="phone_number" name="phone_number" class="form-control"
+                                          placeholder="Telefon raqam" v-model="senderPhone">
+                                       <span v-if="!senderPhone" class="red-starphone">*</span>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -127,28 +134,37 @@
 
 
                                  <div class="col-lg-4 viloyat">
-                                    <div class="frm__grp">
+                                    <div class="frm__grp" :class="{ error: !selectedProvince1 && showErrorRegion1 }">
                                        <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <select id="province" name="province" class="form-control"
-                                          v-model="selectedProvince1" @change="fetchDistricts1">
-                                          <option value="" disabled selected>Viloyat tanlang</option>
-                                          <option v-for="(name, id) in regions1" :key="name" :value="name">
-                                             {{ id }}
-                                          </option>
-                                       </select>
+                                       <div class="select-wrapper">
+                                          <select id="province" name="province" class="form-control"
+                                             v-model="selectedProvince1" @change="fetchDistricts1">
+                                             <option value="" disabled selected>Viloyat tanlang</option>
+                                             <option v-for="(name, id) in regions1" :key="name" :value="name">
+                                                {{ id }}
+                                             </option>
+                                          </select>
+                                          <span v-if="!selectedProvince1" class="red-star">*</span>
+                                       </div>
                                     </div>
                                  </div>
 
+
                                  <div class="col-lg-4 tuman">
-                                    <div class="frm__grp">
-                                       <label for="district1" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <select id="district1" name="district1" class="form-control"
-                                          v-model="selectedDistrict1">
-                                          <option value="" disabled selected>Tuman tanlang</option>
-                                          <option v-for="(name, id) in districts1" :key="id" :value="name.id">
-                                             {{ name.name }}
-                                          </option>
-                                       </select>
+                                    <div class="frm__grp" :class="{ error: !selectedDistrict1 && showErrorDistrict1 }">
+                                       <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
+                                       <div class="select-wrapper">
+                                          <select id="district" name="district" class="form-control"
+                                             v-model="selectedDistrict1">
+                                             <option value="" disabled selected>
+                                                Tuman tanlang
+                                             </option>
+                                             <option v-for="(name, id) in districts1" :key="id" :value="name.id">
+                                                {{ name.name }}
+                                             </option>
+                                          </select>
+                                          <span v-if="!selectedDistrict1" class="red-star">*</span>
+                                       </div>
                                     </div>
                                  </div>
 
@@ -156,9 +172,12 @@
                                     <div class="frm__grp">
                                        <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                        <div style="position: relative;">
-                                          <input type="text" id="address" name="address" class="form-control"
-                                             placeholder="Manzil" v-model="senderAddress">
+                                          <div class="input-wrapperfrom">
 
+                                             <input type="text" id="address" name="address" class="form-control"
+                                                placeholder="Manzil" v-model="senderAddress">
+                                             <span v-if="!senderAddress" class="red-starinputfrom">*</span>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
@@ -173,8 +192,13 @@
                                     <div class="col-lg-4 viloyat" style="max-width: 40%; flex: 0 0 40%;">
                                        <div class="frm__grp">
                                           <label for="To" class="fz-18 fw-500 inter title mb-16"></label>
-                                          <input type="text" id="to_whom" name="to_whom" class="form-control"
-                                             placeholder="Kimga" v-model="receiverName">
+                                          <div class="input-wrapperfrom">
+
+                                             <input type="text" id="to_whom" name="to_whom" class="form-control"
+                                                placeholder="Kimga" v-model="receiverName">
+                                             <span v-if="!receiverName" class="red-starinputfrom">*</span>
+
+                                          </div>
                                        </div>
                                     </div>
 
@@ -182,8 +206,11 @@
                                     <div class="col-lg-4 tuman">
                                        <div class="frm__grp">
                                           <label for="phone_number2" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="input-wrapperphone">
                                           <input type="text" id="phone_number2" name="phone_number2"
                                              class="form-control" placeholder="Telefon raqam" v-model="receiverPhone">
+                                             <span v-if="!receiverPhone" class="red-starphone">*</span>
+                                          </div>
                                        </div>
                                     </div>
 
@@ -216,10 +243,16 @@
                                  <div id="Index" class="tabcontent1" v-show="activeTab === 'Index'">
                                     <div class="col-lg-4 index">
                                        <div class="frm__grp">
-                                          <label for="index" class="fz-18 fw-500 inter title mb-16"></label>
-                                          <input style="    position: relative; top: -60px;" type="text" id="index"
-                                             name="index" class="form-control" placeholder="Indeksni kiriting"
-                                             v-model="index" />
+
+                                          <label for="index" class="fz-18 fw-500 inter title mb-16">
+                                          </label>
+                                          <div class="input-wrapper">
+
+                                             <input style="    position: relative; top: -60px;" type="text" id="index"
+                                                name="index" class="form-control" placeholder="Indeksni kiriting"
+                                                v-model="index" />
+                                             <span v-if="!index" class="red-starinput">*</span>
+                                          </div>
                                        </div>
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
@@ -243,38 +276,51 @@
                                     <form action="#0" class="write__review" style="margin-top: 20px;">
                                        <div class="row g-4 justify-content-center"
                                           style="    position: relative; top: -60px;">
-                                          <div class="col-lg-4 viloyat2">
-                                             <div class="frm__grp">
+                                          <div class="col-lg-4 viloyat">
+                                             <div class="frm__grp"
+                                                :class="{ error: !selectedProvince2 && showErrorRegion2 }">
                                                 <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <select id="province" name="province" class="form-control"
-                                                   v-model="selectedProvince2" @change="fetchDistricts2">
-                                                   <option value="" disabled selected>Viloyat tanlang</option>
-                                                   <option v-for="(name, id) in regions2" :key="name" :value="name">
-                                                      {{ id }}
-                                                   </option>
-                                                </select>
+                                                <div class="select-wrapper">
+                                                   <select id="province" name="province" class="form-control"
+                                                      v-model="selectedProvince2" @change="fetchDistricts2">
+                                                      <option value="" disabled selected>Viloyat tanlang</option>
+                                                      <option v-for="(name, id) in regions2" :key="name" :value="name">
+                                                         {{ id }}
+                                                      </option>
+                                                   </select>
+                                                   <span v-if="!selectedProvince2" class="red-star">*</span>
+                                                </div>
                                              </div>
                                           </div>
 
                                           <div class="col-lg-4 tuman">
-                                             <div class="frm__grp">
-                                                <label for="district2" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <select id="district2" name="district2" class="form-control"
-                                                   v-model="selectedDistrict2">
-                                                   <option value="" disabled selected>Tuman tanlang</option>
-                                                   <option v-for="(name, id) in districts2" :key="id" :value="name.id">
-                                                      {{ name.name }}
-                                                   </option>
-                                                </select>
+                                             <div class="frm__grp"
+                                                :class="{ error: !selectedDistrict2 && showErrorDistrict2 }">
+                                                <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
+                                                <div class="select-wrapper">
+                                                   <select id="district" name="district" class="form-control"
+                                                      v-model="selectedDistrict2">
+                                                      <option value="" disabled selected>
+                                                         Tuman tanlang
+                                                      </option>
+                                                      <option v-for="(name, id) in districts2" :key="id"
+                                                         :value="name.id">
+                                                         {{ name.name }}
+                                                      </option>
+                                                   </select>
+                                                   <span v-if="!selectedDistrict2" class="red-star">*</span>
+                                                </div>
                                              </div>
                                           </div>
 
                                           <div class="col-lg-4 manzil">
                                              <div class="frm__grp">
                                                 <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <div style="position: relative;">
+                                                <div class="input-wrapperfrom">
+
                                                    <input type="text" id="address" name="address" class="form-control"
-                                                      placeholder="Manzil" v-model="receiverAddress">
+                                                      placeholder="Manzil" v-model="senderAddress">
+                                                   <span v-if="!senderAddress" class="red-starinputfrom">*</span>
                                                 </div>
                                              </div>
                                           </div>
@@ -288,18 +334,20 @@
                                     <h6 style="color: red; font-size: small;">Bu xizmat hozircha mavjud emas </h6>
                                  </div>
                                  <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
-                                    <div class="col-lg-4 index" style="width: 90%;">
-                                       <div class="col-lg-4 viloyat" style="    position: relative; top: -60px;">
-                                          <div class="frm__grp">
-                                             <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                    <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
+                                       <div class="frm__grp"
+                                          :class="{ error: !selectedProvince3 && showErrorProvince3 }">>
+                                          <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="select-wrapper">
                                              <select id="province" name="province" class="form-control"
-                                                style="    width: 200%;" v-model="selectedProvince3">
+                                                style="    width: 100%;" v-model="selectedProvince3">
                                                 <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
                                                 <option v-for="province in provinces" :key="province.id"
                                                    :value="province.id">
                                                    {{ province.name }}
                                                 </option>
                                              </select>
+                                             <span v-if="!selectedProvince3" class="red-star">*</span>
                                           </div>
                                        </div>
                                     </div>
@@ -311,8 +359,14 @@
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
                                           <label for="vesi" class="fz-180 fw-500 inter title mb-16">Og'irligi</label>
-                                          <input type="number" id="vesi" name="vesi" class="form-control"
-                                             placeholder="gramm" v-model="weight">
+                                          <div class="input-wrapper">
+
+                                             <input type="number" id="vesi" name="vesi" class="form-control"
+                                                placeholder="gramm" v-model="weight">
+                                             <span v-if="!weight" class="red-star">*</span>
+                                             <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
+
+                                          </div>
                                        </div>
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
@@ -482,7 +536,7 @@ export default {
             }
          }
          if (this.activeTab === 'Manzil') {
-            if (!this.senderName || !this.senderPhone || !this.senderAddress || !this.selectedProvince1 || !this.selectedDistrict1 || !this.receiverName || !this.receiverPhone  || !this.selectedDistrict2 || !this.weight) {
+            if (!this.senderName || !this.senderPhone || !this.senderAddress || !this.selectedProvince1 || !this.selectedDistrict1 || !this.receiverName || !this.receiverPhone || !this.selectedDistrict2 || !this.weight) {
                this.totalPrice = 0;
 
                document.getElementById("error-message1").style.display = "block";
@@ -788,6 +842,9 @@ export default {
                this.calculatePrice(); // Narxni hisoblash funksiyasini chaqirish
             }
          }
+
+
+
       },
       async calculatePrice() {
          if (this.activeTab === 'Index') {
@@ -1483,4 +1540,33 @@ form.write__review {
 a.cmn--btn.mt-30.d-flex.justify-content-center.d-block {
    background: #183e98;
 }
+
+.input-wrapperfrom {
+   position: relative;
+}
+
+.red-starinputfrom {
+   color: red;
+   font-weight: bold;
+   position: absolute;
+   top: 10px;
+   right: 5px;
+   transform: translateY(-50%);
+   font-size: 18px;
+}
+
+.input-wrapperphone {
+   position: relative;
+}
+
+.red-starphone {
+   color: red;
+   font-weight: bold;
+   position: absolute;
+   top: 10px;
+   right: 5px;
+   transform: translateY(-50%);
+   font-size: 18px;
+}
+
 </style>

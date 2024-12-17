@@ -70,20 +70,20 @@
 
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
-                           <div class="tab bor" style="color: #222E48;">
-                              <p v-if="service.id === 136">
+                           <div class="tab bor" style="color: #222E48; display: flex; gap:100px;">
+                              <p v-if="service.id === 136" class="service-description" style="    background-color: #c5d4eb;">
                                  Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
                                  madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
                               </p>
-                              <p v-if="service.id === 135">
+                              <p v-if="service.id === 135" class="service-description" style="    background-color: #c5d4eb;">
                                  Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
                                  jo'natma turida kiyim-kechak, aksessuarlar va boshqa kichik sinmaydigan mahsulotlarni
                                  yuborish mumkin.
                               </p>
-                              <p v-if="service.id === 33">
+                              <p v-if="service.id === 33" class="service-description" style="    background-color: #c5d4eb;">
                                  Xat - bu ichida yozma xat-xabar, hujjatlar bo’lgan pochta jo'natmasi
                               </p>
-                              <p v-if="service.id === 209">
+                              <p v-if="service.id === 209" class="service-description" style="    background-color: #c5d4eb;">
                                  “Bir Qadam” xizmati orqali jo'natmalaringizni 1 KUNda butun O'zbekiston bo'ylab
                                  belgilangan bo'limlar orasida yetkazib beramiz.
                               </p>
@@ -101,31 +101,44 @@
 
 
                                  <div class="col-lg-4 viloyat">
-                                    <div class="frm__grp">
+                                    <div class="frm__grp" :class="{ error: !selectedProvince1 && showErrorRegion1 }">
                                        <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <select id="province" name="province" class="form-control"
-                                          v-model="selectedProvince1" @change="fetchDistricts1">
-                                          <option value="" disabled selected>Viloyat tanlang</option>
-                                          <option v-for="(name, id) in regions1" :key="name" :value="name">
-                                             {{ id }}
-                                          </option>
-                                       </select>
+                                       <div class="select-wrapper">
+                                          <select id="province" name="province" class="form-control"
+                                             v-model="selectedProvince1" @change="fetchDistricts1">
+                                             <option value="" disabled selected>Viloyat tanlang</option>
+                                             <option v-for="(name, id) in regions1" :key="name" :value="name">
+                                                {{ id }}
+                                             </option>
+                                          </select>
+                                          <span v-if="!selectedProvince1" class="red-star">*</span>
+                                       </div>
                                     </div>
                                  </div>
 
                                  <!-- District Tanlash -->
                                  <div class="col-lg-4 tuman">
-                                    <div class="frm__grp">
+                                    <div class="frm__grp" :class="{ error: !selectedDistrict1 && showErrorDistrict1 }">
                                        <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <select id="district" name="district" class="form-control"
-                                          v-model="selectedDistrict1">
-                                          <option value="" disabled selected>Tuman tanlang</option>
-                                          <option v-for="(name, id) in districts1" :key="id" :value="name.id">
-                                             {{ name.name }}
-                                          </option>
-                                       </select>
+                                       <div class="select-wrapper">
+                                          <select id="district" name="district" class="form-control"
+                                             v-model="selectedDistrict1">
+                                             <option value="" disabled selected>
+                                                Tuman tanlang
+                                             </option>
+                                             <option v-for="(name, id) in districts1" :key="id" :value="name.id">
+                                                {{ name.name }}
+                                             </option>
+                                          </select>
+                                          <span v-if="!selectedDistrict1" class="red-star">*</span>
+                                       </div>
                                     </div>
                                  </div>
+
+
+
+
+
 
                                  <div class="col-lg-4 manzil">
                                     <div class="frm__grp">
@@ -149,7 +162,7 @@
                                     <button class="tablinks1" type="button"
                                        :class="{ active: $route.activeTab === 'Index' }" @click="activeTab = 'Index'"
                                        style="display: block;">
-                                       <p>Index</p>
+                                       <p>Indeks</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
@@ -168,10 +181,18 @@
                                  <div id="Index" class="tabcontent1" v-show="activeTab === 'Index'">
                                     <div class="col-lg-4 index">
                                        <div class="frm__grp">
-                                          <label for="index" class="fz-18 fw-500 inter title mb-16"></label>
-                                          <input style="    position: relative; top: -60px;" type="text" id="index"
-                                             name="index" class="form-control" placeholder="Indeksni kiriting"
-                                             v-model="index" />
+
+                                          <label for="index" class="fz-18 fw-500 inter title mb-16">
+                                          </label>
+                                          <div class="input-wrapper">
+
+                                             <input style="    position: relative; top: -60px;" type="text" id="index"
+                                                name="index" class="form-control" placeholder="Indeksni kiriting"
+                                                v-model="index" />
+                                             <span v-if="!index" class="red-starinput">*</span>
+                                             <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
+
+                                          </div>
                                        </div>
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
@@ -194,29 +215,40 @@
                                     <form action="#0" class="write__review" style="margin-top: 20px;">
                                        <div class="row g-4 justify-content-center"
                                           style="    position: relative; top: -60px;">
-                                          <div class="col-lg-4 viloyat2">
-                                             <div class="frm__grp">
+                                          <div class="col-lg-4 viloyat">
+                                             <div class="frm__grp"
+                                                :class="{ error: !selectedProvince2 && showErrorRegion2 }">
                                                 <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <select id="province" name="province" class="form-control"
-                                                   v-model="selectedProvince2" @change="fetchDistricts2">
-                                                   <option value="" disabled selected>Viloyat tanlang</option>
-                                                   <option v-for="(name, id) in regions2" :key="name" :value="name">
-                                                      {{ id }}
-                                                   </option>
-                                                </select>
+                                                <div class="select-wrapper">
+                                                   <select id="province" name="province" class="form-control"
+                                                      v-model="selectedProvince2" @change="fetchDistricts2">
+                                                      <option value="" disabled selected>Viloyat tanlang</option>
+                                                      <option v-for="(name, id) in regions2" :key="name" :value="name">
+                                                         {{ id }}
+                                                      </option>
+                                                   </select>
+                                                   <span v-if="!selectedProvince2" class="red-star">*</span>
+                                                </div>
                                              </div>
                                           </div>
 
                                           <div class="col-lg-4 tuman">
-                                             <div class="frm__grp">
+                                             <div class="frm__grp"
+                                                :class="{ error: !selectedDistrict2 && showErrorDistrict2 }">
                                                 <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <select id="district" name="district" class="form-control"
-                                                   v-model="selectedDistrict2">
-                                                   <option value="" disabled selected>Tuman tanlang</option>
-                                                   <option v-for="(name, id) in districts2" :key="id" :value="name.id">
-                                                      {{ name.name }}
-                                                   </option>
-                                                </select>
+                                                <div class="select-wrapper">
+                                                   <select id="district" name="district" class="form-control"
+                                                      v-model="selectedDistrict2">
+                                                      <option value="" disabled selected>
+                                                         Tuman tanlang
+                                                      </option>
+                                                      <option v-for="(name, id) in districts2" :key="id"
+                                                         :value="name.id">
+                                                         {{ name.name }}
+                                                      </option>
+                                                   </select>
+                                                   <span v-if="!selectedDistrict2" class="red-star">*</span>
+                                                </div>
                                              </div>
                                           </div>
 
@@ -239,21 +271,25 @@
                                     <h6 style="color: red; font-size: small;">Bu xizmat hozircha mavjud emas </h6>
                                  </div>
                                  <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
-                                    <div class="col-lg-4 index" style="width: 90%;">
-                                       <div class="col-lg-4 viloyat" style="    position: relative; top: -60px;">
-                                          <div class="frm__grp">
+                                    
+                                       <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
+                                          <div class="frm__grp"
+                                             :class="{ error: !selectedProvince3 && showErrorProvince3 }">>
                                              <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                             <select id="province" name="province" class="form-control"
-                                                style="    width: 200%;" v-model="selectedProvince3">
-                                                <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
-                                                <option v-for="province in provinces" :key="province.id"
-                                                   :value="province.id">
-                                                   {{ province.name }}
-                                                </option>
-                                             </select>
+                                             <div class="select-wrapper">
+                                                <select id="province" name="province" class="form-control"
+                                                   style="    width: 100%;" v-model="selectedProvince3">
+                                                   <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
+                                                   <option v-for="province in provinces" :key="province.id"
+                                                      :value="province.id">
+                                                      {{ province.name }}
+                                                   </option>
+                                                </select>
+                                                <span v-if="!selectedProvince3" class="red-star">*</span>
+                                             </div>
                                           </div>
                                        </div>
-                                    </div>
+                                    
                                  </div>
                                  <h3 class="title mb-20" style="    position: relative; top: -40px;">
 
@@ -262,8 +298,14 @@
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
                                           <label for="vesi" class="fz-180 fw-500 inter title mb-16">Og'irligi</label>
-                                          <input type="number" id="vesi" name="vesi" class="form-control"
-                                             placeholder="gramm" v-model="weight">
+                                          <div class="input-wrapper">
+
+                                             <input type="number" id="vesi" name="vesi" class="form-control"
+                                                placeholder="gramm" v-model="weight">
+                                             <span v-if="!weight" class="red-star">*</span>
+                                             <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
+
+                                          </div>
                                        </div>
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
@@ -958,4 +1000,57 @@ export default {
    z-index: 9999;
    /* Boshqa elementlardan yuqorida bo'lishi uchun */
 }
+
+.select-wrapper {
+   position: relative;
+}
+
+.red-star {
+   color: red;
+   font-weight: bold;
+   position: absolute;
+   top: 30%;
+   right: 10px;
+   transform: translateY(-50%);
+   font-size: 18px;
+}
+
+.input-wrapper {
+   position: relative;
+}
+
+.red-starinput {
+   color: red;
+   /* Yulduzchaning rangini qizil qilish */
+   font-weight: bold;
+   position: absolute;
+   top: -50px;
+   right: 5px;
+   /* Yulduzchaning joylashuvi */
+   transform: translateY(-50%);
+   font-size: 18px;
+}
+
+.select-wrapperother {
+   position: relative;
+}
+.red-starother {
+   color: red;
+   font-weight: bold;
+   position: absolute;
+   top: 10px;
+   right: -170px;
+   transform: translateY(-50%);
+   font-size: 18px;
+}
+
+
+.service-description {
+   flex: 1; /* Har bir gap bir xil joy egallaydi */
+   min-height: 100px; /* Minimal balandlik */
+   padding: 10px;
+   box-sizing: border-box;
+   text-align: justify;
+}
+
 </style>

@@ -5,14 +5,15 @@
             <div class="row justify-content-center">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
                     <div class="section__title text-center ralt mb-60">
-                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="0s">
-
-                        </h4>
+                        <p class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="0s" style="color: var(--white); font-size: 70px;">
+                            Xizmatlar
+                        </p>
+                        <br>
+                        <br>
+                        <br>
                         <h2 class="title wow fadeInUp mb-24" data-wow-duration="0s" style="color: rgb(255, 255, 255);">
                             O'zbekiston bo'ylab yetkazib berish
                         </h2>
-                        <br>
-                        <br>
                         <p class="pra fz-16 inter fw-400">
 
                         </p>
@@ -78,11 +79,12 @@
                         <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="0s">
 
                         </h4>
+                        <br>
+                        <br>
+                        <br>
                         <h2 class="title wow fadeInUp mb-24" data-wow-duration="0s" style="color: rgb(255, 255, 255);">
                             Xalqaro jo'natmalar
                         </h2>
-                        <br>
-                        <br>
                         <p class="pra fz-16 inter fw-400">
 
                         </p>

@@ -29,7 +29,7 @@
                         </router-link>
                         <!-- how-work.html shuni o'rniga qo'yilgan -->
                         <router-link to="/" class="pra mdnone inter fw-400">
-                           Jismoniy shaxslar uchun
+                           {{ $t('for_individuals') }}
                         </router-link>
                         <!-- about.html shuni o'rniga qo'yilgan -->
                         <router-link to="/yuridik" class="pra mdnone inter fw-400">
@@ -67,7 +67,7 @@
                      <ul class="main-menu">
                         <li>
                            <a href="javascript:void(0)" class="fz-24">
-                              Yuborish
+                              Jo'natma
                               <i class="bi bi-chevron-down"></i>
                            </a>
                            <ul class="sub-menu" style="top: 60%;">
@@ -77,29 +77,29 @@
                                  </router-link>
                               </li>
                               <li class="burchak">
-                                 <router-link to="/tariflar" class="custom-link">
+                                 <router-link to="/turlari" class="custom-link">
                                     <span style="text-transform: none;">Jo'natma turlari</span>
                                  </router-link>
                               </li>
                               <li class="burchak">
-                                 <router-link to="/tariflar" class="custom-link">
+                                 <router-link to="/taqiqlanganjoylanmalar" class="custom-link">
                                     <span style="text-transform: none;">Taqiqlangan joylanmalar</span>
                                  </router-link>
                               </li>
                               <li class="burchak">
-                                 <router-link to="/tarif" class="custom-link">
-                                    <span style="text-transform: none;">O'zbekiston bo'ylab yuborish</span>
+                                 <router-link to="/tariflar" class="custom-link">
+                                    <span style="text-transform: none;">O'zbekiston ichidagi jo'natmalar</span>
                                  </router-link>
                               </li>
                               <li class="burchak">
-                                 <router-link to="/tariflar" class="custom-link">
+                                 <router-link to="/tariflar1" class="custom-link">
                                     <span style="text-transform: none;">Xalqaro jo'natmalar</span>
                                  </router-link>
                               </li>
                            </ul>
                         </li>
                         <li>
-                           <router-link to="/tariflar">
+                           <router-link to="/tariflar2">
                               Tariflar
                            </router-link>
                         </li>
@@ -110,7 +110,8 @@
                         </li>
                         <li>
                            <a href="javascript:void(0)">
-                              Onlayn xizmatlar
+                              <span style="text-transform: capitalize;">Onlayn </span> <span
+                                 style="text-transform: lowercase;">xizmatlar</span>
                               <i class="bi bi-chevron-down"></i>
                            </a>
                            <ul class="sub-menu" style="top: 60%;">
@@ -162,11 +163,13 @@
                               <div class="dropdown-menu dropdown-start" data-popper-placement="bottom-start">
                                  <ul class="list">
                                     <li>
-                                       <a href="#" class="link d-inline-block dropdown-item">
-                                          <span class="d-block bborder pb-1"> Uz </span>
+                                       <a href="#" class="link d-inline-block dropdown-item"
+                                          @click.prevent="changeLanguage('uz')">
+                                          <span class="d-block bborder pb-1">Uz</span>
                                        </a>
-                                       <a href="#" class="link d-inline-block dropdown-item">
-                                          <span class="d-block "> Ru </span>
+                                       <a href="#" class="link d-inline-block dropdown-item"
+                                          @click.prevent="changeLanguage('ru')">
+                                          <span class="d-block">Ru</span>
                                        </a>
                                     </li>
                                  </ul>
@@ -177,7 +180,7 @@
                                  <i class="bi-geo-alt"></i>
                               </router-link>
                            </div>
-                           
+
                            <div class="dropdown ochirish" title="Yordam">
                               <router-link to="/aloqa" class="link glose__icon d-flex align-items-center">
                                  <i class="bi bi-life-preserver"></i>
@@ -252,7 +255,7 @@
                                           <router-link to="/aloqa"
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
-                                             <span class="d-block fz-16 pra fw-500 inter">Murijat yuborish</span>
+                                             <span class="d-block fz-16 pra fw-500 inter">Murojaat yuborish</span>
                                           </router-link>
                                        </li>
                                        <li class="mb-16">
@@ -441,9 +444,13 @@ export default {
          combinedTracking: [],
          errorMessage: null,
          isLoading: false,
+         locale: this.$i18n.locale,
       };
    },
    methods: {
+      changeLanguage(lang) {
+         this.$i18n.locale = lang; // vue-i18n orqali tilni o'zgartirish
+      },
       refreshPage(event) {
          // Sahifa yangilanayotgani uchun Vue Router hodisasini to'xtatamiz
          event.preventDefault();
@@ -653,11 +660,8 @@ li .sub-menu li a {
 } */
 
 @media (max-width: 500px) {
-  .ochirish {
-    display: none;
-  }
+   .ochirish {
+      display: none;
+   }
 }
-
-
-
 </style>
