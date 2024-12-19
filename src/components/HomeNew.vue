@@ -7,13 +7,13 @@
                 <div class="button-container">
                     <router-link to="/xizmat" class="cmn--btn custom-button">
                         <span>
-                            Xizmat haqida batafsil
+                            {{ $t('service_details') }}
                         </span>
                     </router-link>
 
                     <router-link to="/map" class="cmn--btn custom-button">
                         <span>
-                            "Bir Qadam" bo'limlari xaritasi
+                            {{ $t('branch_map') }}
                         </span>
                     </router-link>
                 </div>
@@ -37,14 +37,14 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <router-link to="/map" class="titleq">
-                                        Pochta bo'limni qidirish
+                                        {{ $t('search_branch') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
                         <router-link to="/map" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -61,7 +61,7 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <a href="/yangiliklar" class="titleq">
-                                        Yangiliklar
+                                        {{ $t('news') }}
                                     </a>
                                 </h4>
                                 <br>
@@ -69,7 +69,7 @@
                         </div>
                         <router-link to="/yangiliklar" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -86,14 +86,14 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <router-link to="/Kalkulyator" class="titleq">
-                                        Jo'natma kalkulyatori
+                                        {{ $t('shipment_calculator') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
                         <router-link to="/Kalkulyator" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -110,14 +110,14 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <router-link to="/ordering" class="titleq">
-                                        Jo'natmani rasmiylashtirish
+                                        {{ $t('online_registration') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
                         <router-link to="/ordering" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -134,14 +134,14 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <router-link to="/map" class="titleq">
-                                        Mening pochta indeksim
+                                        {{ $t('my_post_index') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
                         <router-link to="/map" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -158,14 +158,14 @@
                             <div class="content">
                                 <h4 class="mb-10 title">
                                     <router-link to="/aloqa" class="titleq">
-                                        Xabar yuborish
+                                        {{ $t('send_inquiry') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
                         <router-link to="/aloqa" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
-                                Batafsil
+                                {{ $t('more_details') }}
                             </span>
                             <span>
                                 <i class="bi bi-arrow-right transition fz-18 base"></i>
@@ -187,67 +187,63 @@
     </div>
     <!--Search Popup-->
     <!-- Categoris section Here -->
-    <section class="service__section pt-220 pb-220  bg__tblr">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xxl-6 col-xl-8 col-lg-8">
-                    <div class="section__title text-center mb-60">
-                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-                        </h4>
-                        <h2 class="title2 mb-24 wow fadeInUp" data-wow-duration="1.2s">
-                            Yangiliklar
-                        </h2>
-                        <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center g-4">
-                <div v-for="(news, index) in latestNews" :key="index"
-                    class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                    <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
-                            <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
-                        </router-link>
-                        <div class="service__content">
-
-                            <h5 class="mb-16">
-                                <router-link :to="`/yangilik/${news.id}`" class="titley">
-                                    {{ news.title_uz }}
-                                </router-link>
-
-                                <router-link :to="`/yangilik/${news.id}`" class="titlet">
-                                    {{ news.description_uz }}
-                                </router-link>
-
-                            </h5>
-                            <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
-                                <div class="d-flex gap-2 fz-12 fw-600 inter title3">
-                                    <i class="ratting"></i>
-                                    {{ formatDate(news.date) }}
-                                </div>
-                                <span class="fz-16 fw-400 inter pra">
-                                    <span class="bi bi-eye fz-12 fw-600 base inter title4">
-                                        {{ news.views }}
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-40">
-                <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
-                    <span>
-                        Barchasini ko'rish
-                    </span>
-                    <span class="ps-1">
-                        <i class="bi bi-arrow-up-right"></i>
-                    </span>
-                </router-link>
-            </div>
+    <section class="service__section pt-220 pb-220 bg__tblr">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-8 col-lg-8">
+          <div class="section__title text-center mb-60">
+            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
+            </h4>
+            <h2 class="title2 mb-24 wow fadeInUp" data-wow-duration="1.2s">
+              {{ $t('news') }}
+            </h2>
+            <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="row justify-content-center g-4">
+        <div v-for="(news, index) in latestNews" :key="index" class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
+          <div class="service__item shadow2 round16 p-8 bgwhite">
+            <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
+              <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
+            </router-link>
+            <div class="service__content">
+              <h5 class="mb-16">
+                <router-link :to="`/yangilik/${news.id}`" class="titley">
+                  {{ news[`title_${$i18n.locale}`] || news.title_uz }}
+                </router-link>
+                <router-link :to="`/yangilik/${news.id}`" class="titlet">
+                  {{ news[`description_${$i18n.locale}`] || news.description_uz }}
+                </router-link>
+              </h5>
+              <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
+                <div class="d-flex gap-2 fz-12 fw-600 inter title3">
+                  <i class="ratting"></i>
+                  {{ formatDate(news.date) }}
+                </div>
+                <span class="fz-16 fw-400 inter pra">
+                  <span class="bi bi-eye fz-12 fw-600 base inter title4">
+                    {{ news.views }}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-40">
+        <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
+          <span>
+            {{ $t('view_all') }}
+          </span>
+          <span class="ps-1">
+            <i class="bi bi-arrow-up-right"></i>
+          </span>
+        </router-link>
+      </div>
+    </div>
+  </section>
     <!-- Categoris section End -->
     <!-- task categorish Section Here -->
     <section class="app__section ralt bg__all2 pb-120 pt-120">
@@ -258,7 +254,7 @@
                         <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
                         </h4>
                         <h2 class="title2 wow fadeInUp mb-24" data-wow-duration="1.2s">
-                            Xizmatlar
+                            {{ $t('services') }}
                         </h2>
                         <p class="pra fz-16 inter fw-400">
                         </p>
@@ -282,7 +278,7 @@
                             </p>
                             <router-link to="/xizmat" class="cmn--btn outline__btn">
                                 <span>
-                                    Batafsil
+                                    {{ $t('more_details') }}
                                 </span>
                                 <span>
                                     <i class="bi bi-arrow-up-right"></i>
@@ -307,7 +303,7 @@
                             </p>
                             <router-link to="/kuryerlikXizmati" class="cmn--btn outline__btn">
                                 <span>
-                                    Batafsil
+                                    {{ $t('more_details') }}
                                 </span>
                                 <span>
                                     <i class="bi bi-arrow-up-right"></i>
@@ -369,7 +365,7 @@
         <!-- <div class="text-center mt-40">
             <router-link to="/xizmatlar" class="cmn--btn outline__btn">
                 <span>
-                    Barchasini ko'rish
+                    {{ $t('view_all') }}
                 </span>
                 <span class="ps-1">
                     <i class="bi bi-arrow-up-right"></i>
@@ -382,7 +378,7 @@
         <br>
         <div class="container">
             <div class="divider">
-                <span>BIZ BILAN HAMKORLIK QILMOQDA</span>
+                <span>{{ $t('cooperating_with_us') }}</span>
             </div>
         </div>
     </section>
@@ -424,13 +420,11 @@
 
                     </h4>
                     <h2 class="title2 mb-20 wow fadeInUp orta" data-wow-duration="1.2s">
-                        UzPost multibrend topshirish punktlari haqida
+                        {{ $t('about_multibrand_points') }}
                     </h2>
                     <br>
                     <p class="ptext2 fz-16 fw-400 inter wow fadeInUp orta" data-wow-duration="1.4s">
-                        Multibrend topshirish punktlari - bu marketpleys va onlayn-do'kon xaridorlariga buyurtmalarni
-                        UzPost
-                        bo'limlarida topshirish imkoniyati. UzPost bo'limlari mijozlar uchun yaqin va qulay.
+                        {{ $t('multibrand_points_description') }}
                     </p>
                 </div>
             </div>
@@ -448,8 +442,7 @@
                             </div>
                             <div class="content">
                                 <p class="fz-14 fw-400 inter pra">
-                                    Turli xil bizning hamkor marketpleys/onlayn-do'konlardan UzPost bo'limlarini tablab
-                                    buyurtma bering
+                                    {{ $t('multibrand_ordering') }}
                                 </p>
                             </div>
                         </div>
@@ -462,7 +455,7 @@
                             </div>
                             <div class="content">
                                 <p class="fz-14 fw-400 inter pra">
-                                    UzPost bo'limlari butun O'zbekiston bo'ylab tumanlar miqyosigacha mavjud.
+                                    {{ $t('uzpost_availability') }}
                                 </p>
                             </div>
                         </div>
@@ -481,8 +474,7 @@
                             </div>
                             <div class="content">
                                 <p class="fz-14 fw-400 inter pra">
-                                    Agar pochta bo‘limi do‘konlarning alohida topshirish punktlariga qaraganda yaqinroq
-                                    bo‘lsa, bu vaqt va kuchni tejaydi.
+                                    {{ $t('convenience_saving') }}
                                 </p>
                             </div>
                         </div>
@@ -495,9 +487,7 @@
                             </div>
                             <div class="content">
                                 <p class="fz-14 fw-400 inter pra">
-                                    Ba'zi hamkor marketpleys/onlayn-do'konlardan qilingan buyurtmalar uchun to'lovni
-                                    qabul qilish
-                                    vaqtida ham amalga oshirsa bo'ladi.Qisqacha ma'lumot yoziladi
+                                    {{ $t('cash_on_delivery') }}
                                 </p>
                             </div>
                         </div>
@@ -623,13 +613,13 @@
                     <div class="app__content">
                         <div class="section__title mb-30">
                             <h4 class="sub ralt title6 mb-16 wow fadeInDown">
-                                Ilovamizni yuklab oling va yangiliklardan xabardor bo'lib turing!
+                                {{ $t('download_app') }}
                             </h4>
                             <h2 class="title2 mb-40 wow fadeInUp">
-                                UzPost mobil ilovasini yuklab oling va qulayliklardan foydalaning!
+                                {{ $t('app_description') }}
                             </h2>
                             <p class="ptext2 fz-18 fw-400 inter wow fadeInDown title7">
-                                Ilova App Store va Google Play platformalarida mavjud
+                                {{ $t('app_platforms') }}
                             </p>
                         </div>
                         <div class="app__store d-flex align-items-center gap-3 flex-wrap wow fadeInDown">
@@ -657,7 +647,7 @@
                 <div>
                     <br>
                     <h3 class="fw-600 inter title2 bborderdash pb-24 mb-24">
-                        <strong>Koʻp beriladigan savollar</strong>
+                        <strong>{{ $t('faq') }}</strong>
                     </h3>
                     <div class="faq__qustion">
                         <div class="accordion__wrap">
@@ -674,7 +664,7 @@
                                  border-bottom-right-radius: 4px;
                                  border-bottom-left-radius: 4px;
                              ">
-                                            Eng yaqin bo'limni qanday topish mumkin?
+                                            {{ $t('faq_find_branch') }}
                                         </button>
                                         <div id="collapseTwo" class="accordion-collapse collapse"
                                             aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -707,7 +697,7 @@
                                  border-bottom-right-radius: 4px;
                                  border-bottom-left-radius: 4px;
                              ">
-                                            UzPost xizmatlari tariflari bilan qayerda tanishib chiqsa bo'ladi?
+                                            {{ $t('faq_tariffs') }}
                                         </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse"
@@ -742,7 +732,7 @@
                                  border-bottom-right-radius: 4px;
                                  border-bottom-left-radius: 4px;
                              ">
-                                            Jo'natmani qanday kuzatish mumkin?
+                                            {{ $t('faq_tracking') }}
                                         </button>
                                     </h2>
                                     <div id="collapseThree" class="accordion-collapse collapse"
@@ -755,30 +745,20 @@
                               border-bottom-left-radius: 4px;
                           ">
                                             <p>
-                                                Pochta jo'natmalarini ushbu saytning bosh sahifasida mavjud bo'lgan
-                                                jo'natmalarni kuzatish funksiyasi orqali jo'natma trek-kodini kiritish
-                                                yo'li bilan amalga oshirish mumkin. Trek-kod boshida “ikkita harf”,
-                                                keyin “to'qqizta raqam” va oxirida “ikkita harf” ko'rinishida bo'ladi.
-                                                Misol uchun, RF270145546CN.
+                                                {{ $t('tracking_instruction') }} {{ $t('tracking_code_format') }}
 
 
 
                                                 <br><img src="assets/img/aralash/kuzatish.png" alt="Rasm"><br>
-                                                <strong>Trek kodi harf bilan boshlanadigan jo'natish turlari:</strong>
-                                                <br>"C" - oddiy posilka (2 kg dan ortiq), yetkazib berilgunga qadar
-                                                kuzatuv
-                                                <br>"R" - mayda paket (2 kg dan kam), yetkazib berilgunga qadar kuzatuv
-                                                <br>"L" - mayda paket (2 kg dan kam), yetkazib berilgunga qadar kuzatuv,
-                                                qabul qiluvchi mamlakatning pochta operatori orqali qidirilmaydi
-                                                <br>"E" - tezkor jo'natish (EMS), ikkinchi harf tartibli hisoblanib,
-                                                yetkazib berilgunga qadar kuzatuv
-                                                <br>"V" - sug'urtali xat
-                                                <br>"A" - mayda paket, qabul qiluvchi mamlakat tomonidan kuzatilmaydi,
-                                                qabul qiluvchi mamlakatning pochta operatori orqali qidirilmaydi
-                                                <br>"U" - mayda paket, qabul qiluvchi mamlakat tomonidan kuzatilmaydi,
-                                                qabul qiluvchi mamlakatning pochta operatori orqali qidirilmaydi
-                                                <br>"Z" - mayda paket, qabul qiluvchi mamlakat bo'yicha qisman kuzatuv
-                                                (faqat qabul qiluvchining pochta bo'limiga kelganligi haqida ma'lumot)
+                                                <strong>{{ $t('tracking_code_types_heading') }}</strong>
+                                                <br>{{ $t('tracking_code_type_C') }}
+                                                <br>{{ $t('tracking_code_type_R') }}
+                                                <br>{{ $t('tracking_code_type_L') }}
+                                                <br>{{ $t('tracking_code_type_E') }}
+                                                <br>{{ $t('tracking_code_type_V') }}
+                                                <br>{{ $t('tracking_code_type_A') }}
+                                                <br>{{ $t('tracking_code_type_U') }}
+                                                <br>{{ $t('tracking_code_type_Z') }}
                                             </p>
                                         </div>
                                     </div>
@@ -795,7 +775,7 @@
                                  border-bottom-right-radius: 4px;
                                  border-bottom-left-radius: 4px;
                              ">
-                                            Mening indeksim nima?
+                                            {{ $t('faq_post_index') }}
                                         </button>
                                     </h2>
                                     <div id="collapseOner" class="accordion-collapse collapse"
@@ -820,17 +800,17 @@
                                     </div>
                                 </div>
                                 <!--Accordion items-->
-                                <!-- <div class="text-center mt-40">
+                                <div class="text-center mt-40">
                                     <router-link to="/savollar" class="cmn--btn outline__btn"
                                         style="text-transform: none;">
                                         <span>
-                                            Barchasini ko'rish
+                                            {{ $t('view_all') }}
                                         </span>
                                         <span class="ps-1">
                                             <i class="bi bi-arrow-up-right"></i>
                                         </span>
                                     </router-link>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -839,65 +819,62 @@
         </div>
     </section>
     <section class="app__section ralt bg__all1 pb-120 pt-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-xxl-6 col-xl-8 col-lg-8">
-                    <div class="section__title ralt mb-40">
-                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-                        </h4>
-                        <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">
-                            Markalar katalogi
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="container4 d-flex flex-wrap gap-3">
-                <div v-for="item in marks" :key="item.id" class="frelancer__item shadow2 round16 bgwhite eni">
-                    <a :href="`/marka2/${item.id}`" class="thumb round16 w-100">
-                        <img :src="item.save_image_uz?.replace('http://', 'https://')" class="round16 w-100"
-                            alt="service" />
-                    </a>
-                    <h5 class="mt-24 mb-20">
-                        <a :href="`/marka2/${item.id}`" class="titley">
-                            {{ truncateTitle(item.title_uz, 45) }}
-                        </a>
-                    </h5>
-                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-stopwatch"></i>
-                            {{ item.years || '-' }}
-                        </div>
-                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-                            <i class="bi bi-bar-chart"></i>
-                            {{ item.marks_count_uz || '-' }}
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-20 justify-content-between">
-                        <span class="fz-18 fw-600 inter base">
-                            {{ formatPrice(item.price_uz) }}
-                        </span>
-                        <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <a :href="`/marka2/${item.id}`">
-                                <i class="bi bi-chevron-right title fz-16"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-40">
-                <router-link to="/markalar" class="cmn--btn outline__btn" style="text-transform: none;">
-                    <span>
-                        Barchasini ko'rish
-                    </span>
-                    <span class="ps-1">
-                        <i class="bi bi-arrow-up-right"></i>
-                    </span>
-                </router-link>
-            </div>
-
-
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-6 col-xl-8 col-lg-8">
+          <div class="section__title ralt mb-40">
+            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
+            </h4>
+            <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">
+              {{ $t('mark_catalog') }}
+            </h2>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="container4 d-flex flex-wrap gap-3">
+        <div v-for="item in marks" :key="item.id" class="frelancer__item shadow2 round16 bgwhite eni">
+          <a :href="`/marka2/${item.id}`" class="thumb round16 w-100">
+            <img :src="item[`save_image_${$i18n.locale}`]?.replace('http://', 'https://') || item.save_image_uz" class="round16 w-100" alt="service" />
+          </a>
+          <h5 class="mt-24 mb-20">
+            <a :href="`/marka2/${item.id}`" class="titley">
+              {{ truncateTitle(item[`title_${$i18n.locale}`] || item.title_uz, 45) }}
+            </a>
+          </h5>
+          <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
+            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+              <i class="bi bi-stopwatch"></i>
+              {{ item.years || '-' }}
+            </div>
+            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+              <i class="bi bi-bar-chart"></i>
+              {{ item[`marks_count_${$i18n.locale}`] || '-' }}
+            </div>
+          </div>
+          <div class="d-flex align-items-center mt-20 justify-content-between">
+            <span class="fz-18 fw-600 inter base">
+              {{ formatPrice(item[`price_${$i18n.locale}`]) }}
+            </span>
+            <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
+              <a :href="`/marka2/${item.id}`">
+                <i class="bi bi-chevron-right title fz-16"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-40">
+        <router-link to="/markalar" class="cmn--btn outline__btn" style="text-transform: none;">
+          <span>
+            {{ $t('view_all') }}
+          </span>
+          <span class="ps-1">
+            <i class="bi bi-arrow-up-right"></i>
+          </span>
+        </router-link>
+      </div>
+    </div>
+  </section>
 
     <section class="company__sectioni bgwhite pb-060 pt-060">
         <div class="container">
@@ -909,7 +886,7 @@
                     <div class="freelancer__profile bborderdash pb-24 mb-24 align-items-center d-flex">
                         <div class="box__add">
                             <h3 class="mb-10 title">
-                                Markaziy bank valyuta kurslari
+                                {{ $t('central_bank_exchange_rates') }}
                             </h3>
                         </div>
                     </div>
@@ -948,71 +925,74 @@
 import axios from 'axios';
 
 export default {
-    data() {
-        return {
-            marks: [],
-            latestNews: [],
-        };
+  data() {
+    return {
+      marks: [],
+      latestNews: [],
+    };
+  },
+  methods: {
+    fetchData() {
+      axios
+        .get('https://new.pochta.uz/api/v1/public/marks/')
+        .then((response) => {
+          this.marks = response.data.slice(-4); // Oxirgi 5 ta element olish
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
     },
-    methods: {
-        fetchData() {
-            axios
-                .get('https://new.pochta.uz/api/v1/public/marks/')
-                .then((response) => {
-                    this.marks = response.data.slice(-4); // Oxirgi 5 ta element olish
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
-        },
-        truncateTitle(title, length) {
-            return title.length > length ? title.substring(0, length) + '...' : title;
-        },
-        formatPrice(price) {
-            return price ? `${price} so'm` : 'Noma\'lum narx';
-        },
-        async fetchNews() {
-            try {
-                const response = await axios.get(
-                    "https://new.pochta.uz/api/v1/public/uz-post-news/"
-                );
-                // Oxirgi 4 ta yangilikni olish va rasm URL'larini https'ga o'zgartirish
-                this.latestNews = response.data.slice(-4).reverse().map((news) => {
-                    return {
-                        ...news,
-                        save_image: this.ensureHttps(news.save_image),
-                    };
-                });
-            } catch (error) {
-                console.error("Yangiliklarni olishda xato:", error);
-            }
-        },
-        ensureHttps(url) {
-            // Agar URL HTTP bo'lsa, uni HTTPS'ga almashtiramiz
-            if (url.startsWith("http://")) {
-                return url.replace("http://", "https://");
-            }
-            return url;
-        },
-        formatDate(dateString) {
-            const date = new Date(dateString); // Stringni Date obyektiga aylantirish
-            const day = String(date.getDate()).padStart(2, '0'); // Kuni (2 xonali)
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Oyi (2 xonali)
-            const year = date.getFullYear(); // Yili
-            return `${day}.${month}.${year}`; // "DD.MM.YYYY" formatida qaytarish
-        },
+    truncateTitle(title, length) {
+      return title?.length > length ? title.substring(0, length) + '...' : title;
     },
-    mounted() {
-        this.fetchData();
-        this.fetchNews();
-
+    formatPrice(price) {
+      return price ? `${price} so'm` : this.$t('unknown_price');
     },
+    async fetchNews() {
+      try {
+        const response = await axios.get(
+          "https://new.pochta.uz/api/v1/public/uz-post-news/"
+        );
+        // Oxirgi 4 ta yangilikni olish va rasm URL'larini https'ga o'zgartirish
+        this.latestNews = response.data.slice(-4).reverse().map((news) => {
+          return {
+            ...news,
+            save_image: this.ensureHttps(news.save_image),
+          };
+        });
+      } catch (error) {
+        console.error("Yangiliklarni olishda xato:", error);
+      }
+    },
+    ensureHttps(url) {
+      // Agar URL HTTP bo'lsa, uni HTTPS'ga almashtiramiz
+      if (url?.startsWith("http://")) {
+        return url.replace("http://", "https://");
+      }
+      return url;
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString); // Stringni Date obyektiga aylantirish
+      const day = String(date.getDate()).padStart(2, '0'); // Kuni (2 xonali)
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Oyi (2 xonali)
+      const year = date.getFullYear(); // Yili
+      return `${day}.${month}.${year}`; // "DD.MM.YYYY" formatida qaytarish
+    },
+  },
+  mounted() {
+    this.fetchData();
+    this.fetchNews();
+  },
 };
 </script>
 
 
 
 <style scoped>
+
+
+
+
 .container4 {
     display: flex;
     flex-wrap: wrap;

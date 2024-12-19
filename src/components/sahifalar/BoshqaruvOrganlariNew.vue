@@ -19,7 +19,7 @@
                         <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                             <div class="breadcumnd__content">
                                 <span class="d4 mb-24">
-                                    Boshqaruv Organlari
+                                  {{ $t('management_bodies') }}
                                 </span>
                             </div>
                         </div>
@@ -29,10 +29,10 @@
         </div>
     </section>
   <div class="article-list">
-    <h1 class="title">Samarali boshqaruv kompaniyaning jadal rivojlanish kalitidir</h1>
+    <h1 class="title">{{ $t('management_effectiveness') }}</h1>
 
     <p class="description">
-      "O'zbekiston pochtasi" AJ rahbariyati zamon bilan hamnafas bo'lib, aholiga sifatli xizmat ko'rsatishni ta'minlash maqsadida xalqaro tajribadan foydalanib, ilg'or texnologiyalarni joriy qilmoqda.
+      {{ $t('management_description') }}
     </p>
 
     <div class="management-section">

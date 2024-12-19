@@ -1,63 +1,61 @@
 <template>
     <section class="banner__breadcumn ralt">
-        <!--Search Popup-->
-        <div id="searchPopup" class="search__popup">
-            <form action="#" class="popup-content d-flex align-items-center">
-                <input type="text" placeholder="Search Here">
-                <button id="closeButton">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </form>
-        </div>
-        <!--Search Popup-->
+    <!--Search Popup-->
+    <div id="searchPopup" class="search__popup">
+      <form action="#" class="popup-content d-flex align-items-center">
+        <input type="text" placeholder="Search Here">
+        <button id="closeButton">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </form>
+    </div>
+    <!--Search Popup-->
 
-        <div class="breadcumnd__wrapper">
-            <div class="container">
-                <div class="profile__wrapper">
-                    <div class="row g-4 align-items-center justify-content-between">
-                        <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
-                            <div class="breadcumnd__content">
-                                <span class="d4 mb-24">Yangiliklar</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="breadcumnd__wrapper">
+      <div class="container">
+        <div class="profile__wrapper">
+          <div class="row g-4 align-items-center justify-content-between">
+            <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
+              <div class="breadcumnd__content">
+                <span class="d4 mb-24">{{ $t('news') }}</span>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    <section class="blog__sections sectionbg pt-60 pb-120">
-        <div class="container">
-            <div class="row g-4">
-                <!-- Yangiliklar ro'yxati -->
-                <div v-for="item in newsItems" :key="item.id" class="col-xl-8 col-lg-8">
-                    <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
-                        <div v-if="item.save_image" class="bt__one mb-20">
-                            <img :src="item.save_image" alt="balance" class="round16 w-101">
-                        </div>
-                        <div class="blog__content">
-                            <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
-                                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                                    <i class="bi bi-calendar3 ptext2"></i>
-                                    {{ formatDate(item.date) }}
-                                </li>
-                            </ul>
-                            <h3 class="title mb-24">
-                                <router-link :to="'/yangilik/' + item.id" class="title">
-                                    {{ item.title_uz }}
-                                </router-link>
-                            </h3>
-                            <p v-if="item.description_uz" class="fz-16 fw-400 mb-40 ptext2 inter">
-                                {{ item.description_uz }}
-                            </p>
-                            <router-link :to="'/yangilik/' + item.id"
-                                class="cmn--btn d-flex align-items-center gap-2 outline__btn">
-                                <span>Batafsil</span>
-                                <span class="mt-1"><i class="bi bi-arrow-up-right"></i></span>
-                            </router-link>
-                        </div>
-                    </div>
-
-                </div>
+      </div>
+    </div>
+  </section>
+  <section class="blog__sections sectionbg pt-60 pb-120">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Yangiliklar ro'yxati -->
+        <div v-for="item in newsItems" :key="item.id" class="col-xl-8 col-lg-8">
+          <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
+            <div v-if="item.save_image" class="bt__one mb-20">
+              <img :src="item.save_image" alt="balance" class="round16 w-101" />
+            </div>
+            <div class="blog__content">
+              <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
+                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                  <i class="bi bi-calendar3 ptext2"></i>
+                  {{ formatDate(item.date) }}
+                </li>
+              </ul>
+              <h3 class="title mb-24">
+                <router-link :to="'/yangilik/' + item.id" class="title">
+                  {{ item[`title_${$i18n.locale}`] || item.title_uz }}
+                </router-link>
+              </h3>
+              <p v-if="item[`description_${$i18n.locale}`]" class="fz-16 fw-400 mb-40 ptext2 inter">
+                {{ item[`description_${$i18n.locale}`] || item.description_uz }}
+              </p>
+              <router-link :to="'/yangilik/' + item.id" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                <span>{{ $t('more_details') }}</span>
+                <span class="mt-1"><i class="bi bi-arrow-up-right"></i></span>
+              </router-link>
+            </div>
+          </div>
+        </div>
                 <!-- Blog sidebar -->
                 <!-- <div class="col-xl-4 col-lg-4">
                     <div class="blog__sidebar">
@@ -119,40 +117,43 @@
 import axios from 'axios';
 
 export default {
-    data() {
-        return {
-            newsItems: [], // API'dan olingan barcha yangiliklar
-        };
-    },
-    computed: {
-        latestNews() {
-            // Oxirgi 3 ta yangilikni olish
-            return this.newsItems.slice(-3).reverse(); // Oxirgi elementlarni ko'rsatish
-        }
-    },
-    created() {
-        this.fetchNews(); // Komponent yaratilganda API dan yangiliklarni yuklash
-    },
-    methods: {
-        async fetchNews() {
-            try {
-                const response = await axios.get('https://new.pochta.uz/api/v1/public/uz-post-news/');
-                // HTTP -> HTTPS ni o'zgartirish
-                this.newsItems = response.data.map(item => {
-                    if (item.save_image && item.save_image.startsWith('http://')) {
-                        item.save_image = item.save_image.replace('http://', 'https://');
-                    }
-                    return item;
-                });
-            } catch (error) {
-                console.error('Yangiliklar olishda xatolik yuz berdi:', error);
-            }
-        },
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-        }
+  data() {
+    return {
+      newsItems: [], // API'dan olingan barcha yangiliklar
+    };
+  },
+  computed: {
+    latestNews() {
+      // Oxirgi 3 ta yangilikni olish
+      return this.newsItems.slice(-3).reverse(); // Oxirgi elementlarni ko'rsatish
     }
+  },
+  created() {
+    this.fetchNews(); // Komponent yaratilganda API dan yangiliklarni yuklash
+  },
+  methods: {
+    async fetchNews() {
+      try {
+        const response = await axios.get('https://new.pochta.uz/api/v1/public/uz-post-news/');
+        // HTTP -> HTTPS ni o'zgartirish
+        this.newsItems = response.data.map(item => {
+          if (item.save_image && item.save_image.startsWith('http://')) {
+            item.save_image = item.save_image.replace('http://', 'https://');
+          }
+          return item;
+        });
+      } catch (error) {
+        console.error('Yangiliklar olishda xatolik yuz berdi:', error);
+      }
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}.${month}.${year}`;
+    }
+  }
 };
 </script>
 

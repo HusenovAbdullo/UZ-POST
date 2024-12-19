@@ -10,10 +10,15 @@ const messages = {
   ru
 };
 
+
+
+// Brauzerda saqlangan tilni yuklaymiz, aks holda 'uz' ni tanlaymiz
+const savedLocale = localStorage.getItem('locale') || 'uz';
+
 const i18n = createI18n({
-  locale: 'uz', // Standart til
-  fallbackLocale: 'ru', // Agarda tarjima topilmasa
-  messages
+  locale: savedLocale, // Saqlangan til yoki standart til
+  fallbackLocale: 'ru',
+  messages,
 });
 
 // createApp ni app o'zgaruvchisiga saqlaymiz

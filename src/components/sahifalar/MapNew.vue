@@ -15,7 +15,7 @@
                                 <button class="burchak outline__btn"
                                     :class="{ 'active-btn': activeButton === 'one_step' }"
                                     @click="filterData('one_step')" style="font-size: 14px; padding: 8px 15px;">
-                                    Bir Qadam
+                                    {{ $t('one_step') }}
                                 </button>
                                 <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'ems' }"
                                     @click="filterData('ems')" style="font-size: 14px; padding: 8px 15px;">
