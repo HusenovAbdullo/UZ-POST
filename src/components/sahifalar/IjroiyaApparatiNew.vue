@@ -1,119 +1,160 @@
 <template>
- <section class="banner__breadcumn ralt">
+  <section class="banner__breadcumn ralt">
 
-        <!--Search Popup-->
-        <div id="searchPopup" class="search__popup">
-            <form action="#" class="popup-content d-flex align-items-center">
-                <input type="text" placeholder="Search Here">
-                <button id="closeButton">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </form>
-        </div>
-        <!--Search Popup-->
-        <div class="breadcumnd__wrapper">
-            <div class="container">
-                <div class="profile__wrapper">
-                    <div class="row g-4 align-items-center justify-content-between">
-                        <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
-                            <div class="breadcumnd__content">
-                                <span class="d4 mb-24">
-                                    Ijroiya Apparati
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!--Search Popup-->
+    <div id="searchPopup" class="search__popup">
+      <form action="#" class="popup-content d-flex align-items-center">
+        <input type="text" placeholder="Search Here">
+        <button id="closeButton">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </form>
+    </div>
+    <!--Search Popup-->
+    <div class="breadcumnd__wrapper">
+      <div class="container">
+        <div class="profile__wrapper">
+          <div class="row g-4 align-items-center justify-content-between">
+            <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
+              <div class="breadcumnd__content">
+                <span class="d4 mb-24">
+                  {{ $t('executive_apparatus') }}
+                </span>
+              </div>
             </div>
-        </div>
-    </section>
-  <div class="profiles-container">
-    <div v-for="profile in profiles" :key="profile.id" class="profile-card">
-      <div class="photo-section">
-        <img :src="profile.photoUrl" :alt="profile.name" class="profile-photo" />
-      </div>
-      <div class="details-section">
-        <h1 class="name">{{ profile.name }}</h1>
-        <h2 class="position">{{ profile.position }}</h2>
-
-        <p class="bio">{{ profile.bio }}</p>
-
-        <div class="contact-info">
-          <div class="contact-item">
-            <h3>Telefon raqam:</h3>
-            <span>{{ profile.phone }}</span>
-          </div>
-
-          <div class="contact-item">
-            <h3>Fax:</h3>
-            <span>{{ profile.fax }}</span>
-          </div>
-
-          <div class="contact-item">
-            <h3>Qabul kunlar:</h3>
-            <span class="badge">{{ profile.receptionDays }}</span>
-          </div>
-
-          <div class="contact-item">
-            <h3>Qabul vaqti:</h3>
-            <span>{{ profile.receptionHours }}</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+  <section class="profiles-container">
+    <!-- 1-shaxs -->
+    <div class="profile-card">
+      <div class="photo-section">
+        <img src="@/assets/Alisher.jpg" alt="Fayzullayev Alisher Nasibullayevich" class="profile-photo" />
+      </div>
+      <div class="details-section">
+        <h1 class="name">{{ $t('faizyullaev_alisher') }}</h1>
+        <h2 class="position">{{ $t('faizyullaev_alisher1') }}</h2>
+        <p class="bio">{{ $t('faizyullaev_alisher2') }}
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3>{{ $t('phone_number') }}</h3>
+            <span>(0371) 236-76-25</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('fax') }}</h3>
+            <span>(0371) 236-09-21</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_days') }}</h3>
+            <span class="badge">{{ $t('faizyullaev_alisher3') }}</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_hours') }}</h3>
+            <span>14:00 — 17:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-shaxs -->
+    <div class="profile-card">
+      <div class="photo-section">
+        <img src="@/assets/Rustam.jpg" alt="Dadamuxamedov Rustam Abdugapparovich" class="profile-photo" />
+      </div>
+      <div class="details-section">
+        <h1 class="name">{{ $t('dadamuxamedov_rustam') }}</h1>
+        <h2 class="position">{{ $t('dadamuxamedov_rustam1') }}</h2>
+        <p class="bio">{{ $t('dadamuxamedov_rustam2') }}
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3>{{ $t('phone_number') }}</h3>
+            <span>(0371) 236-22-70</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('fax') }}</h3>
+            <span>(0371) 236-09-21</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_days') }}</h3>
+            <span class="badge">{{ $t('dadamuxamedov_rustam3') }}</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_hours') }}</h3>
+            <span>08:00 - 11:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-shaxs -->
+    <div class="profile-card">
+      <div class="photo-section">
+        <img src="@/assets/Noila.jpg" alt="Xusyayenova Noila Garifovna" class="profile-photo" />
+      </div>
+      <div class="details-section">
+        <h1 class="name">{{ $t('xusyayenova_noila') }}</h1>
+        <h2 class="position">{{ $t('xusyayenova_noila1') }}</h2>
+        <p class="bio">{{ $t('xusyayenova_noila2') }}
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3>{{ $t('phone_number') }}</h3>
+            <span>(0371) 236-22-70</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('fax') }}</h3>
+            <span>(0371) 236-09-21</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_days') }}</h3>
+            <span class="badge">{{ $t('xusyayenova_noila3') }}</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_hours') }}</h3>
+            <span>08:00 - 11:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-shaxs -->
+    <div class="profile-card">
+      <div class="photo-section">
+        <img src="@/assets/Taxir.jpg" alt="Nugmanov Taxir Tulkunovich" class="profile-photo" />
+      </div>
+      <div class="details-section">
+        <h1 class="name">{{ $t('nugmanov_taxir') }}</h1>
+        <h2 class="position">{{ $t('nugmanov_taxir1') }}</h2>
+        <p class="bio">{{ $t('nugmanov_taxir2') }}
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3>{{ $t('phone_number') }}</h3>
+            <span>(0371) 236-22-70</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('fax') }}</h3>
+            <span>(0371) 236-09-21</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_days') }}</h3>
+            <span class="badge">{{ $t('nugmanov_taxir3') }}</span>
+          </div>
+          <div class="contact-item">
+            <h3>{{ $t('reception_hours') }}</h3>
+            <span>09:00 - 11:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script setup>
-import { ref } from 'vue'
 
-const profiles = ref([
-  {
-    id: 1,
-    name: "Fayzullayev Alisher Nasibullayevich",
-    position: "Bosh direktor",
-    bio: "1966-yil 24-sentabrda Toshkent shahrida tug‘ilgan. Millati o‘zbek. 1988-yilda Toshkent aloqa elektrotexnika institutini bitirgan. 2019-yil 12-iyuldan boshlab “O‘zbekiston pochtasi” AJ bosh direktor lavozimida faoliyat yuritmoqda.",
-    phone: "(0371) 236-76-25",
-    fax: "(0371) 236-09-21",
-    receptionDays: "Dushanba.",
-    receptionHours: "14:00 — 17:00",
-    photoUrl: require('@/assets/Alisher.jpg')
-  },
-  {
-    id: 2,
-    name: "Dadamuxamedov Rustam Abdugapparovich",
-    position: "Moliya bo'yicha direktor",
-    bio: "1976-yil 29-yanvarda Toshkent shahrida tug‘ilgan. Millati o‘zbek. 1998-yilda Toshkent elektrotexnika aloqa institutini bitirgan. O‘zbekiston Respublikasi Liberal-demokratik partiyasi a’zosi. 2019-yil 24-maydan boshlab “O‘zbekiston pochtasi” AJ moliya bo'yicha direktor lavozimida faoliyat yuritmoqda.",
-    phone: "(0371) 236-22-70",
-    fax: "(0371) 236-09-21",
-    receptionDays: "Chorshanba.",
-    receptionHours: "08:00 - 11:00",
-    photoUrl: require('@/assets/Rustam.jpg')
-  },
-  {
-    id: 3,
-    name: "Xusyayenova Noila Garifovna",
-    position: "Ishlab chiqarish bo'yicha direktor",
-    bio: "1975-yil 15-iyunda Toshkent shahrida tug'ilgan. Millati tatar. 2006-yilda Al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universitetini tamomlagan. 2022-yil 29-iyuldan boshlab “O‘zbekiston pochtasi” AJ ishlab chiqarish bo'yicha direktor lavozimida faoliyat yuritib kelmoqda.",
-    phone: "(0371) 236-22-70",
-    fax: "(0371) 236-09-21",
-    receptionDays: "Seshanba.",
-    receptionHours: "08:00 - 11:00",
-    photoUrl: require('@/assets/Noila.jpg')
-  },
-  {
-    id: 4,
-    name: "Nugmanov Taxir Tulkunovich",
-    position: "Pochta xavfsizligi bo'yicha direktor",
-    bio: "1975-yil 8-noyabrda Toshkent viloyatida tug‘ilgan. Millati o‘zbek. 1999-yilda Toshkent davlat texnika universitetini tamomlagan. 2023-yil 28-sentyabrdan “O‘zbekiston pochtasi”  AJ pochta xavfsizligi bo‘yicha direktor lavozimida ishlab kelmoqda.",
-    phone: "(0371) 236-22-70",
-    fax: "(0371) 236-09-21",
-    receptionDays: "Juma.",
-    receptionHours: "9:00 - 11:00",
-    photoUrl: require('@/assets/Taxir.jpg')
-  }
-])
-</script>
 
 <style scoped>
 .profiles-container {

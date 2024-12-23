@@ -128,7 +128,7 @@ const routes = [
     component: SingupView
   },
   {
-    path: '/xizmat',
+    path: '/xizmat/:id',
     name: 'xizmat',
     component: XizmatView
   },

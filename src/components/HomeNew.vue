@@ -362,7 +362,7 @@
                 <!--</div>-->
             </div>
         </div>
-        <!-- <div class="text-center mt-40">
+        <div class="text-center mt-40">
             <router-link to="/xizmatlar" class="cmn--btn outline__btn">
                 <span>
                     {{ $t('view_all') }}
@@ -371,7 +371,7 @@
                     <i class="bi bi-arrow-up-right"></i>
                 </span>
             </router-link>
-        </div> -->
+        </div>
         <br>
         <br>
         <br>

@@ -8,32 +8,40 @@
                             class="overview__gitwrapper bgwhite round16 border p-3 d-flex flex-column align-items-center">
                             <!-- Buttons for filtering -->
                             <div class="flex-container mb-4">
-                                <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
-                                    @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
-                                    Barchasi
-                                </button>
-                                <button class="burchak outline__btn"
-                                    :class="{ 'active-btn': activeButton === 'one_step' }"
-                                    @click="filterData('one_step')" style="font-size: 14px; padding: 8px 15px;">
-                                    {{ $t('one_step') }}
-                                </button>
-                                <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'ems' }"
-                                    @click="filterData('ems')" style="font-size: 14px; padding: 8px 15px;">
-                                    EMS
-                                </button>
-
+                                <div class="filter-buttons-wrapper">
+                                    <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
+                                        @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
+                                        Barchasi
+                                    </button>
+                                    <button class="burchak outline__btn"
+                                        :class="{ 'active-btn': activeButton === 'one_step' }"
+                                        @click="filterData('one_step')" style="font-size: 14px; padding: 8px 15px;">
+                                        {{ $t('one_step') }}
+                                    </button>
+                                    <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'ems' }"
+                                        @click="filterData('ems')" style="font-size: 14px; padding: 8px 15px;">
+                                        EMS
+                                    </button>
+                                </div>
 
                                 <!-- Search Form -->
-                                <form @submit.prevent="searchData" class="d-flex align-items-center position-relative">
-                                    <input v-model="searchQuery" type="text" placeholder="Qidirish..."
-                                        class="faded-placeholder"
-                                        style="padding: 3px 1px 12px; font-size: 14px; border: 1px solid var(--base); border-top-left-radius: 4px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 4px;"
-                                        @input="updateSuggestions">
-                                    <button type="submit" class="cmn--btni1 d-flex align-items-center"
-                                        style="padding: 10px 15px; border-radius: 4px; font-size: 14px; border-top-left-radius: 0px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 0px;">
-                                        <span><i class="bi bi-search fz-12" style="font-size: 12px;"></i></span>
-                                        <span style="font-size: 14px;">Qidirish</span>
-                                    </button>
+                                <form @submit.prevent="searchData" class="search-form d-flex align-items-center position-relative">
+                                    <div class="search-wrapper d-flex align-items-center" >
+                                        <input v-model="searchQuery" type="text" placeholder="Qidirish..."
+                                            class="faded-placeholder"
+                                            style="padding: 3px 1px 13px; font-size: 14px; border: 1px solid var(--base); border-radius: 4px; border-top-left-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 4px;">
+                                        <button type="submit" class="cmn--btni1 d-flex align-items-center"
+                                            style="padding: 10px 15px; border-radius: 4px; font-size: 14px; border-top-left-radius: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 0px;">
+                                            <span><i class="bi bi-search fz-12" style="font-size: 12px;"></i></span>
+                                            <span style="font-size: 14px;">Qidirish</span>
+                                        </button>
+                                    </div>
                                     <ul v-if="suggestions.length > 0"
                                         class="suggestions-list position-absolute bg-white shadow p-2">
                                         <li v-for="(suggestion, index) in suggestions" :key="index"
@@ -41,12 +49,8 @@
                                             @click="selectSuggestion(suggestion)">
                                             {{ suggestion }}
                                         </li>
-
                                     </ul>
-
                                 </form>
-
-
                             </div>
 
                             <!-- Map Container -->
@@ -132,37 +136,37 @@ export default defineComponent({
 
 
             this.warehouses.forEach((warehouse) => {
-        const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
-        const polygonCoordinates = warehouse.locations?.locations || [];
+                const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
+                const polygonCoordinates = warehouse.locations?.locations || [];
 
-        // Latitude va Longitude mavjudligini tekshirish
-        if (!lat || !lng) {
-            console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
-            return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
-        }
+                // Latitude va Longitude mavjudligini tekshirish
+                if (!lat || !lng) {
+                    console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
+                    return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
+                }
 
-        if (
-            (filter === "all") ||
-            (filter === "ems" && EMS === "Bor") ||
-            (filter === "one_step" && one_step === "Bor")
-        ) {
-            let markerLat = parseFloat(lat);
-            let markerLng = parseFloat(lng);
+                if (
+                    (filter === "all") ||
+                    (filter === "ems" && EMS === "Bor") ||
+                    (filter === "one_step" && one_step === "Bor")
+                ) {
+                    let markerLat = parseFloat(lat);
+                    let markerLng = parseFloat(lng);
 
-            const marker = L.marker([markerLat, markerLng], { icon: customIcon })
-                .bindPopup(`
+                    const marker = L.marker([markerLat, markerLng], { icon: customIcon })
+                        .bindPopup(`
                 <h3>${name_uz || "Noma'lum nom"}</h3>
                 <p>Hudud: ${region || "Noma'lum"}, ${district || "Noma'lum"}</p>
                 <p>Indeks: ${index || "Noma'lum"}</p>
                 <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
             `)
-                .on("click", () => {
-                    this.drawArea(polygonCoordinates);
-                });
+                        .on("click", () => {
+                            this.drawArea(polygonCoordinates);
+                        });
 
-            this.markers.addLayer(marker);
-        }
-    });
+                    this.markers.addLayer(marker);
+                }
+            });
         },
         drawArea(polygonCoordinates) {
             if (!polygonCoordinates || !polygonCoordinates.length) return;
@@ -327,6 +331,10 @@ export default defineComponent({
         margin-bottom: 10px;
     }
 
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
     .search-wrapper {
         flex-direction: row;
@@ -387,7 +395,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-height: 113px;
+    max-height: 150px;
     overflow-y: auto;
     border: 1px solid #183e98;
     border-radius: 4px;
