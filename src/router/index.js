@@ -64,6 +64,7 @@ import JonatmaturlariView from '@/views/JonatmaturlariView.vue';
 import TaqiqlanganjoylanmalarView from '@/views/TaqiqlanganjoylanmalarView.vue';
 import Tariflar2View from '@/views/Tariflar2View.vue';
 import YangilikView from '@/views/YangilikView.vue';
+import SahifalarView from '@/views/SahifalarView.vue';
 const routes = [
   {
     path: '/',
@@ -131,6 +132,11 @@ const routes = [
     path: '/xizmat/:id',
     name: 'xizmat',
     component: XizmatView
+  },
+  {
+    path: '/sahifalar/:name',
+    name: 'sahifalar',
+    component: SahifalarView
   },
   {
     path: '/tariflar',

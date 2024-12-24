@@ -7840,7 +7840,7 @@ iframe {
   display: inline-block;
   text-transform: capitalize;
   position: relative;
-  background: var(--base);
+  background: #183e98;
   overflow: hidden;
   gap: 12px;
   border-radius: 0px;
