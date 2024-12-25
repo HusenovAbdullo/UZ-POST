@@ -310,7 +310,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @media (max-width: 768px) {
 
 /* Kichik ekranlar (planshet yoki telefonlar) */

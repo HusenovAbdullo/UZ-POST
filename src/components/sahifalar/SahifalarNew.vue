@@ -23,13 +23,24 @@
   </section>
 
   <section class="setting__section pb-120">
-    <div class="container__customizemain pb-120 round16" style="max-width: 1400px; margin-top: 50px">
-      <img v-if="computedServiceImage" :src="computedServiceImage" class="rasmm pb-120 round16 responsive-img"
-        alt="Xizmat rasmi" />
+    <div
+      class="container__customizemain pb-120 round16"
+      style="max-width: 1400px; margin-top: 50px"
+    >
+      <img
+        v-if="computedServiceImage"
+        :src="computedServiceImage"
+        class="rasmm pb-120 round16 responsive-img"
+        alt="Xizmat rasmi"
+      />
 
       <div class="container">
         <header class="header">
-          <router-link v-if="serviceMetaLink && serviceMetaTitle" :to="`/${serviceMetaLink}`" class="map-link">
+          <router-link
+            v-if="serviceMetaLink && serviceMetaTitle"
+            :to="`/${serviceMetaLink}`"
+            class="map-link"
+          >
             {{ serviceMetaTitle }}
           </router-link>
         </header>
@@ -65,35 +76,35 @@ export default {
   },
   methods: {
     loadFontsFromText(text) {
-      // `font-family` qiymatini tahlil qilish uchun regex
-      const fontRegex = /font-family:\s*([^;"]+)/g;
-      let match;
-      const fonts = new Set();
+            // `font-family` qiymatini tahlil qilish uchun regex
+            const fontRegex = /font-family:\s*([^;"]+)/g;
+            let match;
+            const fonts = new Set();
 
-      // Matndagi barcha `font-family` qiymatlarini yig'ish
-      while ((match = fontRegex.exec(text)) !== null) {
-        fonts.add(match[1].trim());
-      }
+            // Matndagi barcha `font-family` qiymatlarini yig'ish
+            while ((match = fontRegex.exec(text)) !== null) {
+                fonts.add(match[1].trim());
+            }
 
-      // Har bir font uchun `.ttf` faylni yuklash
-      fonts.forEach((font) => {
-        const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
-        this.loadFont(font, fontPath);
-      });
-    },
-    loadFont(fontName, fontPath) {
-      // Fontni dinamik yuklash
-      const fontFace = new FontFace(fontName, `url(${fontPath})`);
-      fontFace
-        .load()
-        .then((loadedFont) => {
-          document.fonts.add(loadedFont);
-          console.log(`${fontName} font yuklandi`);
-        })
-        .catch(() => {
-          console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
-        });
-    },
+            // Har bir font uchun `.ttf` faylni yuklash
+            fonts.forEach((font) => {
+                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
+                this.loadFont(font, fontPath);
+            });
+        },
+        loadFont(fontName, fontPath) {
+            // Fontni dinamik yuklash
+            const fontFace = new FontFace(fontName, `url(${fontPath})`);
+            fontFace
+                .load()
+                .then((loadedFont) => {
+                    document.fonts.add(loadedFont);
+                    console.log(`${fontName} font yuklandi`);
+                })
+                .catch(() => {
+                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
+                });
+        },
     // API'dan ma'lumotlarni olish
     async fetchServiceData() {
       this.serviceId = this.$route.query.id; // URL'dan xizmat ID olish
@@ -107,9 +118,8 @@ export default {
           `https://new.pochta.uz/api/v1/public/futer-menu-items/${this.serviceId}/`
         );
         this.serviceData = response.data; // API'dan kelgan ma'lumotlarni saqlash
-        this.serviceText = this.serviceData.rwz
+        this.serviceText = this.serviceData.text_uz
         this.loadFontsFromText(this.serviceText)
-
       } catch (error) {
         console.error("API'dan ma'lumotlarni olishda xatolik:", error);
       }
@@ -131,7 +141,7 @@ export default {
         this.serviceData.description_uz
       );
     },
-
+    
     // Lokal tilga mos xizmat matni
 
     serviceText() {
@@ -175,7 +185,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -190,11 +200,7 @@ export default {
   margin-bottom: 30px;
 }
 
-.title {
-  color: #1e3c96;
-  font-size: 2.5rem;
-  margin: 0;
-}
+
 
 .map-link {
   color: #1e3c96;
@@ -259,28 +265,28 @@ export default {
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
   }
 
   .title {
-    font-size: 2rem;
+      font-size: 2rem;
   }
 
   .step {
-    align-items: flex-start;
+      align-items: flex-start;
   }
 }
 
 @media (max-width: 480px) {
   .title {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
   }
 
   .map-link {
-    width: 100%;
-    text-align: center;
+      width: 100%;
+      text-align: center;
   }
 }
 
@@ -314,10 +320,10 @@ export default {
 
   /* Kichik ekranlar (planshet yoki telefonlar) */
   .responsive-img {
-    width: 100vw;
-    /* Ekranning 100% kengligi */
-    height: auto;
-    /* Nisbatni buzmaydi */
+      width: 100vw;
+      /* Ekranning 100% kengligi */
+      height: auto;
+      /* Nisbatni buzmaydi */
   }
 }
 
@@ -333,7 +339,6 @@ export default {
   font-family: inherit;
   /* Font topilmasa default fontni ishlatish */
 }
-
 
 .text-content {
   font-size: 1rem;

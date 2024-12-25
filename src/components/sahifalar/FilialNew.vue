@@ -127,7 +127,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -142,11 +142,6 @@ export default {
   margin-bottom: 30px;
 }
 
-.title {
-  color: #1e3c96;
-  font-size: 2.5rem;
-  margin: 0;
-}
 
 .map-link {
   color: #1e3c96;
