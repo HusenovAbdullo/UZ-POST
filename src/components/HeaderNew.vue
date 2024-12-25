@@ -221,9 +221,8 @@
                                              class="bi bi-check checks d-flex align-items-center justify-content-center"></i>
                                        </div>
                                        <div class="flex-grow-1">
-                                          <h5 class="fz-20 fw-600 title inter mb-0">Xush kelibsiz!</h5>
+                                          <h5 class="fz-20 fw-600 title inter mb-0">{{ $t('welcome') }}</h5>
                                           <h5 class="fz-20 fw-600 title inter mb-0">
-                                             Mehmon {{ userName }}
                                           </h5>
                                           <span class="d-block fw-400 inter pra fz-16"><a
                                                 href="https://pixner.net/cdn-cgi/l/email-protection"
@@ -233,32 +232,32 @@
                                     </div>
                                     <div class="switch text-center mt-4 bborderdash pb-24 mb-24">
                                        <router-link to="/tahrirlash" class="cmn--btn outline__btn">
-                                          <span>Tahrirlash</span>
+                                          <span>{{ $t('edit') }}</span>
                                        </router-link>
                                     </div>
                                     <span class="fz-12 pra d-block fw-400 inter mb-16">
-                                       Hisobim
+                                       {{ $t('my_account') }}
                                     </span>
                                     <ul class="list">
                                        <li class="mb-16">
                                           <router-link to="/profil"
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-person-check fz-20"></i>
-                                             <span class="d-block fz-16 pra fw-500 inter">Profil</span>
+                                             <span class="d-block fz-16 pra fw-500 inter">{{ $t('profile') }}</span>
                                           </router-link>
                                        </li>
                                        <li class="mb-16">
                                           <router-link to="/aloqa"
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
-                                             <span class="d-block fz-16 pra fw-500 inter">Murojaat yuborish</span>
+                                             <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request') }}</span>
                                           </router-link>
                                        </li>
                                        <li class="mb-16">
                                           <router-link to="/chat"
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-chat-text fz-20"></i>
-                                             <span class="d-block fz-16 pra fw-500 inter">Chat</span>
+                                             <span class="d-block fz-16 pra fw-500 inter">{{ $t('chat') }}</span>
                                           </router-link>
                                        </li>
                                     </ul>

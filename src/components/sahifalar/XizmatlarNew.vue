@@ -40,7 +40,7 @@
                                 </p>
                                 <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
                                     <span>
-                                        Batafsil
+                                        {{ $t('more_details') }}
                                     </span>
                                     <span>
                                         <i class="bi bi-arrow-up-right"></i>

@@ -1,27 +1,21 @@
 <template>
     <section class="slideshow-container" id="slideshow">
         <div class="container">
-            <div class="header-wrapper" style="position: relative; /* Z-index ishlashi uchun relative o'rnatiladi */
-    z-index: 1; /* Bu element dropdowndan past bo'ladi */">
-                <img src="assets/img/bosh/banner-uz.png" alt="Image 1">
+            <div class="header-wrapper" style="position: relative; z-index: 1;">
+                <!-- Slideshow -->
+                <img :src="currentImage" alt="" class="banner-image" />
                 <div class="button-container">
                     <router-link to="/xizmat" class="cmn--btn custom-button">
-                        <span>
-                            {{ $t('service_details') }}
-                        </span>
+                        <span>{{ $t('service_details') }}</span>
                     </router-link>
-
                     <router-link to="/map" class="cmn--btn custom-button">
-                        <span>
-                            {{ $t('branch_map') }}
-                        </span>
+                        <span>{{ $t('branch_map') }}</span>
                     </router-link>
                 </div>
-
             </div>
         </div>
     </section>
-    <!-- timely worktwo Here 6 talik -->
+    <!-- timely worktwo Here 6 taliksadasdasdasdEDsS -->
     <section class="categoris__section sectionbg pb-220 pt-220" style="background-color: #ffffff;">
         <div class="background-overlay"></div>
         <div class="container">
@@ -188,62 +182,63 @@
     <!--Search Popup-->
     <!-- Categoris section Here -->
     <section class="service__section pt-220 pb-220 bg__tblr">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-xxl-6 col-xl-8 col-lg-8">
-          <div class="section__title text-center mb-60">
-            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-            </h4>
-            <h2 class="title2 mb-24 wow fadeInUp" data-wow-duration="1.2s">
-              {{ $t('news') }}
-            </h2>
-            <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-center g-4">
-        <div v-for="(news, index) in latestNews" :key="index" class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
-          <div class="service__item shadow2 round16 p-8 bgwhite">
-            <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
-              <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
-            </router-link>
-            <div class="service__content">
-              <h5 class="mb-16">
-                <router-link :to="`/yangilik/${news.id}`" class="titley">
-                  {{ news[`title_${$i18n.locale}`] || news.title_uz }}
-                </router-link>
-                <router-link :to="`/yangilik/${news.id}`" class="titlet">
-                  {{ news[`description_${$i18n.locale}`] || news.description_uz }}
-                </router-link>
-              </h5>
-              <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
-                <div class="d-flex gap-2 fz-12 fw-600 inter title3">
-                  <i class="ratting"></i>
-                  {{ formatDate(news.date) }}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-6 col-xl-8 col-lg-8">
+                    <div class="section__title text-center mb-60">
+                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
+                        </h4>
+                        <h2 class="title2 mb-24 wow fadeInUp" data-wow-duration="1.2s">
+                            {{ $t('news') }}
+                        </h2>
+                        <p class="ptext2 fz-16 fw-400 inter wow fadeInUp" data-wow-duration="1.4s">
+                        </p>
+                    </div>
                 </div>
-                <span class="fz-16 fw-400 inter pra">
-                  <span class="bi bi-eye fz-12 fw-600 base inter title4">
-                    {{ news.views }}
-                  </span>
-                </span>
-              </div>
             </div>
-          </div>
+            <div class="row justify-content-center g-4">
+                <div v-for="(news, index) in latestNews" :key="index"
+                    class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                    <div class="service__item shadow2 round16 p-8 bgwhite">
+                        <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
+                            <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
+                        </router-link>
+                        <div class="service__content">
+                            <h5 class="mb-16">
+                                <router-link :to="`/yangilik/${news.id}`" class="titley">
+                                    {{ news[`title_${$i18n.locale}`] || news.title_uz }}
+                                </router-link>
+                                <router-link :to="`/yangilik/${news.id}`" class="titlet">
+                                    {{ news[`description_${$i18n.locale}`] || news.description_uz }}
+                                </router-link>
+                            </h5>
+                            <div class="d-flex pb-20 mb-20 align-items-center justify-content-between">
+                                <div class="d-flex gap-2 fz-12 fw-600 inter title3">
+                                    <i class="ratting"></i>
+                                    {{ formatDate(news.date) }}
+                                </div>
+                                <span class="fz-16 fw-400 inter pra">
+                                    <span class="bi bi-eye fz-12 fw-600 base inter title4">
+                                        {{ news.views }}
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-40">
+                <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
+                    <span>
+                        {{ $t('view_all') }}
+                    </span>
+                    <span class="ps-1">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+                </router-link>
+            </div>
         </div>
-      </div>
-      <div class="text-center mt-40">
-        <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
-          <span>
-            {{ $t('view_all') }}
-          </span>
-          <span class="ps-1">
-            <i class="bi bi-arrow-up-right"></i>
-          </span>
-        </router-link>
-      </div>
-    </div>
-  </section>
+    </section>
     <!-- Categoris section End -->
     <!-- task categorish Section Here -->
     <section class="app__section ralt bg__all2 pb-120 pt-120">
@@ -262,104 +257,31 @@
                 </div>
             </div>
             <div class="row ralt g-4">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                <div v-for="service in services.slice(-4)" :key="service.id"
+                    class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
-                            <img src="assets/img/task/bir qadam.png" alt="img">
+                            <img :src="service.save_image.replace('http://', 'https://')"
+                                :alt="service[locale + '_title']" />
                         </div>
                         <div class="content">
                             <h3 class="inter title mb-24">
-                                "Bir Qadam" xizmati
+                                {{ service[`title_${$i18n.locale}`] || service.title_uz }}
                             </h3>
                             <p class="fz-14 fw-400 inter pra mb-40">
-                                "Bir Qadam" - bu O'zbekiston bo'ylab belgilangan bo'limlar orasida 1 KUN ichida yetkazib
-                                berish
-                                xizmati.
+                                {{ service[`description_${$i18n.locale}`] || service.description_uz }}
                             </p>
-                            <router-link to="/xizmat" class="cmn--btn outline__btn">
-                                <span>
-                                    {{ $t('more_details') }}
-                                </span>
-                                <span>
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </span>
-                            </router-link>
+                            <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
+                                    <span>
+                                        {{ $t('more_details') }}
+                                    </span>
+                                    <span>
+                                        <i class="bi bi-arrow-up-right"></i>
+                                    </span>
+                                </router-link>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
-                    <div class="task__item round16 bgwhite d-flex align-items-center">
-                        <div class="thumb">
-                            <img src="assets/img/task/courier service.png" alt="img">
-                        </div>
-                        <div class="content">
-                            <h3 class="inter title mb-24">
-                                Kuryerlik xizmati
-                            </h3>
-                            <p class="fz-14 fw-400 inter pra mb-40">
-                                Jo'natmalarni ixtiyoriy pochta bo'limidan O'zbekiston bo'ylab adresatlargacha yetkazib
-                                berish
-                                xizmati
-                            </p>
-                            <router-link to="/kuryerlikXizmati" class="cmn--btn outline__btn">
-                                <span>
-                                    {{ $t('more_details') }}
-                                </span>
-                                <span>
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </span>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">-->
-                <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
-                <!--        <div class="thumb">-->
-                <!--            <img src="assets/img/task/3.png" alt="img">-->
-                <!--        </div>-->
-                <!--        <div class="content">-->
-                <!--            <h3 class="inter title mb-24">-->
-                <!--                EMS: Xalqaro Tezkor Pochta-->
-                <!--            </h3>-->
-                <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
-                <!--                Ushbu xizmat jo'natmalarni butun dunyo bo'ylab 7-15 kun ichida yetkazib berish-->
-                <!--                garovidir.-->
-                <!--            </p>-->
-                <!--            <br>-->
-                <!--            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">-->
-                <!--                <span>-->
-                <!--                    Batafsil-->
-                <!--                </span>-->
-                <!--                <span>-->
-                <!--                    <i class="bi bi-arrow-up-right"></i>-->
-                <!--                </span>-->
-                <!--            </router-link>-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--</div>-->
-                <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">-->
-                <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
-                <!--        <div class="thumb">-->
-                <!--            <img src="assets/img/task/buyurt.png" alt="img">-->
-                <!--        </div>-->
-                <!--        <div class="content">-->
-                <!--            <h3 class="inter title mb-24">-->
-                <!--                Buyurtmalarni pochta bo'limlarida qabul qilish-->
-                <!--            </h3>-->
-                <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
-                <!--                Marketpleys va onlayn-do'konlardan jo'natmalarni UzPost bo'limlarida qabul qilish-->
-                <!--            </p>-->
-                <!--            <router-link to="/pochtaBolimi" class="cmn--btn outline__btn">-->
-                <!--                <span>-->
-                <!--                    Batafsil-->
-                <!--                </span>-->
-                <!--                <span>-->
-                <!--                    <i class="bi bi-arrow-up-right"></i>-->
-                <!--                </span>-->
-                <!--            </router-link>-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--</div>-->
             </div>
         </div>
         <div class="text-center mt-40">
@@ -372,10 +294,10 @@
                 </span>
             </router-link>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
+        <br />
         <div class="container">
             <div class="divider">
                 <span>{{ $t('cooperating_with_us') }}</span>
@@ -677,7 +599,7 @@
                              ">
                                                 <p>
                                                     <router-link to="map" class="textrang" target="_blank">
-                                                        <strong><span>BO'LIMLAR XARITASI</span></strong>
+                                                        <strong><span>{{ $t('sections_map') }}</span></strong>
                                                     </router-link>
 
                                                 </p>
@@ -710,11 +632,11 @@
                               border-bottom-left-radius: 4px;
                           ">
                                             <p>
-                                                Xizmatlar tariflari bilan
+
                                                 <router-link :to="{ path: '/tariflar', query: { id: 806 } }"
                                                     class="textrang">
-                                                    <strong><span>bu yerda</span></strong>
-                                                </router-link> tanishishingiz mumkin!
+                                                    <strong><span>{{ $t('services_rates') }}</span></strong>
+                                                </router-link>
                                             </p>
 
                                         </div>
@@ -788,10 +710,9 @@
                               border-bottom-left-radius: 4px;
                           ">
                                             <p>
-                                                Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim indeksini bu yerda
-                                                aniqlashingiz mumkin -
+                                                {{ $t('department_index') }} -
                                                 <router-link to="/map" class="textrang">
-                                                    <strong><span>MENING INDEKSIM</span></strong>
+                                                    <strong><span>{{ $t('my_index') }}</span></strong>
                                                 </router-link>
 
                                             </p>
@@ -819,62 +740,63 @@
         </div>
     </section>
     <section class="app__section ralt bg__all1 pb-120 pt-120">
-    <div class="container">
-      <div class="row">
-        <div class="col-xxl-6 col-xl-8 col-lg-8">
-          <div class="section__title ralt mb-40">
-            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-            </h4>
-            <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">
-              {{ $t('mark_catalog') }}
-            </h2>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-8 col-lg-8">
+                    <div class="section__title ralt mb-40">
+                        <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
+                        </h4>
+                        <h2 class="title2 wow fadeInUp" data-wow-duration="1.2s">
+                            {{ $t('mark_catalog') }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container4 d-flex flex-wrap gap-3">
+                <div v-for="item in marks" :key="item.id" class="frelancer__item shadow2 round16 bgwhite eni">
+                    <a :href="`/marka2/${item.id}`" class="thumb round16 w-100">
+                        <img :src="item[`save_image_${$i18n.locale}`]?.replace('http://', 'https://') || item.save_image_uz"
+                            class="round16 w-100" alt="service" />
+                    </a>
+                    <h5 class="mt-24 mb-20">
+                        <a :href="`/marka2/${item.id}`" class="titley">
+                            {{ truncateTitle(item[`title_${$i18n.locale}`] || item.title_uz, 45) }}
+                        </a>
+                    </h5>
+                    <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
+                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                            <i class="bi bi-stopwatch"></i>
+                            {{ item.years || '-' }}
+                        </div>
+                        <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
+                            <i class="bi bi-bar-chart"></i>
+                            {{ item[`marks_count_${$i18n.locale}`] || '-' }}
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-20 justify-content-between">
+                        <span class="fz-18 fw-600 inter base">
+                            {{ formatPrice(item[`price_${$i18n.locale}`]) }}
+                        </span>
+                        <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
+                            <a :href="`/marka2/${item.id}`">
+                                <i class="bi bi-chevron-right title fz-16"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-40">
+                <router-link to="/markalar" class="cmn--btn outline__btn" style="text-transform: none;">
+                    <span>
+                        {{ $t('view_all') }}
+                    </span>
+                    <span class="ps-1">
+                        <i class="bi bi-arrow-up-right"></i>
+                    </span>
+                </router-link>
+            </div>
         </div>
-      </div>
-      <div class="container4 d-flex flex-wrap gap-3">
-        <div v-for="item in marks" :key="item.id" class="frelancer__item shadow2 round16 bgwhite eni">
-          <a :href="`/marka2/${item.id}`" class="thumb round16 w-100">
-            <img :src="item[`save_image_${$i18n.locale}`]?.replace('http://', 'https://') || item.save_image_uz" class="round16 w-100" alt="service" />
-          </a>
-          <h5 class="mt-24 mb-20">
-            <a :href="`/marka2/${item.id}`" class="titley">
-              {{ truncateTitle(item[`title_${$i18n.locale}`] || item.title_uz, 45) }}
-            </a>
-          </h5>
-          <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
-            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-              <i class="bi bi-stopwatch"></i>
-              {{ item.years || '-' }}
-            </div>
-            <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
-              <i class="bi bi-bar-chart"></i>
-              {{ item[`marks_count_${$i18n.locale}`] || '-' }}
-            </div>
-          </div>
-          <div class="d-flex align-items-center mt-20 justify-content-between">
-            <span class="fz-18 fw-600 inter base">
-              {{ formatPrice(item[`price_${$i18n.locale}`]) }}
-            </span>
-            <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-              <a :href="`/marka2/${item.id}`">
-                <i class="bi bi-chevron-right title fz-16"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="text-center mt-40">
-        <router-link to="/markalar" class="cmn--btn outline__btn" style="text-transform: none;">
-          <span>
-            {{ $t('view_all') }}
-          </span>
-          <span class="ps-1">
-            <i class="bi bi-arrow-up-right"></i>
-          </span>
-        </router-link>
-      </div>
-    </div>
-  </section>
+    </section>
 
     <section class="company__sectioni bgwhite pb-060 pt-060">
         <div class="container">
@@ -925,73 +847,140 @@
 import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      marks: [],
-      latestNews: [],
-    };
+    data() {
+        return {
+            marks: [],
+            latestNews: [],
+            services: [],
+            locale: this.$i18n.locale === "uz" ? "description_uz" : "description_ru",
+            banners: [], // Bannerni saqlash uchun
+            currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan rasmning indeksi
+        };
+    },
+    computed: {
+    // Hozirgi ko'rsatilayotgan rasmni olish
+    currentImage() {
+      const locale = this.$i18n.locale || "uz"; // Tilni aniqlash
+      if (this.banners.length > 0) {
+        const currentBanner = this.banners[this.currentBannerIndex];
+        const imageUrl =
+          locale === "ru" ? currentBanner.image_ru : currentBanner.image_uz;
+        return this.convertToHttps(imageUrl); // HTTPS formatiga o'zgartirish
+      }
+      return ""; // Standart qiymat
+    },
   },
-  methods: {
-    fetchData() {
-      axios
-        .get('https://new.pochta.uz/api/v1/public/marks/')
-        .then((response) => {
-          this.marks = response.data.slice(-4); // Oxirgi 5 ta element olish
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
-    },
-    truncateTitle(title, length) {
-      return title?.length > length ? title.substring(0, length) + '...' : title;
-    },
-    formatPrice(price) {
-      return price ? `${price} so'm` : this.$t('unknown_price');
-    },
-    async fetchNews() {
+    methods: {
+        // API dan ma'lumotni olish
+    async fetchBanners() {
       try {
-        const response = await axios.get(
-          "https://new.pochta.uz/api/v1/public/uz-post-news/"
+        const response = await fetch(
+          "https://new.pochta.uz/api/v1/public/menu/"
         );
-        // Oxirgi 4 ta yangilikni olish va rasm URL'larini https'ga o'zgartirish
-        this.latestNews = response.data.slice(-4).reverse().map((news) => {
-          return {
-            ...news,
-            save_image: this.ensureHttps(news.save_image),
-          };
-        });
+        const data = await response.json();
+        if (data.length > 0 && data[0].banners) {
+          // API ma'lumotlarini olish va https formatiga o'tkazish
+          this.banners = data[0].banners.map((banner) => ({
+            ...banner,
+            image_uz: this.convertToHttps(banner.image_uz),
+            image_ru: this.convertToHttps(banner.image_ru),
+          }));
+        }
       } catch (error) {
-        console.error("Yangiliklarni olishda xato:", error);
+        console.error("API dan ma'lumotni olishda xato:", error);
       }
     },
-    ensureHttps(url) {
-      // Agar URL HTTP bo'lsa, uni HTTPS'ga almashtiramiz
-      if (url?.startsWith("http://")) {
+    // HTTPS formatiga o'tkazish
+    convertToHttps(url) {
+      if (url.startsWith("http://")) {
         return url.replace("http://", "https://");
       }
       return url;
     },
-    formatDate(dateString) {
-      const date = new Date(dateString); // Stringni Date obyektiga aylantirish
-      const day = String(date.getDate()).padStart(2, '0'); // Kuni (2 xonali)
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Oyi (2 xonali)
-      const year = date.getFullYear(); // Yili
-      return `${day}.${month}.${year}`; // "DD.MM.YYYY" formatida qaytarish
+    // Bannerni avtomatik ravishda o'zgartirish
+    startBannerSlideshow() {
+      setInterval(() => {
+        if (this.banners.length > 0) {
+          this.currentBannerIndex =
+            (this.currentBannerIndex + 1) % this.banners.length;
+        }
+      }, 5000); // Har 5 soniyada o'zgartirish
     },
-  },
-  mounted() {
-    this.fetchData();
-    this.fetchNews();
-  },
+        async fetchServices() {
+            try {
+                const response = await axios.get("https://new.pochta.uz/api/v1/public/services/");
+                this.services = response.data;
+            } catch (error) {
+                console.error("API fetch error: ", error);
+            }
+        },
+        fetchData() {
+            axios
+                .get('https://new.pochta.uz/api/v1/public/marks/')
+                .then((response) => {
+                    this.marks = response.data.slice(-4); // Oxirgi 5 ta element olish
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        },
+        truncateTitle(title, length) {
+            return title?.length > length ? title.substring(0, length) + '...' : title;
+        },
+        formatPrice(price) {
+            return price ? `${price} so'm` : this.$t('unknown_price');
+        },
+        async fetchNews() {
+            try {
+                const response = await axios.get(
+                    "https://new.pochta.uz/api/v1/public/uz-post-news/"
+                );
+                // Oxirgi 4 ta yangilikni olish va rasm URL'larini https'ga o'zgartirish
+                this.latestNews = response.data.slice(-4).reverse().map((news) => {
+                    return {
+                        ...news,
+                        save_image: this.ensureHttps(news.save_image),
+                    };
+                });
+            } catch (error) {
+                console.error("Yangiliklarni olishda xato:", error);
+            }
+        },
+        ensureHttps(url) {
+            // Agar URL HTTP bo'lsa, uni HTTPS'ga almashtiramiz
+            if (url?.startsWith("http://")) {
+                return url.replace("http://", "https://");
+            }
+            return url;
+        },
+        formatDate(dateString) {
+            const date = new Date(dateString); // Stringni Date obyektiga aylantirish
+            const day = String(date.getDate()).padStart(2, '0'); // Kuni (2 xonali)
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Oyi (2 xonali)
+            const year = date.getFullYear(); // Yili
+            return `${day}.${month}.${year}`; // "DD.MM.YYYY" formatida qaytarish
+        },
+    },
+    mounted() {
+        this.fetchData();
+        this.fetchNews();
+        this.fetchServices();
+        // Ma'lumotni olish va slideshowni boshlash
+        this.fetchBanners().then(() => {
+    this.startBannerSlideshow(); // TO'G'RI: to'g'ri metod chaqirildi
+  });
+    },
 };
 </script>
 
 
 
 <style scoped>
-
-
-
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 .container4 {
     display: flex;

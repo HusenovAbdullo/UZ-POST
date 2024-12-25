@@ -665,7 +665,6 @@ export default {
             this.profile = response.data;
          } catch (error) {
             console.error("Profilni olishda xatolik yuz berdi:", error);
-            alert("Profil ma'lumotlarini olishda xatolik yuz berdi.");
          }
       },
 

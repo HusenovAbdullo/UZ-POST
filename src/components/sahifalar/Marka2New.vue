@@ -42,12 +42,12 @@
                   {{ marka.title }}
                 </p>
                 <div class="accordion-body" style="color: black;">
-                  <p class="title2">{{ $t('Chiqarilgan sana') }}: {{ marka.years }}</p>
-                  <p class="title2">{{ $t('Addadi') }}: {{ marka.count_number }}</p>
-                  <p class="title2">{{ $t('Nominal') }}: {{ marka.price }}</p>
+                  <p class="title2">{{ $t('marka_sana') }}: {{ marka.years }}</p>
+                  <p class="title2">{{ $t('marka_addadi') }}: {{ marka.count_number }}</p>
+                  <p class="title2">{{ $t('marka_nominal') }}: {{ marka.price }}</p>
                 </div>
                 <div class="divider">
-                  <span>{{ $t('MARKA HAQIDA MA\'LUMOT') }}</span>
+                  <span>{{ $t('marka_haqida') }}</span>
                 </div>
                 <p>{{ marka.description }}</p>
               </div>

@@ -13,7 +13,11 @@
                            {{ item.name_uz }}
                         </a>
                         <ul class="quick__link">
-                           <li v-for="(link, idx) in item.elements_uz" :key="idx">
+                           <li v-for="(link, idx) in item.elements" :key="idx">
+                              <!-- Agar pdf_uz mavjud bo'lsa -->
+
+
+                              <!-- Agar faqat link_uz mavjud bo'lsa -->
                               <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block">
                                  {{ link.name_uz }}
                               </router-link>
@@ -124,31 +128,38 @@ export default {
       };
    },
    created() {
-      // Fetch data from the API on component creation
       axios.get('https://new.pochta.uz/api/v1/public/futer-menu/')
          .then(response => {
-            this.footerMenu = response.data; // Assuming response.data contains the necessary data
+            console.log('Footer menu:', response.data); // Ma'lumotlarni konsolda ko'rish
+            this.footerMenu = response.data;
          })
          .catch(error => {
             console.error('There was an error fetching the footer menu:', error);
          });
-   },
+   }
+   ,
    methods: {
       getLink(link) {
-         // Agar 'link_uz' mavjud bo'lsa, uni route sifatida ishlatamiz
+         // Agar pdf_uz bo'lsa, faqat PDF ochiladi
+
+
+         // Agar link_uz bo'lsa, faqat uni qaytarish
          if (link.link_uz) {
             return {
-               path: link.link_uz, // Route
-               params: { name: link.name_uz }, // faqat name_uz parametrini URLga yuboramiz
+               path: link.link_uz,
+               params: { name: link.name_uz },
             };
          }
-         // Agar 'link_uz' mavjud bo'lmasa, faqat name_uz bilan sahifaga yo'naltiramiz
+
+         // Agar hech biri bo'lmasa, sahifaga yo'naltirish
          return {
-            path: `/sahifalar/${link.name_uz}`, // Faqat 'name'ni URLga qo'shamiz
-            query: { id: link.id } // 'id'ni query parametri orqali yuboramiz
+            path: `/sahifalar/${link.name_uz}`,
+            query: { id: link.id },
          };
       }
    }
+
+
 };
 </script>
 
