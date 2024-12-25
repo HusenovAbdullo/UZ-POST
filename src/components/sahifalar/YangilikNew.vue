@@ -49,12 +49,12 @@
               <h3 class="title mb-24">
                 {{ newsItem[`title_${$i18n.locale}`] || newsItem.title_uz }}
               </h3>
-              <div class="text-uz" v-html="serviceText">
+              <div class="text-content" v-html="serviceText">
               </div>
 
-              <h4 class="title mb-20 inter fw-600">
+              <!-- <h4 class="title mb-20 inter fw-600">
                 {{ $t('sub_heading') }}
-              </h4>
+              </h4> -->
               <p class="fz-16 fw-400 mb-30 ptext2 inter">
                 {{ newsItem[`description_${$i18n.locale}`] || newsItem.description_uz }}
               </p>
@@ -255,12 +255,43 @@ export default {
         if (this.newsItem) {
   const locale = this.$i18n.locale; // Joriy tilni olamiz
   this.serviceText = this.newsItem[`text_${locale}`] || this.newsItem.text_uz || ''; // Tilga mos matnni tanlaymiz
+  this.loadFontsFromText(this.serviceText)
 }
 
       } catch (error) {
         console.error('Error fetching news:', error);
       }
     },
+    loadFontsFromText(text) {
+            // `font-family` qiymatini tahlil qilish uchun regex
+            const fontRegex = /font-family:\s*([^;"]+)/g;
+            let match;
+            const fonts = new Set();
+
+            // Matndagi barcha `font-family` qiymatlarini yig'ish
+            while ((match = fontRegex.exec(text)) !== null) {
+                fonts.add(match[1].trim());
+            }
+
+            // Har bir font uchun `.ttf` faylni yuklash
+            fonts.forEach((font) => {
+                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
+                this.loadFont(font, fontPath);
+            });
+        },
+        loadFont(fontName, fontPath) {
+            // Fontni dinamik yuklash
+            const fontFace = new FontFace(fontName, `url(${fontPath})`);
+            fontFace
+                .load()
+                .then((loadedFont) => {
+                    document.fonts.add(loadedFont);
+                    console.log(`${fontName} font yuklandi`);
+                })
+                .catch(() => {
+                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
+                });
+        },
     formatDate(dateString) {
       const date = new Date(dateString);
       const day = String(date.getDate()).padStart(2, '0');
@@ -278,3 +309,58 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+
+/* Kichik ekranlar (planshet yoki telefonlar) */
+.responsive-img {
+  width: 100vw;
+  /* Ekranning 100% kengligi */
+  height: auto;
+  /* Nisbatni buzmaydi */
+}
+}
+
+.custom-container .text-uz {
+  color: black;
+  font-size: 18px;
+  font-family: "Roboto-Condensed", sans-serif; /* Default font */
+  line-height: 1.6;
+}
+
+.custom-container .text-uz span {
+  font-family: inherit; /* Font topilmasa default fontni ishlatish */
+}
+
+
+
+
+.text-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #000;
+}
+
+.text-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.text-content table,
+.text-content th,
+.text-content td {
+  border: 1px solid #ddd;
+}
+
+.text-content th,
+.text-content td {
+  padding: 10px;
+  text-align: left;
+}
+
+.text-content th {
+  background-color: #f9f9f9;
+}
+</style>

@@ -10,7 +10,7 @@
                             <div class="flex-container mb-4">
                                 <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
                                     @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
-                                    Barchasi
+                                    {{ $t('all') }}
                                 </button>
                                 <button class="burchak outline__btn"
                                     :class="{ 'active-btn': activeButton === 'one_step' }"
@@ -25,14 +25,14 @@
 
                                 <!-- Search Form -->
                                 <form @submit.prevent="searchData" class="d-flex align-items-center position-relative">
-                                    <input v-model="searchQuery" type="text" placeholder="Qidirish..."
+                                    <input v-model="searchQuery" type="text" placeholder=""
                                         class="faded-placeholder"
                                         style="padding: 3px 1px 12px; font-size: 14px; border: 1px solid var(--base); border-top-left-radius: 4px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 4px;"
                                         @input="updateSuggestions">
                                     <button type="submit" class="cmn--btni1 d-flex align-items-center"
                                         style="padding: 10px 15px; border-radius: 4px; font-size: 14px; border-top-left-radius: 0px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 0px;">
                                         <span><i class="bi bi-search fz-12" style="font-size: 12px;"></i></span>
-                                        <span style="font-size: 14px;">Qidirish</span>
+                                        <span style="font-size: 14px;">{{ $t('search') }}</span>
                                     </button>
                                     <ul v-if="suggestions.length > 0"
                                         class="suggestions-list position-absolute bg-white shadow p-2">

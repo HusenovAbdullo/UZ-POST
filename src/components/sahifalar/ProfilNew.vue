@@ -56,7 +56,7 @@
                         </div>
                         <div class="darrell__content mt-40 text-center">
                            <h4 class="title mb-16">
-                              {{ profile.first_name || 'Ism kiritilmagan' }}
+                              {{ profile.first_name || '' }}
                            </h4>
 
 
@@ -366,7 +366,7 @@ export default {
          try {
             const token = localStorage.getItem('id_token');
             if (!token) {
-               this.$router.push({ name: 'login' });
+               this.$router.push({ name: 'profil' });
                return;
             }
 
@@ -385,7 +385,7 @@ export default {
             this.profile = data;
          } catch (error) {
             console.error('Error fetching profile data:', error);
-            this.$router.push({ name: 'login' });
+            this.$router.push({ name: 'profil' });
          }
       },
       handleLogout() {

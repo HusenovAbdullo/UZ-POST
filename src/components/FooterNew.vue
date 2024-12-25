@@ -10,7 +10,8 @@
                      v-for="(item, index) in footerMenu" :key="index">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
-                           {{ item.name_uz }}
+                           
+                           {{ item[`name_${$i18n.locale}`] || item.name_uz }}
                         </a>
                         <ul class="quick__link">
                            <li v-for="(link, idx) in item.elements" :key="idx">
@@ -19,7 +20,8 @@
 
                               <!-- Agar faqat link_uz mavjud bo'lsa -->
                               <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block">
-                                 {{ link.name_uz }}
+                                 
+                                 {{ link[`name_${$i18n.locale}`] || link.name_uz }}
                               </router-link>
                            </li>
 
@@ -32,7 +34,7 @@
                      style="width: 25%; margin-top: 80px;">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
-                           Biz bilan aloqa
+                           {{ $t('contact_us') }}
                         </a>
                         <ul class="footer__contact">
                            <li>
@@ -56,16 +58,16 @@
                               <a href="javascript:void(0)"
                                  class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
                                  <i class="bi bi-geo-alt cmn__icon"></i>
-                                 <span>Yunusobod tumani Oloy 1- ko'cha</span>
+                                 <span>{{ $t('address') }}</span>
                               </a>
                            </li>
                         </ul>
                         <br><br><br>
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
-                           Bizga obuna bo'ling
+                           {{ $t('subscribe_us') }}
                         </a>
                         <p class="pfz-18 fw-400 inter cef__pra mb-24">
-                           Bizning eng so'nggi yangiliklarimizdan xabardor bo'lib turish uchun obuna bo'ling
+                           {{ $t('subscribe_info') }}
                         </p>
                         <ul class="social d-flex align-items-center">
                            <li>
@@ -90,8 +92,7 @@
             </div>
             <div class="footer__bottom d-flex align-items-center">
                <p class="fz-16 fw-400 inter text-white">
-                  Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; “O‘zbekiston pochtasi”
-                  aksiyadorlik jamiyati<a href="https://chiko.uz" class="base3"></a>
+                  Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; {{ $t('jamiyat') }}<a href="https://chiko.uz" class="base3"></a>
                </p>
                <p><a href="https://t.me/Husenov_Abdullo" style="text-decoration: none; color: #00000000;">A</a></p>
                <ul class="help__support d-flex align-items-center">

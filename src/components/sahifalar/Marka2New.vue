@@ -42,14 +42,14 @@
                   {{ marka.title }}
                 </p>
                 <div class="accordion-body" style="color: black;">
-                  <p class="title2">{{ $t('marka_sana') }}: {{ marka.years }}</p>
-                  <p class="title2">{{ $t('marka_addadi') }}: {{ marka.count_number }}</p>
-                  <p class="title2">{{ $t('marka_nominal') }}: {{ marka.price }}</p>
+                  <p class="title2">{{ $t('Chiqarilgan sana') }}: {{ marka.years }}</p>
+                  <p class="title2">{{ $t('Addadi') }}: {{ marka.count_number }}</p>
+                  <p class="title2">{{ $t('Nominal') }}: {{ marka.price }}</p>
                 </div>
                 <div class="divider">
-                  <span>{{ $t('marka_haqida') }}</span>
+                  <span>{{ $t('MARKA HAQIDA MA\'LUMOT') }}</span>
                 </div>
-                <p>{{ marka.description }}</p>
+                <div class="text-content" v-html="serviceText"></div>
               </div>
             </div>
           </div>
@@ -70,7 +70,8 @@ export default {
   name: "Marka2New",
   data() {
     return {
-      marka: null, // API'dan olingan ma'lumotlar
+      marka: null,
+      serviceText: '',      // API'dan olingan ma'lumotlar
     };
   },
   watch: {
@@ -102,13 +103,45 @@ export default {
           years: data.years || "Noma'lum",
           price: isUz ? data.price_uz || "Noma'lum" : data.price_ru || "Noma'lum",
           count_number: data.count_number || "Noma'lum",
-          description: isUz ? data.text_uz || "Ma'lumot mavjud emas" : data.text_ru || "Информация отсутствует",
         };
+        this.serviceText =  data.text_uz || ''
+        this.loadFontsFromText(this.serviceText)
+
       } catch (error) {
         console.error("API'dan ma'lumotlarni yuklashda xatolik:", error);
         this.marka = null; // Xatolik yuz bersa, bo'sh qiymat qoldiramiz
       }
-    }
+    },
+    loadFontsFromText(text) {
+            // `font-family` qiymatini tahlil qilish uchun regex
+            const fontRegex = /font-family:\s*([^;"]+)/g;
+            let match;
+            const fonts = new Set();
+
+            // Matndagi barcha `font-family` qiymatlarini yig'ish
+            while ((match = fontRegex.exec(text)) !== null) {
+                fonts.add(match[1].trim());
+            }
+
+            // Har bir font uchun `.ttf` faylni yuklash
+            fonts.forEach((font) => {
+                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
+                this.loadFont(font, fontPath);
+            });
+        },
+        loadFont(fontName, fontPath) {
+            // Fontni dinamik yuklash
+            const fontFace = new FontFace(fontName, `url(${fontPath})`);
+            fontFace
+                .load()
+                .then((loadedFont) => {
+                    document.fonts.add(loadedFont);
+                    console.log(`${fontName} font yuklandi`);
+                })
+                .catch(() => {
+                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
+                });
+        },
   }
 };
 </script>
@@ -119,5 +152,35 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #555;
+}
+
+
+
+.text-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #000;
+}
+
+.text-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.text-content table,
+.text-content th,
+.text-content td {
+  border: 1px solid #ddd;
+}
+
+.text-content th,
+.text-content td {
+  padding: 10px;
+  text-align: left;
+}
+
+.text-content th {
+  background-color: #f9f9f9;
 }
 </style>

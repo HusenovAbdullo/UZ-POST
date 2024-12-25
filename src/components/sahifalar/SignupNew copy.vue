@@ -5,16 +5,16 @@
             <!-- Form qismi -->
             <div class="col-xl-6 col-lg-6">
                <div class="signup__boxes round16 border">
-                  <h3 class="title mb-16">{{ $t('sign_up') }}</h3>
+                  <h3 class="title mb-16">Ro'yxatdan o'tish</h3>
                   <p class="fz-16 title fw-400 inter mb-40">
-                     {{ $t('verify_phone') }}
+                     Telefon raqamingizni kiriting va SMS orqali tasdiqlang
                   </p>
                   <form @submit.prevent="handleSubmit" class="write__review">
                      <div class="row g-4">
                         <div class="col-lg-12">
                            <div class="frm__grp">
                               <label for="phoneInput" class="fz-18 fw-500 inter title mb-16">
-                                 {{ $t('phone_number1') }}
+                                 Telefon raqamingiz
                               </label>
                               <div style="display: flex; align-items: center;">
                                  <input v-model="phoneInput" type="text" id="phoneInput"
@@ -26,7 +26,7 @@
 
                               <p v-if="smsSent && !codeVerified"
                                  style="font-size: 14px; padding-top: 20px; color: green;">
-                                 {{ $t('sms_sent') }}
+                                 Raqamga SMS kod yubordik
                               </p>
 
                               <p v-if="smsSent && !codeVerified" class="timer" id="timer">
@@ -40,30 +40,31 @@
                            <br>
                            <div class="frm__grp">
                               <label for="nameInput" class="fz-18 fw-500 inter title mb-16"
-                                 style="margin-bottom: 1px;">{{ $t('your_name') }}</label>
-                              <input v-model="name" type="text" id="nameInput" :placeholder="$t('enter_your_name')"
+                                 style="margin-bottom: 1px;">Ismingiz</label>
+                              <input v-model="name" type="text" id="nameInput" placeholder="Ismingizni kiriting"
                                  class="form-control" />
                            </div>
                            <br>
                            <div class="frm__grp">
                               <label for="passwordInput" class="fz-18 fw-500 inter title mb-16"
-                                 style="margin-bottom: 1px;">{{ $t('password') }}</label>
+                                 style="margin-bottom: 1px;">Parol</label>
                               <input v-model="password" type="password" id="passwordInput"
-                              :placeholder="$t('enter_password1')" class="form-control" />
+                                 placeholder="Parolni kiriting" class="form-control" />
                            </div>
                            <br>
                            <div class="frm__grp">
                               <label for="confirmPasswordInput" class="fz-18 fw-500 inter title mb-16"
-                                 style="margin-bottom: 1px;">{{ $t('repeat_password') }}</label>
+                                 style="margin-bottom: 1px;">Parolni
+                                 takrorlang</label>
                               <input v-model="confirmPassword" type="password" id="confirmPasswordInput"
-                              :placeholder="$t('reenter_password')" class="form-control" />
+                                 placeholder="Parolni qayta kiriting" class="form-control" />
                            </div>
                         </div>
                         <br>
 
                         <p class="fz-16 fw-400 title inter">
-                           {{ $t('have_account1') }}
-                           <a href="singin" class="base">{{ $t('login') }}</a>
+                           Hisobingiz bormi?
+                           <a href="singin" class="base">Kirish</a>
                         </p>
                         <div class="col-lg-6" style="width: 300%;">
                            <div class="frm__grp">
@@ -96,7 +97,7 @@
       <div v-if="popupVisible" class="popup">
          <div class="popup-content">
             <p>{{ popupMessage }}</p>
-            <button @click="closePopup">{{ $t('close') }}</button>
+            <button @click="closePopup">Yopish</button>
          </div>
       </div>
    </section>
