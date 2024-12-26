@@ -308,9 +308,9 @@ export default {
     }
   }
 };
-</script>
+</script >
 
-<style>
+<style scoped>
 @media (max-width: 768px) {
 
 /* Kichik ekranlar (planshet yoki telefonlar) */

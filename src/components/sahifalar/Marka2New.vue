@@ -146,7 +146,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Stil yozish joyi */
 .loading {
   font-size: 20px;

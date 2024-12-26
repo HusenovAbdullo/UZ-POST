@@ -398,7 +398,7 @@ p {
 }
 
 .pt-120 {
-  padding-top: 120px;
+  padding-top: 10px;
 }
 @media (max-width: 1199px) {
   .pt-120 {
@@ -7897,4 +7897,35 @@ iframe {
   transition: all 0.3s;
   min-width: 35px;
   height: 35px;
+}
+
+
+
+
+.text-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #000;
+}
+
+.text-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.text-content table,
+.text-content th,
+.text-content td {
+  border: 1px solid #ddd;
+}
+
+.text-content th,
+.text-content td {
+  padding: 10px;
+  text-align: left;
+}
+
+.text-content th {
+  background-color: #f9f9f9;
 }
