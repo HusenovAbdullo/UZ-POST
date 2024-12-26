@@ -81,27 +81,32 @@ const routes = [
   {
     path: '/test5',
     name: 'test5',
-    component: Test5View
+    component: Test5View,
+    meta: { requiresReload: true }
   },
   {
     path: '/taqiqlanganjoylanmalar',
     name: 'taqiqlanganjoylanmalar',
-    component: TaqiqlanganjoylanmalarView
+    component: TaqiqlanganjoylanmalarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/tariflar1',
     name: 'tariflar1',
-    component: Tariflar1View
+    component: Tariflar1View,
+    meta: { requiresReload: true }
   },
   {
     path: '/tariflar2',
     name: 'tariflar2',
-    component: Tariflar2View
+    component: Tariflar2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/turlari',
     name: 'turlari',
-    component: JonatmaturlariView
+    component: JonatmaturlariView,
+    meta: { requiresReload: true }
   },
   {
     path: '/profil',
@@ -112,57 +117,68 @@ const routes = [
   {
     path: '/xizmatlar',
     name: 'xizmatlar',
-    component: XizmatlarView
+    component: XizmatlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/savollar',
     name: 'savollar',
-    component: SavollarView
+    component: SavollarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/error',
     name: 'error',
-    component: ErrorView
+    component: ErrorView,
+    meta: { requiresReload: true }
   },
   {
     path: '/signup',
     name: 'signup',
-    component: SingupView
+    component: SingupView,
+    meta: { requiresReload: true }
   },
   {
     path: '/xizmat/:id',
     name: 'xizmat',
-    component: XizmatView
+    component: XizmatView,
+    meta: { requiresReload: true }
   },
   {
     path: '/sahifalar/:name',
     name: 'sahifalar',
-    component: SahifalarView
+    component: SahifalarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/tariflar',
     name: 'tariflar',
-    component: TariflarView
+    component: TariflarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/kuryerlikXizmati',
     name: 'kuryerlikXizmati',
-    component: KuryerlikXizmatiView
+    component: KuryerlikXizmatiView,
+    meta: { requiresReload: true }
   },
   {
     path: '/xalqaroPochta',
     name: 'xalqaroPochta',
-    component: XalqaroPochtaView
+    component: XalqaroPochtaView,
+    meta: { requiresReload: true }
   }, 
   {
     path: '/pochtaBolimi',
     name: 'pochtaBolimi',
-    component: PochtaBolimiView
+    component: PochtaBolimiView,
+    meta: { requiresReload: true }
   }, 
   {
     path: '/tarif',
     name: 'tarif',
-    component: TarifView
+    component: TarifView,
+    meta: { requiresReload: true }
   },
   {
     path: '/tahrirlash',
@@ -173,72 +189,86 @@ const routes = [
   {
     path: '/tracking',
     name: 'tracking',
-    component: TrackingView
+    component: TrackingView,
+    meta: { requiresReload: true }
   },
   {
     path: '/kalkulyator',
     name: 'kalkulyator',
-    component: KalkulyatorView
+    component: KalkulyatorView,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangiliklar',
     name: 'yangiliklar',
-    component: YangiliklarView
+    component: YangiliklarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik/:id',
     name: 'yangilik',
-    component: YangilikView
+    component: YangilikView,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik2',
     name: 'yangilik2',
-    component: Yangilik2View
+    component: Yangilik2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik3',
     name: 'yangilik3',
-    component: Yangilik3View
+    component: Yangilik3View,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik4',
     name: 'yangilik4',
-    component: Yangilik4View
+    component: Yangilik4View,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik5',
     name: 'yangilik5',
-    component: Yangilik5View
+    component: Yangilik5View,
+    meta: { requiresReload: true }
   },
   {
     path: '/yangilik6',
     name: 'yangilik6',
-    component: Yangilik6View
+    component: Yangilik6View,
+    meta: { requiresReload: true }
   },
   {
     path: '/markalar',
     name: 'markalar',
-    component: MarkalarView
+    component: MarkalarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/markalar2',
     name: 'markalar2',
-    component: Markalar2View
+    component: Markalar2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/marka',
     name: 'marka',
-    component: MarkaView
+    component: MarkaView,
+    meta: { requiresReload: true }
   },
   {
     path: '/marka2/:id',
     name: 'marka2',
-    component: Marka2View
+    component: Marka2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/aloqa',
     name: 'aloqa',
-    component: AloqaView
+    component: AloqaView,
+    meta: { requiresReload: true }
   },
   {
     path: '/chat',
@@ -249,32 +279,38 @@ const routes = [
   {
     path: '/vakansiyalar',
     name: 'vakansiyalar',
-    component: VakansiyalarView
+    component: VakansiyalarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/vakansiyalar1',
     name: 'vakansiyalar1',
-    component: Vakansiyalar1View
+    component: Vakansiyalar1View,
+    meta: { requiresReload: true }
   },
   {
     path: '/vakansiyalar2',
     name: 'vakansiyalar2',
-    component: Vakansiyalar2View
+    component: Vakansiyalar2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/vakansiyalar3',
     name: 'vakansiyalar3',
-    component: Vakansiyalar3View
+    component: Vakansiyalar3View,
+    meta: { requiresReload: true }
   },
   {
     path: '/filiallar',
     name: 'filiallar',
-    component: FiliallarView
+    component: FiliallarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/filiallar2',
     name: 'filiallar2',
-    component: Filiallar2View
+    component: Filiallar2View,
+    meta: { requiresReload: true }
   },
   {
     path: '/filial/:id',
@@ -285,117 +321,140 @@ const routes = [
   {
     path: '/yuridik',
     name: 'yuridik',
-    component: YuridikView
+    component: YuridikView,
+    meta: { requiresReload: true }
   },
   {
     path: '/rivojlantirish',
     name: 'rivojlantirish',
-    component: RivojlantirishView
+    component: RivojlantirishView,
+    meta: { requiresReload: true }
   },
   {
     path: '/boshqaruvOrganlari',
     name: 'boshqaruvOrganlari',
-    component: BoshqaruvOrganlariView
+    component: BoshqaruvOrganlariView,
+    meta: { requiresReload: true }
   },
   {
     path: '/ijroiyaApparati',
     name: 'ijroiyaApparati',
-    component: IjroiyaApparatiView
+    component: IjroiyaApparatiView,
+    meta: { requiresReload: true }
   },
   {
     path: '/normativBaza',
     name: 'normativBaza',
-    component: NormativBazaView
+    component: NormativBazaView,
+    meta: { requiresReload: true }
   },
   {
     path: '/korrupsiya',
     name: 'korrupsiya',
-    component: KorrupsiyaView
+    component: KorrupsiyaView,
+    meta: { requiresReload: true }
   },
   {
     path: '/xalqaroHamkorlar',
     name: 'xalqaroHamkorlar',
-    component: XalqaroHamkorlarView
+    component: XalqaroHamkorlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/aksiyadorlarBurchagi',
     name: 'aksiyadorlarBurchagi',
-    component: AksiyadorlarBurchagiView
+    component: AksiyadorlarBurchagiView,
+    meta: { requiresReload: true }
   },
   {
     path: '/jamiyatNizomi',
     name: 'jamiyatNizomi',
-    component: JamiyatNizomiView
+    component: JamiyatNizomiView,
+    meta: { requiresReload: true }
   },
   {
     path: '/choraklikHisobotlar',
     name: 'choraklikHisobotlar',
-    component: ChoraklikHisobotlarView
+    component: ChoraklikHisobotlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/yillikHisobotlar',
     name: 'yillikHisobotlar',
-    component: YillikHisobotlarView
+    component: YillikHisobotlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/muhimFaktlar',
     name: 'muhimFaktlar',
-    component: MuhimFaktlarView
+    component: MuhimFaktlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/elonlar',
     name: 'elonlar',
-    component: ElonlarView
+    component: ElonlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/dividendlar',
     name: 'dividendlar',
     component: DividendlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/pulAyirboshlash',
     name: 'pulAyirboshlash',
     component: PulAyirboshlashView,
+    meta: { requiresReload: true }
   },
   {
     path: '/ichkiHujjatlar',
     name: 'ichkiHujjatlar',
     component: IchkiHujjatlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/qimmatliQogozlar',
     name: 'qimmatliQogozlar',
     component: QimmatliQogozlarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/biznesRejalar',
     name: 'biznesRejalar',
     component: BiznesRejalarView,
+    meta: { requiresReload: true }
   },
   {
     path: '/xat',
     name: 'xat',
-    component: XatView
+    component: XatView,
+    meta: { requiresReload: true }
   },
   {
     path: '/xat1',
     name: 'xat1',
-    component: Xat1View
+    component: Xat1View,
+    meta: { requiresReload: true }
   },
   {
     path: '/map',
     name: 'map',
-    component: MapView
+    component: MapView,
+    meta: { requiresReload: true }
   },
   {
     path: '/headeritem/:name_uz',
     name: 'headeritem',
-    component: HeaderItemView
+    component: HeaderItemView,
+    meta: { requiresReload: true }
   },
   {
     path: '/singin',
     name: 'singin',
-    component: SinginView
+    component: SinginView,
+    meta: { requiresReload: true }
   }
   
 ];
@@ -427,24 +486,29 @@ router.beforeEach((to, from, next) => {
     }
   }
 
+  // Token eskirgan bo'lsa, foydalanuvchini login sahifasiga yo'naltirish
   if (loggedIn && isTokenExpired(loggedIn)) {
-    // Token eskirgan bo'lsa, foydalanuvchini chiqarib yuboramiz
     localStorage.removeItem('id_token');
-    localStorage.setItem('redirectAfterLogin', to.fullPath); // Kirishni xohlagan yo'lni saqlab qo'yamiz
-    next({ name: 'singin' }); // Login sahifangiz nomi
+    localStorage.setItem('redirectAfterLogin', to.fullPath);
+    next({ name: 'singin' });
     return;
   }
 
+  // Auth talab qiladigan yo'llar uchun tekshirish
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-    // Kirishni xohlagan yo'lni saqlab qo'yamiz
     localStorage.setItem('redirectAfterLogin', to.fullPath);
-    // Login sahifasiga yo'naltiramiz
-    next({ name: 'singin' }); // Login sahifangiz nomi
+    next({ name: 'singin' });
+  } else if (to.matched.some(record => record.meta.requiresReload) && from.name) {
+    // Agar sahifa o'zgarsa va `meta.requiresReload` mavjud bo'lsa
+    next(); // Yo'naltirishni davom ettiring
+    setTimeout(() => {
+      window.location.reload(); // Yo'naltirishdan keyin sahifani qayta yuklang
+    }, 0);
   } else {
-    // Aks holda, yo'naltirilgan sahifaga o'tish
-    next();
+    next(); // Odatdagi yo'naltirish
   }
 });
+
 
 
 
