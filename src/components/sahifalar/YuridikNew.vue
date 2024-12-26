@@ -2,8 +2,7 @@
    <section class="slideshow-container" id="slideshow">
       <div class="container">
          <div class="header-wrapper">
-            <img src="assets/img/bosh/2.png" alt="Image 1" class="desktop-img">
-            <img src="assets/img/bosh/image1-mobile.jpg" alt="Image 1 Mobile" class="mobile-img">
+            <img src="assets/img/bosh/banner-uz.png" alt="Image 1" class="desktop-img">
 
             <!-- <div class="button-container">
                <a href="yangiliklar.html" class="cmn--btn custom-button">

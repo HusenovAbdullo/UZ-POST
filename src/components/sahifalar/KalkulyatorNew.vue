@@ -34,7 +34,7 @@
                   <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                      <div class="breadcumnd__content">
                         <span class="d4 mb-24">
-                           Kalkulyator
+                           {{ $t('calculator') }}
                         </span>
 
                      </div>
@@ -52,10 +52,10 @@
                   <div class="chatbot__developers">
                      <div class="chatbot__items featiredjob__details round16 mb-24 shadow2 bgwhite">
                         <p class="title mb-20" style="font-size: 32px;">
-                           Posilka yoki xatni joylashtiring
+                           {{ $t('place_parcel') }}
                         </p>
                         <p class="fz-18 fw-400 inter pra" style="color: #183e98;">
-                           Xarajatlarni va etkazib berish vaqtini hisoblang
+                           {{ $t('calculate_time_cost') }}
                         </p>
                         <br>
 
@@ -72,8 +72,7 @@
                            style="display: block;" v-show="activeService === service.id">
                            <div class="tab bor" style="color: #222E48; display: flex; gap:100px;">
                               <p v-if="service.id === 136" class="service-description" style="    background-color: #c5d4eb;">
-                                 Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
-                                 madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
+                                 {{ $t('parcel_info') }}
                               </p>
                               <p v-if="service.id === 135" class="service-description" style="    background-color: #c5d4eb;">
                                  Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
@@ -91,7 +90,7 @@
                            <br />
 
                            <h3 class="title mb-20">
-                              Qayerdan
+                              {{ $t('from_where') }}
                            </h3>
                            <br>
 
@@ -106,7 +105,7 @@
                                        <div class="select-wrapper">
                                           <select id="province" name="province" class="form-control"
                                              v-model="selectedProvince1" @change="fetchDistricts1">
-                                             <option value="" disabled selected>Viloyat tanlang</option>
+                                             <option value="" disabled selected>{{ $t('choose_region') }}</option>
                                              <option v-for="(name, id) in regions1" :key="name" :value="name">
                                                 {{ id }}
                                              </option>
@@ -124,7 +123,7 @@
                                           <select id="district" name="district" class="form-control"
                                              v-model="selectedDistrict1">
                                              <option value="" disabled selected>
-                                                Tuman tanlang
+                                                {{ $t('choose_district') }}
                                              </option>
                                              <option v-for="(name, id) in districts1" :key="id" :value="name.id">
                                                 {{ name.name }}
@@ -149,32 +148,31 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <p style="color: blek; font-size: small;">Jo‘natuvchining shaharini yoki manzilini
-                                    kiriting.</p>
+                                 <p style="color: blek; font-size: small;">{{ $t('sender_address') }}</p>
                                  <br>
                                  <br>
 
                                  <h3 class="title mb-20" style="margin-top: 30px;">
-                                    Qayerga
+                                    {{ $t('to_where') }}
                                  </h3>
 
                                  <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
                                     <button class="tablinks1" type="button"
                                        :class="{ active: $route.activeTab === 'Index' }" @click="activeTab = 'Index'"
                                        style="display: block;">
-                                       <p>Indeks</p>
+                                       <p>{{ $t('index') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
-                                       <p>Manzil</p>
+                                       <p>{{ $t('address2') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Pochtam' }"
                                        @click="activeTab = 'Pochtam'">
-                                       <p>Pochtomat</p>
+                                       <p>{{ $t('postomat') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
                                        @click="activeTab = 'Davlat'">
-                                       <p>Boshqa mamlakatga</p>
+                                       <p>{{ $t('other_countries') }}</p>
                                     </button>
                                  </div>
 
@@ -187,7 +185,7 @@
                                           <div class="input-wrapper">
 
                                              <input style="    position: relative; top: -60px;" type="text" id="index"
-                                                name="index" class="form-control" placeholder="Indeksni kiriting"
+                                                name="index" class="form-control" :placeholder="$t('enter_index')"
                                                 v-model="index" />
                                              <span v-if="!index" class="red-starinput">*</span>
                                              <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
@@ -197,11 +195,9 @@
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
                                        <router-link :to="{ name: 'map' }" style="color: blue;">
-                                          Indeks
+                                          {{ $t('index') }}
                                        </router-link>
-                                       bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
-                                       olinadigan bo‘limga yetkaziladi. Qabul qiluvchi jo'natma kelganini bilishi uchun
-                                       rasmiylashtirishda kuzatuv uchun trek-raqamni qabul qiluvchiga yuboring.
+                                       {{ $t('index_note') }}
                                     </p>
 
                                  </div>
@@ -257,7 +253,7 @@
                                                 <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                                 <div style="position: relative;">
                                                    <input type="text" id="address" name="address" class="form-control"
-                                                      placeholder="Manzil">
+                                                   :placeholder="$t('recipient_address')">
                                                 </div>
                                              </div>
                                           </div>
@@ -297,11 +293,11 @@
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">Og'irligi</label>
+                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">{{ $t('weight') }}</label>
                                           <div class="input-wrapper">
 
                                              <input type="number" id="vesi" name="vesi" class="form-control"
-                                                placeholder="gramm" v-model="weight">
+                                             :placeholder="$t('choose_weight_unit')" v-model="weight">
                                              <span v-if="!weight" class="red-star">*</span>
                                              <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
 
@@ -310,9 +306,9 @@
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="size" class="fz-180 fw-500 inter title mb-16">Hajmi</label>
+                                          <label for="size" class="fz-180 fw-500 inter title mb-16">{{ $t('size') }}</label>
                                           <select id="size" name="size" class="form-control">
-                                             <option value="" disabled selected>Tanlang</option>
+                                             <option value="" disabled selected>{{ $t('choose_size') }}</option>
                                              <option value="10x20x30">10x20x30</option>
                                              <option value="25x30x40">25x30x40</option>
                                              <option value="35x38x45">35x38x45</option>
@@ -322,7 +318,7 @@
                                  </div>
                                  <div class="frm__grp mt-30" style="position: relative; top: -40px;">
                                     <button type="button" class="cmn--btn" @click="validateForm">
-                                       <span>Hisoblash</span>
+                                       <span>{{ $t('calculate') }}</span>
                                     </button>
                                  </div>
                               </div>
@@ -342,12 +338,12 @@
                   <div class="basic__skilled__wrapper">
                      <div class="basic__boxskill mb-24 round16 bgwhite">
                         <span class="fz-18 d-block title inter mb-10 bborderdash">
-                           Yuk tashish vaqtlari va xarajatlarini hisoblash uchun shaklni to'ldiring
+                           {{ $t('cost_estimation') }}
                         </span>
                         <div class="form__price pb-24 d-flex align-items-center bborderdash">
                            <i class="bi bi-tags tags__icon"></i>
                            <span class="fz-16 d-flex align-items-center gap-2 fw-400 inter title">
-                              Taxminan:
+                              {{ $t('approximate_cost') }}
                               <span class="fssizing d-flex align-items-start gap-1">
                                  {{ totalPrice + " so'm" }}
                               </span>
@@ -361,7 +357,7 @@
 
                         <button type="button" class="cmn--btn" @click="nextPage">
                            <span>
-                              Buyurtmani yaratish
+                              {{ $t('create_order') }}
                            </span>
                            <span>
                               <i class="bi bi-arrow-up-right"></i>

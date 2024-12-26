@@ -17,7 +17,7 @@
                        <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                            <div class="breadcumnd__content">
                                <span class="d4 mb-24">
-                                   UzPost filiallari
+                                {{ $t('uzpost_branches') }}
                                </span>
                            </div>
                        </div>
@@ -33,12 +33,12 @@
                    <div class="card__sidebar side__sticky round16">
                        <div class="card__common__item bgwhite round16">
                            <div class="bank__check__wrap pb-24 tborderdash">
-                               <h5 class="title mb-16 pt-24">Filiallar</h5>
+                               <h5 class="title mb-16 pt-24">{{ $t('branches') }}</h5>
                                <div v-for="branch in branches" :key="branch.id"
                                    class="d-flex align-items-center justify-content-between">
                                    <div class="bank__checkitem mb-8 d-flex align-items-center">
                                        <label class="form-check-label fz-16 fw-400 ptext2 inter">
-                                           {{ branch.title_uz }}
+                                            {{ branch[`title_${$i18n.locale}`] || branch.title_uz }}
                                        </label>
                                    </div>
 
@@ -63,21 +63,21 @@
                                            </a>
                                            <h5 class="mt-24 mb-20">
                                                <router-link :to="'/filial/' + branch.id" class="titley">
-                                                   {{ branch.title_uz }}
+                                                {{ branch[`title_${$i18n.locale}`] || branch.title_uz }}
                                                </router-link>
                                            </h5>
                                            <div
                                                class="d-flex bborderdash pb-20 align-items-center justify-content-between">
                                                <div class="d-flex fz-14 fw-400 gap-2 inter pra align-items-center">
                                                    <i class="bi bi-stopwatch"></i>
-                                                   Filialning ish vaqti: <br /> {{ branch.work_time || 'Mavjud emas' }}
+                                                   {{ $t('branch_working_hours') }} <br /> {{ branch.work_time || '' }}
                                                </div>
                                            </div>
                                            <div class="d-flex pb-20 align-items-center justify-content-between">
                                                <div class="d-flex fz-14 fw-400 gap-2 inter align-items-center"
                                                    style="color: #0141a2;">
                                                    <i class="bi bi-geo-alt"></i>
-                                                   Manzil: <br /> {{ branch.address_uz || 'Mavjud emas' }}
+                                                   {{ $t('address3') }} <br /> {{ branch[`address_${$i18n.locale}`] || branch.address_uz }}
                                                </div>
                                            </div>
                                        </div>

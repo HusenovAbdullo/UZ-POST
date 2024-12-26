@@ -20,7 +20,7 @@
             <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                <div class="breadcumnd__content">
                   <span class="d4 mb-24">
-                     UzPost bilan bog‘lanish
+                     {{ $t('uzpost_contact') }}
                   </span>
                </div>
             </div>
@@ -38,7 +38,7 @@
       <div class="col-lg-a">
          <div class="contact__sidebox bgwhite round16">
             <h3 class="pb-30 bborderdash mb-30 title2">
-               Biz bilan bog'lanish turlari:
+               {{ $t('contact_types') }}
             </h3>
             <div class="help__emailitem mb-24 round16">
                <div class="icon round50 bgwhite d-flex align-items-center justify-content-center">
@@ -46,7 +46,7 @@
                </div>
                <div class="box">
                   <h5 class="fw-600 title mb-10">
-                     Telefon raqam
+                     {{ $t('phone_number2') }}
                   </h5>
                   <span class="fz-16 d-block inter title">
                      1165
@@ -62,17 +62,17 @@
                </div>
                <div class="box">
                   <h5 class="fw-600 title mb-10">
-                     E-mail:
+                     {{ $t('email') }}
                   </h5>
                   <span class="fz-16 d-block inter title">
                      <a href="https://pixner.net/cdn-cgi/l/email-protection" class="__cf_email__"
                         data-cfemail="cda4a3aba28da8b5aca0bda1a8e3aea2a0">uzpost.app@gmail.com </a>
-                     <p class="fz-14">(savollar va takliflar)</p>
+                     <p class="fz-14">({{ $t('questions_suggestions') }})</p>
                   </span>
                   <span class="fz-16 d-block inter title">
                      <a href="https://pixner.net/cdn-cgi/l/email-protection" class="__cf_email__"
                         data-cfemail="1e777078715e7b667f736e727b307d7173">info@pochta.uz </a>
-                     <p class="fz-14">(rasmiy xatlar va murojaatlar)</p>
+                     <p class="fz-14">({{ $t('official_letters') }})</p>
                   </span>
                </div>
             </div>
@@ -82,14 +82,14 @@
                </div>
                <div class="box">
                   <h5 class="fw-600 title mb-10">
-                     Manzil:
+                     {{ $t('address1') }}
                   </h5>
                   <span class="fz-16 d-block inter title">
-                     Yunusobod tumani
+                     {{ $t('yunusobod_address') }}
                   </span>
-                  <span class="fz-16 d-block inter title">
+                  <!-- <span class="fz-16 d-block inter title">
                      Oloy 1-ko'cha
-                  </span>
+                  </span> -->
                </div>
             </div>
          </div>
@@ -97,37 +97,37 @@
       <div class="col-lg-8">
          <div class="contact__wrapper round16 bgwhite">
             <h3 class="pb-30 bborderdash mb-30 title2">
-               Savol, murojaat yoki takliflarni yuborish
+               {{ $t('submit_question') }}
             </h3>
             <form action="#0" class="write__review">
                <div class="row g-4">
                   <div class="col-lg-6">
                      <div class="frm__grp">
-                        <label for="name" class="fz-18 fw-500 inter title mb-16">Murojaatchi</label>
-                        <input type="text" id="name" placeholder="Ismingizni kiriting...">
+                        <label for="name" class="fz-18 fw-500 inter title mb-16">{{ $t('applicant') }}</label>
+                        <input type="text" id="name" :placeholder="$t('enter_your_name')">
                      </div>
                   </div>
                   <div class="col-lg-6">
                      <div class="frm__grp">
-                        <label for="enamee" class="fz-18 fw-500 inter title mb-16">E-mail</label>
-                        <input type="text" id="enamee" placeholder="Email manzilingizni kiriting...">
+                        <label for="enamee" class="fz-18 fw-500 inter title mb-16">{{ $t('email') }}</label>
+                        <input type="text" id="enamee" :placeholder="$t('email_placeholder')">
                      </div>
                   </div>
                   <div class="col-lg-6">
                      <div class="frm__grp">
-                        <label for="numbers" class="fz-18 fw-500 inter title mb-16">Telefon raqam</label>
-                        <input type="text" id="numbers" placeholder="Telefon raqamingizni kiriting">
+                        <label for="numbers" class="fz-18 fw-500 inter title mb-16">{{ $t('phone_number') }}</label>
+                        <input type="text" id="numbers" :placeholder="$t('phone_placeholder')">
                      </div>
                   </div>
                   <br>
                   <br>
                   <div style=" align-items: center; font-family: Arial, sans-serif;">
                      <label for="file-upload"
-                        style="font-weight: bold; margin-right: 10px;color:#080000">Fayl</label><br>
+                        style="font-weight: bold; margin-right: 10px;color:#080000">{{ $t('file') }}</label><br>
                      <div class="fz-14"
                         style="display: flex; align-items: center; border: 1px solid #e0e1e5;     width: 25%; border-radius: 5px; padding: 8px 12px; background-color: #f2f7fe;">
                         <label for="file-upload" style="cursor: pointer; color: #404a60;">
-                           Faylni biriktirish
+                           {{ $t('attach_file') }}
                         </label>
                         <input id="file-upload" type="file" style="display: none;">
                         <i class="bi bi-paperclip ms-2" style="color: #404a60;"></i>
@@ -139,15 +139,15 @@
 
                   <div class="col-lg-12">
                      <div class="frm__grp">
-                        <label class="fz-18 fw-500 inter title mb-16">Murojaat matni</label>
+                        <label class="fz-18 fw-500 inter title mb-16">{{ $t('message_text') }}</label>
                         <textarea name="writecommnet" cols="30" rows="5"
-                           placeholder="Savol, murojaat yoki taklifni kiriting..."></textarea>
+                        :placeholder="$t('message_placeholder')"></textarea>
                      </div>
                   </div>
                   <div class="frm__grp mt-30">
                      <button type="submit" class="cmn--btn">
                         <span>
-                           Xabar yuborish
+                           {{ $t('submit_button') }}
                         </span>
                      </button>
                   </div>

@@ -65,6 +65,7 @@ import TaqiqlanganjoylanmalarView from '@/views/TaqiqlanganjoylanmalarView.vue';
 import Tariflar2View from '@/views/Tariflar2View.vue';
 import YangilikView from '@/views/YangilikView.vue';
 import SahifalarView from '@/views/SahifalarView.vue';
+import HeaderItemView from '@/views/HeaderItemView.vue';
 const routes = [
   {
     path: '/',
@@ -385,6 +386,11 @@ const routes = [
     path: '/map',
     name: 'map',
     component: MapView
+  },
+  {
+    path: '/headeritem/:name_uz',
+    name: 'headeritem',
+    component: HeaderItemView
   },
   {
     path: '/singin',

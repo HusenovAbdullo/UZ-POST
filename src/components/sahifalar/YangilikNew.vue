@@ -118,12 +118,12 @@
                 <input type="text" id="name" :placeholder="$t('enter_name')">
               </div>
               <div class="wrigt__grp">
-                <label for="email">{{ $t('email') }}</label>
-                <input type="text" id="email" :placeholder="$t('enter_email')">
+                <label for="email">{{ $t('phone') }}</label>
+                <input type="text" id="email" :placeholder="$t('enter_phone1')">
               </div>
               <div class="wrigt__grp">
                 <label for="name">{{ $t('comment') }}</label>
-                <textarea class="form-control" :placeholder="$t('enter_comment')" id="textAreaExample"
+                <textarea class="form-control" :placeholder="$t('leave_comment1')" id="textAreaExample"
                   rows="4"></textarea>
               </div>
               <button class="cmn--btn mt-16">
