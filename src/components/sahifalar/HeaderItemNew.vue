@@ -36,7 +36,7 @@
                                         <li class="nav-item" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
                                             <button class="nav-link" :class="{ active: activeMenu === subItem.id }"
                                                 @click="toggleMenu(subItem.id)">
-                                                 {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }} <!-- Sub-item name_uz -->
+                                                {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
                                             </button>
                                             <div v-if="activeMenu === subItem.id" class="submenu">
                                                 <ul v-if="subItem.pages_id && subItem.pages_id.length">
@@ -45,7 +45,8 @@
                                                         <button
                                                             :class="['nav-link', { active: activeSubItem === page.id }]"
                                                             type="button" @click="setActiveSubItem(page.id)">
-                                                            <p class="title9">{{ page[`title_${$i18n.locale}`] || page.title_uz }}</p>
+                                                            <p class="title9">{{ page[`title_${$i18n.locale}`] ||
+                                                                page.title_uz }}</p>
                                                         </button>
                                                     </li>
                                                 </ul>
@@ -55,17 +56,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-9">
-                                <!-- Faollashtirilgan sub-item bo'yicha ma'lumotlar -->
                                 <div class="overview__gitwrapper bgwhite round16 border" v-if="pageData">
-                                    <h2 class="pb-40 bborderdash mb-20 title2">{{ pageData[`name_${$i18n.locale}`] || pageData.title_uz }}</h2>
+                                    <h2 class="pb-40 bborderdash mb-20 title2">{{ pageData[`title_${$i18n.locale}`] || l}}</h2>
                                     <div class="text-content" v-html="serviceText"></div>
                                 </div>
                                 <div v-else>
                                     <div class="col-lg-12" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
                                         <div class="overview__gitwrapper bgwhite round16 border">
-                                            <h2 class="pb-40 bborderdash mb-20 title2">{{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}</h2>
-                                            <div class="nav-item"  role="presentation" v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex">
-                                                <p class="title9">{{ page[`title_${$i18n.locale}`] || page.title_uz }}</p>
+                                            <h2 class="pb-40 bborderdash mb-20 title2">{{
+                                                subItem[`name_${$i18n.locale}`] || subItem.name_uz }}</h2>
+                                            <div class="nav-item" role="presentation"
+                                                v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex">
+                                                <p class="title9">{{ page[`title_${$i18n.locale}`] || page.title_uz }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +88,8 @@ import axios from "axios";
 export default {
     data() {
         return {
+            locale: this.$i18n.locale || 'uz', // Joriy til kodi
+
             serviceText: '', // HTML formatidagi matn
             MenuName: null,
             menus: [], // JSON ma'lumotlari
@@ -108,6 +113,18 @@ export default {
             await this.fetchMenus(); // Menyu ma'lumotlarini olish
         }
     },
+    async mounted() {
+    this.fetchMenus(this.$i18n.locale);
+    this.fetchPageData(this.activeSubItem, this.$i18n.locale);
+},
+  watch: {
+    '$i18n.locale'(newLocale) {
+      if (this.activeSubItem) {
+        // Agar faol sub-item mavjud bo'lsa, yangi til bilan ma'lumotlarni qayta yuklash
+        this.fetchPageData(this.activeSubItem, newLocale);
+      }
+    },
+  },
     methods: {
         loadFontsFromText(text) {
             // `font-family` qiymatini tahlil qilish uchun regex
@@ -133,7 +150,6 @@ export default {
                 .load()
                 .then((loadedFont) => {
                     document.fonts.add(loadedFont);
-                    console.log(`${fontName} font yuklandi`);
                 })
                 .catch(() => {
                     console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
@@ -144,18 +160,19 @@ export default {
         },
         // Faollashtirilgan sub-item ID sini saqlash
         setActiveSubItem(subItemId) {
+
             this.activeSubItem = subItemId;
             this.pageData = null; // Tanlangan sub-itemga oid ma'lumotlarni tozalash
-            this.fetchPageData(subItemId); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
+            this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
         },
         // Menyu elementlarini olish
-        async fetchMenus() {
+        async fetchMenus(locale) {
+
             try {
                 const response = await axios.get(`https://new.pochta.uz/api/v1/public/menu-element-items/${this.menuId}/`);
                 if (response.data && response.data.item_pages) {
-                    // JSON ma'lumotini saqlash
                     this.menus = [response.data];
-                    this.MenuName = this.menus[0].name_uz
+                    this.MenuName = this.menus[0][`name_${locale}`] || ' '
                 } else {
                     console.error('API natijasi noto\'g\'ri formatda');
                 }
@@ -163,13 +180,12 @@ export default {
                 console.error('Menyu ma\'lumotlarini olishda xatolik:', error);
             }
         },
-        // Faollashtirilgan sub-item IDga asoslangan sahifa ma'lumotlarini olish
-        async fetchPageData(subItemId) {
+        async fetchPageData(subItemId, locale) {
             try {
                 const response = await axios.get(`https://new.pochta.uz/api/v1/public/menu-item-pages/${subItemId}/`);
                 if (response.data) {
                     this.pageData = response.data;
-                    this.serviceText = this.pageData.text_uz || '';
+                    this.serviceText = this.pageData[`text_${locale}`] || '';
                     this.loadFontsFromText(this.serviceText) // HTML formatidagi matn
 
                 } else {

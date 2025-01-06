@@ -633,7 +633,7 @@
                           ">
                                             <p>
 
-                                                <router-link :to="{ path: '/tariflar', query: { id: 806 } }"
+                                                <router-link :to="tariflar"
                                                     class="textrang">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>

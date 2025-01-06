@@ -6,7 +6,7 @@
                     <div class="section__title text-center ralt mb-60">
                         <p class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="0s"
                             style="color: var(--white); font-size: 70px;">
-                            Xizmatlar
+                            {{ $t('services') }}
                         </p>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                         <div class="section__title text-center ralt mb-60">
                             <h2 class="title wow fadeInUp mb-24" data-wow-duration="0s"
                                 style="color: rgb(255, 255, 255);">
-                                {{ category.name_uz || null }}
+                                {{ category[`name_${$i18n.locale}`] || null }}
                             </h2>
                         </div>
                     </div>
@@ -33,10 +33,10 @@
                             </div>
                             <div class="content">
                                 <h3 class="inter title mb-24">
-                                    {{ service.title_uz || null }}
+                                    {{ service[`title_${$i18n.locale}`] || null }}
                                 </h3>
                                 <p class="fz-14 fw-400 inter pra mb-40">
-                                    {{ service.description_uz || null }}
+                                    {{ service[`description_${$i18n.locale}`] || null }}
                                 </p>
                                 <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
                                     <span>
@@ -71,10 +71,7 @@ export default {
         async fetchCategories() {
             try {
                 const response = await axios.get("https://new.pochta.uz/api/v1/public/category-services/");
-
-                // API-dan kelgan kategoriyalarni o'zgartirish
                 this.categories = response.data.map(category => {
-                    // Xizmatlar bo'yicha save_image tekshirish
                     if (category.services_id && Array.isArray(category.services_id)) {
                         category.services_id = category.services_id.map(service => {
                             if (service.save_image && service.save_image.startsWith("http://")) {
@@ -86,7 +83,6 @@ export default {
                     return category;
                 });
 
-                console.log(this.categories); // Kategoriyalarni konsolda tekshirish
             } catch (error) {
                 console.error("API dan ma'lumotlarni olishda xatolik:", error);
             }

@@ -19,7 +19,7 @@
                   <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                      <div class="breadcumnd__content">
                         <span class="d4 mb-24">
-                           Shaxsiy kabinet
+                           {{ $t('personal_cabinet') }}
                         </span>
                      </div>
                   </div>
@@ -30,7 +30,7 @@
                               <i class="bi bi-box-arrow-right"></i>
                            </span>
                            <span class="fz-16 fw-600 inter">
-                              Kabinetdan chiqish
+                              {{ $t('logout') }}
                            </span>
                         </a>
                      </div>
@@ -69,9 +69,9 @@
                                  </span>
                               </li>
 
-                              <li v-if="profile.last_name" class="d-flex gap-2 fz-16 fw-500 inter title">
+                              <li v-if="profile.index" class="d-flex gap-2 fz-16 fw-500 inter title">
                                  <i class="bi bi-star-fill ratting"></i>
-                                 Index <span class="pra fz-14">{{ profile.last_name }}</span>
+                                 Index <span class="pra fz-14">{{ profile.index }}</span>
                               </li>
 
                            </ul>
@@ -100,7 +100,8 @@
                               
                            </ul>
                            <router-link to="/tahrirlash" class="cmn--btn outline__btn">
-                              <span>Profilni tahrirlash</span>
+                              <span>{{ $t('edit_profile') }}
+                              </span>
                               <span>
                                  <i class="bi bi-arrow-up-right"></i>
                               </span>
@@ -116,13 +117,13 @@
                            id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
                            aria-controls="nav-home" aria-selected="true">
                            <i class="bi bi-file-earmark-plus"></i>
-                           Jo'natmani rasmiylashtirish
+                           {{ $t('process_shipment') }}
                         </button>
                         <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1" id="nav-profile-tab"
                            data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab"
                            aria-controls="nav-profile" aria-selected="false">
                            <i class="bi bi-file-earmark-bar-graph"></i>
-                           Mening jo'natmalarim
+                           {{ $t('my_shipments') }}
                         </button>
                      </div>
                      <div class="tab-content">
@@ -132,7 +133,7 @@
                               <span class="icon round100 d-flex align-items-center justify-content-center">
                                  <i class="bi bi-plus-lg"></i>
                               </span>
-                              <span class="fz-24 fw-600 inter pra">Jo'natmani rasmiylashtirish</span>
+                              <span class="fz-24 fw-600 inter pra">{{ $t('process_shipment') }}                              </span>
                            </router-link>
                         </div>
                         <div class="tab-pane base fade" id="nav-profile" role="tabpanel"
@@ -140,7 +141,7 @@
                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                               <div class="overview__gitwrapper bgwhite round16 border">
                                  <h3 class="pb-40 bborderdash mb-40 title">
-                                    Mening jo'natmalarim
+                                    {{ $t('my_shipments') }}
                                  </h3>
                                  <!-- <div class="d-flex billing__history mb-30 align-items-center gap-3 flex-wrap tort">
                                     <select name="range">

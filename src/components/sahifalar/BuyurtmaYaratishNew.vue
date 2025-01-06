@@ -1,21 +1,21 @@
 <template>
    <div id="error-message" class="error-message" style="display: none;">
-      Narxni hisoblashda xatolik!
+      {{ $t('Error_in_price') }}
    </div>
    <div id="error-posilka" class="error-posilka" style="display: none;">
-      Posilka xizmatida vazni 30 kgdan oshmasligi kerak!
+      {{ $t('package_weight') }}
    </div>
    <div id="error-maydapaket" class="error-maydapaket" style="display: none;">
-      Mayda paket vazni 2kg dan oshmasligi kerak!
+      {{ $t('package_weight_small') }}
    </div>
    <div id="error-xat" class="error-xat" style="display: none;">
-      Xat vazni 2kg dan oshmasligi kerak!
+      {{ $t('letter_weight') }}
    </div>
    <div id="error-birqadam" class="error-birqadam" style="display: none;">
-      Bir qadam vazni 20 kgdan oshmasligi kerak!
+      {{ $t('parcel_single') }}
    </div>
    <div id="error-message1" class="error-message1" style="display: none;">
-      Barcha maydonlarni to'ldiring
+      {{ $t('Fill_in_all') }}
    </div>
    <div v-if="toastMessage" id="toast-container" :class="toastType">
       {{ toastMessage }}
@@ -37,9 +37,8 @@
                   <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                      <div class="breadcumnd__content">
                         <span class="d4 mb-24">
-                           Buyurtma yaratish
+                           {{ $t('create_order') }}
                         </span>
-
                      </div>
                   </div>
                </div>
@@ -55,10 +54,10 @@
                   <div class="chatbot__developers">
                      <div class="chatbot__items featiredjob__details round16 mb-24 shadow2 bgwhite">
                         <p class="title mb-20" style="font-size: 32px;">
-                           Posilka yoki xatni joylashtiring
+                           {{ $t('Place_package_letter') }}
                         </p>
                         <p class="fz-18 fw-400 inter pra" style="color: #183e98;">
-                           Xarajatlarni va yetkazib berish vaqtini hisoblang
+                           {{ $t('Calculate_cost_time') }}
                         </p>
                         <br>
 
@@ -74,26 +73,22 @@
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
                            <div class="tab bor" style="color: #183e98;">
-                              <p v-if="service.id === 136" class="service-description" >
-                                 Posilka — bu jo’natishga ruxsat etilgan sanoat tovarlari, oziq-ovqat mahsulotlari,
-                                 madaniy-maishiy va boshqa tovarlar solingan pochta jo’natmasi turi.
+                              <p v-if="service.id === 136" class="service-description">
+                                 {{ $t('parcel_info') }}
                               </p>
                               <p v-if="service.id === 135" class="service-description">
-                                 Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
-                                 jo'natma turida kiyim-kechak, aksessuarlar va boshqa kichik sinmaydigan mahsulotlarni
-                                 yuborish mumkin.
+                                 {{ $t('parcel_small_info') }}
                               </p>
                               <p v-if="service.id === 33" class="service-description">
-                                 Xat - bu ichida yozma xat-xabar, hujjatlar bo’lgan pochta jo'natmasi
+                                 {{ $t('letter_info') }}
                               </p>
                               <p v-if="service.id === 209" class="service-description">
-                                 “Bir Qadam” xizmati orqali jo'natmalaringizni 1 KUNda butun O'zbekiston bo'ylab
-                                 belgilangan bo'limlar orasida yetkazib beramiz.
+                                 {{ $t('bir_qadam_info') }}
                               </p>
                            </div>
                            <br />
                            <h3 class="title mb-20">
-                              Kimdan
+                              {{ $t('from') }}
                            </h3>
                            <div class="row g-4 justify-content-right">
                               <div class="col-lg-4 viloyat" style="max-width: 40%; flex: 0 0 40%;">
@@ -101,7 +96,7 @@
                                     <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                     <div class="input-wrapperfrom">
                                        <input type="text" id="from" name="from" class="form-control"
-                                          placeholder="Kimdan" v-model="senderName">
+                                          :placeholder="$t('from')" v-model="senderName">
                                        <span v-if="!senderName" class="red-starinputfrom">*</span>
                                     </div>
 
@@ -113,7 +108,7 @@
                                     <label for="phone_number2" class="fz-18 fw-500 inter title mb-16"></label>
                                     <div class="input-wrapperphone">
                                        <input type="text" id="phone_number" name="phone_number" class="form-control"
-                                          placeholder="Telefon raqam" v-model="senderPhone">
+                                          :placeholder="$t('phone_number')" v-model="senderPhone">
                                        <span v-if="!senderPhone" class="red-starphone">*</span>
                                     </div>
                                  </div>
@@ -126,7 +121,7 @@
 
 
                            <h3 class="title mb-20">
-                              Qayerdan
+                              {{ $t('from_where') }}
                            </h3>
                            <form class="write__review">
                               <div class="row g-4 justify-content-center">
@@ -139,7 +134,7 @@
                                        <div class="select-wrapper">
                                           <select id="province" name="province" class="form-control"
                                              v-model="selectedProvince1" @change="fetchDistricts1">
-                                             <option value="" disabled selected>Viloyat tanlang</option>
+                                             <option value="" disabled selected>{{ $t('choose_region') }}</option>
                                              <option v-for="(name, id) in regions1" :key="name" :value="name">
                                                 {{ id }}
                                              </option>
@@ -157,7 +152,7 @@
                                           <select id="district" name="district" class="form-control"
                                              v-model="selectedDistrict1">
                                              <option value="" disabled selected>
-                                                Tuman tanlang
+                                                {{ $t('choose_district') }}
                                              </option>
                                              <option v-for="(name, id) in districts1" :key="id" :value="name.id">
                                                 {{ name.name }}
@@ -175,18 +170,17 @@
                                           <div class="input-wrapperfrom">
 
                                              <input type="text" id="address" name="address" class="form-control"
-                                                placeholder="Manzil" v-model="senderAddress">
+                                                :placeholder="$t('Address')" v-model="senderAddress">
                                              <span v-if="!senderAddress" class="red-starinputfrom">*</span>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
-                                 <p style="color: blek; font-size: small;">Jo‘natuvchining shaharini yoki manzilini
-                                    kiriting.</p>
+                                 <p style="color: blek; font-size: small;">{{ $t('enter_city_address') }}</p>
                                  <br>
                                  <br>
                                  <h3 class="title mb-20">
-                                    Kimga
+                                    {{ $t('to_whom') }}
                                  </h3>
                                  <div class="row g-4 justify-content-right">
                                     <div class="col-lg-4 viloyat" style="max-width: 40%; flex: 0 0 40%;">
@@ -195,7 +189,7 @@
                                           <div class="input-wrapperfrom">
 
                                              <input type="text" id="to_whom" name="to_whom" class="form-control"
-                                                placeholder="Kimga" v-model="receiverName">
+                                                :placeholder="$t('to_whom')" v-model="receiverName">
                                              <span v-if="!receiverName" class="red-starinputfrom">*</span>
 
                                           </div>
@@ -207,8 +201,9 @@
                                        <div class="frm__grp">
                                           <label for="phone_number2" class="fz-18 fw-500 inter title mb-16"></label>
                                           <div class="input-wrapperphone">
-                                          <input type="text" id="phone_number2" name="phone_number2"
-                                             class="form-control" placeholder="Telefon raqam" v-model="receiverPhone">
+                                             <input type="text" id="phone_number2" name="phone_number2"
+                                                class="form-control" :placeholder="$t('phone_number')"
+                                                v-model="receiverPhone">
                                              <span v-if="!receiverPhone" class="red-starphone">*</span>
                                           </div>
                                        </div>
@@ -217,26 +212,26 @@
 
                                  </div>
                                  <h3 class="title mb-20" style="margin-top: 30px;">
-                                    Qayerga
+                                    {{ $t('to_where') }}
                                  </h3>
 
                                  <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
                                     <button class="tablinks1" type="button"
                                        :class="{ active: $route.activeTab === 'Index' }" @click="activeTab = 'Index'"
                                        style="display: block;">
-                                       <p>Index</p>
+                                       <p>{{ $t('index') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Manzil' }"
                                        @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
-                                       <p>Manzil</p>
+                                       <p>{{ $t('address2') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Pochtam' }"
                                        @click="activeTab = 'Pochtam'">
-                                       <p>Pochtomat</p>
+                                       <p>{{ $t('postomat') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
                                        @click="activeTab = 'Davlat'">
-                                       <p>Boshqa mamlakatga</p>
+                                       <p>{{ $t('other_countries') }}</p>
                                     </button>
                                  </div>
 
@@ -249,7 +244,7 @@
                                           <div class="input-wrapper">
 
                                              <input style="    position: relative; top: -60px;" type="text" id="index"
-                                                name="index" class="form-control" placeholder="Indeksni kiriting"
+                                                name="index" class="form-control" :placeholder="$t('enter_index')"
                                                 v-model="index" />
                                              <span v-if="!index" class="red-starinput">*</span>
                                           </div>
@@ -257,11 +252,9 @@
                                     </div>
                                     <p style="color: black; font-size: small; position: relative; top: -55px;">
                                        <router-link :to="{ name: 'map' }" style="color: blue;">
-                                          Indeks
+                                          {{ $t('index') }}
                                        </router-link>
-                                       bo‘yicha jo‘natish faqat O‘zbekiston bo‘ylab mavjud. Jo'natma talab qilib
-                                       olinadigan bo‘limga yetkaziladi. Qabul qiluvchi jo'natma kelganini bilishi uchun
-                                       rasmiylashtirishda kuzatuv uchun trek-raqamni qabul qiluvchiga yuboring.
+                                       {{ $t('index_note') }}
                                     </p>
 
                                  </div>
@@ -283,7 +276,8 @@
                                                 <div class="select-wrapper">
                                                    <select id="province" name="province" class="form-control"
                                                       v-model="selectedProvince2" @change="fetchDistricts2">
-                                                      <option value="" disabled selected>Viloyat tanlang</option>
+                                                      <option value="" disabled selected>{{ $t('choose_region') }}
+                                                      </option>
                                                       <option v-for="(name, id) in regions2" :key="name" :value="name">
                                                          {{ id }}
                                                       </option>
@@ -301,7 +295,7 @@
                                                    <select id="district" name="district" class="form-control"
                                                       v-model="selectedDistrict2">
                                                       <option value="" disabled selected>
-                                                         Tuman tanlang
+                                                         {{ $t('choose_district') }}
                                                       </option>
                                                       <option v-for="(name, id) in districts2" :key="id"
                                                          :value="name.id">
@@ -319,19 +313,19 @@
                                                 <div class="input-wrapperfrom">
 
                                                    <input type="text" id="address" name="address" class="form-control"
-                                                      placeholder="Manzil" v-model="senderAddress">
+                                                      :placeholder="$t('recipient_address')" v-model="senderAddress">
                                                    <span v-if="!senderAddress" class="red-starinputfrom">*</span>
                                                 </div>
                                              </div>
                                           </div>
                                        </div>
-                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Aniqroq
-                                          hisob-kitob uchun to‘liq manzilni kiriting</p>
+                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">
+                                          {{ $t('address_note') }}</p>
                                     </form>
                                  </div>
                                  <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
                                     style="    position: relative; top: -60px;">
-                                    <h6 style="color: red; font-size: small;">Bu xizmat hozircha mavjud emas </h6>
+                                    <h6 style="color: red; font-size: small;">{{ $t('service_unavailable') }} </h6>
                                  </div>
                                  <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
                                     <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
@@ -341,7 +335,7 @@
                                           <div class="select-wrapper">
                                              <select id="province" name="province" class="form-control"
                                                 style="    width: 100%;" v-model="selectedProvince3">
-                                                <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
+                                                <option value="" disabled selected>{{ $t('Host_Country') }}</option>
                                                 <option v-for="province in provinces" :key="province.id"
                                                    :value="province.id">
                                                    {{ province.name }}
@@ -358,11 +352,12 @@
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">Og'irligi</label>
+                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">{{ $t('weight')
+                                             }}</label>
                                           <div class="input-wrapper">
 
                                              <input type="number" id="vesi" name="vesi" class="form-control"
-                                                placeholder="gramm" v-model="weight">
+                                                :placeholder="$t('choose_weight_unit')" v-model="weight">
                                              <span v-if="!weight" class="red-star">*</span>
                                              <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
 
@@ -371,9 +366,10 @@
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="size" class="fz-180 fw-500 inter title mb-16">Hajmi</label>
+                                          <label for="size" class="fz-180 fw-500 inter title mb-16">{{ $t('size')
+                                             }}</label>
                                           <select id="size" name="size" class="form-control">
-                                             <option value="" disabled selected>Tanlang</option>
+                                             <option value="" disabled selected>{{ $t('choose_size') }}</option>
                                              <option value="10x20x30">10x20x30</option>
                                              <option value="25x30x40">25x30x40</option>
                                              <option value="35x38x45">35x38x45</option>
@@ -383,7 +379,7 @@
                                  </div>
                                  <div class="frm__grp mt-30" style="position: relative; top: -40px;">
                                     <button type="button" class="cmn--btn" @click="validateForm">
-                                       <span>Hisoblash</span>
+                                       <span>{{ $t('calculate') }}</span>
                                     </button>
                                  </div>
                               </div>
@@ -403,46 +399,38 @@
                   <div class="basic__skilled__wrapper">
                      <div class="basic__boxskill mb-24 round16 bgwhite">
                         <span class="fz-18 d-block title inter mb-10 bborderdash">
-                           Yuk tashish vaqtlari va xarajatlarini hisoblash uchun shaklni to'ldiring
-                        </span>
+                           {{ $t('cost_estimation') }} </span>
                         <div class="form__price pb-24 d-flex align-items-center bborderdash">
                            <i class="bi bi-tags tags__icon"></i>
                            <span class="fz-16 d-flex align-items-center gap-2 fw-400 inter title">
-                              Taxminan:
+                              {{ $t('approximate_cost') }}
                               <span class="fssizing d-flex align-items-start gap-1">
-                                 {{ totalPrice + " so'm" }}
+                                 {{ totalPrice + $t('summ') }}
                               </span>
                            </span>
 
                         </div>
-                        <p v-if="showtotalMessage" style="color: red; font-size: small;">Yuqoridagi summa berilgan
-                           og'irlikka nisbatan
-                           o'zgarishi mumkin.</p>
+                        <p v-if="showtotalMessage" style="color: red; font-size: small;"> {{ $t('stated_amount_may') }}
+                        </p>
 
 
                         <button type="button" class="cmn--btn" @click="validateOrder">
                            <span>
-                              Buyurtmani rasmiylashtirish
-                           </span>
+                              {{ $t('place_order') }} </span>
                            <span>
                               <i class="bi bi-arrow-up-right"></i>
                            </span>
                         </button>
 
                         <p v-if="showContactMessage" style="color: green; font-size: small; margin-top: 10px;">
-                           O'zingizga yaqin <a href="/map" style="color: blue; text-decoration: underline;">aloqa
-                              bo'limiga</a> murojaat qiling!
+                           {{ $t('branch_Contact') }}
                         </p>
                         <p v-show="isOrderVisible" style="color: green; font-size: 20px; margin-top: 10px;">
-                           Ushbu shtrix kodni
+                           {{ $t('This_barcode') }}
                            <a href="/profil"><strong>{{ orderNumber }}</strong></a><button @click="copyOrderNumber"
                               class="copy-button">
                               <i class="fa fa-copy" style="color: green; font-size: 15px;"></i> <!-- Icon -->
-                           </button>jo'natma bilan birgalikda
-                           o'zingizga
-                           yaqin
-                           <a href="/map" style="color: blue; text-decoration: underline;">aloqa bo'limiga</a>
-                           yetkazing
+                           </button>{{ $t('Deliver_shipment') }}
                         </p>
                      </div>
 
@@ -590,19 +578,19 @@ export default {
                   }
                });
 
-               if (response.status === 200) {
-                  this.showToast('Buyurtma yaratildi!', 'success');
+               if (response.status === 200 && response.data.data.order_number) {
+                  this.showToast(this.$t('Order_created'), 'success');
                   this.orderNumber = response.data.data.order_number; // Shtrix kodni saqlash
                   this.isOrderVisible = true; // Tegni ko'rsatish
                } else {
                   this.isOrderVisible = false; // Tegni yashirish
 
-                  this.showToast('Buyurtma yaratishda xatolik yuz berdi.', 'error');
+                  this.showToast(this.$t('error_occurred'), 'error');
                }
             } catch (error) {
                this.isOrderVisible = false; // Tegni yashirish
 
-               this.showToast('Buyurtma yaratishda xatolik yuz berdi.', 'error');
+               this.showToast(this.$t('error_occurred'), 'error');
             }
          }
          else if (this.activeTab === 'Manzil') {
@@ -629,16 +617,16 @@ export default {
                      'Accept': 'application/json',
                   }
                });
-               if (response.status === 200) {
-                  this.showToast('Buyurtma yaratildi!', 'success');
+               if (response.status === 200 && response.data.data.order_number) {
+                  this.showToast(this.$t('Order_created'), 'success');
                   this.orderNumber = response.data.data.order_number; // Shtrix kodni saqlash
                   this.isOrderVisible = true; // Tegni ko'rsatish
 
                } else {
-                  this.showToast('Buyurtma yaratishda xatolik yuz berdi.', 'error');
+                  this.showToast(this.$t('error_occurred'), 'error');
                }
             } catch (error) {
-               this.showToast('Buyurtma yaratishda xatolik yuz berdi.', 'error');
+               this.showToast(this.$t('error_occurred'), 'error');
             }
          }
          else {
@@ -649,7 +637,6 @@ export default {
       async fetchProfile() {
          const token = localStorage.getItem("id_token");
          if (!token) {
-            alert("Token mavjud emas! Iltimos, qayta kiriting.");
             return;
          }
 
@@ -1567,5 +1554,4 @@ a.cmn--btn.mt-30.d-flex.justify-content-center.d-block {
    transform: translateY(-50%);
    font-size: 18px;
 }
-
 </style>

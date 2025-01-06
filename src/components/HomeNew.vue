@@ -633,8 +633,7 @@
                           ">
                                             <p>
 
-                                                <router-link :to="{ path: '/tariflar', query: { id: 806 } }"
-                                                    class="textrang">
+                                                <router-link to="xizmatlar" class="textrang">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
                                             </p>
@@ -928,8 +927,9 @@ export default {
             return title?.length > length ? title.substring(0, length) + '...' : title;
         },
         formatPrice(price) {
-            return price ? `${price} so'm` : this.$t('unknown_price');
-        },
+            return price ? `${price} ${this.$t('summ')}` : this.$t('unknown_price');
+        }
+        ,
         async fetchNews() {
             try {
                 const response = await axios.get(

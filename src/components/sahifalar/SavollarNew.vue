@@ -106,11 +106,11 @@
                                         border-bottom-left-radius: 4px;
                                     ">
                                                 <p>
-                                                    <a> Xizmatlar tariflari bilan <a
+                                                     Xizmatlar tariflari bilan <a
                                                             href="https://uz.post/uz/tariflar-uz?id=806"><strong><span
                                                                     class="textrang">bu
                                                                     yerda</span></strong></a> tanishishingiz
-                                                        mumkin!</a>
+                                                        mumkin!
                                                 </p>
                                             </div>
                                         </div>
@@ -210,12 +210,12 @@
                                         border-bottom-left-radius: 4px;
                                     ">
                                                 <p>
-                                                    <a> Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim
+                                                     Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim
                                                         indeksini bu
                                                         yerda aniqlashingiz mumkin - <a
                                                             href="https://uz.post/uz/mening-pochta-indeksim"><strong><span
                                                                     class="textrang">MENING
-                                                                    INDEKSIM</span></strong></a></a>
+                                                                    INDEKSIM</span></strong></a>
                                                 </p>
                                             </div>
                                         </div>

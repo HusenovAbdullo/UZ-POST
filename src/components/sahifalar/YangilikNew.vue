@@ -142,20 +142,20 @@
 
                   <div class="blog__common__item bgwhite round16 mb-24">
                      <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                        Kategoriyalar
-                     </h4>
+                      {{$t('categories')}}
+                    </h4>
                      <ul class="blog__categories">
                         <li>
                            <a href="/yangiliklar" class="d-flex align-items-center rad4">
                               <span class="fz-18 title inter">
-                                 Jamiyat yangiliklari
+                                {{$t('community_news')}}
                               </span>
                            </a>
                         </li>
                         <li>
                            <a href="/xizmatlar" class="d-flex align-items-center">
                               <span class="fz-18 title inter">
-                                 Xizmatlar va tariflar yangiliklari
+                                {{$t('service_news')}}
                               </span>
                            </a>
                         </li>
@@ -165,7 +165,7 @@
                                  <img src="assets/img/custom-icon/inter.png" alt="round">
                               </span> -->
                               <span class="fz-18 title inter">
-                                 Rasmiy munosabatlar
+                                {{$t('official_statements')}}
                               </span>
                            </a>
                         </li>
@@ -175,7 +175,7 @@
                                  <img src="assets/img/custom-icon/aibrain.png" alt="round">
                               </span> -->
                               <span class="fz-18 title inter">
-                                 Bo'limlar yangiliklari
+                                {{$t('department_news')}}
                               </span>
                            </a>
                         </li>
@@ -185,7 +185,7 @@
                                  <img src="assets/img/custom-icon/deep-learning.png" alt="round">
                               </span> -->
                               <span class="fz-18 title inter">
-                                 Hamkorlik yangiliklari
+                                {{$t('partnership_news')}}
                               </span>
                            </a>
                         </li>
@@ -195,7 +195,7 @@
                                  <img src="assets/img/custom-icon/umacine.png" alt="round">
                               </span> -->
                               <span class="fz-18 title inter">
-                                 Ijtimoiy loyihalar
+                                {{$t('social_projects')}}
                               </span>
                            </a>
                         </li>
@@ -204,8 +204,8 @@
                   
                   <div class="blog__common__item bgwhite round16">
                      <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                        Bizni kuzatib boring
-                     </h4>
+                      {{ $t('latest_news')}}
+                    </h4>
                      <ul class="social d-flex align-items-center">
                         <li>
                            <a href="https://www.facebook.com/uzpochta">
@@ -286,7 +286,6 @@ export default {
                 .load()
                 .then((loadedFont) => {
                     document.fonts.add(loadedFont);
-                    console.log(`${fontName} font yuklandi`);
                 })
                 .catch(() => {
                     console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);

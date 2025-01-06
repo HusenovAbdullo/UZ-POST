@@ -7,7 +7,7 @@
           <div class="row g-4 align-items-center justify-content-between">
             <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
               <div class="breadcumnd__content">
-                <span class="d4 mb-24">{{ $t('Marka haqida') }}</span>
+                <span class="d4 mb-24">{{ $t('stamp_info') }}</span>
               </div>
             </div>
           </div>
@@ -42,12 +42,12 @@
                   {{ marka.title }}
                 </p>
                 <div class="accordion-body" style="color: black;">
-                  <p class="title2">{{ $t('Chiqarilgan sana') }}: {{ marka.years }}</p>
-                  <p class="title2">{{ $t('Addadi') }}: {{ marka.count_number }}</p>
+                  <p class="title2">{{ $t('Release_date') }}: {{ marka.years }}</p>
+                  <p class="title2">{{ $t('Quantity') }}: {{ marka.count_number }}</p>
                   <p class="title2">{{ $t('Nominal') }}: {{ marka.price }}</p>
                 </div>
                 <div class="divider">
-                  <span>{{ $t('MARKA HAQIDA MA\'LUMOT') }}</span>
+                  <span>{{ $t('stamp_info') }}</span>
                 </div>
                 <div class="text-content" v-html="serviceText"></div>
               </div>
@@ -95,16 +95,15 @@ export default {
         const data = response.data;
 
         // Ma'lumotlarni tanlangan tilga moslashtirish
-        const isUz = locale === 'uz';
 
         this.marka = {
           save_image: data.save_image_uz ? data.save_image_uz.replace("http://", "https://") : "default.jpg",
-          title: isUz ? data.title_uz : data.title_ru || "Noma'lum",
-          years: data.years || "Noma'lum",
-          price: isUz ? data.price_uz || "Noma'lum" : data.price_ru || "Noma'lum",
-          count_number: data.count_number || "Noma'lum",
+          title: data[`title_${locale}`] || data.title_uz || "",
+          years: data.years || "",
+          price: data[`price_${locale}`] || data.price_uz || "",
+          count_number: data.count_number || "",
         };
-        this.serviceText =  data.text_uz || ''
+        this.serviceText =  data[`text_${locale}`] || ''
         this.loadFontsFromText(this.serviceText)
 
       } catch (error) {
@@ -113,7 +112,6 @@ export default {
       }
     },
     loadFontsFromText(text) {
-            // `font-family` qiymatini tahlil qilish uchun regex
             const fontRegex = /font-family:\s*([^;"]+)/g;
             let match;
             const fonts = new Set();
@@ -130,13 +128,11 @@ export default {
             });
         },
         loadFont(fontName, fontPath) {
-            // Fontni dinamik yuklash
             const fontFace = new FontFace(fontName, `url(${fontPath})`);
             fontFace
                 .load()
                 .then((loadedFont) => {
                     document.fonts.add(loadedFont);
-                    console.log(`${fontName} font yuklandi`);
                 })
                 .catch(() => {
                     console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);

@@ -19,7 +19,7 @@
                   <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                      <div class="breadcumnd__content">
                         <span class="d4 mb-24">
-                           Shaxsiy kabinet
+                           {{ $t('edit_profile') }}
                         </span>
                      </div>
                   </div>
@@ -30,7 +30,7 @@
                               <i class="bi bi-box-arrow-right"></i>
                            </span>
                            <span class="fz-16 fw-600 inter">
-                              Kabinetdan chiqish
+                              {{ $t('logout') }}
                            </span>
                         </a>
 
@@ -57,28 +57,25 @@
                         </div>
                         <div class="darrell__content mt-40 text-center">
                            <h4 class="title mb-16">
-
+                              {{ profile.first_name || '' }}
                            </h4>
                            <!-- <span class="fz-16 fw-400 inter title">
                      Machine Learner
                   </span> -->
-                           <ul
+                  <ul
                               class="d-flex mt-24 justify-content-center employer__listbase flex-wrap tranding__listbase align-items-center">
-                              <li>
+                              <li v-if="profile.region">
                                  <span class="fz-16 fw-400 inter pra">
                                     <i class="bi bi-geo-alt base"></i>
-                                    Toshkent
+                                    {{ profile.region }}
                                  </span>
                               </li>
-                              <li class="d-flex gap-2 fz-16 fw-500 inter title">
+
+                              <li v-if="profile.index" class="d-flex gap-2 fz-16 fw-500 inter title">
                                  <i class="bi bi-star-fill ratting"></i>
-                                 Index <span class="pra fz-14">100000</span>
+                                 Index <span class="pra fz-14">{{ profile.index }}</span>
                               </li>
-                              <!-- <li>
-                        <span class="fz-16 fw-400 inter pra">
-                           Member: <span class="base">2021</span>
-                        </span>
-                     </li> -->
+
                            </ul>
                            <ul class="social justify-content-center mt-30 mb-40 d-flex align-items-center">
                               <li>
@@ -96,7 +93,7 @@
                                     <i class="bi bi-instagram base"></i>
                                  </a>
                               </li>
-                              
+
                               <li>
                                  <a href="javascript:void(0)">
                                     <i class="bi bi-linkedin base"></i>
@@ -114,7 +111,7 @@
                            id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
                            aria-controls="nav-home" aria-selected="true">
                            <i class="bi bi-pencil-square"></i>
-                           Profilni tahrirlash
+                           {{ $t('edit_profile') }}
                         </button>
                      </div>
                      <div class="tab-content">
@@ -126,7 +123,7 @@
                                     <button class="accordion-button collapsed bborder" type="button"
                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                        aria-controls="collapseOne">
-                                       Foydalanuvchi ma'lumotlari
+                                       {{ $t('user_info') }}
                                     </button>
                                  </span>
                                  <br>
@@ -159,29 +156,28 @@
                                        </div> -->
                                        <form action="#0" class="row g-4">
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="name" class="fz-20 fw-500 inter mb-16 title">F.I.Sh</label>
-                                             <input type="text" id="name" placeholder="F.I.Sh ni kiriting">
+                                             <label for="name" class="fz-20 fw-500 inter mb-16 title">{{ $t('applicant') }}</label>
+                                             <input type="text" id="name" :placeholder="$t('enter_your_name')">
                                           </div>
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="email1s" class="fz-20 fw-500 inter mb-16 title">E-mail:</label>
-                                             <input type="text" id="email1s" placeholder="E-mailingizni kiriting">
+                                             <label for="email1s" class="fz-20 fw-500 inter mb-16 title">{{ $t('email') }}</label>
+                                             <input type="text" id="email1s" :placeholder="$t('email_placeholder')">
                                           </div>
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="numbr" class="fz-20 fw-500 inter mb-16 title">Telefon
-                                                raqam:</label>
-                                             <input type="text" id="numbr" placeholder="Telefon raqamingiz">
+                                             <label for="numbr" class="fz-20 fw-500 inter mb-16 title">{{ $t('phone_number') }}</label>
+                                             <input type="text" id="numbr" :placeholder="$t('phone_placeholder')">
                                           </div>
 
                                           <div class="col-lg-12 ">
                                              <span class="fz-20 fw-500 inter title mb-16 d-block">
-                                                Jinsingiz:
+                                                {{ $t('your_gender') }}
                                              </span>
                                              <div class="male__box flex-wrap d-flex align-items-center">
                                                 <div class="male__check">
                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                       id="male" checked>
                                                    <label class="form-check-label fz-18 fw-500 inter title" for="male">
-                                                      Erkak
+                                                      {{ $t('gender1') }}
                                                    </label>
                                                 </div>
                                                 <div class="male__check">
@@ -189,7 +185,7 @@
                                                       id="female">
                                                    <label class="form-check-label fz-18 fw-500 inter title"
                                                       for="female">
-                                                      Ayol
+                                                      {{ $t('gender2') }}
                                                    </label>
                                                 </div>
                                              </div>
@@ -256,44 +252,43 @@
                                     <button class="accordion-button bborder collapsed" type="button"
                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
                                        aria-controls="collapseTwo">
-                                       Manzil
+                                       {{ $t('address2') }}
                                     </button>
                                  </span>
                                  <div id="collapseTwo" class="accordion-collapse collapse show"
                                     aria-labelledby="headingTwo">
                                     <div class="accordion-body">
-                                       
+
                                        <div class="col-lg-6 basig__grpinput">
-                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">Viloyat:</label>
-                                          <input type="text" id="address" placeholder="Manzilni tanlang">
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_region') }} </label>
+                                          <input type="text" id="address" :placeholder="$t('your_address')">
                                        </div>
                                        <br>
                                        <div class="col-lg-6 basig__grpinput">
-                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">Tuman:</label>
-                                             <input type="text" id="address" placeholder="Manzilni kiriting">
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_district') }}</label>
+                                          <input type="text" id="address" :placeholder="$t('your_address1')">
                                        </div>
                                        <br>
                                        <form action="#0" class="row g-4">
-                                          
+
                                           <!-- <div class="col-lg-6 basig__grpinput">
                                     <label for="email2s" class="fz-20 fw-500 inter mb-16 title">Address line 2 <span class="pra">(Optional)</span> :</label>
                                     <input type="text" id="email2s" placeholder="Enter adress 2">
                                  </div> -->
                                           <div class="col-lg-12 basig__grpinput">
-                                             <label for="numbr2" class="fz-20 fw-500 inter mb-16 title">Pochta
-                                                indeksi:</label>
-                                             <input type="text" id="numbr2" placeholder="Indeks raqamini kiriting">
+                                             <label for="numbr2" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_postal_code') }} </label>
+                                             <input type="text" id="numbr2" :placeholder="$t('enter_postal_code')">
                                           </div>
                                           <div class="col-lg-12 mt-40">
                                              <div class="d-flex align-items-center gap-4 flex-wrap">
                                                 <a href="javascript:void(0)" class="cmn--btn">
                                                    <span>
-                                                      Saqlash
+                                                      {{ $t('save') }}
                                                    </span>
                                                 </a>
                                                 <a href="javascript:void(0)" class="cmn--btn outline__btn">
                                                    <span>
-                                                      O‘chirish
+                                                      {{ $t('delete') }}
                                                    </span>
                                                 </a>
                                              </div>
@@ -332,27 +327,24 @@
                                     <button class="accordion-button bborder collapsed" type="button"
                                        data-bs-toggle="collapse" data-bs-target="#collapsefour" aria-expanded="false"
                                        aria-controls="collapsefour">
-                                       Profilingizni o‘chirish
+                                       {{ $t('delete_profile') }}
                                     </button>
                                  </span>
                                  <div id="collapsefour" class="accordion-collapse collapse show"
                                     aria-labelledby="headingfour">
                                     <div class="accordion-body">
                                        <p class="fz-16 inter pra mb-16">
-                                          Profilingizni o‘chirib tashlaganingizda profil xizmatlaridan foydalana
-                                          olmaysiz va biz butunlay
-                                          o‘chirib tashlaymiz. O‘chirish jarayonini 14 kun ichida bekor qilishingiz
-                                          mumkin.
+                                          {{ $t('mal') }}
                                        </p>
                                        <div class="bank__checkitem mb-40 d-flex align-items-center">
                                           <input class="form-check-input" type="checkbox" id="conf" checked>
                                           <label class="form-check-label fz-16 fw-400 ptext2 inter" for="conf">
-                                             Profili o‘chirib tashlanishini tasdiqlayman.
+                                             {{ $t('tasdiq') }}
                                           </label>
                                        </div>
                                        <a href="javascript:void(0)" class="cmn--btn outline__btn">
                                           <span>
-                                             Profili o‘chirish
+                                             {{ $t('delete_profile') }}
                                           </span>
                                        </a>
                                     </div>
@@ -373,19 +365,53 @@
 export default {
    data() {
       return {
+         profile: {
+            first_name: '',
+            last_name: null,
+            image: null,
+            region: null,
+            phone_number: '',
+            orders: [],
+         },
          // Boshqa sahifalar uchun kerakli data qismini shu yerda aniqlang
       };
    },
+   
+   mounted() {
+      this.fetchProfileData();
+   },
    methods: {
-      handleLogout() {
-         // Tokenni mahalliy saqlashdan o'chirish
-         localStorage.removeItem('id_token');
+      async fetchProfileData() {
+         try {
+            const token = localStorage.getItem('id_token');
+            if (!token) {
+               this.$router.push({ name: 'profil' });
+               return;
+            }
 
-         // Bosh sahifaga yo'naltirish
+            const response = await fetch('https://new.pochta.uz/api/v1/public/profile/', {
+               method: 'GET',
+               headers: {
+                  Authorization: `Bearer ${token}`,
+               },
+            });
+
+            if (!response.ok) {
+               throw new Error('API fetch failed');
+            }
+
+            const data = await response.json();
+            this.profile = data;
+         } catch (error) {
+            console.error('Error fetching profile data:', error);
+            this.$router.push({ name: 'profil' });
+         }
+      },
+      handleLogout() {
+         localStorage.removeItem('id_token');
          this.$router.push({ name: 'home' });
       },
-      // Boshqa methodlarni shu yerga qo'shing
-   }
+   },
 };
 
 
