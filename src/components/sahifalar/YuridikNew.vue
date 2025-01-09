@@ -3,75 +3,8 @@
       <div class="container">
          <div class="header-wrapper">
             <img src="assets/img/bosh/banner-uz.png" alt="Image 1" class="desktop-img">
-
-            <!-- <div class="button-container">
-               <a href="yangiliklar.html" class="cmn--btn custom-button">
-                  <span>
-                     Xizmat haqida batafsil
-                  </span>
-               </a>
-               <a href="yangiliklar.html" class="cmn--btn custom-button">
-                  <span>
-                     "Bir Qadam" bo'limlari xaritasi
-                  </span>
-               </a>
-            </div> -->
          </div>
       </div>
-      <!-- <div class="mySlides active">
-         <img src="1.png" alt="Image 1" class="desktop-img">
-         <img src="image1-mobile.jpg" alt="Image 1 Mobile" class="mobile-img">
-         
-         <div class="button-container">
-            <a href="yangiliklar.html" class="cmn--btn">
-               <span>
-                  Xizmat haqida batafsil 1
-               </span>
-            </a>
-            <a href="yangiliklar.html" class="cmn--btn">
-               <span>
-                  "Bir Qadam" bo'limlari xaritasi 1
-               </span>
-            </a>
-         </div>
-      </div> -->
-      <!-- <div class="mySlides">
-         <img src="image2.jpg" alt="Image 2" class="desktop-img">
-         <img src="image2-mobile.jpg" alt="Image 2 Mobile" class="mobile-img">
-         <div class="button-container">
-            <a href="index-3.html" class="cmn--btn">
-               <span>
-                  Xizmat haqida batafsil 2
-               </span>
-            </a>
-            <a href="yangiliklar.html" class="cmn--btn">
-               <span>
-                  "Bir Qadam" bo'limlari xaritasi 2
-               </span>
-            </a>
-         </div>
-      </div>
-      <div class="mySlides">
-         <img src="image3.jpg" alt="Image 3" class="desktop-img">
-         <img src="image3-mobile.jpg" alt="Image 3 Mobile" class="mobile-img">
-         <div class="button-container">
-            <a href="yangiliklar.html" class="cmn--btn">
-               <span>
-                  Xizmat haqida batafsil 3
-               </span>
-            </a>
-            <a href="yangiliklar.html" class="cmn--btn">
-               <span>
-                  "Bir Qadam" bo'limlari xaritasi 3
-               </span>
-            </a>
-         </div>
-      </div> -->
-      <!-- <div class="dots">
-         <span class="dot" onclick="currentSlide(1)"></span>
-         <span class="dot" onclick="currentSlide(2)"></span>
-         <span class="dot" onclick="currentSlide(3)"></span>
-      </div> -->
    </section>
 
    <!-- task categorish Section Here -->
@@ -86,15 +19,13 @@
                   </div>
                   <div class="content">
                      <h3 class="inter title mb-24">
-                        Yuridik shaxs profiliga kirish
+                        {{ $t('access_legal_entity_profile') }}
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40">
-                        Have a specific AI task that needs to be
-                        completed? Look no further!
                      </p>
                      <router-link to="/singin" class="cmn--btn outline__btn">
                         <span>
-                           Kirish
+                           {{ $t('login') }}
                         </span>
                         <span>
                            <i class="bi bi-arrow-up-right"></i>
@@ -110,15 +41,13 @@
                   </div>
                   <div class="content">
                      <h3 class="inter title mb-24">
-                        Shartnomalarni rasmiylashtirish
+                        {{ $t('contract_processing') }}
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40">
-                        Are you an AI professional looking for
-                        exciting freelance opportunities?
                      </p>
                      <router-link to="/singin" class="cmn--btn outline__btn">
                         <span>
-                           Rasmiylashtirish
+                           {{ $t('processing') }}
                         </span>
                         <span>
                            <i class="bi bi-arrow-up-right"></i>
@@ -142,16 +71,13 @@
                <div class="app__content">
                   <div class="section__title mb-30">
                      <h4 class="sub ralt base mb-16 wow fadeInDown">
-                        Hamkorlik haqida
+                        {{ $t('about_partnership') }}
                      </h4>
                      <h2 class="title2 mb-24 wow fadeInUp">
-                        Keling, biznesingizni yanada muvaffaqiyatli qilamiz!
+                        {{ $t('make_business_successful') }}
                      </h2>
                      <p class="ptext2 fz-16 fw-400 inter wow fadeInDown">
-                        Pochta xizmatimiz bilan o‘zaro manfaatli hamkorlik qilish imkoniyatini taklif etishdan
-                        mamnunmiz. Biznesingiz uchun samarali logistika va ishonchli yetkazib berish qanchalik
-                        muhimligini tushunamiz va sizga ehtiyojlaringizga moslashtirilgan keng ko‘lamli xizmatlarni
-                        taklif qilishga tayyormiz.
+                        {{ $t('mutually_beneficial_partnership') }}
                      </p>
                   </div>
 
@@ -167,155 +93,54 @@
    </section>
    <!-- App End -->
 
-
-
-
-
    <!-- task categorish Section Here -->
    <section class="app__section ralt bg__all2 pb-120 pt-120">
-      <div class="container">
-         <div class="row justify-content-center">
-            <div class="col-xxl-6 col-xl-8 col-lg-8">
-               <div class="section__title text-center ralt mb-60">
-                  <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s">
-                  </h4>
-                  <h2 class="title2 wow fadeInUp mb-24" data-wow-duration="1.2s">
-                     Xizmatlar
-                  </h2>
-                  <p class="pra fz-16 inter fw-400">
-                  </p>
-               </div>
-            </div>
-         </div>
-         <div class="row ralt g-4">
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
-               <div class="task__item round16 bgwhite d-flex align-items-center">
-                  <div class="thumb">
-                     <img src="assets/img/task/bir qadam.png" alt="img">
-                  </div>
-                  <div class="content">
-                     <h3 class="inter title mb-24">
-                        "Bir Qadam" xizmati
-                     </h3>
-                     <p class="fz-14 fw-400 inter pra mb-40">
-                        "Bir Qadam" - bu O'zbekiston bo'ylab belgilangan bo'limlar orasida 1 KUN ichida yetkazib
-                        berish
-                        xizmati.
-                     </p>
-                     <router-link to="/xizmat" class="cmn--btn outline__btn">
-                        <span>
-                           Batafsil
-                        </span>
-                        <span>
-                           <i class="bi bi-arrow-up-right"></i>
-                        </span>
-                     </router-link>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
-               <div class="task__item round16 bgwhite d-flex align-items-center">
-                  <div class="thumb">
-                     <img src="assets/img/task/courier service.png" alt="img">
-                  </div>
-                  <div class="content">
-                     <h3 class="inter title mb-24">
-                        Kuryerlik xizmati
-                     </h3>
-                     <p class="fz-14 fw-400 inter pra mb-40">
-                        Jo'natmalarni ixtiyoriy pochta bo'limidan O'zbekiston bo'ylab adresatlargacha yetkazib
-                        berish
-                        xizmati
-                     </p>
-                     <router-link to="/kuryerlikXizmati" class="cmn--btn outline__btn">
-                        <span>
-                           Batafsil
-                        </span>
-                        <span>
-                           <i class="bi bi-arrow-up-right"></i>
-                        </span>
-                     </router-link>
-                  </div>
-               </div>
-            </div>
-            <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">-->
-            <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
-            <!--        <div class="thumb">-->
-            <!--            <img src="assets/img/task/3.png" alt="img">-->
-            <!--        </div>-->
-            <!--        <div class="content">-->
-            <!--            <h3 class="inter title mb-24">-->
-            <!--                EMS: Xalqaro Tezkor Pochta-->
-            <!--            </h3>-->
-            <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
-            <!--                Ushbu xizmat jo'natmalarni butun dunyo bo'ylab 7-15 kun ichida yetkazib berish-->
-            <!--                garovidir.-->
-            <!--            </p>-->
-            <!--            <br>-->
-            <!--            <router-link to="/xalqaroPochta" class="cmn--btn outline__btn">-->
-            <!--                <span>-->
-            <!--                    Batafsil-->
-            <!--                </span>-->
-            <!--                <span>-->
-            <!--                    <i class="bi bi-arrow-up-right"></i>-->
-            <!--                </span>-->
-            <!--            </router-link>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div>-->
-            <!--<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">-->
-            <!--    <div class="task__item round16 bgwhite d-flex align-items-center">-->
-            <!--        <div class="thumb">-->
-            <!--            <img src="assets/img/task/buyurt.png" alt="img">-->
-            <!--        </div>-->
-            <!--        <div class="content">-->
-            <!--            <h3 class="inter title mb-24">-->
-            <!--                Buyurtmalarni pochta bo'limlarida qabul qilish-->
-            <!--            </h3>-->
-            <!--            <p class="fz-14 fw-400 inter pra mb-40">-->
-            <!--                Marketpleys va onlayn-do'konlardan jo'natmalarni UzPost bo'limlarida qabul qilish-->
-            <!--            </p>-->
-            <!--            <router-link to="/pochtaBolimi" class="cmn--btn outline__btn">-->
-            <!--                <span>-->
-            <!--                    Batafsil-->
-            <!--                </span>-->
-            <!--                <span>-->
-            <!--                    <i class="bi bi-arrow-up-right"></i>-->
-            <!--                </span>-->
-            <!--            </router-link>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div>-->
-         </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-8 col-lg-8">
+          <div class="section__title text-center ralt mb-60">
+            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s"></h4>
+            <h2 class="title2 wow fadeInUp mb-24" data-wow-duration="1.2s">
+               {{ $t('services') }}
+            </h2>
+            <p class="pra fz-16 inter fw-400"></p>
+          </div>
+        </div>
       </div>
-      <!-- <div class="text-center mt-40">
-            <router-link to="/xizmatlar" class="cmn--btn outline__btn">
-                <span>
-                    Barchasini ko'rish
-                </span>
-                <span class="ps-1">
-                    <i class="bi bi-arrow-up-right"></i>
-                </span>
-            </router-link>
-        </div> -->
-      <br>
-      <br>
-      <br>
-      <br>
-      <!-- <div class="container">
-            <div class="divider">
-                <span>BIZ BILAN HAMKORLIK QILMOQDA</span>
+      <div class="row ralt g-4">
+        <div
+          v-for="service in services"
+          :key="service.id"
+          class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown"
+        >
+          <div class="task__item round16 bgwhite d-flex align-items-center">
+            <div class="thumb">
+              <img :src="service.image" :alt="service[`title_${$i18n.locale}`] || service.title_uz" />
             </div>
-        </div> -->
+            <div class="content">
+              <h3 class="inter title mb-24">
+                {{ service[`title_${$i18n.locale}`] || service.title_uz }}
+              </h3>
+              <p class="fz-14 fw-400 inter pra mb-40">
+                {{ service[`description_${$i18n.locale}`] || service.description_uz || "" }}
+              </p>
+              <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
+                <span>Batafsil</span>
+                <span><i class="bi bi-arrow-up-right"></i></span>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+
    </section>
    <!-- task categorish Section End -->
-
-
-
-
-
-
-
 
    <section class="company__sectioni bgwhite pb-060 pt-060">
       <div class="container">
@@ -327,7 +152,7 @@
                <div class="freelancer__profile bborderdash pb-24 mb-24 align-items-center d-flex">
                   <div class="box__add">
                      <h3 class="mb-10 title">
-                        Markaziy bank valyuta kurslari
+                        {{ $t('central_bank_exchange_rates') }}
                      </h3>
                   </div>
                </div>
@@ -339,8 +164,6 @@
       </div>
    </section>
    <!--service grid end-->
-
-
 
    <!-- Company Logo Here -->
    <section class="company__section bgwhite pb-060 pt-060">
@@ -359,14 +182,46 @@
             <div class="company__logo">
                <img src="assets/img/company/company4.png" alt="company">
             </div>
-            <!-- <div class="company__logo">
-            <img src="assets/img/company/company5.png" alt="company">
-         </div>
-         <div class="company__logo">
-            <img src="assets/img/company/company6.png" alt="company">
-         </div> -->
          </div>
       </div>
    </section>
    <!-- Company Logo End -->
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "XizmatlarPage",
+  data() {
+    return {
+      services: [],
+    };
+  },
+  methods: {
+    async fetchServices() {
+      try {
+        const response = await axios.get(
+          "https://new.pochta.uz/api/v1/public/services/"
+        );
+        this.services = response.data
+          .filter((item) => item.status)
+          .slice(-4)
+          .map((item) => ({
+            id: item.id,
+            title_uz: item.title_uz,
+            title_ru: item.title_ru,
+            description_uz: item.description_uz,
+            description_ru: item.description_ru,
+            image: item.save_image.replace("http://", "https://"),
+          }));
+      } catch (error) {
+        console.error("Xizmatlarni yuklashda xatolik:", error);
+      }
+    },
+  },
+  created() {
+    this.fetchServices();
+  },
+};
+</script>

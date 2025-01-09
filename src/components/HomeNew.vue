@@ -5,7 +5,7 @@
                 <!-- Slideshow -->
                 <img :src="currentImage" alt="" class="banner-image" />
                 <div class="button-container">
-                    <router-link to="/xizmat" class="cmn--btn custom-button">
+                    <router-link to="/xizmat/11" class="cmn--btn custom-button">
                         <span>{{ $t('service_details') }}</span>
                     </router-link>
                     <router-link to="/map" class="cmn--btn custom-button">

@@ -246,12 +246,17 @@ export default {
   save: "Saqlash",
   delete: "O‘chirish",
   delete_profile: "Profilingizni o‘chirish",
-mal: "Profilingizni o‘chirib tashlaganingizda profil xizmatlaridan foydalana olmaysiz va biz butunlayo‘chirib tashlaymiz. O‘chirish jarayonini 14 kun ichida bekor qilishingiz mumkin.",
-tasdiq: "Profili o‘chirib tashlanishini tasdiqlayman."
-
-
-
-
+  mal: "Profilingizni o‘chirib tashlaganingizda profil xizmatlaridan foydalana olmaysiz va biz butunlayo‘chirib tashlaymiz. O‘chirish jarayonini 14 kun ichida bekor qilishingiz mumkin.",
+  tasdiq: "Profili o‘chirib tashlanishini tasdiqlayman.",
+  access_legal_entity_profile: "Yuridik shaxs profiliga kirish",
+  contract_processing: "Shartnomalarni rasmiylashtirish",
+  processing: "Rasmiylashtirish",
+  about_partnership: "Hamkorlik haqida",
+  make_business_successful: "Keling, biznesingizni yanada muvaffaqiyatli qilamiz!",
+  mutually_beneficial_partnership: "Pochta xizmatimiz bilan o‘zaro manfaatli hamkorlik qilish imkoniyatini taklif etishdan mamnunmiz. Biznesingiz uchun samarali logistika va ishonchli yetkazib berish qanchalik muhimligini tushunamiz va sizga ehtiyojlaringizga moslashtirilgan keng ko‘lamli xizmatlarni taklif qilishga tayyormiz.",
+  parcel: "Posilka",
+  Small_packages: "Mayda paketlar",
+  letter: "Xat",
 
 
 

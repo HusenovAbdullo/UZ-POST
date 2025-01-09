@@ -63,28 +63,34 @@
                            <button v-for="service in services" :key="service.id" class="tablinks"
                               :class="{ active: activeService === service.id }" @click="selectService(service.id)">
                               <img :src="service.image" alt="" style="width:30px;height:30px;" />
-                              <p>{{ service.name }}</p>
+                              <p>
+                                 <!-- Shartli tarjimalar -->
+                                 <span v-if="service.id === 136">{{ $t('parcel') }}</span>
+                                 <span v-else-if="service.id === 135">{{ $t('Small_packages') }}</span>
+                                 <span v-else-if="service.id === 33">{{ $t('letter') }}</span>
+                                 <span v-else-if="service.id === 209">Bir qadam</span>
+                                 <span v-else>{{ service.name[currentLanguage] }}</span>
+                              </p>
                            </button>
                         </div>
+
+
                         <br>
 
                         <div v-for="service in services" :key="service.id" :id="service.id" class="tabcontent"
                            style="display: block;" v-show="activeService === service.id">
-                           <div class="tab bor" style="color: #222E48; display: flex; gap:100px;">
-                              <p v-if="service.id === 136" class="service-description" style="    background-color: #c5d4eb;">
+                           <div class="tab bor" style="color: #183e98;">
+                              <p v-if="service.id === 136" class="service-description">
                                  {{ $t('parcel_info') }}
                               </p>
-                              <p v-if="service.id === 135" class="service-description" style="    background-color: #c5d4eb;">
-                                 Mayda paketlar — kichik va sinmaydigan predmetlarni jo’natishning qulay usulidir. Ushbu
-                                 jo'natma turida kiyim-kechak, aksessuarlar va boshqa kichik sinmaydigan mahsulotlarni
-                                 yuborish mumkin.
+                              <p v-if="service.id === 135" class="service-description">
+                                 {{ $t('parcel_small_info') }}
                               </p>
-                              <p v-if="service.id === 33" class="service-description" style="    background-color: #c5d4eb;">
-                                 Xat - bu ichida yozma xat-xabar, hujjatlar bo’lgan pochta jo'natmasi
+                              <p v-if="service.id === 33" class="service-description">
+                                 {{ $t('letter_info') }}
                               </p>
-                              <p v-if="service.id === 209" class="service-description" style="    background-color: #c5d4eb;">
-                                 “Bir Qadam” xizmati orqali jo'natmalaringizni 1 KUNda butun O'zbekiston bo'ylab
-                                 belgilangan bo'limlar orasida yetkazib beramiz.
+                              <p v-if="service.id === 209" class="service-description">
+                                 {{ $t('bir_qadam_info') }}
                               </p>
                            </div>
                            <br />
@@ -144,7 +150,8 @@
                                        <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                        <div style="position: relative;">
                                           <input type="text" id="address" name="address" class="form-control"
-                                             placeholder="Manzil" v-model="address">
+                                             :placeholder="$t('Address')" v-model="address">
+
                                        </div>
                                     </div>
                                  </div>
@@ -188,7 +195,6 @@
                                                 name="index" class="form-control" :placeholder="$t('enter_index')"
                                                 v-model="index" />
                                              <span v-if="!index" class="red-starinput">*</span>
-                                             <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
 
                                           </div>
                                        </div>
@@ -218,7 +224,8 @@
                                                 <div class="select-wrapper">
                                                    <select id="province" name="province" class="form-control"
                                                       v-model="selectedProvince2" @change="fetchDistricts2">
-                                                      <option value="" disabled selected>Viloyat tanlang</option>
+                                                      <option value="" disabled selected>{{ $t('choose_region') }}
+                                                      </option>
                                                       <option v-for="(name, id) in regions2" :key="name" :value="name">
                                                          {{ id }}
                                                       </option>
@@ -236,7 +243,7 @@
                                                    <select id="district" name="district" class="form-control"
                                                       v-model="selectedDistrict2">
                                                       <option value="" disabled selected>
-                                                         Tuman tanlang
+                                                         {{ $t('choose_district') }}
                                                       </option>
                                                       <option v-for="(name, id) in districts2" :key="id"
                                                          :value="name.id">
@@ -253,39 +260,39 @@
                                                 <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                                 <div style="position: relative;">
                                                    <input type="text" id="address" name="address" class="form-control"
-                                                   :placeholder="$t('recipient_address')">
+                                                      :placeholder="$t('recipient_address')">
                                                 </div>
                                              </div>
                                           </div>
                                        </div>
-                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">Aniqroq
-                                          hisob-kitob uchun to‘liq manzilni kiriting</p>
+                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">
+                                          {{ $t('address_note') }}</p>
                                     </form>
                                  </div>
                                  <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
                                     style="    position: relative; top: -60px;">
-                                    <h6 style="color: red; font-size: small;">Bu xizmat hozircha mavjud emas </h6>
+                                    <h6 style="color: red; font-size: small;">{{ $t('service_unavailable') }} </h6>
                                  </div>
                                  <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
-                                    
-                                       <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
-                                          <div class="frm__grp"
-                                             :class="{ error: !selectedProvince3 && showErrorProvince3 }">>
-                                             <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                             <div class="select-wrapper">
-                                                <select id="province" name="province" class="form-control"
-                                                   style="    width: 100%;" v-model="selectedProvince3">
-                                                   <option value="" disabled selected>Qabul qiluvchi mamlakat</option>
-                                                   <option v-for="province in provinces" :key="province.id"
-                                                      :value="province.id">
-                                                      {{ province.name }}
-                                                   </option>
-                                                </select>
-                                                <span v-if="!selectedProvince3" class="red-star">*</span>
-                                             </div>
+
+                                    <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
+                                       <div class="frm__grp"
+                                          :class="{ error: !selectedProvince3 && showErrorProvince3 }">>
+                                          <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="select-wrapper">
+                                             <select id="province" name="province" class="form-control"
+                                                style="    width: 100%;" v-model="selectedProvince3">
+                                                <option value="" disabled selected>{{ $t('Host_Country') }}</option>
+                                                <option v-for="province in provinces" :key="province.id"
+                                                   :value="province.id">
+                                                   {{ province.name }}
+                                                </option>
+                                             </select>
+                                             <span v-if="!selectedProvince3" class="red-star">*</span>
                                           </div>
                                        </div>
-                                    
+                                    </div>
+
                                  </div>
                                  <h3 class="title mb-20" style="    position: relative; top: -40px;">
 
@@ -293,20 +300,20 @@
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">{{ $t('weight') }}</label>
+                                          <label for="vesi" class="fz-180 fw-500 inter title mb-16">{{ $t('weight')
+                                             }}</label>
                                           <div class="input-wrapper">
 
                                              <input type="number" id="vesi" name="vesi" class="form-control"
-                                             :placeholder="$t('choose_weight_unit')" v-model="weight">
+                                                :placeholder="$t('choose_weight_unit')" v-model="weight">
                                              <span v-if="!weight" class="red-star">*</span>
-                                             <!-- Yulduzcha faqat input bo'sh bo'lsa ko'rinadi -->
-
                                           </div>
                                        </div>
                                     </div>
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
-                                          <label for="size" class="fz-180 fw-500 inter title mb-16">{{ $t('size') }}</label>
+                                          <label for="size" class="fz-180 fw-500 inter title mb-16">{{ $t('size')
+                                             }}</label>
                                           <select id="size" name="size" class="form-control">
                                              <option value="" disabled selected>{{ $t('choose_size') }}</option>
                                              <option value="10x20x30">10x20x30</option>
@@ -345,14 +352,14 @@
                            <span class="fz-16 d-flex align-items-center gap-2 fw-400 inter title">
                               {{ $t('approximate_cost') }}
                               <span class="fssizing d-flex align-items-start gap-1">
-                                 {{ totalPrice + " so'm" }}
+                                 {{ totalPrice + $t('summ') }}
                               </span>
                            </span>
 
                         </div>
-                        <p v-if="showtotalMessage" style="color: red; font-size: small;">Yuqoridagi summa berilgan
-                           og'irlikka nisbatan
-                           o'zgarishi mumkin.</p>
+                        <p v-if="showtotalMessage" style="color: red; font-size: small;">
+                           {{ $t('stated_amount_may') }}
+                        </p>
 
 
                         <button type="button" class="cmn--btn" @click="nextPage">
@@ -1030,6 +1037,7 @@ export default {
 .select-wrapperother {
    position: relative;
 }
+
 .red-starother {
    color: red;
    font-weight: bold;
@@ -1042,11 +1050,12 @@ export default {
 
 
 .service-description {
-   flex: 1; /* Har bir gap bir xil joy egallaydi */
-   min-height: 100px; /* Minimal balandlik */
+   flex: 1;
+   /* Har bir gap bir xil joy egallaydi */
+   min-height: 100px;
+   /* Minimal balandlik */
    padding: 10px;
    box-sizing: border-box;
    text-align: justify;
 }
-
 </style>
