@@ -5,11 +5,14 @@
                 <!-- Slideshow -->
                 <img :src="currentImage" alt="" class="banner-image" />
                 <div class="button-container">
-                    <router-link to="/xizmat/11" class="cmn--btn custom-button">
-                        <span>{{ $t('service_details') }}</span>
-                    </router-link>
-                    <router-link to="/map" class="cmn--btn custom-button">
-                        <span>{{ $t('branch_map') }}</span>
+                    <!-- Tugmalarni API'dan kelayotgan ma'lumotlar asosida yaratish -->
+                    <router-link
+                        v-for="(link, index) in currentLinks"
+                        :key="index"
+                        :to="link.url"
+                        class="cmn--btn custom-button"
+                    >
+                        <span>{{ link.title }}</span>
                     </router-link>
                 </div>
             </div>
@@ -851,60 +854,35 @@ export default {
             marks: [],
             latestNews: [],
             services: [],
+            banners: [], // API'dan kelayotgan bannerlar
+            currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan banner indeksi
             locale: this.$i18n.locale === "uz" ? "description_uz" : "description_ru",
-            banners: [], // Bannerni saqlash uchun
-            currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan rasmning indeksi
         };
     },
     computed: {
-        // Hozirgi ko'rsatilayotgan rasmni olish
+        // Hozirgi ko'rsatilayotgan bannerning rasmi
         currentImage() {
-            const locale = this.$i18n.locale || "uz"; // Tilni aniqlash
+            const locale = this.$i18n.locale || "uz";
             if (this.banners.length > 0) {
                 const currentBanner = this.banners[this.currentBannerIndex];
-                const imageUrl =
-                    locale === "ru" ? currentBanner.image_ru : currentBanner.image_uz;
-                return this.convertToHttps(imageUrl); // HTTPS formatiga o'zgartirish
+                return locale === "ru" ? currentBanner.image_ru : currentBanner.image_uz;
             }
-            return ""; // Standart qiymat
+            return "";
+        },
+        // Hozirgi banner uchun tugmalar
+        currentLinks() {
+            const locale = this.$i18n.locale || "uz";
+            if (this.banners.length > 0) {
+                const currentBanner = this.banners[this.currentBannerIndex];
+                return currentBanner.links.map(link => ({
+                    title: locale === "ru" ? link.title_ru : link.title_uz,
+                    url: locale === "ru" ? link.link_ru : link.link_uz,
+                }));
+            }
+            return [];
         },
     },
     methods: {
-        // API dan ma'lumotni olish
-        async fetchBanners() {
-            try {
-                const response = await fetch(
-                    "https://new.pochta.uz/api/v1/public/menu/"
-                );
-                const data = await response.json();
-                if (data.length > 0 && data[0].banners) {
-                    // API ma'lumotlarini olish va https formatiga o'tkazish
-                    this.banners = data[0].banners.map((banner) => ({
-                        ...banner,
-                        image_uz: this.convertToHttps(banner.image_uz),
-                        image_ru: this.convertToHttps(banner.image_ru),
-                    }));
-                }
-            } catch (error) {
-                console.error("API dan ma'lumotni olishda xato:", error);
-            }
-        },
-        // HTTPS formatiga o'tkazish
-        convertToHttps(url) {
-            if (url.startsWith("http://")) {
-                return url.replace("http://", "https://");
-            }
-            return url;
-        },
-        // Bannerni avtomatik ravishda o'zgartirish
-        startBannerSlideshow() {
-            setInterval(() => {
-                if (this.banners.length > 0) {
-                    this.currentBannerIndex =
-                        (this.currentBannerIndex + 1) % this.banners.length;
-                }
-            }, 5000); // Har 5 soniyada o'zgartirish
-        },
         async fetchServices() {
             try {
                 const response = await axios.get("https://new.pochta.uz/api/v1/public/services/");
@@ -928,8 +906,7 @@ export default {
         },
         formatPrice(price) {
             return price ? `${price} ${this.$t('summ')}` : this.$t('unknown_price');
-        }
-        ,
+        },
         async fetchNews() {
             try {
                 const response = await axios.get(
@@ -960,18 +937,44 @@ export default {
             const year = date.getFullYear(); // Yili
             return `${day}.${month}.${year}`; // "DD.MM.YYYY" formatida qaytarish
         },
+        // API'dan banner ma'lumotlarini olish
+        async fetchBanners() {
+            try {
+                const response = await axios.get("https://new.pochta.uz/api/v1/public/banners/");
+                this.banners = response.data.filter(
+                    banner => banner.status && banner.fizlitso_status
+                ).map(banner => ({
+                    ...banner,
+                    image_uz: this.ensureHttps(banner.image_uz),
+                    image_ru: this.ensureHttps(banner.image_ru),
+                }));
+            } catch (error) {
+                console.error("Bannerni olishda xato:", error);
+            }
+        },
+        // Bannerlarni avtomatik ravishda almashtirish
+        startBannerSlideshow() {
+            setInterval(() => {
+                if (this.banners.length > 0) {
+                    this.currentBannerIndex =
+                        (this.currentBannerIndex + 1) % this.banners.length;
+                }
+            }, 5000); // Har 5 soniyada bannerni o'zgartirish
+        },
     },
     mounted() {
         this.fetchData();
         this.fetchNews();
         this.fetchServices();
-        // Ma'lumotni olish va slideshowni boshlash
+        // Bannerlarni olish va slideshow'ni boshlash
         this.fetchBanners().then(() => {
-            this.startBannerSlideshow(); // TO'G'RI: to'g'ri metod chaqirildi
+            this.startBannerSlideshow();
         });
     },
 };
 </script>
+
+
 
 
 

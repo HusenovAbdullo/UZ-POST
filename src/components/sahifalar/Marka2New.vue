@@ -44,7 +44,7 @@
                 <div class="accordion-body" style="color: black;">
                   <p class="title2">{{ $t('Release_date') }}: {{ marka.years }}</p>
                   <p class="title2">{{ $t('Quantity') }}: {{ marka.count_number }}</p>
-                  <p class="title2">{{ $t('Nominal') }}: {{ marka.price }}</p>
+                  <p class="title2">{{ $t('Nominal') }}: {{ marka.price }} {{ $t('summ') }}</p>
                 </div>
                 <div class="divider">
                   <span>{{ $t('stamp_info') }}</span>

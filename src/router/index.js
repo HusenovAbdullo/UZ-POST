@@ -465,7 +465,7 @@ const router = createRouter({
   // Sahifadan sahifaga o'tganda scroll pozitsiyasini boshqarish
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition; // Foydalanuvchi oldingi pozitsiyasiga qaytadi
+      return { top: 0 }; // Har doim sahifaning yuqorisidan boshlanadi
     } else {
       return { top: 0 }; // Har doim sahifaning yuqorisidan boshlanadi
     }

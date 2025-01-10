@@ -1,11 +1,23 @@
 <template>
    <section class="slideshow-container" id="slideshow">
-      <div class="container">
-         <div class="header-wrapper">
-            <img src="assets/img/bosh/banner-uz.png" alt="Image 1" class="desktop-img">
-         </div>
-      </div>
-   </section>
+        <div class="container">
+            <div class="header-wrapper" style="position: relative; z-index: 1;">
+                <!-- Slideshow -->
+                <img :src="currentImage" alt="" class="banner-image" />
+                <div class="button-container">
+                    <!-- Tugmalarni API'dan kelayotgan ma'lumotlar asosida yaratish -->
+                    <router-link
+                        v-for="(link, index) in currentLinks"
+                        :key="index"
+                        :to="link.url"
+                        class="cmn--btn custom-button"
+                    >
+                        <span>{{ link.title }}</span>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+    </section>
 
    <!-- task categorish Section Here -->
    <section class="app__section ralt bg__all2 pb-120 pt-120">
@@ -196,9 +208,67 @@ export default {
   data() {
     return {
       services: [],
+      banners: [], // API'dan kelayotgan bannerlar
+      currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan banner indeksi
+      locale: this.$i18n.locale === "uz" ? "description_uz" : "description_ru",
     };
   },
+  computed: {
+    // Hozirgi ko'rsatilayotgan bannerning rasmi
+    currentImage() {
+      const locale = this.$i18n.locale || "uz";
+      if (this.banners.length > 0) {
+        const currentBanner = this.banners[this.currentBannerIndex];
+        return locale === "ru" ? currentBanner.image_ru : currentBanner.image_uz;
+      }
+      return "";
+    },
+    // Hozirgi banner uchun tugmalar
+    currentLinks() {
+      const locale = this.$i18n.locale || "uz";
+      if (this.banners.length > 0) {
+        const currentBanner = this.banners[this.currentBannerIndex];
+        return currentBanner.links.map(link => ({
+          title: locale === "ru" ? link.title_ru : link.title_uz,
+          url: locale === "ru" ? link.link_ru : link.link_uz,
+        }));
+      }
+      return [];
+    },
+  },
   methods: {
+    // API'dan banner ma'lumotlarini olish
+    async fetchBanners() {
+      try {
+        const response = await axios.get("https://new.pochta.uz/api/v1/public/banners/");
+        this.banners = response.data.filter(
+          banner => banner.status && banner.yurlitso_status
+        ).map(banner => ({
+          ...banner,
+          image_uz: this.ensureHttps(banner.image_uz),
+          image_ru: this.ensureHttps(banner.image_ru),
+        }));
+      } catch (error) {
+        console.error("Bannerni olishda xato:", error);
+      }
+    },
+    // URL'ni HTTPS formatiga o'tkazish
+    ensureHttps(url) {
+      if (url?.startsWith("http://")) {
+        return url.replace("http://", "https://");
+      }
+      return url;
+    },
+    // Bannerlarni avtomatik ravishda almashtirish
+    startBannerSlideshow() {
+      setInterval(() => {
+        if (this.banners.length > 0) {
+          this.currentBannerIndex =
+            (this.currentBannerIndex + 1) % this.banners.length;
+        }
+      }, 5000); // Har 5 soniyada bannerni o'zgartirish
+    },
+    // Xizmatlar ma'lumotlarini olish
     async fetchServices() {
       try {
         const response = await axios.get(
@@ -221,7 +291,14 @@ export default {
     },
   },
   created() {
+    // Xizmatlarni olish
     this.fetchServices();
+  },
+  mounted() {
+    // Bannerlarni olish va slideshow'ni boshlash
+    this.fetchBanners().then(() => {
+      this.startBannerSlideshow();
+    });
   },
 };
 </script>

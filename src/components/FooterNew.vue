@@ -10,22 +10,25 @@
                      v-for="(item, index) in footerMenu" :key="index">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
-                           
+
                            {{ item[`name_${$i18n.locale}`] || item.name_uz }}
                         </a>
                         <ul class="quick__link">
                            <li v-for="(link, idx) in item.elements" :key="idx">
-                              <!-- Agar pdf_uz mavjud bo'lsa -->
-
-
-                              <!-- Agar faqat link_uz mavjud bo'lsa -->
-                              <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block">
-                                 
-                                 {{ link[`name_${$i18n.locale}`] || link.name_uz }}
-                              </router-link>
+                              <template
+                                 v-if="link.link_uz && (link.link_uz.startsWith('http://') || link.link_uz.startsWith('https://'))">
+                                 <a :href="link.link_uz" target="_blank" class="fz-18 fw-400 inter cef__pra d-block">
+                                    {{ link[`name_${$i18n.locale}`] || link.name_uz }}
+                                 </a>
+                              </template>
+                              <template v-else>
+                                 <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block">
+                                    {{ link[`name_${$i18n.locale}`] || link.name_uz }}
+                                 </router-link>
+                              </template>
                            </li>
-
                         </ul>
+
                      </div>
                   </div>
 
@@ -41,7 +44,7 @@
                               <a href="javascript:void(0)"
                                  class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
                                  <i class="bi bi-telephone-plus cmn__icon cmn__icon"></i>
-                                 <span>1165 {{ $t('or') }} +998 (71) 233-57-47</span>
+                                 <span>1165 yoki +998 (71) 233-57-47</span>
                               </a>
                            </li>
                            <li>
@@ -92,23 +95,24 @@
             </div>
             <div class="footer__bottom d-flex align-items-center">
                <p class="fz-16 fw-400 inter text-white">
-                  Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; {{ $t('jamiyat') }}<a href="https://chiko.uz" class="base3"></a>
+                  Copyright &copy; 2024 <a href="javascript:void(0)" class="hover"></a> &nbsp; {{ $t('jamiyat') }}<a
+                     href="https://chiko.uz" class="base3"></a>
                </p>
                <p><a href="https://t.me/Husenov_Abdullo" style="text-decoration: none; color: #00000000;">A</a></p>
                <ul class="help__support d-flex align-items-center">
                   <li>
                      <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
-                        {{ $t('help_support')}}
+                        {{ $t('help_support') }}
                      </a>
                   </li>
                   <li>
                      <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
-                        {{ $t('privacy_policy')}}
+                        {{ $t('privacy_policy') }}
                      </a>
                   </li>
                   <li>
                      <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
-                        {{ $t('terms_conditions')}}
+                        {{ $t('terms_conditions') }}
                      </a>
                   </li>
                </ul>
@@ -136,8 +140,7 @@ export default {
          .catch(error => {
             console.error('There was an error fetching the footer menu:', error);
          });
-   }
-   ,
+   },
    methods: {
       getLink(link) {
          // Agar pdf_uz bo'lsa, faqat PDF ochiladi
@@ -158,10 +161,12 @@ export default {
          };
       }
    }
+   
 
 
 };
 </script>
+
 
 <style scoped>
 .row2 {
