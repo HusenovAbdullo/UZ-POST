@@ -258,7 +258,9 @@ export default {
   Small_packages: "Мелкие пакеты",
   letter: "письмо",
   kuzatuv: "Отслеживание",
-
+  guest: "Гость",
+  reset_password: "Восстановление пароля",
+  form_submission_failed: "Ваш запрос успешно отправлен",
 
 
 

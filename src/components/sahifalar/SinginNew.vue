@@ -15,22 +15,41 @@
                             <div class="row g-4">
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
-                                        <label for="phone" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_phone') }}</label>
-                                        <input type="tel" id="phone" v-model="phone_number" @focus="prependCountryCode" placeholder="+998 XX XXX XX XX">
+                                        <label for="phone" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_phone')
+                                            }}</label>
+                                        <input type="tel" id="phone" v-model="phone_number" @focus="prependCountryCode"
+                                            placeholder="+998 XX XXX XX XX">
                                     </div>
                                 </div>
                                 <br>
                                 <br>
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
-                                        <label for="pas" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_password') }}</label>
+                                        <label for="pas" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_password')
+                                            }}</label>
                                         <div class="password-wrapper">
-                                            <input :type="showPassword ? 'text' : 'password'" id="pas" v-model="password" placeholder="">
-                                            <button type="button" class="toggle-password" @click="togglePasswordVisibility">
+                                            <input :type="showPassword ? 'text' : 'password'" id="pas"
+                                                v-model="password" placeholder="">
+                                            <button type="button" class="toggle-password"
+                                                @click="togglePasswordVisibility">
                                                 <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
                                             </button>
                                         </div>
                                     </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="frm__grp">
+                                            <router-link to="/tiklash"
+                                                class="base fz-14 inter d-flex justify-content-end mt-2">
+                                                {{ $t('reset_password') }}
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+
+
+
                                 </div>
                                 <p class="fz-16 fw-400 title inter">
                                     {{ $t('have_account') }} <a href="signup" class="base">{{ $t('register') }}</a>
@@ -53,7 +72,8 @@
                 </div>
                 <div class="col-xl-5 col-lg-6">
                     <div class="signup__thumb">
-                        <img src="assets/img/faq/signup.png" alt="img" style="width: 100% !important; height: 500px; object-fit: cover;">
+                        <img src="assets/img/faq/signup.png" alt="img"
+                            style="width: 100% !important; height: 500px; object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -111,9 +131,9 @@ export default {
                     this.showErrorPopup = true;
                 }
             } catch (error) {
-    this.errorMessage = this.$t('invalid_login'); // Xabarni tarjima qilish
-    this.showErrorPopup = true;
-}
+                this.errorMessage = this.$t('invalid_login'); // Xabarni tarjima qilish
+                this.showErrorPopup = true;
+            }
 
         },
     },

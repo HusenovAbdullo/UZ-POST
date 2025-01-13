@@ -258,7 +258,9 @@ export default {
   Small_packages: "Mayda paketlar",
   letter: "Xat",
   kuzatuv: "Kuzatuv",
-  
+  guest: "Mehmon",
+  reset_password: "Parolni tiklash",
+  form_submission_failed: "Murojaatingiz muvoffaqqiyatli yuborildi"
 
 
 
