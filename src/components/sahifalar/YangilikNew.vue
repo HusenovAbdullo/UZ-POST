@@ -138,95 +138,95 @@
           </div>
         </div>
         <div class="col-xl-4 col-lg-4">
-               <div class="blog__sidebar">
+          <div class="blog__sidebar">
 
-                  <div class="blog__common__item bgwhite round16 mb-24">
-                     <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                      {{$t('categories')}}
-                    </h4>
-                     <ul class="blog__categories">
-                        <li>
-                           <a href="/yangiliklar" class="d-flex align-items-center rad4">
-                              <span class="fz-18 title inter">
-                                {{$t('community_news')}}
-                              </span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="/xizmatlar" class="d-flex align-items-center">
-                              <span class="fz-18 title inter">
-                                {{$t('service_news')}}
-                              </span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="" class="d-flex align-items-center">
-                              <!-- <span class="cateicon">
+            <div class="blog__common__item bgwhite round16 mb-24">
+              <h4 class="head fw-600 bborderdash title pb-24 mb-24">
+                {{ $t('categories') }}
+              </h4>
+              <ul class="blog__categories">
+                <li>
+                  <a href="/yangiliklar" class="d-flex align-items-center rad4">
+                    <span class="fz-18 title inter">
+                      {{ $t('community_news') }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/xizmatlar" class="d-flex align-items-center">
+                    <span class="fz-18 title inter">
+                      {{ $t('service_news') }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="d-flex align-items-center">
+                    <!-- <span class="cateicon">
                                  <img src="assets/img/custom-icon/inter.png" alt="round">
                               </span> -->
-                              <span class="fz-18 title inter">
-                                {{$t('official_statements')}}
-                              </span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="" class="d-flex align-items-center">
-                              <!-- <span class="cateicon">
+                    <span class="fz-18 title inter">
+                      {{ $t('official_statements') }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="d-flex align-items-center">
+                    <!-- <span class="cateicon">
                                  <img src="assets/img/custom-icon/aibrain.png" alt="round">
                               </span> -->
-                              <span class="fz-18 title inter">
-                                {{$t('department_news')}}
-                              </span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="" class="d-flex align-items-center">
-                              <!-- <span class="cateicon">
+                    <span class="fz-18 title inter">
+                      {{ $t('department_news') }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="d-flex align-items-center">
+                    <!-- <span class="cateicon">
                                  <img src="assets/img/custom-icon/deep-learning.png" alt="round">
                               </span> -->
-                              <span class="fz-18 title inter">
-                                {{$t('partnership_news')}}
-                              </span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="" class="d-flex align-items-center">
-                              <!-- <span class="cateicon">
+                    <span class="fz-18 title inter">
+                      {{ $t('partnership_news') }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="d-flex align-items-center">
+                    <!-- <span class="cateicon">
                                  <img src="assets/img/custom-icon/umacine.png" alt="round">
                               </span> -->
-                              <span class="fz-18 title inter">
-                                {{$t('social_projects')}}
-                              </span>
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-                  
-                  <div class="blog__common__item bgwhite round16">
-                     <h4 class="head fw-600 bborderdash title pb-24 mb-24">
-                      {{ $t('latest_news')}}
-                    </h4>
-                     <ul class="social d-flex align-items-center">
-                        <li>
-                           <a href="https://www.facebook.com/uzpochta">
-                              <i class="bi bi-facebook"></i>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="https://www.instagram.com/uzpost_/">
-                              <i class="bi bi-instagram"></i>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="https://t.me/uzpostuz">
-                              <i class="bi bi-telegram"></i>
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
+                    <span class="fz-18 title inter">
+                      {{ $t('social_projects') }}
+                    </span>
+                  </a>
+                </li>
+              </ul>
             </div>
-        
+
+            <div class="blog__common__item bgwhite round16">
+              <h4 class="head fw-600 bborderdash title pb-24 mb-24">
+                {{ $t('latest_news') }}
+              </h4>
+              <ul class="social d-flex align-items-center">
+                <li>
+                  <a href="https://www.facebook.com/uzpochta">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/uzpost_/">
+                    <i class="bi bi-instagram"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://t.me/uzpostuz">
+                    <i class="bi bi-telegram"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
 
       </div>
     </div>
@@ -247,89 +247,98 @@ export default {
     const id = this.$route.params.id; // Get the ID from the route
     this.fetchNews(id); // Fetch the detailed news data
   },
+
+  watch: {
+    '$i18n.locale': function () {
+      this.updateLocalizedText(); // Til o'zgarganda matnni yangilash funksiyasi
+    }
+  },
+
   methods: {
-    async fetchNews(id) {
-      try {
-        const response = await axios.get(`https://new.pochta.uz/api/v1/public/uz-post-news/${id}/`);
-        this.newsItem = response.data;
-        if (this.newsItem) {
-  const locale = this.$i18n.locale; // Joriy tilni olamiz
-  this.serviceText = this.newsItem[`text_${locale}`] || this.newsItem.text_uz || ''; // Tilga mos matnni tanlaymiz
-  this.loadFontsFromText(this.serviceText)
+  async fetchNews(id) {
+    try {
+      const response = await axios.get(`https://new.pochta.uz/api/v1/public/uz-post-news/${id}/`);
+      this.newsItem = response.data;
+      if (this.newsItem) {
+        this.updateLocalizedText(); // Matnni birinchi marta yuklash
+      }
+    } catch (error) {
+      console.error('Error fetching news:', error);
+    }
+  },
+  updateLocalizedText() {
+    if (this.newsItem) {
+      const locale = this.$i18n.locale; // Joriy tilni olamiz
+      this.serviceText = this.newsItem[`text_${locale}`] || this.newsItem.text_uz || ''; // Tilga mos matn
+      this.loadFontsFromText(this.serviceText); // Fontlarni qayta yuklash
+    }
+  },
+  loadFontsFromText(text) {
+    const fontRegex = /font-family:\s*([^;"]+)/g;
+    let match;
+    const fonts = new Set();
+
+    while ((match = fontRegex.exec(text)) !== null) {
+      fonts.add(match[1].trim());
+    }
+
+    fonts.forEach((font) => {
+      const fontPath = `/assets/css/fonts/${font}.ttf`;
+      this.loadFont(font, fontPath);
+    });
+  },
+  loadFont(fontName, fontPath) {
+    const fontFace = new FontFace(fontName, `url(${fontPath})`);
+    fontFace
+      .load()
+      .then((loadedFont) => {
+        document.fonts.add(loadedFont);
+      })
+      .catch(() => {
+        console.warn(`${fontName} font mavjud emas.`);
+      });
+  },
+  formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  },
+  getSecureImageUrl(url) {
+    if (url && url.startsWith('http://')) {
+      return url.replace('http://', 'https://');
+    }
+    return url;
+  }
 }
 
-      } catch (error) {
-        console.error('Error fetching news:', error);
-      }
-    },
-    loadFontsFromText(text) {
-            // `font-family` qiymatini tahlil qilish uchun regex
-            const fontRegex = /font-family:\s*([^;"]+)/g;
-            let match;
-            const fonts = new Set();
-
-            // Matndagi barcha `font-family` qiymatlarini yig'ish
-            while ((match = fontRegex.exec(text)) !== null) {
-                fonts.add(match[1].trim());
-            }
-
-            // Har bir font uchun `.ttf` faylni yuklash
-            fonts.forEach((font) => {
-                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
-                this.loadFont(font, fontPath);
-            });
-        },
-        loadFont(fontName, fontPath) {
-            // Fontni dinamik yuklash
-            const fontFace = new FontFace(fontName, `url(${fontPath})`);
-            fontFace
-                .load()
-                .then((loadedFont) => {
-                    document.fonts.add(loadedFont);
-                })
-                .catch(() => {
-                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
-                });
-        },
-    formatDate(dateString) {
-      const date = new Date(dateString);
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}.${month}.${year}`;
-    },
-    getSecureImageUrl(url) {
-      // Ensure the image URL starts with https
-      if (url && url.startsWith('http://')) {
-        return url.replace('http://', 'https://');
-      }
-      return url; // If it already starts with https, return it as is
-    }
-  }
 };
-</script >
+</script>
 
 <style scoped>
 @media (max-width: 768px) {
 
-/* Kichik ekranlar (planshet yoki telefonlar) */
-.responsive-img {
-  width: 100vw;
-  /* Ekranning 100% kengligi */
-  height: auto;
-  /* Nisbatni buzmaydi */
-}
+  /* Kichik ekranlar (planshet yoki telefonlar) */
+  .responsive-img {
+    width: 100vw;
+    /* Ekranning 100% kengligi */
+    height: auto;
+    /* Nisbatni buzmaydi */
+  }
 }
 
 .custom-container .text-uz {
   color: black;
   font-size: 18px;
-  font-family: "Roboto-Condensed", sans-serif; /* Default font */
+  font-family: "Roboto-Condensed", sans-serif;
+  /* Default font */
   line-height: 1.6;
 }
 
 .custom-container .text-uz span {
-  font-family: inherit; /* Font topilmasa default fontni ishlatish */
+  font-family: inherit;
+  /* Font topilmasa default fontni ishlatish */
 }
 
 

@@ -302,3 +302,219 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+.banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.frelancer__item {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+
+/* Elementlar gorizontal tarzda chiqishi uchun */
+.freelancer__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    /* Kartalar orasidagi masofa */
+}
+
+.frelancer__item {
+    flex: 1 1 calc(25% - 1.5rem);
+    /* Har biri 4 qismga teng */
+    /* max-width: calc(% - 1.5rem); */
+    /* Katta ekranlar uchun cheklash */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+}
+
+@media (max-width: 768px) {
+    .frelancer__item {
+        flex: 1 1 calc(50% - 1.5rem);
+        /* Mobilda 2 ta ustun */
+    }
+}
+
+@media (max-width: 480px) {
+    .frelancer__item {
+        flex: 1 1 100%;
+        /* Juda kichik ekranda 1 ta ustun */
+    }
+}
+
+/* Umumiy rasm uslubi */
+.header-wrapper img {
+    max-width: 100%;
+    height: auto;
+    /* Rasm nisbatlarini saqlab qoladi */
+    display: block;
+    margin: 0 auto;
+    /* Rasmni markazlashtirish uchun */
+}
+
+/* Kichik ekranlar uchun maxsus uslublar */
+@media (max-width: 768px) {
+    .header-wrapper img {
+        max-width: 90%;
+        /* Rasm ekran kengligining 90% gacha qisqaradi */
+    }
+}
+
+/* Juda kichik ekranlar uchun (mobil telefonlar) */
+@media (max-width: 480px) {
+    .header-wrapper img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* 768px yoki undan kichik ekranlar uchun */
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        /* Tugmalarni ustma-ust joylashtiradi */
+        gap: 10px;
+        /* Tugmalar orasidagi masofani moslaydi */
+        align-items: center;
+        /* Tugmalarni markazlaydi */
+        margin-top: 20px;
+        /* Yuqori chetidan masofa */
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* 480px yoki undan kichik ekranlar uchun */
+    .button-container {
+        margin-top: 50px;
+        /* Yuqoridan masofani oshiradi */
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .button-container {
+        display: none;
+    }
+}
+
+.freelancer__wrapper2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Elementlarni markazga hizalash */
+    gap: 16px;
+    /* Elementlar orasidagi masofa */
+}
+
+
+
+@media (max-width: 992px) {
+    .frelancer__item2 {
+        flex: 1 1 calc(50% - 16px);
+        /* O'rta ekran uchun 2 ustun */
+        max-width: calc(50% - 16px);
+    }
+}
+
+@media (max-width: 576px) {
+    .frelancer__item2 {
+        flex: 1 1 100%;
+        /* Kichik ekran uchun 1 ustun */
+        max-width: 100%;
+    }
+}
+
+.custom-button span {
+    text-transform: none;
+}
+
+.service__item {
+    display: flex;
+    flex-direction: column;
+    /* Tarkibni ustun shaklida joylashtiradi */
+    justify-content: space-between;
+    /* Pastki elementlarni chekka joylarga itaradi */
+    height: 100%;
+    /* Kartochkaning balandligini teng qiladi */
+    min-height: 300px;
+    /* Minimal balandlik */
+}
+
+.thumb {
+    flex-shrink: 0;
+    /* Rasm qisqarib qolmasligi uchun */
+}
+
+.service__content {
+    flex-grow: 1;
+    /* Tarkib qismini bo‘sh joyni to‘ldirish uchun */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titley,
+.titlet {
+    display: -webkit-box;
+    /* Flexboxga o'xshash usul */
+    -webkit-line-clamp: 2;
+    /* Ikki qator bilan cheklaydi */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Oxiriga uch nuqta qo'shadi */
+    white-space: normal;
+}
+
+@media (max-width: 1200px) {
+    .task__item {
+        flex-direction: column;
+        /* Elementlarni vertikal qilib o'rnatadi */
+        text-align: center;
+        /* Kontentni markazlashtiradi */
+    }
+
+    .task__item .thumb {
+        margin-bottom: 20px;
+        /* Rasmlar va kontent orasida masofa qo'shadi */
+        flex: 0 0 auto;
+        /* Rasm qisqarishini oldini oladi */
+    }
+
+    .task__item .content {
+        flex: 1 1 auto;
+        /* Kontent qismini to'ldiradi */
+    }
+
+    .task__item img {
+        max-width: 100%;
+        /* height: auto; */
+        margin: 0 auto;
+        /* Rasmlarni markazlashtiradi */
+    }
+
+    .container {
+        padding: 0 15px;
+        /* Yon tomondagi bo'shliqni sozlaydi */
+    }
+}
+
+</style>

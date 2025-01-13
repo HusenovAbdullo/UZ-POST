@@ -132,7 +132,7 @@ export default defineComponent({
 
 
             this.warehouses.forEach((warehouse) => {
-        const { lat, lng, name_uz, region, district, index, geolocation, EMS, one_step } = warehouse.postal_office;
+        const { lat, lng, name_uz, region, district, index, street, geolocation, EMS, one_step } = warehouse.postal_office;
         const polygonCoordinates = warehouse.locations?.locations || [];
 
         // Latitude va Longitude mavjudligini tekshirish
@@ -151,8 +151,10 @@ export default defineComponent({
 
             const marker = L.marker([markerLat, markerLng], { icon: customIcon })
                 .bindPopup(`
-                <h3>${name_uz || "Noma'lum nom"}</h3>
-                <p>Hudud: ${region || "Noma'lum"}, ${district || "Noma'lum"}</p>
+                <h3>${name_uz}</h3>
+                <p>Viloyat: ${region}</p>
+                <p>Tuman: ${district}</p>
+                <p>Ko'cha: ${street}</p>
                 <p>Indeks: ${index || "Noma'lum"}</p>
                 <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
             `)
@@ -190,11 +192,12 @@ export default defineComponent({
                         (postal_office.name_eng || "").toLowerCase().includes(searchQueryLower) ||
                         (postal_office.name_ru || "").toLowerCase().includes(searchQueryLower) ||
                         (postal_office.region || "").toLowerCase().includes(searchQueryLower) ||
+                        (postal_office.street || "").toLowerCase().includes(searchQueryLower) ||
                         (postal_office.district || "").toLowerCase().includes(searchQueryLower)
                     );
                 })
                 .map(warehouse => {
-                    const { index, name_uz, name_ru, region, district } = warehouse.postal_office || {};
+                    const { index, name_uz, name_ru, region, district, street } = warehouse.postal_office || {};
 
                     // Qidiruvga mos kelgan maydonni aniqlash
                     if ((index || "").toLowerCase().includes(this.searchQuery.toLowerCase())) {
@@ -207,6 +210,8 @@ export default defineComponent({
                         return `${index}: ${region}`;
                     } else if ((district || "").toLowerCase().includes(this.searchQuery.toLowerCase())) {
                         return `${index}: ${district}`;
+                    } else if ((street || "").toLowerCase().includes(this.searchQuery.toLowerCase())) {
+                        return `${index}: ${street}`;
                     } else {
                         return "Ma'lumot topilmadi";
                     }
@@ -219,11 +224,12 @@ export default defineComponent({
             this.searchQuery = suggestion; // Qidiruv qatoriga tanlangan taklifni o'rnating
             const selectedWarehouse = this.warehouses.find((warehouse) => {
                 const { postal_office } = warehouse;
-                const { index, name_uz, region, district } = postal_office || {};
+                const { index, name_uz, region, district, street } = postal_office || {};
                 return (
                     suggestion.includes(index) ||
                     suggestion.includes(name_uz) ||
                     suggestion.includes(region) ||
+                    suggestion.includes(street) ||
                     suggestion.includes(district)
                 );
             });
@@ -245,9 +251,11 @@ export default defineComponent({
                 const popup = L.popup()
                     .setLatLng([markerLat, markerLng])
                     .setContent(`
-                    <h3>${postalOffice.name_uz || "Noma'lum nom"}</h3>
-                    <p>Hudud: ${postalOffice.region || "Noma'lum"}, ${postalOffice.district || "Noma'lum"}</p>
-                    <p>Indeks: ${postalOffice.index || "Noma'lum"}</p>
+                    <h3>${postalOffice.name_uz}</h3>
+                    <p>Viloyat: ${postalOffice.region}</p>
+                    <p>Tuman: ${postalOffice.district}</p>
+                    <p>Ko'cha: ${postalOffice.street}</p>
+                    <p>Indeks: ${postalOffice.index}</p>
                     <a href="${postalOffice.geolocation || "#"}" target="_blank">Joylashuv</a>
                 `);
                 popup.openOn(this.map);

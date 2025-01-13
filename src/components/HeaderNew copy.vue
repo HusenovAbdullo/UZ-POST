@@ -226,30 +226,30 @@
                                     </div>
                                  </div>
                                  <span class="fz-12 pra d-block fw-400 inter mb-16">
-                                    {{ $t('my_account') }}
+                                    Hisobim
                                  </span>
                                  <ul class="list">
                                     <li class="mb-16">
                                           <router-link to="/singin"
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-person-check fz-20"></i>
-                                             <span class="d-block fz-16 pra fw-500 inter">{{ $t('register') }}</span>
+                                             <span class="d-block fz-16 pra fw-500 inter">Ro'yhatdan o'tish</span>
                                           </router-link>
                                        </li>
                                     <li class="mb-16">
                                        <router-link to="/aloqa"
                                           class="link d-flex align-items-center gap-2 dropdown-item">
                                           <i class="bi bi-file-earmark-plus fz-20"></i>
-                                          <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry') }}</span>
+                                          <span class="d-block fz-16 pra fw-500 inter">Murojaat yuborish</span>
                                        </router-link>
                                     </li>
-                                    <!-- <li class="mb-16">
+                                    <li class="mb-16">
                                        <router-link to="/chat"
                                           class="link d-flex align-items-center gap-2 dropdown-item">
                                           <i class="bi bi-chat-text fz-20"></i>
                                           <span class="d-block fz-16 pra fw-500 inter">Chat</span>
                                        </router-link>
-                                    </li> -->
+                                    </li>
                                  </ul>
                               </div>
                            </div>
@@ -290,9 +290,7 @@
                               <div class="trending__based mb-40 bgwhite round16 shadow1">
                                  <div class="based__content border round16 bgwhite">
                                     <div class="freelancer__education bborderdash pb-30 mb-30">
-                                       <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                       <br>
-                                       <br>
+                                       <h3 class="title2">Kuzatuv</h3>
                                        <ul class="blog__categories" id="combinedTracking">
                                           <li v-for="(event, index) in combinedTracking" :key="index">
                                              <a class="d-flex align-items-center">
@@ -533,7 +531,7 @@ document.querySelectorAll('.sub-menu li').forEach(item => {
 
 
 </script>
-<style scoped>
+<style>
 /* Sub-menu uchun asosiy uslub */
 .sub-menu {
    background-color: white;
@@ -631,134 +629,4 @@ span:first-letter {
    text-transform: capitalize;
    /* Faqat birinchi harfni bosh qiladi */
 }
-
-
-
-
-
-
-
-/* 750px dan kichik ekranlar uchun qo'llanadigan uslublar */
-@media (max-width: 750px) {
-  /* Popupni markazga joylashtirish */
-  /* Popupning umumiy uslubi (750px dan katta ekranlar uchun eski ko'rinish) */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    /* border-radius: 8px; */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.popup-content {
-    padding: 20px;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: #333;
-    cursor: pointer;
-}
-
-/* Matnlarni markazlash va joylashtirish */
-.popup h2 {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 15px;
-    font-weight: bold;
-    color: #183e98;
-}
-
-ul.blog__categories {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul.blog__categories li {
-    /* display: flex; */
-    flex-direction: column;
-    padding: 10px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-ul.blog__categories li a {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: #333;
-}
-
-ul.blog__categories li span {
-    font-size: 14px;
-    /* color: #555; */
-}
-
-/* Flag uchun rasmni moslashtirish */
-.flag-icon {
-    width: 20px;
-    height: auto;
-    margin-right: 8px;
-}
-
-/* Mobil qurilmalarga moslashtirish faqat ekran kengligi 750px dan kichik bo'lsa */
-@media (max-width: 750px) {
-    .popup {
-        width: 90%;
-        max-width: none;
-    }
-
-    ul.blog__categories li {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    ul.blog__categories li a {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    ul.blog__categories li span {
-        font-size: 12px;
-    }
-
-    .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    background-color: white;
-    z-index: 1100; /* Yuqori qiymat beriladi */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.header-section {
-    position: relative;
-    z-index: 100; /* Pastroq qiymat qo'yiladi */
-}
-
-.sub-menu {
-    z-index: 100; /* Menyular pastroq bo'lishi uchun */
-}
-
-}
-
-}
-
-
-
-
-
 </style>

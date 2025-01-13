@@ -6,12 +6,8 @@
                 <img :src="currentImage" alt="" class="banner-image" />
                 <div class="button-container">
                     <!-- Tugmalarni API'dan kelayotgan ma'lumotlar asosida yaratish -->
-                    <router-link
-                        v-for="(link, index) in currentLinks"
-                        :key="index"
-                        :to="link.url"
-                        class="cmn--btn custom-button"
-                    >
+                    <router-link v-for="(link, index) in currentLinks" :key="index" :to="link.url"
+                        class="cmn--btn custom-button">
                         <span>{{ link.title }}</span>
                     </router-link>
                 </div>
@@ -1156,5 +1152,41 @@ export default {
     text-overflow: ellipsis;
     /* Oxiriga uch nuqta qo'shadi */
     white-space: normal;
+}
+
+
+
+
+@media (max-width: 1200px) {
+    .task__item {
+        flex-direction: column;
+        /* Elementlarni vertikal qilib o'rnatadi */
+        text-align: center;
+        /* Kontentni markazlashtiradi */
+    }
+
+    .task__item .thumb {
+        margin-bottom: 20px;
+        /* Rasmlar va kontent orasida masofa qo'shadi */
+        flex: 0 0 auto;
+        /* Rasm qisqarishini oldini oladi */
+    }
+
+    .task__item .content {
+        flex: 1 1 auto;
+        /* Kontent qismini to'ldiradi */
+    }
+
+    .task__item img {
+        max-width: 100%;
+        /* height: auto; */
+        margin: 0 auto;
+        /* Rasmlarni markazlashtiradi */
+    }
+
+    .container {
+        padding: 0 15px;
+        /* Yon tomondagi bo'shliqni sozlaydi */
+    }
 }
 </style>

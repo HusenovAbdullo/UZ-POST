@@ -257,6 +257,7 @@ export default {
   parcel: "Посылка",
   Small_packages: "Мелкие пакеты",
   letter: "письмо",
+  kuzatuv: "Отслеживание",
 
 
 

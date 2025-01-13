@@ -257,6 +257,8 @@ export default {
   parcel: "Posilka",
   Small_packages: "Mayda paketlar",
   letter: "Xat",
+  kuzatuv: "Kuzatuv",
+  
 
 
 
