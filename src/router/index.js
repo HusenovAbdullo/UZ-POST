@@ -11,6 +11,7 @@ import TahrirlashView from '@/views/TahrirlashView.vue';
 import YangiliklarView from '@/views/YangiliklarView.vue';
 import KalkulyatorView from '@/views/KalkulyatorView.vue';
 import TrackingView from '@/views/TrackingView.vue';
+import Tracking1View from '@/views/Tracking1View.vue';
 import MarkalarView from '@/views/MarkalarView.vue';
 import MarkaView from '@/views/MarkaView.vue';
 import AloqaView from '@/views/AloqaView.vue';
@@ -191,6 +192,12 @@ const routes = [
     path: '/tracking',
     name: 'tracking',
     component: TrackingView,
+    meta: { requiresReload: true }
+  },
+  {
+    path: '/:trackingNumber?',
+    name: 'tracking1',
+    component: Tracking1View,
     meta: { requiresReload: true }
   },
   {

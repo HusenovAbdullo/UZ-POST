@@ -5,7 +5,7 @@ async function fetchCurrencyRates() {
 
     const currencyList = document.getElementById('currency-list');
     if (!currencyList) {
-      console.error('Xatolik: "currency-list" IDga ega element topilmadi.');
+      
       return;
     }
     currencyList.innerHTML = ''; // Clear existing content
