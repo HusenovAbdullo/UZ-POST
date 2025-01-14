@@ -260,8 +260,8 @@ export default {
   kuzatuv: "Отслеживание",
   guest: "Гость",
   reset_password: "Восстановление пароля",
-  form_submission_failed: "Ваш запрос успешно отправлен",
-
+  form_submission_failed: "При отправке вашего запроса произошла ошибка.",
+  form_submitted_successfully: "Ваш запрос успешно отправлен",
 
 
 

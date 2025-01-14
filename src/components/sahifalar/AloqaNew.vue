@@ -230,14 +230,14 @@
 
    <!-- Popup Modal -->
    <div v-if="showPopup" class="popup-overlay">
-      <div class="popup-content">
-         <p>{{ $t('form_submitted_successfully') }}</p>
-         <button @click="closePopup" class="cmn--btn">
-            OK
-         </button>
-      </div>
-   </div>
-   <!-- Popup Modal End -->
+             <div class="popup-content">
+                <p>{{ $t('form_submitted_successfully') }}</p>
+                <button @click="closePopup" class="cmn--btn">
+                   OK
+                </button>
+             </div>
+          </div>
+          <!-- Popup Modal End -->
    <!-- contact section End -->
 </template>
 
@@ -246,109 +246,109 @@
 import axios from "axios";
 
 export default {
-   data() {
-      return {
-         form: {
-            name: "",
-            email: "",
-            phone: "",
-            file: null,
-            message: "",
-         },
-         errors: {
-            name: null,
-            phone: null,
-            message: null,
-         },
-         showPopup: false,
-      };
-   },
-   methods: {
-      handleFileUpload(event) {
-         this.form.file = event.target.files[0];
-      },
-      validateForm() {
-         this.errors = {
-            name: null,
-            phone: null,
-            message: null,
-         };
-         let valid = true;
+    data() {
+        return {
+            form: {
+                name: "",
+                email: "",
+                phone: "",
+                file: null,
+                message: "",
+            },
+            errors: {
+                name: null,
+                phone: null,
+                message: null,
+            },
+            showPopup: false,
+        };
+    },
+    methods: {
+        handleFileUpload(event) {
+            this.form.file = event.target.files[0];
+        },
+        validateForm() {
+            this.errors = {
+                name: null,
+                phone: null,
+                message: null,
+            };
+            let valid = true;
 
-         if (!this.form.name) {
-            this.errors.name = this.$t("enter_your_name");
-            valid = false;
-         }
-         if (!this.form.phone) {
-            this.errors.phone = this.$t("phone_placeholder");
-            valid = false;
-         }
-         if (!this.form.message) {
-            this.errors.message = this.$t("message_placeholder");
-            valid = false;
-         }
+            if (!this.form.name) {
+                this.errors.name = this.$t("enter_your_name") ;
+                valid = false;
+            }
+            if (!this.form.phone) {
+                this.errors.phone = this.$t("phone_placeholder") ;
+                valid = false;
+            }
+            if (!this.form.message) {
+                this.errors.message = this.$t("message_placeholder") ;
+                valid = false;
+            }
 
-         return valid;
-      },
-      async submitForm() {
-         if (!this.validateForm()) return;
+            return valid;
+        },
+        async submitForm() {
+            if (!this.validateForm()) return;
 
-         const formData = new FormData();
-         formData.append("full_name", this.form.name);
-         formData.append("phone_number", this.form.phone);
-         formData.append("email", this.form.email);
-         formData.append("file", this.form.file);
-         formData.append("description", this.form.message);
+            const formData = new FormData();
+            formData.append("full_name", this.form.name);
+            formData.append("phone_number", this.form.phone);
+            formData.append("email", this.form.email);
+            formData.append("file", this.form.file);
+            formData.append("description", this.form.message);
 
-         try {
-            await axios.post(
-               "https://new.pochta.uz/api/v1/public/userrequests/",
-               formData,
-               {
-                  headers: {
-                     "Content-Type": "multipart/form-data",
-                  },
-               }
-            );
-            this.showPopup = true;
-         } catch (error) {
-            alert(this.$t("form_submission_failed"));
-         }
-      },
-      closePopup() {
-         this.showPopup = false;
-      },
-   },
+            try {
+                await axios.post(
+                    "https://new.pochta.uz/api/v1/public/userrequests/",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                this.showPopup = true;
+            } catch (error) {
+                alert(this.$t("form_submission_failed"));
+            }
+        },
+        closePopup() {
+            this.showPopup = false;
+        },
+    },
 };
 </script>
 
 <style scoped>
 .text-danger {
-   color: red;
+    color: red;
 }
 
 .popup-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.5);
-   display: flex;
-   justify-content: center;
-   align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup-content {
-   background: #fff;
-   padding: 20px;
-   border-radius: 8px;
-   text-align: center;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .popup-content p {
-   margin-bottom: 20px;
-   font-size: 16px;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 </style>

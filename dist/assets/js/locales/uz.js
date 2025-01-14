@@ -260,7 +260,8 @@ export default {
   kuzatuv: "Kuzatuv",
   guest: "Mehmon",
   reset_password: "Parolni tiklash",
-  form_submission_failed: "Murojaatingiz muvoffaqqiyatli yuborildi"
+  form_submission_failed: "Murojaatingizni yuborishda xatolik yuz berdi",
+  form_submitted_successfully: "Murojaatingiz muvoffaqqiyatli yuborildi",
 
 
 

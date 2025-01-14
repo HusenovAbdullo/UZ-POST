@@ -113,25 +113,31 @@
                      <div class="menu__right__components d-flex align-items-center">
                         <div class="menu__components d-flex align-items-center" style="        gap: 5px;">
                            <div class="dropdown" title="Til">
-                              <a href="#" class="link glose__icon d-flex align-items-center" data-bs-toggle="dropdown"
-                                 data-bs-offset="0,14" aria-expanded="true">
-                                 <i class="bi bi-globe"></i>
-                              </a>
-                              <div class="dropdown-menu dropdown-start" data-popper-placement="bottom-start">
-                                 <ul class="list">
-                                    <li>
-                                       <a href="#" class="link d-inline-block dropdown-item"
-                                          @click.prevent="changeLanguage('uz')">
-                                          <span class="d-block bborder pb-1">Uz</span>
-                                       </a>
-                                       <a href="#" class="link d-inline-block dropdown-item"
-                                          @click.prevent="changeLanguage('ru')">
-                                          <span class="d-block">Ru</span>
-                                       </a>
-                                    </li>
-                                 </ul>
-                              </div>
-                           </div>
+   <a href="#" 
+      class="link glose__icon d-flex align-items-center" 
+      data-bs-toggle="dropdown"
+      data-bs-offset="0,14" 
+      aria-expanded="true">
+      <span v-if="currentLanguage === 'uz'">Uz</span>
+      <span v-else-if="currentLanguage === 'ru'">Ru</span>
+   </a>
+   <div class="dropdown-menu dropdown-start" data-popper-placement="bottom-start">
+      <ul class="list">
+         <li>
+            <a href="#" 
+               class="link d-inline-block dropdown-item"
+               @click.prevent="changeLanguage('uz')">
+               <span class="d-block bborder pb-1">Uz</span>
+            </a>
+            <a href="#" 
+               class="link d-inline-block dropdown-item"
+               @click.prevent="changeLanguage('ru')">
+               <span class="d-block">Ru</span>
+            </a>
+         </li>
+      </ul>
+   </div>
+</div>
                            <div class="dropdown ochirish" title="Xarita">
                               <router-link to="/map" class="link glose__icon d-flex align-items-center">
                                  <i class="bi-geo-alt"></i>
@@ -356,6 +362,7 @@ export default {
          menuElements: [],
          menuElementsItems: [],
          userToken: null, // Boshlang'ich qiymat
+         currentLanguage: 'uz', // Boshqa tilda boshlang'ich qiymat o'zgartiriladi
       };
    },
    created() {
@@ -406,6 +413,7 @@ export default {
       changeLanguage(lang) {
          this.$i18n.locale = lang; // vue-i18n orqali tilni o'zgartirish
          localStorage.setItem('locale', lang); // Tanlangan tilni localStorage ga saqlash
+         this.currentLanguage = lang;
       },
 
       refreshPage(event) {
