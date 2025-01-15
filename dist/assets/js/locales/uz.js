@@ -113,7 +113,7 @@ export default {
   enter_phone: "Telefon raqamingizni kiriting",
   enter_password: "Parolingizni kiriting",
   have_account: "Hisobingiz bormi?",
-  register: "Ro'yxatdan o'tish",
+  register: "Kabinet",
   error: "Xatolik",
   close: "Yopish",
   invalid_login: "Login yoki parol noto'g'ri.",
@@ -262,9 +262,9 @@ export default {
   reset_password: "Parolni tiklash",
   form_submission_failed: "Murojaatingizni yuborishda xatolik yuz berdi",
   form_submitted_successfully: "Murojaatingiz muvoffaqqiyatli yuborildi",
-
-
-
+  page_not_found: "Oops! Sahifa topilmadi",
+  contact_us_if_problem: "Muammo bo'lsa bizga murojaat qiling",
+  go_to_homepage: "Bosh sahifaga o'tish",
 
 
 

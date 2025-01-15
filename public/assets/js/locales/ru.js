@@ -114,7 +114,7 @@ export default {
   enter_phone: "Введите свой номер телефона",
   enter_password: "Введите свой пароль",
   have_account: "У вас есть аккаунт?",
-  register: "Зарегистрироваться",
+  register: "Кабинет",
   error: "Ошибка",
   close: "Закрыть",
   invalid_login: "Логин или пароль неверный.",
@@ -262,9 +262,9 @@ export default {
   reset_password: "Восстановление пароля",
   form_submission_failed: "При отправке вашего запроса произошла ошибка.",
   form_submitted_successfully: "Ваш запрос успешно отправлен",
-
-
-
+  page_not_found: "Упс! Страница не найдена",
+  contact_us_if_problem: "Если есть проблема, свяжитесь с нами",
+  go_to_homepage: "Перейти на главную страницу",
 
 
 };

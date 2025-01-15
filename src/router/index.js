@@ -195,9 +195,15 @@ const routes = [
     meta: { requiresReload: true }
   },
   {
-    path: '/:trackingNumber?',
+    path: '/tracking/:trackingNumber?',
     name: 'tracking1',
     component: Tracking1View,
+    meta: { requiresReload: true }
+  },
+  {
+    path: '/:trackingNumber?',
+    name: 'error',
+    component: ErrorView,
     meta: { requiresReload: true }
   },
   {

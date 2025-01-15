@@ -9,14 +9,14 @@
                </div>
                <div class="error__content text-center">
                   <h2 class="title mb-24">
-                     Oops! Sahifa topilmadi
+                     {{ $t('page_not_found') }}
                   </h2>
                   <p class="ptext2 fz-16 fw-400 inter mb-40">
-                     Muammo bo'lsa bizga murojaat qiling 
+                     {{ $t('contact_us_if_problem') }}
                   </p>
                   <router-link to="/" class="cmn--btn">
                      <span>
-                        Back To Home
+                        {{ $t('go_to_homepage') }}
                      </span>
                      <span>
                         <i class="bi bi-arrow-up-right"></i>

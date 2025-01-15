@@ -15,7 +15,7 @@
                         </form>
                         <div v-if="loading" class="loader truckWrapper" id="loader">
                             <video autoplay muted loop class="loaderVideo">
-                                <source src="assets/img/bosh/postman7.mp4" type="video/mp4">
+                                <source src="https://uz.post/assets/img/bosh/postman7.mp4" type="video/mp4">
                                 Sizning brauzeringiz video teglamasini qo‘llab-quvvatlamaydi.
                             </video>
                         </div>
@@ -36,7 +36,7 @@
                 <div v-if="trackingData.senderCountry" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
-                            <img src="assets/img/bn/profile.png" alt="img">
+                            <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
                         </div>
                         <div class="content">
                             <h3 class="inter title2 mb-24">Yuboruvchi</h3>
@@ -59,7 +59,7 @@
                 <div v-if="trackingData.recipientCountry" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
-                            <img src="assets/img/bn/profile.png" alt="img">
+                            <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
                         </div>
                         <div class="content">
                             <h3 class="inter title2 mb-24">Qabul qiluvchi</h3>
@@ -91,7 +91,7 @@
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
                                                     }}</span>
                                                 <span class="cateicon">
-                                                    <img :src="`assets/img/flags/${event.country_code.toLowerCase()}.svg`"
+                                                    <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
                                                         alt="flag" class="flag-icon">
                                                 </span>
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
@@ -121,40 +121,43 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4">
-    <div class="basic__skilled__wrapper">
-        <div class="darrell__profile round16 bgwhite">
-            <div id="adCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a href="https://uz.post" target="_blank">
-                            <img src="assets/img/reklama/11.png" class="d-block w-100" alt="ad1">
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="https://uz.post" target="_blank">
-                            <img src="assets/img/reklama/12.png" class="d-block w-100" alt="ad2">
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="https://uz.post" target="_blank">
-                            <img src="assets/img/reklama/13.png" class="d-block w-100" alt="ad3">
-                        </a>
+                    <div class="basic__skilled__wrapper">
+                        <div class="darrell__profile round16 bgwhite">
+                            <div id="adCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <a href="https://uz.post" target="_blank">
+                                            <img src="https://uz.post/assets/img/reklama/11.png" class="d-block w-100"
+                                                alt="ad1">
+                                        </a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a href="https://uz.post" target="_blank">
+                                            <img src="https://uz.post/assets/img/reklama/12.png" class="d-block w-100"
+                                                alt="ad2">
+                                        </a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a href="https://uz.post" target="_blank">
+                                            <img src="https://uz.post/assets/img/reklama/13.png" class="d-block w-100"
+                                                alt="ad3">
+                                        </a>
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#adCarousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#adCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
             </div>
         </div>
     </section>
@@ -293,14 +296,17 @@ export default {
 
 <style>
 #adCarousel .carousel-control-prev,
-    #adCarousel .carousel-control-next {
-        display: none; /* Tugmalarni yashirin holatga keltiramiz */
-    }
+#adCarousel .carousel-control-next {
+    display: none;
+    /* Tugmalarni yashirin holatga keltiramiz */
+}
 
-    #adCarousel:hover .carousel-control-prev,
-    #adCarousel:hover .carousel-control-next {
-        display: block; /* Hover holatida tugmalarni ko'rsatamiz */
-    }
+#adCarousel:hover .carousel-control-prev,
+#adCarousel:hover .carousel-control-next {
+    display: block;
+    /* Hover holatida tugmalarni ko'rsatamiz */
+}
+
 .hidden {
     display: none;
 }
