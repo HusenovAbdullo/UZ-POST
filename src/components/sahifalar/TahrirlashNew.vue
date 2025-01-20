@@ -62,7 +62,7 @@
                            <!-- <span class="fz-16 fw-400 inter title">
                      Machine Learner
                   </span> -->
-                  <ul
+                           <ul
                               class="d-flex mt-24 justify-content-center employer__listbase flex-wrap tranding__listbase align-items-center">
                               <li v-if="profile.region">
                                  <span class="fz-16 fw-400 inter pra">
@@ -118,7 +118,7 @@
                         <div class="tab-pane base fade show active" id="nav-home" role="tabpanel"
                            aria-labelledby="nav-home-tab">
                            <div class="accordion profile__gigedit" id="accordionExample">
-                              <div class="accordion-item mb-40">
+                              <!-- <div class="accordion-item mb-40">
                                  <span class="accordion-header" id="headingOne">
                                     <button class="accordion-button collapsed bborder" type="button"
                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
@@ -130,7 +130,7 @@
                                  <div id="collapseOne" class="accordion-collapse collapse show"
                                     aria-labelledby="headingOne">
                                     <div class="accordion-body">
-                                       <!-- <div class="basic__infos mb-24">
+                                       <div class="basic__infos mb-24">
                                           <div class="d-flex flex-wrap basic__proadded align-items-center">
                                              <div class="pro__andthumb d-flex align-items-center">
                                                 <span class="fz-20 fw-500 inter title">
@@ -153,18 +153,21 @@
                                                 </a>
                                              </div>
                                           </div>
-                                       </div> -->
+                                       </div>
                                        <form action="#0" class="row g-4">
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="name" class="fz-20 fw-500 inter mb-16 title">{{ $t('applicant') }}</label>
+                                             <label for="name" class="fz-20 fw-500 inter mb-16 title">{{ $t('applicant')
+                                                }}</label>
                                              <input type="text" id="name" :placeholder="$t('enter_your_name')">
                                           </div>
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="email1s" class="fz-20 fw-500 inter mb-16 title">{{ $t('email') }}</label>
+                                             <label for="email1s" class="fz-20 fw-500 inter mb-16 title">{{ $t('email')
+                                                }}</label>
                                              <input type="text" id="email1s" :placeholder="$t('email_placeholder')">
                                           </div>
                                           <div class="basig__grpinput" style="flex: 0 0 auto; width: 33%;">
-                                             <label for="numbr" class="fz-20 fw-500 inter mb-16 title">{{ $t('phone_number') }}</label>
+                                             <label for="numbr" class="fz-20 fw-500 inter mb-16 title">{{
+                                                $t('phone_number') }}</label>
                                              <input type="text" id="numbr" :placeholder="$t('phone_placeholder')">
                                           </div>
 
@@ -190,7 +193,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <!-- <div class="col-lg-12 ">
+                                          <div class="col-lg-12 ">
                                              <span class="fz-20 fw-500 inter title mb-16 d-block">
                                                 BIO:
                                              </span>
@@ -242,7 +245,7 @@
                                                    </span>
                                                 </a>
                                              </div>
-                                          </div> -->
+                                          </div>
                                        </form>
                                     </div>
                                  </div>
@@ -260,23 +263,27 @@
                                     <div class="accordion-body">
 
                                        <div class="col-lg-6 basig__grpinput">
-                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_region') }} </label>
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{
+                                             $t('your_region') }} </label>
                                           <input type="text" id="address" :placeholder="$t('your_address')">
                                        </div>
                                        <br>
                                        <div class="col-lg-6 basig__grpinput">
-                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_district') }}</label>
+                                          <label for="address" class="fz-20 fw-500 inter mb-16 title">{{
+                                             $t('your_district') }}</label>
                                           <input type="text" id="address" :placeholder="$t('your_address1')">
                                        </div>
                                        <br>
                                        <form action="#0" class="row g-4">
 
-                                          <!-- <div class="col-lg-6 basig__grpinput">
-                                    <label for="email2s" class="fz-20 fw-500 inter mb-16 title">Address line 2 <span class="pra">(Optional)</span> :</label>
-                                    <input type="text" id="email2s" placeholder="Enter adress 2">
-                                 </div> -->
+                                          <div class="col-lg-6 basig__grpinput">
+                                             <label for="email2s" class="fz-20 fw-500 inter mb-16 title">Address line 2
+                                                <span class="pra">(Optional)</span> :</label>
+                                             <input type="text" id="email2s" placeholder="Enter adress 2">
+                                          </div>
                                           <div class="col-lg-12 basig__grpinput">
-                                             <label for="numbr2" class="fz-20 fw-500 inter mb-16 title">{{ $t('your_postal_code') }} </label>
+                                             <label for="numbr2" class="fz-20 fw-500 inter mb-16 title">{{
+                                                $t('your_postal_code') }} </label>
                                              <input type="text" id="numbr2" :placeholder="$t('enter_postal_code')">
                                           </div>
                                           <div class="col-lg-12 mt-40">
@@ -297,7 +304,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <!-- <div class="accordion-item mb-40">
+                              <div class="accordion-item mb-40">
                                  <span class="accordion-header" id="headingThree">
                                     <button class="accordion-button bborder collapsed" type="button"
                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
@@ -376,7 +383,7 @@ export default {
          // Boshqa sahifalar uchun kerakli data qismini shu yerda aniqlang
       };
    },
-   
+
    mounted() {
       this.fetchProfileData();
    },

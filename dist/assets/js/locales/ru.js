@@ -265,6 +265,7 @@ export default {
   page_not_found: "Упс! Страница не найдена",
   contact_us_if_problem: "Если есть проблема, свяжитесь с нами",
   go_to_homepage: "Перейти на главную страницу",
+  no_data_found: "1234"
 
 
 };

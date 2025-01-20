@@ -52,7 +52,7 @@
 
                                 </div>
                                 <p class="fz-16 fw-400 title inter">
-                                    {{ $t('have_account') }} <a href="signup" class="base">{{ $t('register') }}</a>
+                                    {{ $t('have_account') }} <a href="signup" class="base">{{ $t('sign_up') }}</a>
                                 </p>
                                 <div class="col-lg-6">
                                     <div class="frm__grp">

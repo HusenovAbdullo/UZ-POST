@@ -288,7 +288,9 @@
                   <div class="container">
 
                      <div class="row ralt g-4" v-if="trackingData">
-                        <h2 class="title wow fadeInUp mb-24 center" id="trackingNumberDisplay">{{ trackingData.number }}
+
+                        <h2 class="title wow fadeInUp mb-24" style="text-align: center;" id="trackingNumberDisplay">{{
+                           trackingData.number }}
                         </h2>
                         <div class="col-xl-12 col-lg-12">
                            <div class="service__detailswrapper">
@@ -298,6 +300,10 @@
                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
                                        <br>
                                        <br>
+                                       <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
+                                          style="color: red; font-size: 20px;">
+                                          {{ trackingData.errorMessage }}
+                                       </h1>
                                        <ul class="blog__categories" id="combinedTracking">
                                           <li v-for="(event, index) in combinedTracking" :key="index">
                                              <a class="d-flex align-items-center">
@@ -456,6 +462,12 @@ export default {
                } else {
                   this.processAlternativeData(data);
                }
+            } else if (xhr.status === 404) {
+               // 404 xatolik uchun popup ko‘rsatish
+               this.trackingData = {
+                  number: this.trackingNumber,
+                  errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
+               };
             } else {
                this.errorMessage = 'Ma\'lumot topilmadi';
             }
@@ -466,6 +478,7 @@ export default {
          };
          xhr.send();
       },
+
       processEvents(events, countryCode) {
          this.combinedTracking = events.map(event => ({
             date: new Date(event.LocalDateTime),

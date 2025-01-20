@@ -2188,15 +2188,15 @@ p {
   }
   .header-bar span:first-child {
     top: 0;
-    background: var(--title);
+    background: #ffffff;
   }
   .header-bar span:nth-child(2) {
     top: 44%;
-    background: var(--title);
+    background: #ffffff;
   }
   .header-bar span:last-child {
     bottom: 0;
-    background: var(--title);
+    background: #ffffff;
   }
   .header-bar.active span:first-child {
     transform: rotate(45deg) translate(3px, 9px);

@@ -68,6 +68,7 @@ import YangilikView from '@/views/YangilikView.vue';
 import SahifalarView from '@/views/SahifalarView.vue';
 import HeaderItemView from '@/views/HeaderItemView.vue';
 import TiklashView from '@/views/TiklashView.vue';
+import SahifaView from '@/views/SahifaView.vue';
 const routes = [
   {
     path: '/',
@@ -144,6 +145,12 @@ const routes = [
     path: '/xizmat/:id',
     name: 'xizmat',
     component: XizmatView,
+    meta: { requiresReload: true }
+  },
+  {
+    path: '/sahifa/:id',
+    name: 'sahifa',
+    component: SahifaView,
     meta: { requiresReload: true }
   },
   {

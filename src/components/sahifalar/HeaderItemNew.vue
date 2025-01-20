@@ -57,7 +57,8 @@
                             </div>
                             <div class="col-lg-9">
                                 <div class="overview__gitwrapper bgwhite round16 border" v-if="pageData">
-                                    <h2 class="pb-40 bborderdash mb-20 title2">{{ pageData[`title_${$i18n.locale}`] || l}}</h2>
+                                    <h2 class="pb-40 bborderdash mb-20 title2">{{ pageData[`title_${$i18n.locale}`] ||
+                                        l }}</h2>
                                     <div class="text-content" v-html="serviceText"></div>
                                 </div>
                                 <div v-else>
@@ -66,10 +67,14 @@
                                             <h2 class="pb-40 bborderdash mb-20 title2">{{
                                                 subItem[`name_${$i18n.locale}`] || subItem.name_uz }}</h2>
                                             <div class="nav-item" role="presentation"
-                                                v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex">
-                                                <p class="title9">{{ page[`title_${$i18n.locale}`] || page.title_uz }}
-                                                </p>
+                                                v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex"
+                                                :class="{ active: activeSubItem === page.id }">
+                                                <a href="javascript:void(0);" class="title2"
+                                                    @click="setActiveSubItemAndMenu(subItem.id, page.id)">
+                                                    {{ page[`title_${$i18n.locale}`] || page.title_uz }}
+                                                </a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -114,17 +119,15 @@ export default {
         }
     },
     async mounted() {
-    this.fetchMenus(this.$i18n.locale);
-    this.fetchPageData(this.activeSubItem, this.$i18n.locale);
-},
-  watch: {
-    '$i18n.locale'(newLocale) {
-      if (this.activeSubItem) {
-        // Agar faol sub-item mavjud bo'lsa, yangi til bilan ma'lumotlarni qayta yuklash
-        this.fetchPageData(this.activeSubItem, newLocale);
-      }
+        this.fetchMenus(this.$i18n.locale);
     },
-  },
+    watch: {
+        '$i18n.locale'(newLocale) {
+            if (this.activeSubItem) {
+                this.fetchPageData(this.activeSubItem, newLocale);
+            }
+        },
+    },
     methods: {
         loadFontsFromText(text) {
             // `font-family` qiymatini tahlil qilish uchun regex
@@ -158,6 +161,12 @@ export default {
         toggleMenu(menuId) {
             this.activeMenu = this.activeMenu === menuId ? null : menuId;
         },
+        setActiveSubItemAndMenu(menuId, subItemId) {
+        this.activeMenu = menuId; // Faol bo'lgan menyuni yangilash
+        this.activeSubItem = subItemId; // Faol bo'lgan sub-itemni yangilash
+        this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
+
+    },
         // Faollashtirilgan sub-item ID sini saqlash
         setActiveSubItem(subItemId) {
 
@@ -188,9 +197,7 @@ export default {
                     this.serviceText = this.pageData[`text_${locale}`] || '';
                     this.loadFontsFromText(this.serviceText) // HTML formatidagi matn
 
-                } else {
-                    console.error('API dan sahifa ma\'lumotlari olishda xatolik');
-                }
+                } 
             } catch (error) {
                 console.error('Sahifa ma\'lumotlarini olishda xatolik:', error);
             }

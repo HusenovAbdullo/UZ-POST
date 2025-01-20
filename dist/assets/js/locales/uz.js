@@ -265,6 +265,7 @@ export default {
   page_not_found: "Oops! Sahifa topilmadi",
   contact_us_if_problem: "Muammo bo'lsa bizga murojaat qiling",
   go_to_homepage: "Bosh sahifaga o'tish",
+  no_data_found: "Xatolik"
 
 
 
