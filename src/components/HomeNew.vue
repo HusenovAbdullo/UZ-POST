@@ -944,7 +944,7 @@ export default {
                     image_uz: this.ensureHttps(banner.image_uz),
                     image_ru: this.ensureHttps(banner.image_ru),
                 }));
-                console.log(this.banners)
+                
             } catch (error) {
                 console.error("Bannerni olishda xato:", error);
             }
