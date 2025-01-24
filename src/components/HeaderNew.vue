@@ -402,10 +402,10 @@ export default {
       },
       async fetchMenuElements() {
          try {
-            const response = await axios.get("https://new.pochta.uz/api/v1/public/menu/");
+            const response = await axios.get("https://new.pochta.uz/api/v1/public/menu-elements/");
             this.menuElements = (response.data || []).filter(item => item.status === true);
             if (this.menuElements.length > 0) {
-               this.menuElementsItems = this.menuElements[0].menu_elements || [];
+               this.menuElementsItems = this.menuElements || [];
             } else {
                this.menuElementsItems = [];
             }

@@ -25,8 +25,7 @@
 
                                 <!-- Search Form -->
                                 <form @submit.prevent="searchData" class="d-flex align-items-center position-relative">
-                                    <input v-model="searchQuery" type="text" placeholder=""
-                                        class="faded-placeholder"
+                                    <input v-model="searchQuery" type="text" placeholder="" class="faded-placeholder"
                                         style="padding: 3px 1px 12px; font-size: 14px; border: 1px solid var(--base); border-top-left-radius: 4px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 4px;"
                                         @input="updateSuggestions">
                                     <button type="submit" class="cmn--btni1 d-flex align-items-center"
@@ -132,25 +131,25 @@ export default defineComponent({
 
 
             this.warehouses.forEach((warehouse) => {
-        const { lat, lng, name_uz, region, district, index, street, geolocation, EMS, one_step } = warehouse.postal_office;
-        const polygonCoordinates = warehouse.locations?.locations || [];
+                const { lat, lng, name_uz, region, district, index, street, geolocation, EMS, one_step } = warehouse.postal_office;
+                const polygonCoordinates = warehouse.locations?.locations || [];
 
-        // Latitude va Longitude mavjudligini tekshirish
-        if (!lat || !lng) {
-            console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
-            return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
-        }
+                // Latitude va Longitude mavjudligini tekshirish
+                if (!lat || !lng) {
+                    console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
+                    return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
+                }
 
-        if (
-            (filter === "all") ||
-            (filter === "ems" && EMS === "Bor") ||
-            (filter === "one_step" && one_step === "Bor")
-        ) {
-            let markerLat = parseFloat(lat);
-            let markerLng = parseFloat(lng);
+                if (
+                    (filter === "all") ||
+                    (filter === "ems" && EMS === "Bor") ||
+                    (filter === "one_step" && one_step === "Bor")
+                ) {
+                    let markerLat = parseFloat(lat);
+                    let markerLng = parseFloat(lng);
 
-            const marker = L.marker([markerLat, markerLng], { icon: customIcon })
-                .bindPopup(`
+                    const marker = L.marker([markerLat, markerLng], { icon: customIcon })
+                        .bindPopup(`
                 <h3>${name_uz}</h3>
                 <p>Viloyat: ${region}</p>
                 <p>Tuman: ${district}</p>
@@ -158,13 +157,13 @@ export default defineComponent({
                 <p>Indeks: ${index || "Noma'lum"}</p>
                 <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
             `)
-                .on("click", () => {
-                    this.drawArea(polygonCoordinates);
-                });
+                        .on("click", () => {
+                            this.drawArea(polygonCoordinates);
+                        });
 
-            this.markers.addLayer(marker);
-        }
-    });
+                    this.markers.addLayer(marker);
+                }
+            });
         },
         drawArea(polygonCoordinates) {
             if (!polygonCoordinates || !polygonCoordinates.length) return;
@@ -314,7 +313,8 @@ export default defineComponent({
 <style scoped>
 .filter-buttons-wrapper {
     display: flex;
-    gap: 10px; /* Tugmalar orasidagi masofa */
+    gap: 10px;
+    /* Tugmalar orasidagi masofa */
     justify-content: center;
 }
 
@@ -351,6 +351,7 @@ export default defineComponent({
         border-radius: 4px;
     }
 }
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
