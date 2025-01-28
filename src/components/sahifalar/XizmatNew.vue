@@ -64,7 +64,6 @@ export default {
         this.fetchServiceData();
     },
     watch: {
-        // $i18n.locale o'zgarishini kuzatib, ma'lumotlarni qayta yuklash
         '$i18n.locale': function () {
             this.fetchServiceData();
         }

@@ -79,26 +79,25 @@
                            </ul>
                            <ul class="social justify-content-center mt-30 mb-40 d-flex align-items-center">
                               <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-telegram base"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-facebook base"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-instagram base"></i>
-                                 </a>
-                              </li>
-
-                              <li>
-                                 <a href="javascript:void(0)">
-                                    <i class="bi bi-linkedin base"></i>
-                                 </a>
-                              </li>
+                              <a href="https://t.me/uzpostuz">
+                                 <i class="bi bi-telegram"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="https://instagram.com/uzpost_">
+                                 <i class="bi bi-instagram"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="https://facebook.com/uzpochta">
+                                 <i class="bi bi-facebook"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="https://linkedin.com/company/uzpost">
+                                 <i class="bi bi-linkedin"></i>
+                              </a>
+                           </li>
                            </ul>
                         </div>
                      </div>

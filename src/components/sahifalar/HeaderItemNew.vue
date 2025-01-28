@@ -107,6 +107,7 @@ export default {
     computed: {
         allSubItems() {
             if (this.menus.length && this.menus[0].item_pages) {
+                console.log(this.menus[0].item_pages)
                 return this.menus[0].item_pages; // Faqat item_pages massivini qaytarish
             }
             return [];
@@ -182,6 +183,7 @@ export default {
                 if (response.data && response.data.item_pages) {
                     this.menus = [response.data];
                     this.MenuName = this.menus[0][`name_${locale}`] || ' '
+                    
                 } else {
                     console.error('API natijasi noto\'g\'ri formatda');
                 }

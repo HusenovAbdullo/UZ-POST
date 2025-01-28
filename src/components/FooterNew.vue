@@ -74,18 +74,23 @@
                         </p>
                         <ul class="social d-flex align-items-center">
                            <li>
-                              <a href="javascript:void(0)">
+                              <a href="https://t.me/uzpostuz">
+                                 <i class="bi bi-telegram"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="https://instagram.com/uzpost_">
+                                 <i class="bi bi-instagram"></i>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="https://facebook.com/uzpochta">
                                  <i class="bi bi-facebook"></i>
                               </a>
                            </li>
                            <li>
-                              <a href="javascript:void(0)">
-                                 <i class="bi bi-twitter"></i>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="javascript:void(0)">
-                                 <i class="bi bi-telegram"></i>
+                              <a href="https://linkedin.com/company/uzpost">
+                                 <i class="bi bi-linkedin"></i>
                               </a>
                            </li>
                         </ul>
@@ -161,7 +166,7 @@ export default {
          };
       }
    }
-   
+
 
 
 };

@@ -83,23 +83,23 @@
                   </span>
                   <ul class="social d-flex align-items-center">
                     <li>
-                      <a href="#0">
-                        <i class="bi bi-facebook"></i>
+                      <a href="https://t.me/uzpostuz">
+                        <i class="bi bi-telegram"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#0">
+                      <a href="https://instagram.com/uzpost_">
                         <i class="bi bi-instagram"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#0">
-                        <i class="bi bi-twitter"></i>
+                      <a href="https://facebook.com/uzpochta">
+                        <i class="bi bi-facebook"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#0">
-                        <i class="bi bi-pinterest"></i>
+                      <a href="https://linkedin.com/company/uzpost">
+                        <i class="bi bi-linkedin"></i>
                       </a>
                     </li>
                   </ul>
@@ -255,63 +255,63 @@ export default {
   },
 
   methods: {
-  async fetchNews(id) {
-    try {
-      const response = await axios.get(`https://new.pochta.uz/api/v1/public/uz-post-news/${id}/`);
-      this.newsItem = response.data;
-      if (this.newsItem) {
-        this.updateLocalizedText(); // Matnni birinchi marta yuklash
+    async fetchNews(id) {
+      try {
+        const response = await axios.get(`https://new.pochta.uz/api/v1/public/uz-post-news/${id}/`);
+        this.newsItem = response.data;
+        if (this.newsItem) {
+          this.updateLocalizedText(); // Matnni birinchi marta yuklash
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
       }
-    } catch (error) {
-      console.error('Error fetching news:', error);
-    }
-  },
-  updateLocalizedText() {
-    if (this.newsItem) {
-      const locale = this.$i18n.locale; // Joriy tilni olamiz
-      this.serviceText = this.newsItem[`text_${locale}`] || this.newsItem.text_uz || ''; // Tilga mos matn
-      this.loadFontsFromText(this.serviceText); // Fontlarni qayta yuklash
-    }
-  },
-  loadFontsFromText(text) {
-    const fontRegex = /font-family:\s*([^;"]+)/g;
-    let match;
-    const fonts = new Set();
+    },
+    updateLocalizedText() {
+      if (this.newsItem) {
+        const locale = this.$i18n.locale; // Joriy tilni olamiz
+        this.serviceText = this.newsItem[`text_${locale}`] || this.newsItem.text_uz || ''; // Tilga mos matn
+        this.loadFontsFromText(this.serviceText); // Fontlarni qayta yuklash
+      }
+    },
+    loadFontsFromText(text) {
+      const fontRegex = /font-family:\s*([^;"]+)/g;
+      let match;
+      const fonts = new Set();
 
-    while ((match = fontRegex.exec(text)) !== null) {
-      fonts.add(match[1].trim());
-    }
+      while ((match = fontRegex.exec(text)) !== null) {
+        fonts.add(match[1].trim());
+      }
 
-    fonts.forEach((font) => {
-      const fontPath = `/assets/css/fonts/${font}.ttf`;
-      this.loadFont(font, fontPath);
-    });
-  },
-  loadFont(fontName, fontPath) {
-    const fontFace = new FontFace(fontName, `url(${fontPath})`);
-    fontFace
-      .load()
-      .then((loadedFont) => {
-        document.fonts.add(loadedFont);
-      })
-      .catch(() => {
-        console.warn(`${fontName} font mavjud emas.`);
+      fonts.forEach((font) => {
+        const fontPath = `/assets/css/fonts/${font}.ttf`;
+        this.loadFont(font, fontPath);
       });
-  },
-  formatDate(dateString) {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-  },
-  getSecureImageUrl(url) {
-    if (url && url.startsWith('http://')) {
-      return url.replace('http://', 'https://');
+    },
+    loadFont(fontName, fontPath) {
+      const fontFace = new FontFace(fontName, `url(${fontPath})`);
+      fontFace
+        .load()
+        .then((loadedFont) => {
+          document.fonts.add(loadedFont);
+        })
+        .catch(() => {
+          console.warn(`${fontName} font mavjud emas.`);
+        });
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}.${month}.${year}`;
+    },
+    getSecureImageUrl(url) {
+      if (url && url.startsWith('http://')) {
+        return url.replace('http://', 'https://');
+      }
+      return url;
     }
-    return url;
   }
-}
 
 };
 </script>

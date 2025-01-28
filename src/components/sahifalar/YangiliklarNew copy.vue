@@ -183,21 +183,6 @@
         </div>
       </div>
 
-      <ul class="pagination justify-content-center mt-40">
-        <li v-if="currentPage > 1" @click.prevent="changePage(currentPage - 1)">
-          <a href="javascript:void(0)"><i class="bi bi-chevron-left base"></i></a>
-        </li>
-        <li v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }"
-          @click.prevent="changePage(page)">
-          <a href="javascript:void(0)">{{ page }}</a>
-        </li>
-        <li v-if="currentPage < totalPages" @click.prevent="changePage(currentPage + 1)">
-          <a href="javascript:void(0)"><i class="bi bi-chevron-right base"></i></a>
-        </li>
-      </ul>
-
-
-
     </div>
 
   </section>
@@ -211,8 +196,6 @@ export default {
   data() {
     return {
       newsItems: [], // API'dan olingan barcha yangiliklar
-      currentPage: 1,
-      totalPages: 0,
     };
   },
   computed: {
@@ -225,31 +208,18 @@ export default {
     this.fetchNews(); // Komponent yaratilganda API dan yangiliklarni yuklash
   },
   methods: {
-    async fetchNews(page = 1) {
+    async fetchNews() {
       try {
-        const response = await axios.get(
-          `https://new.pochta.uz/api/v1/public/uz-post-news-paginations/?page=${page}`
-        );
-        this.newsItems = response.data.results.map((item) => {
-          if (item.save_image && item.save_image.startsWith("http://")) {
-            item.save_image = item.save_image.replace("http://", "https://");
+        const response = await axios.get('https://new.pochta.uz/api/v1/public/uz-post-news/');
+        // HTTP -> HTTPS ni o'zgartirish
+        this.newsItems = response.data.map(item => {
+          if (item.save_image && item.save_image.startsWith('http://')) {
+            item.save_image = item.save_image.replace('http://', 'https://');
           }
           return item;
         });
-        this.totalPages = response.data.total_pages;
-        this.currentPage = page;
       } catch (error) {
-        console.error("Yangiliklar olishda xatolik yuz berdi:", error);
-      }
-    },
-    changePage(page) {
-      if (page > 0 && page <= this.totalPages) {
-        this.fetchNews(page).then(() => {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth", // Yumuq harakatlanish
-          });
-        });
+        console.error('Yangiliklar olishda xatolik yuz berdi:', error);
       }
     },
     formatDate(dateString) {
