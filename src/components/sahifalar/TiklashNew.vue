@@ -88,9 +88,9 @@
                                         <button type="button" class="cmn--btn basebor outline__btn" :disabled="loading"
                                             @click="handleSmsRequest">
                                             <span>
-                                                {{ smsSent ? (codeVerified ? (isRecovery ? "Parolni saqlash" :
-                                                    "Ro'yxatdan o'tish") : "Tasdiqlash") : "SMS kodini so'rang" }}
-                                            </span>
+    {{ smsSent ? (codeVerified ? (isRecovery ? $t('save_password') : $t('register')) : $t('verify')) : $t('request_sms_code') }}
+</span>
+
                                             <span>
                                                 <i class="bi bi-arrow-up-right"></i>
                                             </span>

@@ -326,6 +326,9 @@
                 <div class="company__logo">
                     <img src="assets/img/companiy2/temu.png" alt="company">
                 </div>
+                <div class="company__logo">
+                    <img src="https://new.pochta.uz/media/Asset_1.jpg" alt="company">
+                </div>
             </div>
         </div>
     </section>
@@ -527,7 +530,7 @@
     </section> -->
     <!-- Categoris section End -->
     <!-- App Here -->
-    <section class="app__section ralt bg__all pb-120 pt-120">
+    <section class="app__section ralt bg__all pt-120">
         <div class="container">
             <div class="row g-4 flex-row-reverse align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-7">
@@ -555,14 +558,14 @@
                 </div>
                 <div class="col-xl-5 col-lg-5">
                     <div class="app__thumb ralt">
-                        <img src="assets/img/app/mob.png" alt="card" class="">
+                        <img src="assets/img/app/mob3.png" alt="card" class="" width="500" height="700">
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- App End -->
-    <section class="app__section ralt bg__all pb-120 pt-120">
+    <section class="app__section ralt bg__all pt-120">
         <div class="container">
             <div>
                 <div>
@@ -632,7 +635,7 @@
                           ">
                                             <p>
 
-                                                <router-link to="xizmatlar" class="textrang">
+                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13" class="textrang">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
                                             </p>
@@ -669,7 +672,8 @@
 
 
 
-                                                <br><img src="assets/img/aralash/kuzatish.png" alt="Rasm"><br>
+                                                <br><img src="assets/img/aralash/kuzatish1.png" alt="Rasm" width="300" height="200">
+                                                <br>
                                                 <strong>{{ $t('tracking_code_types_heading') }}</strong>
                                                 <br>{{ $t('tracking_code_type_C') }}
                                                 <br>{{ $t('tracking_code_type_R') }}

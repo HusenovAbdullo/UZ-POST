@@ -103,7 +103,7 @@
                           ">
                                             <p>
 
-                                                <router-link to="xizmatlar" class="textrang">
+                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13" class="textrang">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
                                             </p>
@@ -140,7 +140,7 @@
 
 
 
-                                                <br><img src="assets/img/aralash/kuzatish.png" alt="Rasm"><br>
+                                                <br><img src="assets/img/aralash/kuzatish1.png" alt="Rasm" width="300" height="200"><br>
                                                 <strong>{{ $t('tracking_code_types_heading') }}</strong>
                                                 <br>{{ $t('tracking_code_type_C') }}
                                                 <br>{{ $t('tracking_code_type_R') }}

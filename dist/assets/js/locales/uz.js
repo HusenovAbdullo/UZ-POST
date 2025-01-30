@@ -92,7 +92,7 @@ export default {
   services_rates: "Xizmatlar tariflari bilan bu yerda tanishishingiz mumkin!",
   department_index: "Siz belgilangan manzilga xizmat ko'rsatadigan bo'lim indeksini bu yerda aniqlashingiz mumkin",
   my_index: "MENING INDEKSIM",
-  contact_us: "Biz bilan aloqa",
+  contact_us: "Aloqa uchun",
   address: "Yunusobod tumani, Oloy 1-ko'cha",
   subscribe_us: "Bizga obuna bo'ling",
   subscribe_info: "Bizning eng so'nggi yangiliklarimizdan xabardor bo'lib turish uchun obuna bo'ling",
@@ -265,7 +265,28 @@ export default {
   page_not_found: "Oops! Sahifa topilmadi",
   contact_us_if_problem: "Muammo bo'lsa bizga murojaat qiling",
   go_to_homepage: "Bosh sahifaga o'tish",
-  no_data_found: "Xatolik"
+  no_data_found: "Xatolik",
+  price_calculation_failed: "Narxni hisoblashda xatolik!",
+  parcel_weight_exceeded: "Posilka xizmatida vazni 30 kgdan oshmasligi kerak!",
+  small_packet_weight_exceeded: "Mayda paket vazni 2kg dan oshmasligi kerak!",
+  letter_weight_exceeded: "Xat vazni 2kg dan oshmasligi kerak!",
+  single_step_weight_exceeded: "Bir qadam vazni 20 kgdan oshmasligi kerak!",
+  fill_all_fields: "Barcha maydonlarni to'ldiring",
+  region: "Viloyat",
+  district: "Tuman",
+  street: "Ko'cha",
+  working_hours: "Ish vaqti",
+  location: "Joylashuv",
+  sender: "Yuboruvchi",
+  country: "Mamlakat:",
+  address5: "Manzil:",
+  postal_code: "Pochta indeksi:",
+  receiver: "Qabul qiluvchi",
+  save_password: "Parolni saqlash",
+  verify: "Tasdiqlash",
+  request_sms_code: "SMS kodini so'rang",
+
+
 
 
 

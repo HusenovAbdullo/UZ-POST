@@ -70,9 +70,9 @@
                            <div class="frm__grp">
                               <button type="submit" class="cmn--btn basebor outline__btn" :disabled="loading">
                                  <span>
-                                    {{ smsSent ? (codeVerified ? "Ro'yxatdan o'tish" : "Tasdiqlash") :
-                                       "SMS kodini so'rang" }}
-                                 </span>
+    {{ smsSent ? (codeVerified ? $t('register') : $t('verify')) : $t('request_sms_code') }}
+</span>
+
                                  <span>
                                     <i class="bi bi-arrow-up-right"></i>
                                  </span>

@@ -59,7 +59,7 @@
         </div>
         <div class="col-xl-4 col-lg-4">
           <div class="blog__sidebar">
-            <div class="blog__common__item bgwhite round16 mb-24">
+            <!-- <div class="blog__common__item bgwhite round16 mb-24">
               <h4 class="head fw-600 bborderdash title pb-24 mb-24">
                 {{ $t('search') }}
               </h4>
@@ -83,9 +83,9 @@
                 </li>
                 <li>
                   <a href="blog-details.html" class="d-flex align-items-center">
-                    <!-- <span class="cateicon">
+                    <span class="cateicon">
                                  <img src="assets/img/custom-icon/aimacine.png" alt="round">
-                              </span> -->
+                              </span>
                     <span class="fz-18 title inter">
                       {{ $t('service_news') }}
                     </span>
@@ -93,9 +93,9 @@
                 </li>
                 <li>
                   <a href="blog-details.html" class="d-flex align-items-center">
-                    <!-- <span class="cateicon">
+                    <span class="cateicon">
                                  <img src="assets/img/custom-icon/inter.png" alt="round">
-                              </span> -->
+                              </span>
                     <span class="fz-18 title inter">
                       {{ $t('official_statements') }}
                     </span>
@@ -103,9 +103,9 @@
                 </li>
                 <li>
                   <a href="blog-details.html" class="d-flex align-items-center">
-                    <!-- <span class="cateicon">
+                    <span class="cateicon">
                                  <img src="assets/img/custom-icon/aibrain.png" alt="round">
-                              </span> -->
+                              </span>
                     <span class="fz-18 title inter">
                       {{ $t('department_news') }}
                     </span>
@@ -113,9 +113,9 @@
                 </li>
                 <li>
                   <a href="blog-details.html" class="d-flex align-items-center">
-                    <!-- <span class="cateicon">
+                    <span class="cateicon">
                                  <img src="assets/img/custom-icon/deep-learning.png" alt="round">
-                              </span> -->
+                              </span>
                     <span class="fz-18 title inter">
                       {{ $t('partnership_news') }}
                     </span>
@@ -129,7 +129,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> -->
             <div class="blog__common__item bgwhite round16 mb-24">
               <h4 class="head fw-600 bborderdash title pb-24 mb-24">
                 {{ $t('latest_news') }}

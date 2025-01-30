@@ -1,21 +1,21 @@
 <template>
    <div id="error-message" class="error-message" style="display: none;">
-      Narxni hisoblashda xatolik!
+      {{ $t('price_calculation_failed') }}
    </div>
    <div id="error-posilka" class="error-posilka" style="display: none;">
-      Posilka xizmatida vazni 30 kgdan oshmasligi kerak!
+      {{ $t('parcel_weight_exceeded') }}
    </div>
    <div id="error-maydapaket" class="error-maydapaket" style="display: none;">
-      Mayda paket vazni 2kg dan oshmasligi kerak!
+      {{ $t('small_packet_weight_exceeded') }}
    </div>
    <div id="error-xat" class="error-xat" style="display: none;">
-      Xat vazni 2kg dan oshmasligi kerak!
+      {{ $t('letter_weight_exceeded') }}
    </div>
    <div id="error-birqadam" class="error-birqadam" style="display: none;">
-      Bir qadam vazni 20 kgdan oshmasligi kerak!
+      {{ $t('single_step_weight_exceeded') }}
    </div>
    <div id="error-message1" class="error-message1" style="display: none;">
-      Barcha maydonlarni to'ldiring
+      {{ $t('fill_all_fields') }}
    </div>
    <section class="banner__breadcumn ralt">
       <div id="searchPopup" class="search__popup">
@@ -178,9 +178,11 @@
                                        <p>{{ $t('postomat') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
-                                       @click="activeTab = 'Davlat'">
+                                       @click="activeTab = 'Davlat'" v-if="activeService !== 209">
+                                       <!-- Agar "Bir qadam" tanlanmagan bo‘lsa ko‘rinadi -->
                                        <p>{{ $t('other_countries') }}</p>
                                     </button>
+
                                  </div>
 
                                  <div id="Index" class="tabcontent1" v-show="activeTab === 'Index'">
@@ -310,7 +312,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-lg-6 vesi left-align">
+                                    <!-- <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
                                           <label for="size" class="fz-180 fw-500 inter title mb-16">{{ $t('size')
                                              }}</label>
@@ -321,7 +323,7 @@
                                              <option value="35x38x45">35x38x45</option>
                                           </select>
                                        </div>
-                                    </div>
+                                    </div> -->
                                  </div>
                                  <div class="frm__grp mt-30" style="position: relative; top: -40px;">
                                     <button type="button" class="cmn--btn" @click="validateForm">

@@ -5,20 +5,21 @@
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
                     <div class="section__title text-center ralt mb-60">
                         <form action="#"
-                            class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp">
+                            class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp"
+                            @submit.prevent="fetchTrackingData">
                             <input v-model="trackingNumber" id="trackingNumberInput" placeholder="CC123456789UZ"
                                 class="faded-placeholder" @keyup.enter="fetchTrackingData">
                             <button type="button" class="cmn--btn d-flex align-items-center" @click="fetchTrackingData">
-                                <span>Kuzatish</span>
+                                <span>{{ $t('tracking') }}</span>
                                 <span><i class="bi bi-search fz-12"></i></span>
                             </button>
                         </form>
+
                         <div v-if="loading" class="loader truckWrapper" id="loader">
-                            <video autoplay muted loop class="loaderVideo">
-                                <source src="https://uz.post/assets/img/bosh/postman7.mp4" type="video/mp4">
-                                Sizning brauzeringiz video teglamasini qo‘llab-quvvatlamaydi.
-                            </video>
+                            <img src="https://new.pochta.uz/media/animatsion.gif" alt="Yuklanmoqda..."
+                                class="loaderImage">
                         </div>
+
                         <div v-else>
                             <!-- Header End -->
                             <!-- Include your popup section here -->
@@ -39,18 +40,18 @@
                             <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
                         </div>
                         <div class="content">
-                            <h3 class="inter title2 mb-24">Yuboruvchi</h3>
+                            <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
                             <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Mamlakat: </strong> <br>
+                                <strong>{{ $t('country') }} </strong> <br>
                                 <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
                             </p>
                             <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Manzil:</strong> <br>
+                                <strong>{{ $t('address5') }}</strong> <br>
                                 <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
                             </p>
 
                             <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Pochta indeksi:</strong> <br>
+                                <strong>{{ $t('postal_code') }}</strong> <br>
                                 <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode }}</span>
                             </p>
                         </div>
@@ -62,17 +63,17 @@
                             <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
                         </div>
                         <div class="content">
-                            <h3 class="inter title2 mb-24">Qabul qiluvchi</h3>
+                            <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
                             <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Mamlakat:</strong> <br>
+                                <strong>{{ $t('country') }} </strong> <br>
                                 <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry }}</span>
                             </p>
                             <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Manzil:</strong> <br>
+                                <strong>{{ $t('address5') }}</strong> <br>
                                 <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress }}</span>
                             </p>
                             <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
-                                <strong>Pochta indeksi:</strong> <br>
+                                <strong>{{ $t('postal_code') }}</strong> <br>
                                 <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
                                     }}</span>
                             </p>
@@ -84,7 +85,7 @@
                         <div class="trending__based mb-40 bgwhite round16 shadow1">
                             <div class="based__content border round16 bgwhite">
                                 <div class="freelancer__education bborderdash pb-30 mb-30">
-                                    <h3 class="title2">Kuzatuv</h3>
+                                    <h3 class="title2">{{ $t('kuzatuv') }}</h3>
                                     <ul class="blog__categories" id="combinedTracking">
                                         <li v-for="(event, index) in combinedTracking" :key="index">
                                             <a href="#0" class="d-flex align-items-center">
@@ -345,5 +346,12 @@ export default {
     color: #888;
     display: block;
     /* Yangi qatorga chiqishini ta'minlash */
+}
+
+.loaderImage {
+    width: 600px;
+    /* Rasm kengligi */
+    height: auto;
+    /* Asl nisbatni saqlash */
 }
 </style>

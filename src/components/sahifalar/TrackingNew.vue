@@ -14,10 +14,8 @@
                             </button>
                         </form>
                         <div v-if="loading" class="loader truckWrapper" id="loader">
-                            <video autoplay muted loop class="loaderVideo">
-                                <source src="assets/img/bosh/postman7.mp4" type="video/mp4">
-                                Sizning brauzeringiz video teglamasini qo‘llab-quvvatlamaydi.
-                            </video>
+                            <img src="https://new.pochta.uz/media/animatsion.gif" alt="Yuklanmoqda..."
+                                class="loaderImage">
                         </div>
                         <div v-else>
                             <!-- Header End -->
@@ -331,5 +329,12 @@ export default {
     color: #888;
     display: block;
     /* Yangi qatorga chiqishini ta'minlash */
+}
+
+.loaderImage {
+    width: 600px;
+    /* Rasm kengligi */
+    height: auto;
+    /* Asl nisbatni saqlash */
 }
 </style>

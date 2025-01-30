@@ -41,12 +41,21 @@
                         </a>
                         <ul class="footer__contact">
                            <li>
-                              <a href="javascript:void(0)"
+                              <a href="tel:1165"
                                  class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
                                  <i class="bi bi-telephone-plus cmn__icon cmn__icon"></i>
-                                 <span>1165 yoki +998 (71) 233-57-47</span>
+                                 <span>1165</span>
                               </a>
                            </li>
+
+                           <li>
+                              <a href="tel:+998712335747"
+                                 class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
+                                 <i class="bi bi-telephone-plus cmn__icon cmn__icon"></i>
+                                 <span>+998 (71) 233-57-47</span>
+                              </a>
+                           </li>
+
                            <li>
                               <a href="javascript:void(0)"
                                  class="fz-18 d-flex align-items-center gap-3 fw-400 inter cef__pra d-block">
@@ -106,19 +115,21 @@
                <p><a href="https://t.me/Husenov_Abdullo" style="text-decoration: none; color: #00000000;">A</a></p>
                <ul class="help__support d-flex align-items-center">
                   <li>
-                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+                     <router-link to="/savollar" class="text-white fz-16 fw-400 inter">
                         {{ $t('help_support') }}
-                     </a>
+                     </router-link>
+
                   </li>
                   <li>
-                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+
+                     <router-link to="/sahifa/5/" class="text-white fz-16 fw-400 inter">
                         {{ $t('privacy_policy') }}
-                     </a>
+                     </router-link>
                   </li>
                   <li>
-                     <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
+                     <!-- <a href="javascript:void(0)" class="text-white fz-16 fw-400 inter">
                         {{ $t('terms_conditions') }}
-                     </a>
+                     </a> -->
                   </li>
                </ul>
             </div>

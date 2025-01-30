@@ -89,8 +89,9 @@
                               <button type="button" class="cmn--btn basebor outline__btn" :disabled="loading"
                                  @click="handleSmsRequest">
                                  <span>
-                                    {{ smsSent ? (codeVerified ? "Ro'yxatdan o'tish" : "Tasdiqlash") : "SMS kodiniso'rang" }}
-                                 </span>
+    {{ smsSent ? (codeVerified ? $t('register') : $t('verify')) : $t('request_sms_code') }}
+</span>
+
                                  <span>
                                     <i class="bi bi-arrow-up-right"></i>
                                  </span>
