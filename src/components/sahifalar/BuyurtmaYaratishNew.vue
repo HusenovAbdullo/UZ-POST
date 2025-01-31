@@ -65,7 +65,14 @@
                            <button v-for="service in services" :key="service.id" class="tablinks"
                               :class="{ active: activeService === service.id }" @click="selectService(service.id)">
                               <img :src="service.image" alt="" style="width:30px;height:30px;" />
-                              <p>{{ service.name }}</p>
+                              <p>
+                                 <!-- Shartli tarjimalar -->
+                                 <span v-if="service.id === 136">{{ $t('parcel') }}</span>
+                                 <span v-else-if="service.id === 135">{{ $t('Small_packages') }}</span>
+                                 <span v-else-if="service.id === 33">{{ $t('letter') }}</span>
+                                 <span v-else-if="service.id === 209">Bir qadam</span>
+                                 <span v-else>{{ service.name[currentLanguage] }}</span>
+                              </p>
                            </button>
                         </div>
                         <br>
@@ -230,7 +237,8 @@
                                        <p>{{ $t('postomat') }}</p>
                                     </button>
                                     <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
-                                       @click="activeTab = 'Davlat'">
+                                       @click="activeTab = 'Davlat'" v-if="activeService !== 209">
+                                       <!-- Agar "Bir qadam" tanlanmagan bo‘lsa ko‘rinadi -->
                                        <p>{{ $t('other_countries') }}</p>
                                     </button>
                                  </div>

@@ -88,8 +88,9 @@
                                         <button type="button" class="cmn--btn basebor outline__btn" :disabled="loading"
                                             @click="handleSmsRequest">
                                             <span>
-    {{ smsSent ? (codeVerified ? (isRecovery ? $t('save_password') : $t('register')) : $t('verify')) : $t('request_sms_code') }}
-</span>
+                                                {{ smsSent ? (codeVerified ? (isRecovery ? $t('save_password') :
+                                                    $t('register')) : $t('verify')) : $t('request_sms_code') }}
+                                            </span>
 
                                             <span>
                                                 <i class="bi bi-arrow-up-right"></i>
@@ -101,6 +102,15 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- Popup UI -->
+                <div v-if="popupVisible" class="popup">
+                    <div class="popup-content">
+                        <p>{{ popupMessage }}</p>
+                        <button @click="popupVisible = false">{{ $t('ok') }}</button>
+                    </div>
+                </div>
+
                 <!-- Rasm qismi -->
                 <div class="col-xl-5 col-lg-6">
                     <div class="signup__thumb">
@@ -174,7 +184,7 @@ export default {
             this.handleSubmit();
         },
         handleSubmit() {
-            this.isRecovery = true
+            this.isRecovery = true;
             const phoneNumber = this.phoneInput.replace(/[^\d]/g, "").substring(3);
             const endpointPrefix = this.isRecovery ? "recovery/password" : "register";
 
@@ -184,7 +194,19 @@ export default {
                         this.smsSent = true;
                         this.startTimer();
                     })
-                    .catch((error) => this.showPopup(error.response?.data?.message || error.message));
+                    .catch((error) => {
+                        if (error.response) {
+                            if (error.response.status === 400) {
+                                this.showPopup(this.$t('phone_not_registered')); // Raqam ro‘yxatdan o‘tmagan
+                            } else if (error.response.status === 429) {
+                                this.showPopup(this.$t('too_many_attempts')); // Juda ko‘p urinish
+                            } else {
+                                this.showPopup(error.response?.data?.message || error.message);
+                            }
+                        } else {
+                            this.showPopup(this.$t('network_error'));
+                        }
+                    });
             } else if (!this.codeVerified) {
                 axios.post(`https://new.pochta.uz/api/v1/public/${endpointPrefix}/2/`, {
                     phone_number: phoneNumber,
@@ -193,7 +215,9 @@ export default {
                     .then(() => {
                         this.codeVerified = true;
                     })
-                    .catch((error) => this.showPopup(error.response?.data?.message || error.message));
+                    .catch((error) => {
+                        this.showPopup(error.response?.data?.message || error.message);
+                    });
             } else {
                 if (!this.password || !this.confirmPassword || (this.password !== this.confirmPassword)) {
                     this.showPopup(this.$t('password_error'));
@@ -201,18 +225,20 @@ export default {
                 }
 
                 axios.post(`https://new.pochta.uz/api/v1/public/${endpointPrefix}/3/`, {
-    phone_number: phoneNumber,
-    password: this.password,
-    ...(this.isRecovery ? {} : { first_name: this.name }),
-})
-    .then(() => {
-        this.showPopup(this.isRecovery ? this.$t('password_reset_success') : this.$t('registration_success'));
-        window.location.href = "/singin"; // Muvaffaqiyatli tugaganda yo'naltirish
-    })
-    .catch((error) => this.showPopup(error.response?.data?.message || error.message));
-
+                    phone_number: phoneNumber,
+                    password: this.password,
+                    ...(this.isRecovery ? {} : { first_name: this.name }),
+                })
+                    .then(() => {
+                        this.showPopup(this.isRecovery ? this.$t('password_reset_success') : this.$t('registration_success'));
+                        window.location.href = "/signin";
+                    })
+                    .catch((error) => {
+                        this.showPopup(error.response?.data?.message || error.message);
+                    });
             }
-        },
+        }
+        ,
     },
     beforeUnmount() {
         if (this.timerInterval) {

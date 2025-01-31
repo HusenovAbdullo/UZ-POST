@@ -285,7 +285,16 @@ export default {
   save_password: "Parolni saqlash",
   verify: "Tasdiqlash",
   request_sms_code: "SMS kodini so'rang",
-
+  order_number: "Buyurtma raqami",
+  shipment_type: "Jo'natma turi",
+  delivery_address: "Yetkazib berish manzili",
+  created_date: "Yaratilgan sana",
+  price: "Narxi",
+  status: "Status",
+  phone_not_registered: "Bu telefon raqami ro'yxatdan o'tmagan!",
+too_many_attempts: "Siz juda ko‘p urinish qildingiz. Iltimos, birozdan keyin qayta urinib ko‘ring!",
+network_error: "Tarmoq xatosi. Iltimos, internet ulanishingizni tekshiring va qayta urinib ko‘ring.",
+ok: "OK",
 
 
 

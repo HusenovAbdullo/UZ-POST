@@ -77,26 +77,27 @@
                            </ul>
                            <ul class="social justify-content-center mt-30 mb-40 d-flex align-items-center">
                               <li>
-                              <a href="https://t.me/uzpostuz">
-                                 <i class="bi bi-telegram"></i>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="https://instagram.com/uzpost_">
-                                 <i class="bi bi-instagram"></i>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="https://facebook.com/uzpochta">
-                                 <i class="bi bi-facebook"></i>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="https://linkedin.com/company/uzpost">
-                                 <i class="bi bi-linkedin"></i>
-                              </a>
-                           </li>
-                              
+                                 <a href="javascript:void(0)">
+                                    <i class="bi bi-telegram base"></i>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="javascript:void(0)">
+                                    <i class="bi bi-facebook base"></i>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="javascript:void(0)">
+                                    <i class="bi bi-instagram base"></i>
+                                 </a>
+                              </li>
+
+                              <li>
+                                 <a href="javascript:void(0)">
+                                    <i class="bi bi-linkedin base"></i>
+                                 </a>
+                              </li>
+
                            </ul>
                            <router-link to="/tahrirlash" class="cmn--btn outline__btn">
                               <span>{{ $t('edit_profile') }}
@@ -120,10 +121,11 @@
                         </button>
                         <button class="nav-link fz-16 fw-500 pra d-flex align-items-center gap-1" id="nav-profile-tab"
                            data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab"
-                           aria-controls="nav-profile" aria-selected="false">
+                           aria-controls="nav-profile" aria-selected="false" @click="fetchOrders">
                            <i class="bi bi-file-earmark-bar-graph"></i>
                            {{ $t('my_shipments') }}
                         </button>
+
                      </div>
                      <div class="tab-content">
                         <div class="tab-pane base fade show active" id="nav-home" role="tabpanel"
@@ -132,7 +134,7 @@
                               <span class="icon round100 d-flex align-items-center justify-content-center">
                                  <i class="bi bi-plus-lg"></i>
                               </span>
-                              <span class="fz-24 fw-600 inter pra">{{ $t('process_shipment') }}                              </span>
+                              <span class="fz-24 fw-600 inter pra">{{ $t('process_shipment') }} </span>
                            </router-link>
                         </div>
                         <div class="tab-pane base fade" id="nav-profile" role="tabpanel"
@@ -198,141 +200,32 @@
                                     <table class="table">
                                        <tbody>
                                           <tr>
-                                             <td class="fz-20 fw-500 pra inter">Date</td>
-                                             <td class="fz-20 fw-500 pra inter">Transaction</td>
-                                             <td class="fz-20 fw-500 pra inter">Service</td>
-                                             <td class="fz-20 fw-500 pra inter">Order</td>
-                                             <td class="fz-20 fw-500 pra inter">Currency</td>
-                                             <td class="fz-20 fw-500 pra inter">Total</td>
-                                             <td class="text-uppercase fz-20 fw-500 pra inter">Pdf</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('order_number') }}</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('shipment_type') }}</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('delivery_address') }}</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('created_date') }}</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('price') }}</td>
+                                             <td class="fz-20 fw-500 pra inter">{{ $t('status') }}</td>
                                           </tr>
-                                          <!-- <tr>
-                                             <td class="fz-16 fw-400 inter pra">03/05/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">55700223</td>
-                                             <td class="fz-16 fw-400 inter pra">Machine Learning</td>
-                                             <td class="fz-16 fw-400 inter pra">3</td>
-                                             <td class="fz-16 fw-400 inter pra">$</td>
-                                             <td class="fz-16 fw-400 inter pra">$215.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
+
+
+                                          <tr v-for="order in orders" :key="order.barcode">
+                                             <td class="fz-16 fw-400 inter pra">{{ order.barcode }}</td>
+                                             <td class="fz-16 fw-400 inter pra">{{ order.shipment_type }}</td>
+                                             <td class="fz-16 fw-400 inter pra">{{ order.to_jurisdiction }}</td>
+                                             <td class="fz-16 fw-400 inter pra">{{ formatDate(order.created_at) }}</td>
+                                             <td class="fz-16 fw-400 inter pra">{{ order.price }}</td>
+                                             <td class="fz-16 fw-400 inter pra">
+                                                <span v-if="order.order_status" class="text-success">Active</span>
+                                                <span v-else class="text-danger">Inactive</span>
+                                             </td>
                                           </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">03/05/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">55700223</td>
-                                             <td class="fz-16 fw-400 inter pra">Deep Learning</td>
-                                             <td class="fz-16 fw-400 inter pra">4</td>
-                                             <td class="fz-16 fw-400 inter pra">€</td>
-                                             <td class="fz-16 fw-400 inter pra">€654.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">27/06/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">34034474</td>
-                                             <td class="fz-16 fw-400 inter pra">Robotics </td>
-                                             <td class="fz-16 fw-400 inter pra">5</td>
-                                             <td class="fz-16 fw-400 inter pra">¥</td>
-                                             <td class="fz-16 fw-400 inter pra">¥956.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">09/07/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">58276066</td>
-                                             <td class="fz-16 fw-400 inter pra">Data Analytics</td>
-                                             <td class="fz-16 fw-400 inter pra">2</td>
-                                             <td class="fz-16 fw-400 inter pra">₽</td>
-                                             <td class="fz-16 fw-400 inter pra">₽546.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">15/07/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">43397744</td>
-                                             <td class="fz-16 fw-400 inter pra">Virtual Assistants</td>
-                                             <td class="fz-16 fw-400 inter pra">$</td>
-                                             <td class="fz-16 fw-400 inter pra">₽</td>
-                                             <td class="fz-16 fw-400 inter pra">$156.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">17/07/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">37890606</td>
-                                             <td class="fz-16 fw-400 inter pra">Healthcare AI</td>
-                                             <td class="fz-16 fw-400 inter pra">1</td>
-                                             <td class="fz-16 fw-400 inter pra">$</td>
-                                             <td class="fz-16 fw-400 inter pra">$96.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">19/07/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">76031847</td>
-                                             <td class="fz-16 fw-400 inter pra">AI in Finance</td>
-                                             <td class="fz-16 fw-400 inter pra">6</td>
-                                             <td class="fz-16 fw-400 inter pra">€</td>
-                                             <td class="fz-16 fw-400 inter pra">€856.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">21/07/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">66277431</td>
-                                             <td class="fz-16 fw-400 inter pra">NLP Language</td>
-                                             <td class="fz-16 fw-400 inter pra">3</td>
-                                             <td class="fz-16 fw-400 inter pra">€</td>
-                                             <td class="fz-16 fw-400 inter pra">€856.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">23/08/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">11081197</td>
-                                             <td class="fz-16 fw-400 inter pra">Machine Learning</td>
-                                             <td class="fz-16 fw-400 inter pra">4</td>
-                                             <td class="fz-16 fw-400 inter pra">€</td>
-                                             <td class="fz-16 fw-400 inter pra">€756.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr>
-                                          <tr>
-                                             <td class="fz-16 fw-400 inter pra">04/09/2023</td>
-                                             <td class="fz-16 fw-400 inter pra">66538135</td>
-                                             <td class="fz-16 fw-400 inter pra">Machine Learning</td>
-                                             <td class="fz-16 fw-400 inter pra">4</td>
-                                             <td class="fz-16 fw-400 inter pra">€</td>
-                                             <td class="fz-16 fw-400 inter pra">€356.00</td>
-                                             <td><i class="bi bi-download fz-18 base"></i></td>
-                                          </tr> -->
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
                            </div>
-                           <ul class="pagination justify-content-center mt-40">
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-chevron-left base"></i>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    1
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    2
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    3
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    ...
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#0">
-                                    <i class="bi bi-chevron-right base"></i>
-                                 </a>
-                              </li>
-                           </ul>
+
                         </div>
 
                      </div>
@@ -345,6 +238,8 @@
    <!-- profile section End -->
 </template>
 <script>
+import axios from "axios";
+
 export default {
    data() {
       return {
@@ -356,42 +251,73 @@ export default {
             phone_number: '',
             orders: [],
          },
+         orders: [],      // Buyurtmalar ro‘yxati
+         isLoading: true, // Ma’lumot yuklanayotganini bildiruvchi flag
       };
    },
-   mounted() {
-      this.fetchProfileData();
+   created() {
+      this.fetchProfileData(); // Profil ma'lumotlarini olish
    },
    methods: {
-      async fetchProfileData() {
-         try {
-            const token = localStorage.getItem('id_token');
-            if (!token) {
-               this.$router.push({ name: 'profil' });
-               return;
-            }
+      // Buyurtmalarni olish funksiyasi
+      async fetchOrders() {
+         this.isLoading = true; // Yuklanish boshlanadi
+         const token = localStorage.getItem("id_token");
 
-            const response = await fetch('https://new.pochta.uz/api/v1/public/profile/', {
-               method: 'GET',
-               headers: {
-                  Authorization: `Bearer ${token}`,
-               },
+         if (!token) {
+            console.error("Token topilmadi");
+            return;
+         }
+
+         try {
+            const response = await axios.get("https://new.pochta.uz/api/v1/public/profile/", {
+               headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (!response.ok) {
-               throw new Error('API fetch failed');
-            }
-
-            const data = await response.json();
-            this.profile = data;
+            this.orders = response.data.orders.filter(order => order.order_status === true);
          } catch (error) {
-            console.error('Error fetching profile data:', error);
-            this.$router.push({ name: 'profil' });
+            console.error("Buyurtmalarni olishda xatolik:", error);
+         } finally {
+            this.isLoading = false; // Yuklanish tugadi
          }
       },
+
+      // Sana formatini to‘g‘ri chiqarish
+      formatDate(date) {
+         const options = { year: 'numeric', month: 'long', day: 'numeric' };
+         return new Date(date).toLocaleDateString(undefined, options);
+      },
+
+      // Profil ma'lumotlarini olish
+      async fetchProfileData() {
+         this.isLoading = true; // Yuklanish boshlanadi
+         const token = localStorage.getItem("id_token");
+
+         if (!token) {
+            this.$router.push({ name: "profil" });
+            return;
+         }
+
+         try {
+            const response = await axios.get("https://new.pochta.uz/api/v1/public/profile/", {
+               headers: { Authorization: `Bearer ${token}` },
+            });
+
+            this.profile = response.data;
+         } catch (error) {
+            console.error("Profil ma'lumotlarini olishda xatolik:", error);
+            this.$router.push({ name: "profil" });
+         } finally {
+            this.isLoading = false; // Yuklanish tugadi
+         }
+      },
+
+      // Logout qilish funksiyasi
       handleLogout() {
-         localStorage.removeItem('id_token');
-         this.$router.push({ name: 'home' });
+         localStorage.removeItem("id_token");
+         this.$router.push({ name: "home" });
       },
    },
 };
 </script>
+
