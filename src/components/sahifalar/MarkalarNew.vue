@@ -186,7 +186,6 @@ export default {
   white-space: normal;
 }
 .service__item1 {
-  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
