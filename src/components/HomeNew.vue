@@ -200,7 +200,15 @@
                     class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
                         <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
-                            <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
+                            <template v-if="news.save_image">
+                                <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
+                            </template>
+                            <template v-else-if="news.video">
+                                <video controls class="round16 w-100">
+                                    <source :src="news.video" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </template>
                         </router-link>
                         <div class="service__content">
                             <h5 class="mb-16">
@@ -225,6 +233,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="text-center mt-40">
                 <router-link to="/yangiliklar" class="cmn--btn outline__btn" style="text-transform: none;">
@@ -635,7 +644,8 @@
                           ">
                                             <p>
 
-                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13" class="textrang">
+                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13"
+                                                    class="textrang">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
                                             </p>
@@ -672,7 +682,8 @@
 
 
 
-                                                <br><img src="assets/img/aralash/kuzatish1.png" alt="Rasm" width="300" height="200">
+                                                <br><img src="assets/img/aralash/kuzatish1.png" alt="Rasm" width="300"
+                                                    height="200">
                                                 <br>
                                                 <strong>{{ $t('tracking_code_types_heading') }}</strong>
                                                 <br>{{ $t('tracking_code_type_C') }}
@@ -909,20 +920,26 @@ export default {
         },
         async fetchNews() {
             try {
-                const response = await axios.get(
-                    "https://new.pochta.uz/api/v1/public/uz-post-news/"
-                );
-                // Oxirgi 4 ta yangilikni olish va rasm URL'larini https'ga o'zgartirish
+                const response = await axios.get("https://new.pochta.uz/api/v1/public/uz-post-news/");
                 this.latestNews = response.data.slice(-4).reverse().map((news) => {
+                    let videoUrl = null;
+                    if (!news.save_image) {
+                        const videos = news[`video_${this.$i18n.locale}`] || [];
+                        if (videos.length > 0) {
+                            videoUrl = videos[0].file.replace("http://", "https://");
+                        }
+                    }
                     return {
                         ...news,
-                        save_image: this.ensureHttps(news.save_image),
+                        save_image: news.save_image ? this.ensureHttps(news.save_image) : null,
+                        video: videoUrl,
                     };
                 });
             } catch (error) {
                 console.error("Yangiliklarni olishda xato:", error);
             }
-        },
+        }
+        ,
         ensureHttps(url) {
             // Agar URL HTTP bo'lsa, uni HTTPS'ga almashtiramiz
             if (url?.startsWith("http://")) {
@@ -948,7 +965,7 @@ export default {
                     image_uz: this.ensureHttps(banner.image_uz),
                     image_ru: this.ensureHttps(banner.image_ru),
                 }));
-                
+
             } catch (error) {
                 console.error("Bannerni olishda xato:", error);
             }

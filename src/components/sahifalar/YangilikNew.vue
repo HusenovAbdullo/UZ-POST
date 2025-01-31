@@ -37,7 +37,15 @@
         <div v-if="newsItem" class="col-xl-8 col-lg-8">
           <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
             <div class="bt__one mb-20">
-              <img :src="getSecureImageUrl(newsItem.save_image)" alt="news-image" class="round16 w-101" />
+              <template v-if="newsItem.save_image">
+                <img :src="getSecureImageUrl(newsItem.save_image)" alt="news-image" class="round16 w-101" />
+              </template>
+              <template v-else>
+                <video v-if="getVideoUrl()" controls class="round16 w-101">
+                  <source :src="getVideoUrl()" type="video/mp4" />
+                  {{ $t('video_not_supported') }}
+                </video>
+              </template>
             </div>
             <div class="blog__content">
               <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
@@ -251,6 +259,7 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.updateLocalizedText(); // Til o'zgarganda matnni yangilash funksiyasi
+      this.updateLocalizedContent(); // Video URLni ham yangilash
     }
   },
 
@@ -310,6 +319,27 @@ export default {
         return url.replace('http://', 'https://');
       }
       return url;
+    },
+    getVideoUrl() {
+      const locale = this.$i18n.locale;
+      let videoUrl = null;
+
+      if (locale === 'uz' && this.newsItem.video_uz.length) {
+        videoUrl = this.newsItem.video_uz[0].file;
+      } else if (locale === 'ru' && this.newsItem.video_ru.length) {
+        videoUrl = this.newsItem.video_ru[0].file;
+      }
+
+      // Agar video URL mavjud bo‘lsa, http:// ni https:// ga almashtiramiz
+      if (videoUrl && videoUrl.startsWith('http://')) {
+        return videoUrl.replace('http://', 'https://');
+      }
+
+      return videoUrl;
+    },
+    updateLocalizedContent() {
+      // Bu funksiyada video va boshqa matnlarni yangilaymiz
+      this.$forceUpdate(); // Komponentni qayta yuklash
     }
   }
 

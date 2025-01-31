@@ -31,8 +31,16 @@
         <div class="col-xl-8 col-lg-8">
           <div v-for="item in newsItems" :key="item.id" class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
             <div class="balance__transfercard shadow1 p-8 bgwhite mb-24 round16">
-              <div v-if="item.save_image" class="bt__one mb-20">
-                <img :src="item.save_image" alt="balance" class="round16 w-101" />
+              <div class="bt__one mb-20">
+                <img v-if="item.save_image" :src="item.save_image" alt="balance" class="round16 w-101" />
+                <video v-else-if="item.video_uz && item.video_uz.length" controls class="round16 w-101">
+                  <source :src="item.video_uz[0].file" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <video v-else-if="item.video_ru && item.video_ru.length" controls class="round16 w-101">
+                  <source :src="item.video_ru[0].file" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
               <div class="blog__content">
                 <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
@@ -233,6 +241,16 @@ export default {
         this.newsItems = response.data.results.map((item) => {
           if (item.save_image && item.save_image.startsWith("http://")) {
             item.save_image = item.save_image.replace("http://", "https://");
+          }
+          if (item.video_uz && item.video_uz.length) {
+            item.video_uz.forEach(video => {
+              video.file = video.file.replace("http://", "https://");
+            });
+          }
+          if (item.video_ru && item.video_ru.length) {
+            item.video_ru.forEach(video => {
+              video.file = video.file.replace("http://", "https://");
+            });
           }
           return item;
         });
