@@ -292,10 +292,10 @@ export default {
   price: "Narxi",
   status: "Status",
   phone_not_registered: "Bu telefon raqami ro'yxatdan o'tmagan!",
-too_many_attempts: "Siz juda ko‘p urinish qildingiz. Iltimos, birozdan keyin qayta urinib ko‘ring!",
-network_error: "Tarmoq xatosi. Iltimos, internet ulanishingizni tekshiring va qayta urinib ko‘ring.",
-ok: "OK",
-
+  too_many_attempts: "Siz juda ko‘p urinish qildingiz. Iltimos, birozdan keyin qayta urinib ko‘ring!",
+  network_error: "Tarmoq xatosi. Iltimos, internet ulanishingizni tekshiring va qayta urinib ko‘ring.",
+  ok: "OK",
+  password_error: "Parolni to'g'ri takrorlanganligini tekshiring",
 
 
 
