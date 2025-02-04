@@ -66,7 +66,7 @@
                         </h5>
                         <span class="fz-16 d-block inter title">
                            <a href="https://pixner.net/cdn-cgi/l/email-protection" class="__cf_email__"
-                              data-cfemail="cda4a3aba28da8b5aca0bda1a8e3aea2a0">uzpost.app@gmail.com </a>
+                              data-cfemail="cda4a3aba28da8b5aca0bda1a8e3aea2a0">uzpost.business@gmail.com </a>
                            <p class="fz-14">({{ $t('questions_suggestions') }})</p>
                         </span>
                         <span class="fz-16 d-block inter title">
