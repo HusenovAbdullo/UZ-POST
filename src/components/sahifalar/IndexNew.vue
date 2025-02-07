@@ -7,7 +7,7 @@
                         <div
                             class="overview__gitwrapper bgwhite round16 border p-3 d-flex flex-column align-items-center">
 
-                            <div class="" style="gap: 10px; display: flex;">
+                            <!-- <div class="" style="gap: 10px; display: flex;">
                                 <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
                                     @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
                                     {{ $t('all') }}
@@ -21,18 +21,20 @@
                                     @click="filterData('EMS')" style="font-size: 14px; padding: 8px 15px;">
                                     EMS
                                 </button>
-                            </div>
+                            </div> -->
 
                             <div class="search-wrapper">
                                 <form class="d-flex align-items-center position-relative mt-4">
-                                    <input type="text" placeholder="Ko'cha yoki mahalla nomini kiriting"
-                                        class="faded-placeholder" @input="searchLocation($event.target.value)"
-                                        style="padding: 3px 30px 12px; font-size: 14px; border: 1px solid var(--base); border-radius: 4px; width: 100%;" />
-                                    <button type="submit" class="cmn--btni1 d-flex align-items-center"
+                                    <input type="text" :placeholder="$t('izlashkocha')" class="search-input"
+                                        @input="searchLocation($event.target.value)" />
+                                    <div class="search-icon">
+                                        <i class="bi bi-search fz-12" style="font-size: 12px;"></i> {{ $t('search') }}
+                                    </div>
+                                    <!-- <button type="submit" class="cmn--btni1 d-flex align-items-center"
                                         style="padding: 10px 35px; border-radius: 4px; font-size: 14px;">
                                         <span><i class="bi bi-search fz-12" style="font-size: 12px;"></i></span>
                                         <span style="font-size: 14px;">{{ $t('search') }}</span>
-                                    </button>
+                                    </button> -->
                                 </form>
 
 
@@ -44,6 +46,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <br>
 
 
 
@@ -383,6 +386,33 @@ export default {
 
 
 <style scoped>
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    padding: 8px 100px 8px 12px;
+    /* Chap tomondan joy qoldiramiz */
+    font-size: 14px;
+    border: 1px solid var(--base);
+    border-radius: 4px;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
 .search-wrapper {
     position: relative;
     width: 90%;

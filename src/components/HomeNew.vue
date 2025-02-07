@@ -126,13 +126,13 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <router-link to="/map" class="titleq">
+                                    <router-link to="/index" class="titleq">
                                         {{ $t('my_post_index') }}
                                     </router-link>
                                 </h4>
                             </div>
                         </div>
-                        <router-link to="/map" class="d-flex readmore align-items-center gap-2">
+                        <router-link to="/index" class="d-flex readmore align-items-center gap-2">
                             <span class="fz-16 transition fw-600 base inter">
                                 {{ $t('more_details') }}
                             </span>
