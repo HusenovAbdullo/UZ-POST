@@ -69,6 +69,7 @@ import SahifalarView from '@/views/SahifalarView.vue';
 import HeaderItemView from '@/views/HeaderItemView.vue';
 import TiklashView from '@/views/TiklashView.vue';
 import SahifaView from '@/views/SahifaView.vue';
+import IndexViewVue from '@/views/IndexView.vue';
 const routes = [
   {
     path: '/',
@@ -481,6 +482,12 @@ const routes = [
     path: '/singin',
     name: 'singin',
     component: SinginView,
+    meta: { requiresReload: true }
+  },
+  {
+    path: '/index',
+    name: 'index',
+    component: IndexViewVue,
     meta: { requiresReload: true }
   }
   

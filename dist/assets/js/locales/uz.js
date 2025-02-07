@@ -296,8 +296,12 @@ export default {
   network_error: "Tarmoq xatosi. Iltimos, internet ulanishingizni tekshiring va qayta urinib ko‘ring.",
   ok: "OK",
   password_error: "Parolni to'g'ri takrorlanganligini tekshiring",
-
-
+  hudud: "Hudud",
+  shahar: "Shahar",
+uy: "Uy",
+Geolokatsiya: "Geolokatsiya",
+korish: "Ko'rish",
+izlashkocha: "Ko'cha yoki mahalla nomini kiriting"
 
 
 

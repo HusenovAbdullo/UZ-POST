@@ -321,7 +321,7 @@
                                                 <div class="input-wrapperfrom">
 
                                                    <input type="text" id="address" name="address" class="form-control"
-                                                      :placeholder="$t('recipient_address')" v-model="senderAddress">
+                                                      :placeholder="$t('recipient_address')" v-model="receiverAddress">
                                                    <span v-if="!senderAddress" class="red-starinputfrom">*</span>
                                                 </div>
                                              </div>
@@ -422,7 +422,7 @@
                         </p>
 
 
-                        <button type="button" class="cmn--btn" @click="validateOrder">
+                        <button  v-if="!isOrderVisible" type="button" class="cmn--btn" @click="validateOrder">
                            <span>
                               {{ $t('place_order') }} </span>
                            <span>

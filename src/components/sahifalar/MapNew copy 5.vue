@@ -82,6 +82,7 @@ export default defineComponent({
             suggestions: [],
             map: null,
             activeButton: "all", // Default active button
+            drawnPolygon: null // **HUDUD CHEGARASI UCHUN SAQLANADIGAN OBYEKTI**
         };
     },
     mounted() {
@@ -116,6 +117,9 @@ export default defineComponent({
         addMarkersToCluster(filter = "all") {
             this.markers.clearLayers();
 
+            // Joriy tilni aniqlash
+            const currentLang = this.$i18n.locale;
+
             // Ikonkalar uchun mos URL ni tanlash
             const customIcon = L.icon({
                 iconUrl: filter === "ems"
@@ -128,15 +132,16 @@ export default defineComponent({
                 popupAnchor: [0, -30],
             });
 
-
-
             this.warehouses.forEach((warehouse) => {
-                const { lat, lng, name_uz, region, district, index, street, geolocation, EMS, one_step } = warehouse.postal_office;
+                const { lat, lng, name_uz, name_ru, region, district, index, street, geolocation, EMS, one_step, working_hours } = warehouse.postal_office;
                 const polygonCoordinates = warehouse.locations?.locations || [];
+
+                // Tanlangan tilga qarab nomni olish
+                const name = currentLang === "ru" ? name_ru || name_uz : name_uz || name_ru;
 
                 // Latitude va Longitude mavjudligini tekshirish
                 if (!lat || !lng) {
-                    console.warn(`Ma'lumot yetishmaydi: ${name_uz || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
+                    console.warn(`Ma'lumot yetishmaydi: ${name || "Noma'lum"} (Lat: ${lat}, Lng: ${lng})`);
                     return; // Lat yoki Lng bo'lmasa, bu markerni o'tkazib yuboramiz
                 }
 
@@ -148,15 +153,27 @@ export default defineComponent({
                     let markerLat = parseFloat(lat);
                     let markerLng = parseFloat(lng);
 
+                    // Popup ma'lumotlari
+                    let popupContent = `
+                <h3>${name}</h3>
+                <p>${this.$t('region')}: ${region}</p>
+                <p>${this.$t('district')}: ${district}</p>
+            `;
+
+                    if (street) {
+                        popupContent += `<p>${this.$t('street')}: ${street}</p>`;
+                    }
+                    if (index) {
+                        popupContent += `<p>${this.$t('index')}: ${index}</p>`;
+                    }
+                    if (working_hours) {
+                        popupContent += `<p>${this.$t('working_hours')}: ${working_hours}</p>`;
+                    }
+
+                    popupContent += `<a href="${geolocation || "#"}" target="_blank">${this.$t('location')}</a>`;
+
                     const marker = L.marker([markerLat, markerLng], { icon: customIcon })
-                        .bindPopup(`
-                <h3>${name_uz}</h3>
-                <p>Viloyat: ${region}</p>
-                <p>Tuman: ${district}</p>
-                <p>Ko'cha: ${street}</p>
-                <p>Indeks: ${index || "Noma'lum"}</p>
-                <a href="${geolocation || "#"}" target="_blank">Joylashuv</a>
-            `)
+                        .bindPopup(popupContent)
                         .on("click", () => {
                             this.drawArea(polygonCoordinates);
                         });
@@ -168,8 +185,13 @@ export default defineComponent({
         drawArea(polygonCoordinates) {
             if (!polygonCoordinates || !polygonCoordinates.length) return;
 
-            // Hududni aniqlash va uni xaritada chizish
-            const areaPolygon = L.polygon(polygonCoordinates, {
+            // Agar avvalgi hudud bor bo'lsa, uni o'chiramiz
+            if (this.drawnPolygon) {
+                this.map.removeLayer(this.drawnPolygon);
+            }
+
+            // Yangi hududni chizish
+            this.drawnPolygon = L.polygon(polygonCoordinates, {
                 color: '#595959',
                 weight: 2,
                 fillColor: '#97a100',
@@ -177,10 +199,16 @@ export default defineComponent({
             }).addTo(this.map);
 
             // Xaritaning ko'rinishini chizilgan hududga moslashtirish
-            this.map.fitBounds(areaPolygon.getBounds());
+            this.map.fitBounds(this.drawnPolygon.getBounds());
         },
         updateSuggestions() {
-            const searchQueryLower = this.searchQuery.toLowerCase();
+            const searchQueryLower = this.searchQuery.toLowerCase().trim();
+
+            // Agar qidiruv maydoni bo'sh bo'lsa, tavsiyalarni yashirish
+            if (!searchQueryLower) {
+                this.suggestions = [];
+                return;
+            }
 
             this.suggestions = this.warehouses
                 .filter((warehouse) => {
@@ -198,7 +226,6 @@ export default defineComponent({
                 .map(warehouse => {
                     const { index, name_uz, name_ru, region, district, street } = warehouse.postal_office || {};
 
-                    // Qidiruvga mos kelgan maydonni aniqlash
                     if ((index || "").toLowerCase().includes(this.searchQuery.toLowerCase())) {
                         return `Indeks: ${index}`;
                     } else if ((name_uz || "").toLowerCase().includes(this.searchQuery.toLowerCase())) {
@@ -221,6 +248,8 @@ export default defineComponent({
 
         selectSuggestion(suggestion) {
             this.searchQuery = suggestion; // Qidiruv qatoriga tanlangan taklifni o'rnating
+            this.suggestions = []; // Takliflar ro‘yxatini tozalash
+
             const selectedWarehouse = this.warehouses.find((warehouse) => {
                 const { postal_office } = warehouse;
                 const { index, name_uz, region, district, street } = postal_office || {};
@@ -236,9 +265,16 @@ export default defineComponent({
             if (selectedWarehouse) {
                 this.focusMarker(selectedWarehouse.postal_office); // Xaritada markerga o'ting
             }
-        },
+        }
+        ,
         focusMarker(postalOffice) {
-            const { lat, lng } = postalOffice;
+            const { lat, lng, name_uz, name_ru, region, district, street, index, geolocation, working_hours } = postalOffice;
+
+            // Joriy tilni aniqlash
+            const currentLang = this.$i18n.locale;
+
+            // Tanlangan tilga qarab nomni olish
+            const name = currentLang === "ru" ? name_ru || name_uz : name_uz || name_ru;
 
             if (lat && lng) {
                 const markerLat = parseFloat(lat);
@@ -246,20 +282,35 @@ export default defineComponent({
 
                 this.map.setView([markerLat, markerLng], 14); // Xaritada kerakli joyni ko'rsatish
 
-                // Aloqa bo'limining popup'ini ochish
+                // Popup ma'lumotlarini yaratish
+                let popupContent = `
+            <h3>${name}</h3>
+            <p>${this.$t('region')}: ${region}</p>
+            <p>${this.$t('district')}: ${district}</p>
+        `;
+
+                if (street) {
+                    popupContent += `<p>${this.$t('street')}: ${street}</p>`;
+                }
+                if (index) {
+                    popupContent += `<p>${this.$t('index')}: ${index}</p>`;
+                }
+                if (working_hours) {
+                    popupContent += `<p>${this.$t('working_hours')}: ${working_hours}</p>`;
+                }
+
+                popupContent += `<a href="${geolocation || "#"}" target="_blank">${this.$t('location')}</a>`;
+
+                // Aloqa bo‘limining popup'ini ochish
                 const popup = L.popup()
                     .setLatLng([markerLat, markerLng])
-                    .setContent(`
-                    <h3>${postalOffice.name_uz}</h3>
-                    <p>Viloyat: ${postalOffice.region}</p>
-                    <p>Tuman: ${postalOffice.district}</p>
-                    <p>Ko'cha: ${postalOffice.street}</p>
-                    <p>Indeks: ${postalOffice.index}</p>
-                    <a href="${postalOffice.geolocation || "#"}" target="_blank">Joylashuv</a>
-                `);
+                    .setContent(popupContent);
+
                 popup.openOn(this.map);
             }
-        },
+        }
+
+        ,
         async searchData() {
             try {
                 const response = await fetch(`https://new.pochta.uz/api/v1/maps/post/offices/`);
@@ -396,13 +447,17 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-height: 113px;
+    max-height: 150px;
     overflow-y: auto;
     border: 1px solid #183e98;
     border-radius: 4px;
     z-index: 1000;
-    margin-top: 150px;
+
     background-color: #183e98 !important;
+    position: absolute;
+    top: 100%;
+    /* Formaning pastiga yopishadi */
+    left: 0;
 }
 
 .suggestion-item {
