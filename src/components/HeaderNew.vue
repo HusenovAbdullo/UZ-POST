@@ -75,16 +75,13 @@
                      <ul class="main-menu">
                         <li v-for="menuItem in menuElementsItems" :key="menuItem.id">
                            <template v-if="menuItem.link_uz">
-                              <!-- Agar link_uz mavjud bo'lsa, faqatgina havolaga o'tadi -->
                               <router-link :to="menuItem.link_uz">
                                  {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
                               </router-link>
                            </template>
                            <template v-else>
-                              <router-link :to="menuItem.url" class="menu-link">
                                  {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
                                  <i class="bi bi-chevron-down"></i>
-                              </router-link>
 
                               <ul class="sub-menu" style="top: 60%;">
                                  <li v-for="subItem in menuItem.elements" :key="subItem.id">
