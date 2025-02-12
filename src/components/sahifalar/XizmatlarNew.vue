@@ -38,7 +38,7 @@
                                 <p class="fz-14 fw-400 inter pra mb-40">
                                     {{ service[`description_${$i18n.locale}`] || null }}
                                 </p>
-                                <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
+                                <router-link :to="`/${$i18n.locale}/xizmat/${service.id}`" class="cmn--btn outline__btn">
                                     <span>
                                         {{ $t('more_details') }}
                                     </span>

@@ -9,10 +9,11 @@
                   <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-sm-6 wow fadeInUp item2" style="width: 25%;"
                      v-for="(item, index) in footerMenu" :key="index">
                      <div class="footer__item">
-                        <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
-
+                        <router-link :to="`/${$i18n.locale}${item.url}`"
+                           class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
                            {{ item[`name_${$i18n.locale}`] || item.name_uz }}
-                        </a>
+                        </router-link>
+
                         <ul class="quick__link">
                            <li v-for="(link, idx) in item.elements" :key="idx">
                               <template
@@ -22,10 +23,12 @@
                                  </a>
                               </template>
                               <template v-else>
-                                 <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block">
+                                 <router-link :to="getLink(link)" class="fz-18 fw-400 inter cef__pra d-block"
+                                    @click="reloadPage">
                                     {{ link[`name_${$i18n.locale}`] || link.name_uz }}
                                  </router-link>
                               </template>
+
                            </li>
                         </ul>
 
@@ -158,8 +161,14 @@ export default {
          });
    },
    methods: {
+      reloadPage() {
+         setTimeout(() => {
+            window.location.reload();
+         }, 100); // Sahifa o‘tishi uchun 100ms kutish
+      },
       getLink(link) {
          // Agar pdf_uz bo'lsa, faqat PDF ochiladi
+         const lang = this.$i18n.locale || "uz"; // Tilni aniqlash
 
 
          // Agar link_uz bo'lsa, faqat uni qaytarish
@@ -172,7 +181,7 @@ export default {
 
          // Agar hech biri bo'lmasa, sahifaga yo'naltirish
          return {
-            path: `/sahifalar/${link.name_uz}`,
+            path: `/${lang}/sahifalar/${link.name_uz}`,
             query: { id: link.id },
          };
       }

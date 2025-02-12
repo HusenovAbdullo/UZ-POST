@@ -511,15 +511,15 @@ export default {
       getServiceSVG(serviceName) {
          switch (serviceName) {
             case "Posilka":
-               return "assets/img/kalkulyator/posilka.svg";
+               return "https://new.pochta.uz/media/posilka.svg";
             case "Xat":
-               return "assets/img/kalkulyator/xat.svg";
+               return "https://new.pochta.uz/media/xat.svg";
             case "Bir Qadam":
-               return "assets/img/kalkulyator/bir.svg";
+               return "https://new.pochta.uz/media/bir.svg";
             case "Mayda paketlar":
-               return "assets/img/kalkulyator/paket.svg";
+               return "https://new.pochta.uz/media/paket.svg";
             default:
-               return "@/assets/svg/default.svg";
+               return "https://new.pochta.uz/media/default.svg";
          }
       },
 

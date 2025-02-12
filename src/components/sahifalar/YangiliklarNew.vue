@@ -50,14 +50,14 @@
                   </li>
                 </ul>
                 <h3 class="title mb-24">
-                  <router-link :to="'/yangilik/' + item.id" class="title">
+                  <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`" class="title">
                     {{ item[`title_${$i18n.locale}`] || item.title_uz }}
                   </router-link>
                 </h3>
                 <p v-if="item[`description_${$i18n.locale}`]" class="fz-16 fw-400 mb-40 ptext2 inter">
                   {{ item[`description_${$i18n.locale}`] || item.description_uz }}
                 </p>
-                <router-link :to="'/yangilik/' + item.id" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
                   <span>{{ $t('more_details') }}</span>
                   <span class="mt-1"><i class="bi bi-arrow-up-right"></i></span>
                 </router-link>
@@ -144,7 +144,8 @@
               </h4>
               <ul class="recent__post">
                 <li v-for="(item, index) in latestNews" :key="index">
-                  <a :href="'/yangilik/' + item.id"
+
+                  <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`"
                     class="recent___item bborderdash mb-24 pb-24 d-flex align-items-center">
                     <span class="cateicon">
                       <img :src="item.save_image" alt="round" style="width: 100px; height: 100px;">
@@ -155,7 +156,8 @@
                         {{ formatDate(item.date) }}
                       </span>
                     </span>
-                  </a>
+                  </router-link>
+
                 </li>
               </ul>
             </div>

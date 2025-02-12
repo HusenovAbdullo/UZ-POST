@@ -10,26 +10,26 @@ const messages = {
   ru
 };
 
-
-
-// Brauzerda saqlangan tilni yuklaymiz, aks holda 'uz' ni tanlaymiz
-const savedLocale = localStorage.getItem('locale') || 'uz';
+const savedLocale = localStorage.getItem('language') || 'uz';
 
 const i18n = createI18n({
+  legacy: false, // Vue 3 uchun legacy: false bo'lishi shart!
   locale: savedLocale, // Saqlangan til yoki standart til
   fallbackLocale: 'ru',
   messages,
 });
 
-// createApp ni app o'zgaruvchisiga saqlaymiz
 const app = createApp(App);
 
-app.use(router); // Routerni qo'shamiz
-app.use(i18n);   // i18n ni qo'shamiz
+app.use(router);
+app.use(i18n);
 
+// **Vue I18n ni global qilish**
+window.$i18n = i18n.global; 
+
+// Brauzerda "back" tugmachasi bosilganda sahifani yangilash
 window.addEventListener('popstate', () => {
-  window.location.reload(); // Orqaga qaytishda sahifani yangilaydi
+  window.location.reload();
 });
 
-// oxirida app'ni mount qilamiz
 app.mount('#app');

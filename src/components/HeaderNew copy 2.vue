@@ -96,13 +96,10 @@
                                              subItem.name_uz }}</span>
                                        </a>
                                        <!-- Agar link router uchun bo'lsa, router-link ishlatiladi -->
-                                       <router-link v-else :to="`/${$i18n.locale}${subItem.link_uz}`"
-                                          class="custom-link">
-                                          <span style="text-transform: none;">
-                                             {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                          </span>
+                                       <router-link v-else :to="subItem.link_uz" class="custom-link">
+                                          <span style="text-transform: none;">{{ subItem[`name_${$i18n.locale}`] ||
+                                             subItem.name_uz }}</span>
                                        </router-link>
-
                                     </template>
                                     <!-- Agar link_uz bo'lmasa, boshqa holatdagi linklar -->
                                     <template v-else>
@@ -501,8 +498,8 @@ export default {
             date: new Date(event.LocalDateTime),
             location: event.EventOffice.Name,
             status: event.IPSEventType.Name,
-            malumot: event.RetentionReason?.Name || '',
-            malumot2: event.NonDeliveryReason?.Name || '',
+            malumot: event.RetentionReason.Name,
+            malumot2: event.NonDeliveryReason.Name,
             country_code: countryCode
          })).sort((a, b) => b.date - a.date);
       },
@@ -520,22 +517,22 @@ export default {
          let shipoxList = [];
          let gdeposilkaList = [];
 
-         if (data.shipox?.data?.list) {
+         if (data.shipox && data.shipox.data && data.shipox.data.list) {
             shipoxList = data.shipox.data.list.map(item => ({
                date: new Date(item.date),
                data: item.data || 'UzPost',
-               location: item.warehouse?.name || '',
-               status: this.getLocalizedStatus(item),
+               location: item.warehouse ? item.warehouse.name : '',
+               status: this.getStatusText(item.status_desc),
                country_code: 'UZ'
             }));
          }
 
-         if (data.gdeposilka?.data?.checkpoints) {
+         if (data.gdeposilka && data.gdeposilka.data && data.gdeposilka.data.checkpoints) {
             gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
                date: new Date(item.time),
                location: item.location_translated,
                region: item.courier.name,
-               status: this.getLocalizedStatus(item),
+               status: this.getStatusText(item.status_name),
                country_code: item.courier.country_code
             }));
          }
@@ -547,16 +544,6 @@ export default {
             new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
                ? [...sortedShipoxList, ...sortedGdeposilkaList]
                : [...sortedGdeposilkaList, ...sortedShipoxList];
-      },
-      getLocalizedStatus(item) {
-         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-         if (lang === 'uz') {
-            return item.status_uz;
-         } else if (lang === 'ru') {
-            return item.status_ru;
-         } else {
-            return item.status_desc || 'Status unknown';
-         }
       },
       getStatusText(statusDesc) {
          return statusDesc || 'Status noaniq';
@@ -586,25 +573,6 @@ document.querySelectorAll('.sub-menu li').forEach(item => {
 
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

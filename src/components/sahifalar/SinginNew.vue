@@ -72,9 +72,10 @@
                 </div>
                 <div class="col-xl-5 col-lg-6">
                     <div class="signup__thumb">
-                        <img src="assets/img/faq/signup.png" alt="img"
+                        <img src="https://new.pochta.uz/media/signup.png" alt="img"
                             style="width: 100% !important; height: 500px; object-fit: cover;">
                     </div>
+
                 </div>
             </div>
         </div>

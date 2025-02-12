@@ -103,7 +103,9 @@
                           ">
                                             <p>
 
-                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13" class="textrang">
+                                                <router-link
+                                                    :to="`/${$i18n.locale}/headeritem/respublika-ichidagi-xizmatlar?id=13`"
+                                                    class="textrang" @click="reloadPage">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
                                             </p>

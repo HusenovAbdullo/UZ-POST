@@ -5,11 +5,14 @@
                 <!-- Slideshow -->
                 <img :src="currentImage" alt="" class="banner-image" />
                 <div class="button-container">
-                    <!-- Tugmalarni API'dan kelayotgan ma'lumotlar asosida yaratish -->
-                    <router-link v-for="(link, index) in currentLinks" :key="index" :to="link.url"
-                        class="cmn--btn custom-button">
-                        <span>{{ link.title }}</span>
-                    </router-link>
+                    <template v-for="(link, index) in currentLinks" :key="index">
+                        <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
+                            <span>{{ link.title }}</span>
+                        </router-link>
+                        <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
+                            <span>{{ link.title }}</span>
+                        </a>
+                    </template>
                 </div>
             </div>
         </div>
@@ -53,9 +56,10 @@
                             </div>
                             <div class="content">
                                 <h4 class="mb-10 title">
-                                    <a href="/yangiliklar" class="titleq">
+                                    <router-link :to="`/${$i18n.locale}/yangiliklar`" class="titleq">
                                         {{ $t('news') }}
-                                    </a>
+                                    </router-link>
+
                                 </h4>
                                 <br>
                             </div>
@@ -199,7 +203,7 @@
                 <div v-for="(news, index) in latestNews" :key="index"
                     class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6">
                     <div class="service__item shadow2 round16 p-8 bgwhite">
-                        <router-link :to="`/yangilik/${news.id}`" class="thumb round16 w-100">
+                        <router-link :to="`/${$i18n.locale}/yangilik/${news.id}`" class="thumb round16 w-100">
                             <template v-if="news.save_image">
                                 <img :src="news.save_image" class="round16 w-100" :alt="news.title" />
                             </template>
@@ -212,10 +216,10 @@
                         </router-link>
                         <div class="service__content">
                             <h5 class="mb-16">
-                                <router-link :to="`/yangilik/${news.id}`" class="titley">
+                                <router-link :to="`/${$i18n.locale}/yangilik/${news.id}`" class="titley">
                                     {{ news[`title_${$i18n.locale}`] || news.title_uz }}
                                 </router-link>
-                                <router-link :to="`/yangilik/${news.id}`" class="titlet">
+                                <router-link :to="`/${$i18n.locale}/yangilik/${news.id}`" class="titlet">
                                     {{ news[`description_${$i18n.locale}`] || news.description_uz }}
                                 </router-link>
                             </h5>
@@ -279,7 +283,7 @@
                             <p class="fz-14 fw-400 inter pra mb-40">
                                 {{ service[`description_${$i18n.locale}`] || service.description_uz }}
                             </p>
-                            <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
+                            <router-link :to="`/${$i18n.locale}/xizmat/${service.id}`" class="cmn--btn outline__btn">
                                 <span>
                                     {{ $t('more_details') }}
                                 </span>
@@ -293,7 +297,7 @@
             </div>
         </div>
         <div class="text-center mt-40">
-            <router-link to="/xizmatlar" class="cmn--btn outline__btn">
+            <router-link to="/${$i18n.locale}/xizmatlar" class="cmn--btn outline__btn">
                 <span>
                     {{ $t('view_all') }}
                 </span>
@@ -644,10 +648,13 @@
                           ">
                                             <p>
 
-                                                <router-link to="/headeritem/respublika-ichidagi-xizmatlar?id=13"
-                                                    class="textrang">
+                                                <router-link
+                                                    :to="`/${$i18n.locale}/headeritem/respublika-ichidagi-xizmatlar?id=13`"
+                                                    class="textrang" @click="reloadPage">
                                                     <strong><span>{{ $t('services_rates') }}</span></strong>
                                                 </router-link>
+
+
                                             </p>
 
                                         </div>
@@ -767,14 +774,16 @@
             </div>
             <div class="container4 d-flex flex-wrap gap-3">
                 <div v-for="item in marks" :key="item.id" class="frelancer__item shadow2 round16 bgwhite eni">
-                    <a :href="`/marka2/${item.id}`" class="thumb round16 w-100">
+                    <router-link :to="`/${$i18n.locale}/marka2/${item.id}`" class="thumb round16 w-100">
                         <img :src="item[`save_image_${$i18n.locale}`]?.replace('http://', 'https://') || item.save_image_uz"
                             class="round16 w-100" alt="service" />
-                    </a>
+                    </router-link>
+
                     <h5 class="mt-24 mb-20">
-                        <a :href="`/marka2/${item.id}`" class="titley">
+                        <router-link :to="`/${$i18n.locale}/marka2/${item.id}`" class="titley">
                             {{ truncateTitle(item[`title_${$i18n.locale}`] || item.title_uz, 45) }}
-                        </a>
+                        </router-link>
+
                     </h5>
                     <div class="d-flex bborderdash pb-20 align-items-center justify-content-between">
                         <div class="d-flex fz-16 fw-400 gap-2 inter pra align-items-center">
@@ -791,9 +800,10 @@
                             {{ formatPrice(item[`price_${$i18n.locale}`]) }}
                         </span>
                         <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
-                            <a :href="`/marka2/${item.id}`">
+                            <router-link :to="`/${$i18n.locale}/marka2/${item.id}`">
                                 <i class="bi bi-chevron-right title fz-16"></i>
-                            </a>
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -885,10 +895,29 @@ export default {
             const locale = this.$i18n.locale || "uz";
             if (this.banners.length > 0) {
                 const currentBanner = this.banners[this.currentBannerIndex];
-                return currentBanner.links.map(link => ({
-                    title: locale === "ru" ? link.title_ru : link.title_uz,
-                    url: locale === "ru" ? link.link_ru : link.link_uz,
-                }));
+                return currentBanner.links.map(link => {
+                    let formattedUrl = locale === "ru" ? link.link_ru : link.link_uz;
+
+                    // **1️⃣ Tashqi havolalar (http yoki https) uchun `<a>` tegi ishlatiladi**
+                    if (formattedUrl.startsWith("http")) {
+                        return {
+                            title: locale === "ru" ? link.title_ru : link.title_uz,
+                            url: formattedUrl, // Tashqi havola bo'lsa, o'zgartirmaymiz
+                            external: true, // Tashqi havola ekanligini belgilaymiz
+                        };
+                    }
+
+                    // **2️⃣ Agar URL nisbiy bo'lsa, til parametrini qo'shamiz**
+                    if (!formattedUrl.startsWith("/uz") && !formattedUrl.startsWith("/ru")) {
+                        formattedUrl = `/${locale}${formattedUrl}`;
+                    }
+
+                    return {
+                        title: locale === "ru" ? link.title_ru : link.title_uz,
+                        url: formattedUrl,
+                        external: false, // Ichki yo‘nalish
+                    };
+                });
             }
             return [];
         },

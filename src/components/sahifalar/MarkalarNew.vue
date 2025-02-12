@@ -48,11 +48,11 @@
             <div class="row justify-content-center g-4">
               <div v-for="mark in marks" :key="mark.id" class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6">
                 <div class="service__item service__item1 shadow2 round16 p-8 bgwhite">
-                  <router-link :to="`/marka2/${mark.id}`" class="thumb round16 w-100">
+                  <router-link :to="`/${$i18n.locale}/marka2/${mark.id}`" class="thumb round16 w-100">
                     <img :src="mark.save_image" class="round16 w-100" alt="service" />
                   </router-link>
                   <h5 class="mt-24 mb-20">
-                    <router-link :to="`/marka2/${mark.id}`" class="titlet">
+                    <router-link :to="`/${$i18n.locale}/marka2/${mark.id}`" class="titlet">
                       {{ mark.title }}
                     </router-link>
                   </h5>
@@ -70,7 +70,7 @@
                     <span class="fz-18 fw-600 inter base">
                       {{ mark.price }}
                     </span>
-                    <router-link :to="`/marka2/${mark.id}`"
+                    <router-link :to="`/${$i18n.locale}/marka2/${mark.id}`"
                       class="aylana boxes1 round50 d-flex align-items-center justify-content-center">
                       <i class="bi bi-chevron-right title fz-16"></i>
                     </router-link>

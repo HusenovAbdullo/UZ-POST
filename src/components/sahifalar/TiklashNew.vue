@@ -47,7 +47,9 @@
                                                 style="color: #000000; display: flex; align-items: center;">
                                                 <span class="checkmark"></span> {{ $t('not_robot') }}
                                             </label>
-                                            <img src="assets/img/bosh/re.png" alt="Captcha" class="recaptcha-icon" />
+                                            <img src="https://new.pochta.uz/media/re.png" alt="Captcha"
+                                                class="recaptcha-icon" />
+
                                         </div>
                                     </div>
                                 </div>
@@ -114,9 +116,10 @@
                 <!-- Rasm qismi -->
                 <div class="col-xl-5 col-lg-6">
                     <div class="signup__thumb">
-                        <img src="assets/img/faq/signup.png" alt="Signup"
+                        <img src="https://new.pochta.uz/media/signup_1.png" alt="Signup"
                             style="width: 100%; height: 500px; object-fit: cover;" />
                     </div>
+
                 </div>
             </div>
         </div>
@@ -231,7 +234,7 @@ export default {
                 })
                     .then(() => {
                         this.showPopup(this.isRecovery ? this.$t('password_reset_success') : this.$t('registration_success'));
-                        window.location.href = "/signin";
+                        window.location.href = "/singin";
                     })
                     .catch((error) => {
                         this.showPopup(error.response?.data?.message || error.message);

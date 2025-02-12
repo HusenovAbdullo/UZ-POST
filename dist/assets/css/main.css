@@ -4150,9 +4150,9 @@ p {
 .categoris__item:hover .readmore i {
   margin-left: 10px;
 }
-.categoris__item:hover h4 a {
+/* .categoris__item:hover h4 a {
   color: var(--hover);
-}
+} */
 .categoris__item:hover .icon::before {
   background: var(--hover);
 }
@@ -7696,12 +7696,11 @@ iframe {
   position: absolute;
   content: "";
   top: 50%;
-  transform: translate(-50%, -50%);
   left: 50%;
+  transform: translate(-50%, -50%);
   width: 0px;
   height: 0px;
   background: var(--hover);
-  transition: all 0.5s;
 }
 .cmn--btn:hover::before {
   width: 100%;

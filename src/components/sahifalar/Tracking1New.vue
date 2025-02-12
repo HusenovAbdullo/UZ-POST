@@ -163,120 +163,133 @@
         </div>
     </section>
 </template>
+
 <script>
 export default {
     data() {
         return {
-            trackingNumber: '', // Foydalanuvchi kiritadigan kuzatuv raqami
-            loading: false, // Yuklanish holati uchun belgi
-            trackingData: null, // Asosiy kuzatuv ma'lumotlari
-            combinedTracking: [], // Barcha kuzatuv voqealari
-            errorMessage: null, // Xato xabarlar uchun
+            trackingNumber: '',
+            loading: false,
+            trackingData: null,
+            combinedTracking: [],
+            errorMessage: null,
+            language: localStorage.getItem('language') || 'uz' // Sahifa tilini saqlash
         };
     },
     methods: {
-        // Kuzatuv ma'lumotlarini olish funksiyasi
         fetchTrackingData() {
-            if (!this.trackingNumber) {
-                this.errorMessage = 'Kuzatuv raqamini kiriting';
-                return;
+         this.loading = true;
+         this.trackingData = null;
+         this.combinedTracking = [];
+         this.errorMessage = null;
+
+         const xhr = new XMLHttpRequest();
+         xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+         xhr.onload = () => {
+            this.loading = false;
+            if (xhr.status >= 200 && xhr.status < 300) {
+               const data = JSON.parse(xhr.responseText);
+
+               if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+                  const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
+                  this.trackingData = {
+                     number: mailItem.InternationalId,
+                     senderCountry: mailItem.OrigCountry.Name || '',
+                     senderAddress: mailItem.OrigAddress || '',
+                     senderPostcode: mailItem.OrigPostcode || '',
+                     recipientCountry: mailItem.DestCountry.Name || '',
+                     recipientAddress: mailItem.DestAddress || '',
+                     recipientPostcode: mailItem.DestPostcode || ''
+                  };
+
+                  this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
+               } else {
+                  this.processAlternativeData(data);
+               }
+            } else if (xhr.status === 404) {
+               // 404 xatolik uchun popup ko‘rsatish
+               this.trackingData = {
+                  number: this.trackingNumber,
+                  errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
+               };
+            } else {
+               this.errorMessage = 'Ma\'lumot topilmadi';
             }
+         };
+         xhr.onerror = () => {
+            this.loading = false;
+            this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+         };
+         xhr.send();
+      },
 
-            this.loading = true;
-            this.trackingData = null;
-            this.combinedTracking = [];
-            this.errorMessage = null;
+      processEvents(events, countryCode) {
+         this.combinedTracking = events.map(event => ({
+            date: new Date(event.LocalDateTime),
+            location: event.EventOffice.Name,
+            status: event.IPSEventType.Name,
+            malumot: event.RetentionReason?.Name || '',
+            malumot2: event.NonDeliveryReason?.Name || '',
+            country_code: countryCode
+         })).sort((a, b) => b.date - a.date);
+      },
+      processAlternativeData(data) {
+         this.trackingData = {
+            number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+            senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
+            senderAddress: data.header?.data?.locations?.[0]?.address || '',
+            senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
+            recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
+            recipientAddress: data.header?.data?.locations?.[1]?.address || '',
+            recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+         };
 
-            // API so'rovini yuborish
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+         let shipoxList = [];
+         let gdeposilkaList = [];
 
-            xhr.onload = () => {
-                this.loading = false;
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    try {
-                        const data = JSON.parse(xhr.responseText);
-
-                        if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
-                            const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-                            this.trackingData = {
-                                number: mailItem.InternationalId,
-                                senderCountry: mailItem.OrigCountry?.Name || '',
-                                senderAddress: mailItem.OrigAddress || '',
-                                senderPostcode: mailItem.OrigPostcode || '',
-                                recipientCountry: mailItem.DestCountry?.Name || '',
-                                recipientAddress: mailItem.DestAddress || '',
-                                recipientPostcode: mailItem.DestPostcode || ''
-                            };
-
-                            this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry?.Code);
-                        } else {
-                            this.processAlternativeData(data);
-                        }
-                    } catch (error) {
-                        this.errorMessage = 'Ma\'lumotni tahlil qilishda xatolik yuz berdi';
-                    }
-                } else {
-                    this.errorMessage = 'Ma\'lumot topilmadi';
-                }
-            };
-
-            xhr.onerror = () => {
-                this.loading = false;
-                this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
-            };
-
-            xhr.send();
-        },
-
-        // Kuzatuv voqealarini qayta ishlash funksiyasi
-        processEvents(events, countryCode) {
-            this.combinedTracking = events.map(event => ({
-                date: new Date(event.LocalDateTime),
-                location: event.EventOffice?.Name || 'Noma\'lum joy',
-                status: event.IPSEventType?.Name || 'Noma\'lum holat',
-                malumot: event.RetentionReason?.Name || '',
-                malumot2: event.NonDeliveryReason?.Name || '',
-                country_code: countryCode || 'UZ'
-            })).sort((a, b) => b.date - a.date);
-        },
-
-        // Muqobil API ma'lumotlarini qayta ishlash funksiyasi
-        processAlternativeData(data) {
-            this.trackingData = {
-                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
-                senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
-                senderAddress: data.header?.data?.locations?.[0]?.address || '',
-                senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
-                recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
-                recipientAddress: data.header?.data?.locations?.[1]?.address || '',
-                recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
-            };
-
-            const shipoxList = (data.shipox?.data?.list || []).map(item => ({
-                date: new Date(item.date),
-                location: item.warehouse?.name || '',
-                status: this.getStatusText(item.status_desc),
-                country_code: 'UZ'
+         if (data.shipox?.data?.list) {
+            shipoxList = data.shipox.data.list.map(item => ({
+               date: new Date(item.date),
+               data: item.data || 'UzPost',
+               location: item.warehouse?.name || '',
+               status: this.getLocalizedStatus(item),
+               country_code: 'UZ'
             }));
+         }
 
-            const gdeposilkaList = (data.gdeposilka?.data?.checkpoints || []).map(item => ({
-                date: new Date(item.time),
-                location: item.location_translated || '',
-                status: this.getStatusText(item.status_name),
-                country_code: item.courier?.country_code || 'UZ'
+         if (data.gdeposilka?.data?.checkpoints) {
+            gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
+               date: new Date(item.time),
+               location: item.location_translated,
+               region: item.courier.name,
+               status: this.getLocalizedStatus(item),
+               country_code: item.courier.country_code
             }));
+         }
 
-            this.combinedTracking = [...shipoxList, ...gdeposilkaList].sort((a, b) => b.date - a.date);
-        },
+         const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
+         const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Status matnini olish uchun yordamchi funksiya
-        getStatusText(statusDesc) {
-            return statusDesc || 'Holat noaniq';
-        }
+         this.combinedTracking =
+            new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
+               ? [...sortedShipoxList, ...sortedGdeposilkaList]
+               : [...sortedGdeposilkaList, ...sortedShipoxList];
+      },
+      getLocalizedStatus(item) {
+         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+         if (lang === 'uz') {
+            return item.status_uz ;
+         } else if (lang === 'ru') {
+            return item.status_ru;
+         } else {
+            return item.status_desc || 'Status unknown';
+         }
+      },
+      getStatusText(statusDesc) {
+         return statusDesc || 'Status noaniq';
+      },
     },
     mounted() {
-        // URL'dan tracking raqamini o'qish
         if (this.$route?.params?.trackingNumber) {
             this.trackingNumber = this.$route.params.trackingNumber;
             this.fetchTrackingData();
@@ -284,6 +297,7 @@ export default {
     }
 };
 </script>
+
 
 
 

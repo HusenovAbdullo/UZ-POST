@@ -795,6 +795,7 @@ export default {
       },
 
       validateForm() {
+         this.isOrderVisible = false;
          if (this.activeTab === 'Index') {
             if (!this.selectedProvince1 || !this.selectedDistrict1 || !this.index || !this.weight) {
                this.totalPrice = 0;

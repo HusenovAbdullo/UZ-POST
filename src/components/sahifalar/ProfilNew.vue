@@ -51,9 +51,10 @@
                   <div class="main__profile__sidebar">
                      <div class="darrell__profile round16 mb-24 border bgwhite">
                         <div class="profile__check ralt">
-                           <img src="assets/img/bn/profile.jpg" alt="profile">
+                           <img src="https://new.pochta.uz/media/profile.jpg" alt="profile">
                            <i class="bi bi-check"></i>
                         </div>
+
                         <div class="darrell__content mt-40 text-center">
                            <h4 class="title mb-16">
                               {{ profile.first_name || '' }}
@@ -320,4 +321,3 @@ export default {
    },
 };
 </script>
-
