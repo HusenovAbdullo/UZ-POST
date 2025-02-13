@@ -297,7 +297,7 @@
             </div>
         </div>
         <div class="text-center mt-40">
-            <router-link to="/${$i18n.locale}/xizmatlar" class="cmn--btn outline__btn">
+            <router-link to="/xizmatlar" class="cmn--btn outline__btn">
                 <span>
                     {{ $t('view_all') }}
                 </span>
