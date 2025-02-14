@@ -184,7 +184,7 @@
     </div>
     <!--Search Popup-->
     <!-- Categoris section Here -->
-    <section class="service__section pt-220 pb-220 bg__tblr">
+    <!-- <section class="service__section pt-220 pb-220 bg__tblr">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
@@ -250,7 +250,7 @@
                 </router-link>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Categoris section End -->
     <!-- task categorish Section Here -->
     <section class="app__section ralt bg__all2 pb-120 pt-120">
@@ -543,7 +543,7 @@
     </section> -->
     <!-- Categoris section End -->
     <!-- App Here -->
-    <section class="app__section ralt bg__all pt-120">
+    <!-- <section class="app__section ralt bg__all pt-120">
         <div class="container">
             <div class="row g-4 flex-row-reverse align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-7">
@@ -576,7 +576,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- App End -->
     <section class="app__section ralt bg__all pt-120">
         <div class="container">
