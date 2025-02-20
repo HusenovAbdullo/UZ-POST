@@ -63,13 +63,9 @@
                                 </div>
                                 <div v-else>
                                     <div class="col-lg-12" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
-                                        <!-- Shart: Agar activeMenu null bo'lsa, subItem.name_uz === MenuName bo'lganlar chiqadi -->
-                                        <!-- Aks holda, faqat activeMenu === subItem.id bo'lganlar chiqadi -->
-                                        <div v-if="(activeMenu === null && subItem.name_uz === MenuName) || (activeMenu !== null && activeMenu === subItem.id)"
-                                            class="overview__gitwrapper bgwhite round16 border">
-                                            <h2 class="pb-40 bborderdash mb-20 title2">
-                                                {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                            </h2>
+                                        <div class="overview__gitwrapper bgwhite round16 border">
+                                            <h2 class="pb-40 bborderdash mb-20 title2">{{
+                                                subItem[`name_${$i18n.locale}`] || subItem.name_uz }}</h2>
                                             <div class="nav-item" role="presentation"
                                                 v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex"
                                                 :class="{ active: activeSubItem === page.id }">
@@ -78,6 +74,7 @@
                                                     {{ page[`title_${$i18n.locale}`] || page.title_uz }}
                                                 </a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -166,11 +163,11 @@ export default {
             this.activeMenu = this.activeMenu === menuId ? null : menuId;
         },
         setActiveSubItemAndMenu(menuId, subItemId) {
-            this.activeMenu = menuId; // Faol bo'lgan menyuni yangilash
-            this.activeSubItem = subItemId; // Faol bo'lgan sub-itemni yangilash
-            this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
+        this.activeMenu = menuId; // Faol bo'lgan menyuni yangilash
+        this.activeSubItem = subItemId; // Faol bo'lgan sub-itemni yangilash
+        this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
 
-        },
+    },
         // Faollashtirilgan sub-item ID sini saqlash
         setActiveSubItem(subItemId) {
 
@@ -186,7 +183,7 @@ export default {
                 if (response.data && response.data.item_pages) {
                     this.menus = [response.data];
                     this.MenuName = this.menus[0][`name_${locale}`] || ' '
-
+                    
                 } else {
                     console.error('API natijasi noto\'g\'ri formatda');
                 }
@@ -202,7 +199,7 @@ export default {
                     this.serviceText = this.pageData[`text_${locale}`] || '';
                     this.loadFontsFromText(this.serviceText) // HTML formatidagi matn
 
-                }
+                } 
             } catch (error) {
                 console.error('Sahifa ma\'lumotlarini olishda xatolik:', error);
             }
