@@ -301,5 +301,7 @@ export default {
   uy: "Uy",
   Geolokatsiya: "Geolokatsiya",
   korish: "Ko'rish",
-  izlashkocha: "Ko'cha yoki mahalla nomini kiriting"
+  izlashkocha: "Ko'cha yoki mahalla nomini kiriting",
+  oddiy: "Oddiy ko'rinish",
+  rangsiz: "Rangsiz ko'rinish",
 };

@@ -160,11 +160,11 @@
                               <div v-if="menuOpen" class="popup-menu">
                                  <button @click="setAccessibilityMode('simple')" :class="{ active: !isColorblind }"
                                     style="margin-top: 30px;">
-                                    <i class="bi bi-sun"></i> Oddiy ko‘rinish
+                                    <i class="bi bi-sun"></i> {{ $t('oddiy') }}
                                  </button>
                                  <button @click="setAccessibilityMode('colorblind')" :class="{ active: isColorblind }"
                                     style="margin-top: 30px;">
-                                    <i class="bi bi-moon"></i> Rangsik ko'rinish
+                                    <i class="bi bi-moon"></i> {{ $t('rangsiz') }}
                                  </button>
                                  <!-- <button @click="toggleImages" :class="{ active: hideImages }">
                                     <i class="bi bi-image"></i> Rasmlarni o‘chirish
