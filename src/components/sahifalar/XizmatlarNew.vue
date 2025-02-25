@@ -99,3 +99,36 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+
+
+
+.thumb {
+    width: 150px; /* Rasm kengligi */
+    height: 150px; /* Rasm balandligi */
+    border-radius: 50%; /* Aylanaga aylantirish */
+    overflow: hidden; /* Ortiqcha qismlar ko'rinmasin */
+}
+
+.thumb img {
+    width: 150px; /* Rasmni o'z o'lchamida qoldirish */
+    height: 150px;
+    object-fit: cover; /* Kesib, to'ldirish */
+    object-position: center; /* Markazga joylash */
+    image-rendering: auto; /* Rasm renderlash sifatini yaxshilash */
+}
+
+.pra {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2 qatorga cheklash */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+</style>

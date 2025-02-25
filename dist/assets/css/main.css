@@ -3489,9 +3489,9 @@ p {
 .perfoming__item .content {
   width: calc(100% - 60px);
 }
-.perfoming__item:hover .cmn__ibox {
+/* .perfoming__item:hover .cmn__ibox {
   background: var(--hover);
-}
+} */
 .perfoming__item:hover .cmn__ibox img {
   filter: brightness(25);
 }
@@ -7927,4 +7927,141 @@ iframe {
 
 .text-content th {
   background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.popup-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  padding: 15px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+  transition: top 0.3s ease-in-out;
+}
+
+.popup-menu button {
+  border: none;
+  background: #f0f0f0;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.popup-menu button.active {
+  background: #183e98;
+  color: white;
+}
+
+.popup-menu .close-btn {
+  background: #f07824;
+  color: white;
+}
+
+.hide-images img {
+  display: none;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+
+
+
+
+body.simple {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+button.active {
+  border: 2px solid #183e98;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+
+
+/* Ranglarni farqlashni osonlashtirish */
+.colorblind a {
+  color: #FF6F61 !important; /* Yorqin to'q qizil */
+  text-decoration: underline;
+}
+
+.colorblind button {
+  background-color: #005BBB !important; /* To'q ko'k */
+  color: #FFD700 !important; /* Oltin sariq */
+  border: 2px solid #FFD700 !important;
+}
+
+/* Kerakli elementlarni ajratib ko'rsatish */
+.colorblind .important,
+.colorblind .alert {
+  background-color: #FFCCCB !important; /* Yumshoq qizil */
+  color: #000 !important;
+  border: 2px solid #FF6F61 !important;
+}
+
+/* Barcha elementlarni qora-oq rejimga o‘tkazish */
+/* body {
+  filter: grayscale(100%);
+} */
+.colorblind-mode {
+  filter: grayscale(100%);
+}
+
+
+
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  font-size: inherit;
+}
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.slider {
+  width: 300px;
+}
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
 }

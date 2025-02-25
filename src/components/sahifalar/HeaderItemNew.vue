@@ -63,8 +63,6 @@
                                 </div>
                                 <div v-else>
                                     <div class="col-lg-12" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
-                                        <!-- Shart: Agar activeMenu null bo'lsa, subItem.name_uz === MenuName bo'lganlar chiqadi -->
-                                        <!-- Aks holda, faqat activeMenu === subItem.id bo'lganlar chiqadi -->
                                         <div v-if="(activeMenu === null && subItem.name_uz === MenuName) || (activeMenu !== null && activeMenu === subItem.id)"
                                             class="overview__gitwrapper bgwhite round16 border">
                                             <h2 class="pb-40 bborderdash mb-20 title2">
@@ -163,21 +161,31 @@ export default {
                 });
         },
         toggleMenu(menuId) {
-            this.activeMenu = this.activeMenu === menuId ? null : menuId;
+            if (this.activeMenu === menuId) {
+                // Agar menyu allaqachon ochilgan bo'lsa — yopiladi va sub-item tozalanadi
+                this.activeMenu = null;
+                this.activeSubItem = null;
+                this.pageData = null;
+            } else {
+                // Boshqa menyu ochilsa — eski sub-itemni tozalaydi
+                this.activeMenu = menuId;
+                this.activeSubItem = null;
+                this.pageData = null;
+            }
         },
+
         setActiveSubItemAndMenu(menuId, subItemId) {
-            this.activeMenu = menuId; // Faol bo'lgan menyuni yangilash
-            this.activeSubItem = subItemId; // Faol bo'lgan sub-itemni yangilash
-            this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
-
-        },
-        // Faollashtirilgan sub-item ID sini saqlash
-        setActiveSubItem(subItemId) {
-
+            this.activeMenu = menuId;
             this.activeSubItem = subItemId;
-            this.pageData = null; // Tanlangan sub-itemga oid ma'lumotlarni tozalash
-            this.fetchPageData(subItemId, this.$i18n.locale); // Faollashtirilgan sub-item uchun ma'lumotlarni olish
+            this.fetchPageData(subItemId, this.$i18n.locale);
         },
+
+        setActiveSubItem(subItemId) {
+            this.activeSubItem = subItemId;
+            this.pageData = null;
+            this.fetchPageData(subItemId, this.$i18n.locale);
+        },
+
         // Menyu elementlarini olish
         async fetchMenus(locale) {
 

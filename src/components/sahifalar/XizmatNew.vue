@@ -30,7 +30,8 @@
                 <header class="header">
                     <!-- API dan olingan title_uz -->
                     <h1 class="title">{{ serviceTitle }}</h1>
-                    <router-link :to="`/map/`" class="map-link">{{ $t('sections_map') }}</router-link>
+                    <router-link v-if="serviceLink && serviceLinkName" :to="serviceLink" class="map-link">{{
+                        serviceLinkName }}</router-link>
                 </header>
 
                 <div class="description">
@@ -57,7 +58,9 @@ export default {
             serviceImage: '',
             serviceTitle: '',
             serviceDescription: '',
-            serviceText: ''
+            serviceText: '',
+            serviceLink: '',
+            serviceLinkName: ''
         };
     },
     created() {
@@ -70,7 +73,7 @@ export default {
     },
     methods: {
         async fetchServiceData() {
-            const locale = this.$i18n.locale; // Hozirgi tilni olish
+            const locale = this.$i18n.locale;
             try {
                 this.serviceId = this.$route.params.id;
                 const response = await axios.get(`https://new.pochta.uz/api/v1/public/services/${this.serviceId}/`);
@@ -80,6 +83,10 @@ export default {
                 this.serviceTitle = serviceData[`title_${locale}`] || serviceData.title_uz || '';
                 this.serviceDescription = serviceData[`description_${locale}`] || serviceData.description_uz || '';
                 this.serviceText = serviceData[`text_${locale}`] || serviceData.text_uz || '';
+
+                // Link va link nomini to'g'ri olish
+                this.serviceLink = serviceData[`link_${locale}`] || serviceData.link_uz || '';
+                this.serviceLinkName = serviceData[`link_name_${locale}`] || serviceData.link_name_uz || '';
 
                 this.loadFontsFromText(this.serviceText);
             } catch (error) {

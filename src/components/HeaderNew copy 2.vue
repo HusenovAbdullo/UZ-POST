@@ -150,31 +150,7 @@
                               </router-link>
                            </div>
 
-                           <div id="app">
-                              <div class="dropdown ochirish" title="Maxsus imkoniyatlar">
-                                 <a @click="toggleSpecialOptions" class="link glose__icon d-flex align-items-center">
-                                    <i class="bi bi-eye"></i>
-                                 </a>
-                              </div>
-
-                              <div v-if="menuOpen" class="popup-menu">
-                                 <button @click="setAccessibilityMode('simple')" :class="{ active: !isColorblind }"
-                                    style="margin-top: 30px;">
-                                    <i class="bi bi-sun"></i> Oddiy ko‘rinish
-                                 </button>
-                                 <button @click="setAccessibilityMode('colorblind')" :class="{ active: isColorblind }"
-                                    style="margin-top: 30px;">
-                                    <i class="bi bi-moon"></i> Rangsik ko'rinish
-                                 </button>
-                                 <!-- <button @click="toggleImages" :class="{ active: hideImages }">
-                                    <i class="bi bi-image"></i> Rasmlarni o‘chirish
-                                 </button> -->
-                                 <button @click="toggleSpecialOptions" class="close-btn"
-                                    style="padding: 0px 4px; top: 1px; right: 10px;">✖</button>
-                              </div>
-
-                           </div>
-
+                           
 
                            <div class="dropdown profie__dropdown">
                               <a href="#" class="link user__active" data-bs-toggle="dropdown" data-bs-offset="0,16"
@@ -229,7 +205,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                             }}</span>
+                                                }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -272,7 +248,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                             }}</span>
+                                                }}</span>
                                           </router-link>
                                        </li>
 
@@ -293,7 +269,7 @@
                </div>
             </header>
          </div>
-
+         
          <!-- Header End -->
          <div v-if="loading" class="loader truckWrapper">
             <div v-if="loading" class="loader truckWrapper" id="loader">
@@ -329,7 +305,7 @@
                                           <li v-for="(event, index) in combinedTracking" :key="index">
                                              <a class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                }}</span>
+                                                   }}</span>
                                                 <span class="cateicon">
                                                    <img
                                                       :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -340,10 +316,10 @@
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                    event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                }}</span>
+                                                   }}</span>
                                                 <span>
                                                    <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                   }}</span>
+                                                      }}</span>
                                                    <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                       style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                       {{ event.malumot }}
@@ -389,62 +365,22 @@ export default {
          menuElementsItems: [],
          userToken: null, // Boshlang'ich qiymat
          currentLanguage: 'uz', // Boshqa tilda boshlang'ich qiymat o'zgartiriladi
-         menuOpen: false,
-         mode: 'simple',
-         hideImages: false,
-         isColorblind: false,
       };
    },
    created() {
       this.fetchMenuElements();
    },
    mounted() {
-      const savedMode = localStorage.getItem('accessibilityMode');
-      if (savedMode === 'colorblind') {
-         this.setAccessibilityMode('colorblind');
-      }
-      const savedHideImages = localStorage.getItem('hideImages');
-      this.hideImages = savedHideImages === 'true';
       // Misol uchun, localStorage orqali tokenni o'qing
       this.userToken = localStorage.getItem("id_token"); // Agar token mavjud bo'lsa, qiymatni o'rnatadi
       const savedLanguage = localStorage.getItem('language');
       if (savedLanguage) {
          this.changeLanguage(savedLanguage);
       } else {
-         this.changeLanguage('uz');
+         this.changeLanguage('uz'); // Standart til
       }
    },
    methods: {
-      setAccessibilityMode(mode) {
-         if (mode === 'colorblind') {
-            this.isColorblind = true;
-            localStorage.setItem('accessibilityMode', 'colorblind');
-            document.body.style.filter = 'grayscale(100%)'; // Grayscale qo'shish
-         } else {
-            this.isColorblind = false;
-            localStorage.removeItem('accessibilityMode');
-            document.body.style.filter = ''; // Grayscale ni o'chirish
-         }
-      }
-      ,
-      setMode(mode) {
-         if (mode === 'simple') {
-            this.isColorblind = false;
-         }
-      },
-      toggleSpecialOptions() {
-         this.menuOpen = !this.menuOpen;
-      },
-
-
-
-
-
-
-      toggleImages() {
-         this.hideImages = !this.hideImages;
-         document.body.classList.toggle('hide-images', this.hideImages);
-      },
       maybeReload(path) {
          if (path.includes('/headeritem/')) { // Faqat "/sahifalar/" yo'liga refresh beradi
             setTimeout(() => {
@@ -554,12 +490,10 @@ export default {
       },
 
       processEvents(events, countryCode) {
-         const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
          this.combinedTracking = events.map(event => ({
             date: new Date(event.LocalDateTime),
-            date1: new Date(event.GmtDateTime),
             location: event.EventOffice.Name,
-            status: this.getLocalizedStatus(event.IPSEventType, lang), // Statusni lokalizatsiya qilish
+            status: event.IPSEventType.Name,
             malumot: event.RetentionReason?.Name || '',
             malumot2: event.NonDeliveryReason?.Name || '',
             country_code: countryCode
@@ -607,21 +541,15 @@ export default {
                ? [...sortedShipoxList, ...sortedGdeposilkaList]
                : [...sortedGdeposilkaList, ...sortedShipoxList];
       },
-      // getLocalizedStatus(item) {
-      //    const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-      //    if (lang === 'uz') {
-      //       return item.status_uz;
-      //    } else if (lang === 'ru') {
-      //       return item.status_ru;
-      //    } else {
-      //       return item.status_desc || 'Status unknown';
-      //    }
-      // },
-      getLocalizedStatus(eventType, lang) {
-         if (!eventType) return 'Status noaniq';
-         if (lang === 'uz') return eventType.LocalName_uz || eventType.Name;
-         if (lang === 'ru') return eventType.LocalName_ru || eventType.Name;
-         return eventType.Name;
+      getLocalizedStatus(item) {
+         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+         if (lang === 'uz') {
+            return item.status_uz;
+         } else if (lang === 'ru') {
+            return item.status_ru;
+         } else {
+            return item.status_desc || 'Status unknown';
+         }
       },
       getStatusText(statusDesc) {
          return statusDesc || 'Status noaniq';
@@ -632,7 +560,6 @@ export default {
       }
    }
 };
-
 document.querySelectorAll('.sub-menu li').forEach(item => {
    item.addEventListener('mouseenter', () => {
       const link = item.querySelector('a');
@@ -908,9 +835,5 @@ span:first-letter {
    /* Rasm kengligi */
    height: auto;
    /* Asl nisbatni saqlash */
-}
-
-.close-btn:hover {
-   color: #ffffff;
 }
 </style>

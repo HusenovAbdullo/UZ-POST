@@ -11,4 +11,5 @@
 
 <style>
 /* Umumiy stilni bu yerda qo'shishingiz mumkin */
+
 </style>

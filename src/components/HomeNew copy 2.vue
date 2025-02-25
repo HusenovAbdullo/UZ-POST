@@ -310,23 +310,8 @@
         </div>
         <div class="container5" style="color: #ffffff;">
             <div class="company__wrap owl-thmee owl-carousel sectionbg5" style="color: #ffffff;">
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/zood.png" alt="company">
-                </div>
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/ems.png" alt="company">
-                </div>
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/xalq.png" alt="company">
-                </div>
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/ali.png" alt="company">
-                </div>
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/uzum.png" alt="company">
-                </div>
-                <div class="company__logo">
-                    <img src="assets/img/companiy2/temu.png" alt="company">
+                <div class="company__logo" v-for="logo in partnerLogos" :key="logo.id">
+                    <img :src="ensureHttps(logo.file)" :alt="logo.title">
                 </div>
             </div>
         </div>
@@ -1275,22 +1260,4 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-
-
-.thumb {
-    width: 150px; /* Rasm kengligi */
-    height: 150px; /* Rasm balandligi */
-    border-radius: 50%; /* Aylanaga aylantirish */
-    overflow: hidden; /* Ortiqcha qismlar ko'rinmasin */
-}
-
-.thumb img {
-    width: 150px; /* Rasmni o'z o'lchamida qoldirish */
-    height: 150px;
-    object-fit: cover; /* Kesib, to'ldirish */
-    object-position: center; /* Markazga joylash */
-    image-rendering: auto; /* Rasm renderlash sifatini yaxshilash */
-}
-
 </style>

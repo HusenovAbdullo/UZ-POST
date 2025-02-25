@@ -181,47 +181,49 @@ export default {
                 this.loading = false;
                 if (xhr.status >= 200 && xhr.status < 300) {
                     const data = JSON.parse(xhr.responseText);
-
                     if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
                         const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-                        this.trackingData = {
-                            number: mailItem.InternationalId,
-                            senderCountry: mailItem.OrigCountry.Name || '',
-                            senderAddress: mailItem.OrigAddress || '',
-                            senderPostcode: mailItem.OrigPostcode || '',
-                            recipientCountry: mailItem.DestCountry.Name || '',
-                            recipientAddress: mailItem.DestAddress || '',
-                            recipientPostcode: mailItem.DestPostcode || ''
-                        };
-
+                        this.trackingData = this.extractTrackingData(mailItem);
                         this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
                     } else {
                         this.processAlternativeData(data);
                     }
                 } else {
-                    this.errorMessage = 'Ma\'lumot topilmadi';
+                    this.errorMessage = 'Malumot topilmadi';
                 }
             };
             xhr.onerror = () => {
                 this.loading = false;
-                this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+                this.errorMessage = 'Sorovni yuborishda xatolik yuz berdi';
             };
             xhr.send();
         },
+        extractTrackingData(mailItem) {
+            return {
+                number: mailItem.InternationalId,
+                senderCountry: mailItem.OrigCountry.Name || '',
+                senderAddress: mailItem.OrigAddress || '',
+                senderPostcode: mailItem.OrigPostcode || '',
+                recipientCountry: mailItem.DestCountry.Name || '',
+                recipientAddress: mailItem.DestAddress || '',
+                recipientPostcode: mailItem.DestPostcode || ''
+            };
+        },
         processEvents(events, countryCode) {
+            const lang = this.$i18n?.locale || 'uz';
             this.combinedTracking = events.map(event => ({
                 date: new Date(event.LocalDateTime),
                 date1: new Date(event.GmtDateTime),
-                location: event.EventOffice.Name,
-                status: event.IPSEventType.Name,
-                malumot: event.RetentionReason.Name,
-                malumot2: event.NonDeliveryReason.Name,
+                location: event.EventOffice?.Name || 'Manzil yoq',
+                status: this.getLocalizedStatus(event.IPSEventType, lang),
+                malumot: event.RetentionReason?.Name || '',
+                malumot2: event.NonDeliveryReason?.Name || '',
                 country_code: countryCode
             })).sort((a, b) => b.date - a.date);
         },
         processAlternativeData(data) {
             this.trackingData = {
-                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Malumot yoq',
                 senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
                 senderAddress: data.header?.data?.locations?.[0]?.address || '',
                 senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
@@ -229,41 +231,34 @@ export default {
                 recipientAddress: data.header?.data?.locations?.[1]?.address || '',
                 recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
             };
-
-            let shipoxList = [];
-            let gdeposilkaList = [];
-
-            if (data.shipox && data.shipox.data && data.shipox.data.list) {
-                shipoxList = data.shipox.data.list.map(item => ({
-                    date: new Date(item.date),
-                    data: item.data || 'UzPost',
-                    location: item.warehouse ? item.warehouse.name : '',
-                    status: this.getStatusText(item.status_desc),
-                    country_code: 'UZ'
-                }));
-            }
-
-            if (data.gdeposilka && data.gdeposilka.data && data.gdeposilka.data.checkpoints) {
-                gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
-                    date: new Date(item.time),
-                    location: item.location_translated,
-                    region: item.courier.name,
-                    status: this.getStatusText(item.status_name),
-                    country_code: item.courier.country_code
-                }));
-            }
-
-            // Shipox ma'lumotlarini birinchi o'rinda, Gdeposilka ma'lumotlarini esa undan keyin qo'shib, vaqt bo'yicha saralash
-            // Shipox va Gdeposilka ro'yxatlarini alohida-alohida vaqt bo'yicha saralash
-            const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
-            const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Shipox va Gdeposilka ro'yxatlarining birinchi elementlari asosida umumiy ro'yxatni tartibga solish
-            this.combinedTracking =
-                new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
-                    ? [...sortedShipoxList, ...sortedGdeposilkaList]
-                    : [...sortedGdeposilkaList, ...sortedShipoxList];
-
+            this.mergeAlternativeTrackingData(data);
+        },
+        mergeAlternativeTrackingData(data) {
+            let shipoxList = this.mapShipoxData(data.shipox);
+            let gdeposilkaList = this.mapGdeposilkaData(data.gdeposilka);
+            this.combinedTracking = [...shipoxList, ...gdeposilkaList].sort((a, b) => b.date - a.date);
+        },
+        mapShipoxData(shipox) {
+            return shipox?.data?.list?.map(item => ({
+                date: new Date(item.date),
+                data: item.data || 'UzPost',
+                location: item.warehouse?.name || '',
+                status: this.getStatusText(item.status_desc),
+                country_code: 'UZ'
+            })) || [];
+        },
+        mapGdeposilkaData(gdeposilka) {
+            return gdeposilka?.data?.checkpoints?.map(item => ({
+                date: new Date(item.time),
+                location: item.location_translated || '',
+                region: item.courier?.name || '',
+                status: this.getStatusText(item.status_name),
+                country_code: item.courier?.country_code || ''
+            })) || [];
+        },
+        getLocalizedStatus(eventType, lang) {
+            if (!eventType) return 'Status noaniq';
+            return lang === 'ru' ? eventType.LocalName_ru || eventType.Name : eventType.LocalName_uz || eventType.Name;
         },
         getStatusText(statusDesc) {
             return statusDesc || 'Status noaniq';
@@ -271,6 +266,8 @@ export default {
     }
 };
 </script>
+
+<!-- End -->
 
 
 

@@ -158,20 +158,31 @@
                               </div>
 
                               <div v-if="menuOpen" class="popup-menu">
-                                 <button @click="setAccessibilityMode('simple')" :class="{ active: !isColorblind }"
-                                    style="margin-top: 30px;">
-                                    <i class="bi bi-sun"></i> Oddiy ko‘rinish
+                                 <button @click="setAccessibilityMode('simple')" :class="{ active: !isColorblind }">
+                                    <i class="bi bi-brightness-high"></i> Oddiy ko‘rinish
                                  </button>
-                                 <button @click="setAccessibilityMode('colorblind')" :class="{ active: isColorblind }"
-                                    style="margin-top: 30px;">
-                                    <i class="bi bi-moon"></i> Rangsik ko'rinish
+                                 <button @click="setAccessibilityMode('colorblind')" :class="{ active: isColorblind }">
+                                    Daltonik rejim
                                  </button>
-                                 <!-- <button @click="toggleImages" :class="{ active: hideImages }">
+                                 <button @click="toggleImages" :class="{ active: hideImages }">
                                     <i class="bi bi-image"></i> Rasmlarni o‘chirish
-                                 </button> -->
-                                 <button @click="toggleSpecialOptions" class="close-btn"
-                                    style="padding: 0px 4px; top: 1px; right: 10px;">✖</button>
+                                 </button><br>
+                                 <div class="font-size-control">
+    <label for="fontSizeSlider">Shrift o‘lchami:</label>
+    <input 
+        id="fontSizeSlider" 
+        type="range" 
+        min="50" 
+        max="150" 
+        v-model="fontSize" 
+        @input="updateFontSize"
+    />
+    <span>{{ fontSize }}%</span>
+</div>
+
+                                 <button @click="toggleSpecialOptions" class="close-btn">✖</button>
                               </div>
+
 
                            </div>
 
@@ -393,12 +404,15 @@ export default {
          mode: 'simple',
          hideImages: false,
          isColorblind: false,
+         fontSize: localStorage.getItem('fontSize') || 100, // LocalStorage'dan o'qish
+
       };
    },
    created() {
       this.fetchMenuElements();
    },
    mounted() {
+      this.updateFontSize();
       const savedMode = localStorage.getItem('accessibilityMode');
       if (savedMode === 'colorblind') {
          this.setAccessibilityMode('colorblind');
@@ -415,6 +429,11 @@ export default {
       }
    },
    methods: {
+      updateFontSize() {
+        const size = this.fontSize + '%';
+        document.documentElement.style.fontSize = size; // Barcha elementlarga ta'sir
+        localStorage.setItem('fontSize', this.fontSize); // LocalStorage'da saqlash
+    },
       setAccessibilityMode(mode) {
          if (mode === 'colorblind') {
             this.isColorblind = true;
@@ -554,12 +573,10 @@ export default {
       },
 
       processEvents(events, countryCode) {
-         const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
          this.combinedTracking = events.map(event => ({
             date: new Date(event.LocalDateTime),
-            date1: new Date(event.GmtDateTime),
             location: event.EventOffice.Name,
-            status: this.getLocalizedStatus(event.IPSEventType, lang), // Statusni lokalizatsiya qilish
+            status: event.IPSEventType.Name,
             malumot: event.RetentionReason?.Name || '',
             malumot2: event.NonDeliveryReason?.Name || '',
             country_code: countryCode
@@ -607,21 +624,15 @@ export default {
                ? [...sortedShipoxList, ...sortedGdeposilkaList]
                : [...sortedGdeposilkaList, ...sortedShipoxList];
       },
-      // getLocalizedStatus(item) {
-      //    const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-      //    if (lang === 'uz') {
-      //       return item.status_uz;
-      //    } else if (lang === 'ru') {
-      //       return item.status_ru;
-      //    } else {
-      //       return item.status_desc || 'Status unknown';
-      //    }
-      // },
-      getLocalizedStatus(eventType, lang) {
-         if (!eventType) return 'Status noaniq';
-         if (lang === 'uz') return eventType.LocalName_uz || eventType.Name;
-         if (lang === 'ru') return eventType.LocalName_ru || eventType.Name;
-         return eventType.Name;
+      getLocalizedStatus(item) {
+         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+         if (lang === 'uz') {
+            return item.status_uz;
+         } else if (lang === 'ru') {
+            return item.status_ru;
+         } else {
+            return item.status_desc || 'Status unknown';
+         }
       },
       getStatusText(statusDesc) {
          return statusDesc || 'Status noaniq';
@@ -908,9 +919,5 @@ span:first-letter {
    /* Rasm kengligi */
    height: auto;
    /* Asl nisbatni saqlash */
-}
-
-.close-btn:hover {
-   color: #ffffff;
 }
 </style>

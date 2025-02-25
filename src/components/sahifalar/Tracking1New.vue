@@ -75,7 +75,7 @@
                             <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
                                 <strong>{{ $t('postal_code') }}</strong> <br>
                                 <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                    }}</span>
+                                }}</span>
                             </p>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                         <li v-for="(event, index) in combinedTracking" :key="index">
                                             <a href="#0" class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                    }}</span>
+                                                }}</span>
                                                 <span class="cateicon">
                                                     <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
                                                         alt="flag" class="flag-icon">
@@ -100,10 +100,10 @@
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                     event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                    }}</span>
+                                                }}</span>
                                                 <span>
                                                     <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                        }}</span>
+                                                    }}</span>
                                                     <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                         style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                         {{ event.malumot }}
@@ -178,116 +178,116 @@ export default {
     },
     methods: {
         fetchTrackingData() {
-         this.loading = true;
-         this.trackingData = null;
-         this.combinedTracking = [];
-         this.errorMessage = null;
+            this.loading = true;
+            this.trackingData = null;
+            this.combinedTracking = [];
+            this.errorMessage = null;
 
-         const xhr = new XMLHttpRequest();
-         xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
-         xhr.onload = () => {
-            this.loading = false;
-            if (xhr.status >= 200 && xhr.status < 300) {
-               const data = JSON.parse(xhr.responseText);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+            xhr.onload = () => {
+                this.loading = false;
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const data = JSON.parse(xhr.responseText);
 
-               if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
-                  const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-                  this.trackingData = {
-                     number: mailItem.InternationalId,
-                     senderCountry: mailItem.OrigCountry.Name || '',
-                     senderAddress: mailItem.OrigAddress || '',
-                     senderPostcode: mailItem.OrigPostcode || '',
-                     recipientCountry: mailItem.DestCountry.Name || '',
-                     recipientAddress: mailItem.DestAddress || '',
-                     recipientPostcode: mailItem.DestPostcode || ''
-                  };
+                    if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+                        const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
+                        this.trackingData = {
+                            number: mailItem.InternationalId,
+                            senderCountry: mailItem.OrigCountry.Name || '',
+                            senderAddress: mailItem.OrigAddress || '',
+                            senderPostcode: mailItem.OrigPostcode || '',
+                            recipientCountry: mailItem.DestCountry.Name || '',
+                            recipientAddress: mailItem.DestAddress || '',
+                            recipientPostcode: mailItem.DestPostcode || ''
+                        };
 
-                  this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
-               } else {
-                  this.processAlternativeData(data);
-               }
-            } else if (xhr.status === 404) {
-               // 404 xatolik uchun popup ko‘rsatish
-               this.trackingData = {
-                  number: this.trackingNumber,
-                  errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
-               };
-            } else {
-               this.errorMessage = 'Ma\'lumot topilmadi';
+                        this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
+                    } else {
+                        this.processAlternativeData(data);
+                    }
+                } else if (xhr.status === 404) {
+                    // 404 xatolik uchun popup ko‘rsatish
+                    this.trackingData = {
+                        number: this.trackingNumber,
+                        errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
+                    };
+                } else {
+                    this.errorMessage = 'Ma\'lumot topilmadi';
+                }
+            };
+            xhr.onerror = () => {
+                this.loading = false;
+                this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+            };
+            xhr.send();
+        },
+
+        processEvents(events, countryCode) {
+            const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
+            this.combinedTracking = events.map(event => ({
+                date: new Date(event.LocalDateTime),
+                date1: new Date(event.GmtDateTime),
+                location: event.EventOffice.Name,
+                status: this.getLocalizedStatus(event.IPSEventType, lang), // Statusni lokalizatsiya qilish
+                malumot: event.RetentionReason?.Name || '',
+                malumot2: event.NonDeliveryReason?.Name || '',
+                country_code: countryCode
+            })).sort((a, b) => b.date - a.date);
+        },
+        
+
+        processAlternativeData(data) {
+            this.trackingData = {
+                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+                senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
+                senderAddress: data.header?.data?.locations?.[0]?.address || '',
+                senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
+                recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
+                recipientAddress: data.header?.data?.locations?.[1]?.address || '',
+                recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+            };
+
+            let shipoxList = [];
+            let gdeposilkaList = [];
+
+            if (data.shipox?.data?.list) {
+                shipoxList = data.shipox.data.list.map(item => ({
+                    date: new Date(item.date),
+                    data: item.data || 'UzPost',
+                    location: item.warehouse?.name || '',
+                    status: this.getLocalizedStatus(item),
+                    country_code: 'UZ'
+                }));
             }
-         };
-         xhr.onerror = () => {
-            this.loading = false;
-            this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
-         };
-         xhr.send();
-      },
 
-      processEvents(events, countryCode) {
-         this.combinedTracking = events.map(event => ({
-            date: new Date(event.LocalDateTime),
-            location: event.EventOffice.Name,
-            status: event.IPSEventType.Name,
-            malumot: event.RetentionReason?.Name || '',
-            malumot2: event.NonDeliveryReason?.Name || '',
-            country_code: countryCode
-         })).sort((a, b) => b.date - a.date);
-      },
-      processAlternativeData(data) {
-         this.trackingData = {
-            number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
-            senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
-            senderAddress: data.header?.data?.locations?.[0]?.address || '',
-            senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
-            recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
-            recipientAddress: data.header?.data?.locations?.[1]?.address || '',
-            recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
-         };
+            if (data.gdeposilka?.data?.checkpoints) {
+                gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
+                    date: new Date(item.time),
+                    location: item.location_translated,
+                    region: item.courier.name,
+                    status: this.getLocalizedStatus(item),
+                    country_code: item.courier.country_code
+                }));
+            }
 
-         let shipoxList = [];
-         let gdeposilkaList = [];
+            const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-         if (data.shipox?.data?.list) {
-            shipoxList = data.shipox.data.list.map(item => ({
-               date: new Date(item.date),
-               data: item.data || 'UzPost',
-               location: item.warehouse?.name || '',
-               status: this.getLocalizedStatus(item),
-               country_code: 'UZ'
-            }));
-         }
-
-         if (data.gdeposilka?.data?.checkpoints) {
-            gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
-               date: new Date(item.time),
-               location: item.location_translated,
-               region: item.courier.name,
-               status: this.getLocalizedStatus(item),
-               country_code: item.courier.country_code
-            }));
-         }
-
-         const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
-         const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-         this.combinedTracking =
-            new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
-               ? [...sortedShipoxList, ...sortedGdeposilkaList]
-               : [...sortedGdeposilkaList, ...sortedShipoxList];
-      },
-      getLocalizedStatus(item) {
-         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-         if (lang === 'uz') {
-            return item.status_uz ;
-         } else if (lang === 'ru') {
-            return item.status_ru;
-         } else {
-            return item.status_desc || 'Status unknown';
-         }
-      },
-      getStatusText(statusDesc) {
-         return statusDesc || 'Status noaniq';
-      },
+            this.combinedTracking =
+                new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
+                    ? [...sortedShipoxList, ...sortedGdeposilkaList]
+                    : [...sortedGdeposilkaList, ...sortedShipoxList];
+        },
+        getLocalizedStatus(eventType, lang) {
+    if (!eventType) return 'Status noaniq';
+    if (lang === 'uz') return eventType.LocalName_uz || eventType.Name;
+    if (lang === 'ru') return eventType.LocalName_ru || eventType.Name;
+    return eventType.Name;
+},
+        getStatusText(statusDesc) {
+            return statusDesc || 'Status noaniq';
+        },
     },
     mounted() {
         if (this.$route?.params?.trackingNumber) {
