@@ -75,7 +75,7 @@
                             <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
                                 <strong>{{ $t('postal_code') }}</strong> <br>
                                 <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                }}</span>
+                                    }}</span>
                             </p>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                                         <li v-for="(event, index) in combinedTracking" :key="index">
                                             <a class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                    }}</span>
+                                                }}</span>
                                                 <span class="cateicon">
                                                     <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
                                                         alt="flag" class="flag-icon">
@@ -106,10 +106,10 @@
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                     event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                    }}</span>
+                                                }}</span>
                                                 <span>
                                                     <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                        }}</span>
+                                                    }}</span>
                                                     <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                         style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                         {{ event.malumot }}

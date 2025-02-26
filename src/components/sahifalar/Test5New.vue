@@ -5,8 +5,7 @@
             <div class="row g-4">
                <div class="col-lg-12">
                   <div class="overview__gitwrapper bgwhite round16 border p-3 d-flex flex-column align-items-center">
-
-                     <div class="" style="gap: 10px; display: flex; border-bottom: 10px solid #ffffff;">
+                     <div class="d-flex" style="gap: 10px; border-bottom: 10px solid #ffffff;">
                         <button class="burchak outline__btn" :class="{ 'active-btn': activeButton === 'all' }"
                            @click="filterData('all')" style="font-size: 14px; padding: 8px 15px;">
                            {{ $t('all') }}
@@ -20,80 +19,44 @@
                            EMS
                         </button>
                      </div>
-
-
-
-                     <div class="tabs" style="gap: 5px; display: flex;">
-                        <button class="tab-btn" 
-                           :class="{ 'active-tab': activeTab === 'apidagi_nomlar' }"
+                     <div class="tabs d-flex" style="gap: 5px;">
+                        <button class="tab-btn" :class="{ 'active-tab': activeTab === 'apidagi_nomlar' }"
                            @click="setActiveTab('apidagi_nomlar')">
                            Ko‘cha nomlari orqali izlash
                         </button>
-                        <button class="tab-btn" 
-                           :class="{ 'active-tab': activeTab === 'kocha_nomi' }"
+                        <button class="tab-btn" :class="{ 'active-tab': activeTab === 'kocha_nomi' }"
                            @click="setActiveTab('kocha_nomi')">
                            Apidagi nom va manzillar
                         </button>
                      </div>
-
-                     <!-- Qidiruv formasi -->
-                     <!-- Qidiruv formasi -->
                      <div class="search-wrapper">
-                        <form v-if="activeTab === 'apidagi_nomlar'" class="d-flex align-items-center position-relative mt-4">
-                           <input type="text" 
-                              placeholder="Ko‘cha yoki mahalla nomini kiriting"
-                              class="search-input"
+                        <form v-if="activeTab === 'apidagi_nomlar'"
+                           class="d-flex align-items-center position-relative mt-4">
+                           <input type="text" placeholder="Ko‘cha yoki mahalla nomini kiriting" class="search-input"
                               @input="searchLocation($event.target.value)" />
                            <div class="search-icon">
                               <i class="bi bi-search fz-12"></i> {{ $t('search') }}
                            </div>
                         </form>
-                        <div>
-    <form class="d-flex align-items-center position-relative mt-4">
-      <input
-        type="text"
-        placeholder="Aloqa bo‘lim indeksi yoki nomi bilan izlang"
-        class="search-input"
-        v-model="searchTerm"
-        @input="searchLocation"
-      />
-      <div class="search-icon">
-        <i class="bi bi-search fz-12"></i> {{ $t('search') }}
-      </div>
-    </form>
+                        <form v-else class="d-flex align-items-center position-relative mt-4">
+                           <input type="text" placeholder="Aloqa bo‘lim indeksi yoki nomi bilan izlang"
+                              class="search-input" @input="searchPostOffices($event.target.value)" />
+                           <div class="search-icon">
+                              <i class="bi bi-search fz-12"></i> {{ $t('search') }}
+                           </div>
+                        </form>
 
-    <ul v-if="searchResults.length > 0" class="list-group mt-3">
-      <li
-        v-for="office in searchResults"
-        :key="office.postal_office.index"
-        class="list-group-item"
-        @click="showOnMap(office)"
-      >
-        {{ office.postal_office.name_uz }} ({{ office.postal_office.index }})
-      </li>
-    </ul>
 
-    <div id="map" style="height: 400px;"></div>
-  </div>
+
                         <ul v-if="searchResults.length" class="search-results">
                            <li v-for="location in searchResults" :key="location.lat" @click="selectLocation(location)">
                               {{ location.address }}
                            </li>
                         </ul>
                      </div>
-
                      <div class="map-container mt-4">
                         <div id="map" class="yandex-map-container"></div>
                      </div>
-
-
-
-
-
-
-
-
-                     
                   </div>
                </div>
             </div>
@@ -113,6 +76,8 @@ export default {
          filteredOffices: [], // Filtrlangan bo‘limlar
          activeButton: 'all', // Faol tugma
          activeTab: 'apidagi_nomlar',
+         searchQuery: '',
+         selectedOffice: null,
       };
    },
    async beforeMount() {
@@ -121,6 +86,57 @@ export default {
       this.loadYandexMap();
    },
    methods: {
+      // Pochta bo‘limlarini qidirish
+      searchPostOffices(query) {
+         this.searchQuery = query;
+         if (query.length > 2) {
+            fetch(`https://new.pochta.uz/api/v1/maps/post/offices/?search=${query}`)
+               .then(response => response.json())
+               .then(data => {
+                  console.log('API javobi:', data); // Bu yerda API'dan olingan javobni konsolga chiqaramiz
+                  this.searchResults = data.result || []; // Natijalarni saqlash
+               })
+               .catch(error => console.error('API xatosi:', error)); // Xatoliklarni konsolga chiqarish
+
+         } else {
+            this.searchResults = [];
+         }
+      },
+
+      // Xaritada manzil qidirish
+      async searchLocationOnMap(query) {
+         if (!query) {
+            this.searchResults = [];
+            return;
+         }
+
+         const lang = this.$i18n.locale === 'uz' ? 'uz_UZ' : this.$i18n.locale === 'ru' ? 'ru_RU' : 'en_US';
+
+         try {
+            const response = await fetch(
+               `https://geocode-maps.yandex.ru/1.x/?apikey=4e800151-dbdd-48aa-b855-19793d520a37&geocode=${query}&format=json&results=5&kind=street&bbox=55.0,37.0~73.0,46.0&rspn=1&lang=${lang}`
+            );
+            const data = await response.json();
+
+            this.searchResults = data.response.GeoObjectCollection.featureMember.map(item => {
+               const geoObject = item.GeoObject;
+               return {
+                  name: geoObject.name,
+                  address: geoObject.metaDataProperty.GeocoderMetaData.text,
+                  lat: parseFloat(geoObject.Point.pos.split(" ")[1]),
+                  lng: parseFloat(geoObject.Point.pos.split(" ")[0]),
+               };
+            });
+         } catch (error) {
+            console.error("Joylashuvni izlashda xatolik:", error);
+         }
+      },
+
+      // Pochta ofisini tanlash
+      selectOffice(office) {
+         this.selectedOffice = office;
+         this.$emit('showOfficeOnMap', office);
+      },
       setActiveTab(tab) {
          this.activeTab = tab;
       },
@@ -782,5 +798,23 @@ body {
    right: 10px;
    font-size: 12px;
    color: gray;
+}
+
+
+
+
+
+
+
+
+.search-input {
+   width: 100%;
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+.list-group-item {
+   cursor: pointer;
 }
 </style>
