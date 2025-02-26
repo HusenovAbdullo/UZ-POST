@@ -313,6 +313,56 @@
                         <h2 class="title wow fadeInUp mb-24" style="text-align: center;" id="trackingNumberDisplay">{{
                            trackingData.number }}
                         </h2>
+                        <div v-if="trackingData.senderCountry"
+                           class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                           <div class="task__item round16 bgwhite d-flex align-items-center">
+                              <div class="thumb">
+                                 <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
+                              </div>
+                              <div class="content">
+                                 <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
+                                 <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('country') }} </strong> <br>
+                                    <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
+                                 </p>
+                                 <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('address5') }}</strong> <br>
+                                    <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
+                                 </p>
+
+                                 <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('postal_code') }}</strong> <br>
+                                    <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode }}</span>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div v-if="trackingData.recipientCountry"
+                           class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
+                           <div class="task__item round16 bgwhite d-flex align-items-center">
+                              <div class="thumb">
+                                 <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
+                              </div>
+                              <div class="content">
+                                 <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
+                                 <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('country') }} </strong> <br>
+                                    <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
+                                    }}</span>
+                                 </p>
+                                 <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('address5') }}</strong> <br>
+                                    <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
+                                    }}</span>
+                                 </p>
+                                 <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('postal_code') }}</strong> <br>
+                                    <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
+                                    }}</span>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
                         <div class="col-xl-12 col-lg-12">
                            <div class="service__detailswrapper">
                               <div class="trending__based mb-40 bgwhite round16 shadow1">
@@ -617,11 +667,23 @@ export default {
       //       return item.status_desc || 'Status unknown';
       //    }
       // },
-      getLocalizedStatus(eventType, lang) {
-         if (!eventType) return 'Status noaniq';
-         if (lang === 'uz') return eventType.LocalName_uz || eventType.Name;
-         if (lang === 'ru') return eventType.LocalName_ru || eventType.Name;
-         return eventType.Name;
+      getLocalizedStatus(data) {
+         const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+         if (!data) return 'Status noaniq';
+
+         if ('LocalName_uz' in data || 'LocalName_ru' in data || 'Name' in data) {
+            if (lang === 'uz') return data.LocalName_uz || data.Name;
+            if (lang === 'ru') return data.LocalName_ru || data.Name;
+            return data.Name;
+         }
+
+         if ('status_uz' in data || 'status_ru' in data || 'status_desc' in data) {
+            if (lang === 'uz') return data.status_uz;
+            if (lang === 'ru') return data.status_ru;
+            return data.status_desc || 'Status unknown';
+         }
+
+         return 'Status noaniq';
       },
       getStatusText(statusDesc) {
          return statusDesc || 'Status noaniq';

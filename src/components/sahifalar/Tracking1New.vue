@@ -80,17 +80,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-8 col-lg-8">
+                <div class="col-xl-12 col-lg-12">
                     <div class="service__detailswrapper">
                         <div class="trending__based mb-40 bgwhite round16 shadow1">
                             <div class="based__content border round16 bgwhite">
                                 <div class="freelancer__education bborderdash pb-30 mb-30">
                                     <h3 class="title2">{{ $t('kuzatuv') }}</h3>
+                                    <br>
+                                    <br>
+                                    <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
+                                        style="color: red; font-size: 20px;">
+                                        {{ trackingData.errorMessage }}
+                                    </h1>
                                     <ul class="blog__categories" id="combinedTracking">
                                         <li v-for="(event, index) in combinedTracking" :key="index">
-                                            <a href="#0" class="d-flex align-items-center">
+                                            <a class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                }}</span>
+                                                    }}</span>
                                                 <span class="cateicon">
                                                     <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
                                                         alt="flag" class="flag-icon">
@@ -100,10 +106,10 @@
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                     event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                }}</span>
+                                                    }}</span>
                                                 <span>
                                                     <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                    }}</span>
+                                                        }}</span>
                                                     <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                         style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                         {{ event.malumot }}
@@ -235,7 +241,7 @@ export default {
                 country_code: countryCode
             })).sort((a, b) => b.date - a.date);
         },
-        
+
 
         processAlternativeData(data) {
             this.trackingData = {
@@ -279,12 +285,24 @@ export default {
                     ? [...sortedShipoxList, ...sortedGdeposilkaList]
                     : [...sortedGdeposilkaList, ...sortedShipoxList];
         },
-        getLocalizedStatus(eventType, lang) {
-    if (!eventType) return 'Status noaniq';
-    if (lang === 'uz') return eventType.LocalName_uz || eventType.Name;
-    if (lang === 'ru') return eventType.LocalName_ru || eventType.Name;
-    return eventType.Name;
-},
+        getLocalizedStatus(data) {
+            const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+            if (!data) return 'Status noaniq';
+
+            if ('LocalName_uz' in data || 'LocalName_ru' in data || 'Name' in data) {
+                if (lang === 'uz') return data.LocalName_uz || data.Name;
+                if (lang === 'ru') return data.LocalName_ru || data.Name;
+                return data.Name;
+            }
+
+            if ('status_uz' in data || 'status_ru' in data || 'status_desc' in data) {
+                if (lang === 'uz') return data.status_uz;
+                if (lang === 'ru') return data.status_ru;
+                return data.status_desc || 'Status unknown';
+            }
+
+            return 'Status noaniq';
+        },
         getStatusText(statusDesc) {
             return statusDesc || 'Status noaniq';
         },
@@ -309,7 +327,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 #adCarousel .carousel-control-prev,
 #adCarousel .carousel-control-next {
     display: none;
@@ -367,5 +385,138 @@ export default {
     /* Rasm kengligi */
     height: auto;
     /* Asl nisbatni saqlash */
+}
+
+
+/* 750px dan kichik ekranlar uchun qo'llanadigan uslublar */
+@media (max-width: 750px) {
+
+    /* Popupni markazga joylashtirish */
+    /* Popupning umumiy uslubi (750px dan katta ekranlar uchun eski ko'rinish) */
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        background-color: white;
+        /* border-radius: 8px; */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        padding: 20px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: #333;
+        cursor: pointer;
+    }
+
+    /* Matnlarni markazlash va joylashtirish */
+    .popup h2 {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: bold;
+        color: #183e98;
+    }
+
+    ul.blog__categories {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.blog__categories li {
+        /* display: flex; */
+        flex-direction: column;
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    ul.blog__categories li a {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+    }
+
+    ul.blog__categories li span {
+        font-size: 14px;
+        /* color: #555; */
+    }
+
+    /* Flag uchun rasmni moslashtirish */
+    .flag-icon {
+        width: 20px;
+        height: auto;
+        margin-right: 8px;
+    }
+
+    /* Mobil qurilmalarga moslashtirish faqat ekran kengligi 750px dan kichik bo'lsa */
+    @media (max-width: 750px) {
+        .popup {
+            width: 90%;
+            max-width: none;
+        }
+
+        ul.blog__categories li {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        ul.blog__categories li a {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        ul.blog__categories li span {
+            font-size: 12px;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: white;
+            z-index: 1100;
+            /* Yuqori qiymat beriladi */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header-section {
+            position: relative;
+            z-index: 100;
+            /* Pastroq qiymat qo'yiladi */
+        }
+
+        .sub-menu {
+            z-index: 100;
+            /* Menyular pastroq bo'lishi uchun */
+        }
+
+    }
+
+}
+
+
+
+.search__component input {
+    width: 100%;
+    text-align: left;
+    padding-left: 10px;
+    /* Matnni chap tomonga yaqinlashtirish uchun */
 }
 </style>

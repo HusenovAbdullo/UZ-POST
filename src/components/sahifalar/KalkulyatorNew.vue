@@ -95,215 +95,207 @@
                            </div>
                            <br />
 
-                           <h3 class="title mb-20">
-                              {{ $t('from_where') }}
-                           </h3>
-                           <br>
+
 
                            <form class="write__review">
                               <div class="row g-4 justify-content-center">
                                  <!-- Region Tanlash -->
+                                 <div class="bordered-container">
+                                    <h3 class="title mb-20">
+                                       {{ $t('from_where') }}
+                                    </h3>
+                                    <div class="flex-container">
+                                       <div class="col-lg-4 viloyat"
+                                          :class="{ error: !selectedProvince1 && showErrorRegion1 }">
 
-
-                                 <div class="col-lg-4 viloyat">
-                                    <div class="frm__grp" :class="{ error: !selectedProvince1 && showErrorRegion1 }">
-                                       <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <div class="select-wrapper">
-                                          <select id="province" name="province" class="form-control"
-                                             v-model="selectedProvince1" @change="fetchDistricts1">
-                                             <option value="" disabled selected>{{ $t('choose_region') }}</option>
-                                             <option v-for="(name, id) in regions1" :key="name" :value="name">
-                                                {{ id }}
-                                             </option>
-                                          </select>
-                                          <span v-if="!selectedProvince1" class="red-star">*</span>
+                                          <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="select-wrapper">
+                                             <select id="province" name="province" class="form-control"
+                                                v-model="selectedProvince1" @change="fetchDistricts1">
+                                                <option value="" disabled selected>{{ $t('choose_region') }}</option>
+                                                <option v-for="(name, id) in regions1" :key="name" :value="name">
+                                                   {{ id }}
+                                                </option>
+                                             </select>
+                                             <span v-if="!selectedProvince1" class="red-star">*</span>
+                                          </div>
                                        </div>
-                                    </div>
-                                 </div>
 
-                                 <!-- District Tanlash -->
-                                 <div class="col-lg-4 tuman">
-                                    <div class="frm__grp" :class="{ error: !selectedDistrict1 && showErrorDistrict1 }">
-                                       <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <div class="select-wrapper">
-                                          <select id="district" name="district" class="form-control"
-                                             v-model="selectedDistrict1">
-                                             <option value="" disabled selected>
-                                                {{ $t('choose_district') }}
-                                             </option>
-                                             <option v-for="(name, id) in districts1" :key="id" :value="name.id">
-                                                {{ name.name }}
-                                             </option>
-                                          </select>
-                                          <span v-if="!selectedDistrict1" class="red-star">*</span>
+                                       <!-- District Tanlash -->
+                                       <div class="col-lg-4 tuman"
+                                          :class="{ error: !selectedDistrict1 && showErrorDistrict1 }">
+
+                                          <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="select-wrapper">
+                                             <select id="district" name="district" class="form-control"
+                                                v-model="selectedDistrict1">
+                                                <option value="" disabled selected>
+                                                   {{ $t('choose_district') }}
+                                                </option>
+                                                <option v-for="(name, id) in districts1" :key="id" :value="name.id">
+                                                   {{ name.name }}
+                                                </option>
+                                             </select>
+                                             <span v-if="!selectedDistrict1" class="red-star">*</span>
+                                          </div>
                                        </div>
-                                    </div>
-                                 </div>
 
 
 
 
 
 
-                                 <div class="col-lg-4 manzil">
-                                    <div class="frm__grp">
-                                       <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
-                                       <div style="position: relative;">
-                                          <input type="text" id="address" name="address" class="form-control"
-                                             :placeholder="$t('Address')" v-model="address">
+                                       <div class="col-lg-4 manzil">
+                                          <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
+                                          <div class="select-wrapper">
 
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <p style="color: blek; font-size: small;">{{ $t('sender_address') }}</p>
-                                 <br>
-                                 <br>
-
-                                 <h3 class="title mb-20" style="margin-top: 30px;">
-                                    {{ $t('to_where') }}
-                                 </h3>
-
-                                 <div class="tabi bor" style="--bs-gutter-y: 5rem;     position: relative; top: -60px;">
-                                    <button class="tablinks1" type="button"
-                                       :class="{ active: $route.activeTab === 'Index' }" @click="activeTab = 'Index'"
-                                       style="display: block;">
-                                       <p>{{ $t('index') }}</p>
-                                    </button>
-                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Manzil' }"
-                                       @click="activeTab = 'Manzil'" id="firstTab" style="display: block;">
-                                       <p>{{ $t('address2') }}</p>
-                                    </button>
-                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Pochtam' }"
-                                       @click="activeTab = 'Pochtam'">
-                                       <p>{{ $t('postomat') }}</p>
-                                    </button>
-                                    <button class="tablinks1" type="button" :class="{ active: activeTab === 'Davlat' }"
-                                       @click="activeTab = 'Davlat'" v-if="activeService !== 209">
-                                       <!-- Agar "Bir qadam" tanlanmagan bo‘lsa ko‘rinadi -->
-                                       <p>{{ $t('other_countries') }}</p>
-                                    </button>
-
-                                 </div>
-
-                                 <div id="Index" class="tabcontent1" v-show="activeTab === 'Index'">
-                                    <div class="col-lg-4 index">
-                                       <div class="frm__grp">
-
-                                          <label for="index" class="fz-18 fw-500 inter title mb-16">
-                                          </label>
-                                          <div class="input-wrapper">
-
-                                             <input style="    position: relative; top: -60px;" type="text" id="index"
-                                                name="index" class="form-control" :placeholder="$t('enter_index')"
-                                                v-model="index" />
-                                             <span v-if="!index" class="red-starinput">*</span>
-
+                                             <div style="position: relative;">
+                                                <input type="text" id="address" name="address" class="form-control"
+                                                   :placeholder="$t('Address')" v-model="address">
+                                             </div>
                                           </div>
                                        </div>
                                     </div>
-                                    <p style="color: black; font-size: small; position: relative; top: -55px;">
-                                       <router-link :to="{ name: 'map' }" style="color: blue;">
-                                          {{ $t('index') }}
-                                       </router-link>
-                                       {{ $t('index_note') }}
-                                    </p>
-
+                                    <p style="color: blek; font-size: small;">{{ $t('sender_address') }}</p>
                                  </div>
+                                 
+                                 <div class="bordered-container">
 
+                                    <h3 class="title mb-20" style="margin-top: 30px;">
+                                       {{ $t('to_where') }}
+                                    </h3>
 
-                                 <br>
-                                 <br>
-                                 <br>
-                                 <br>
-                                 <div id="Manzil" class="tabcontent1" v-show="activeTab === 'Manzil'">
-                                    <form action="#0" class="write__review" style="margin-top: 20px;">
-                                       <div class="row g-4 justify-content-center"
-                                          style="    position: relative; top: -60px;">
-                                          <div class="col-lg-4 viloyat">
-                                             <div class="frm__grp"
-                                                :class="{ error: !selectedProvince2 && showErrorRegion2 }">
-                                                <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <div class="select-wrapper">
-                                                   <select id="province" name="province" class="form-control"
-                                                      v-model="selectedProvince2" @change="fetchDistricts2">
-                                                      <option value="" disabled selected>{{ $t('choose_region') }}
-                                                      </option>
-                                                      <option v-for="(name, id) in regions2" :key="name" :value="name">
-                                                         {{ id }}
-                                                      </option>
-                                                   </select>
-                                                   <span v-if="!selectedProvince2" class="red-star">*</span>
-                                                </div>
+                                    <div class="tabi bor"
+                                       style="--bs-gutter-y: 5rem;     position: relative; top: 10px;">
+                                       <button class="tablinks1" type="button"
+                                          :class="{ active: activeTab === 'Index' }" @click="activeTab = 'Index'"
+                                          style="display: block;">
+                                          <p>{{ $t('index') }}</p>
+                                       </button>
+                                       <button class="tablinks1" type="button"
+                                          :class="{ active: activeTab === 'Manzil' }" @click="activeTab = 'Manzil'"
+                                          id="firstTab" style="display: block;">
+                                          <p>{{ $t('address2') }}</p>
+                                       </button>
+                                       <button class="tablinks1" type="button"
+                                          :class="{ active: activeTab === 'Pochtam' }" @click="activeTab = 'Pochtam'">
+                                          <p>{{ $t('postomat') }}</p>
+                                       </button>
+                                       <button class="tablinks1" type="button"
+                                          :class="{ active: activeTab === 'Davlat' }" @click="activeTab = 'Davlat'"
+                                          v-if="activeService !== 209">
+                                          <!-- Agar "Bir qadam" tanlanmagan bo‘lsa ko‘rinadi -->
+                                          <p>{{ $t('other_countries') }}</p>
+                                       </button>
+                                    </div>
+                                    <div class="flex-container" style="top: 10px;">
+                                       <div id="Index" class="tabcontent1" v-show="activeTab === 'Index'">
+                                          <div class="col-lg-4 index">
+                                             <label for="index" class="fz-18 fw-500 inter title mb-16">
+                                             </label>
+                                             <div class="input-wrapper">
+                                                <input style="    position: relative; top: 15x;" type="text" id="index"
+                                                   name="index" class="form-control" :placeholder="$t('enter_index')"
+                                                   v-model="index" />
+                                                <span v-if="!index" class="red-starinput">*</span>
+                                             </div>
+                                          </div>
+                                          <p style="color: black; font-size: small; position: relative; top: 10px;">
+                                             <router-link :to="{ name: 'map' }" style="color: blue;">
+                                                {{ $t('index') }}
+                                             </router-link>
+                                             {{ $t('index_note') }}
+                                          </p>
+                                       </div>
+                                    </div>
+
+                                    <div id="Manzil" class="tabcontent1" v-show="activeTab === 'Manzil'">
+                                       <div class="flex-container">
+                                          <div class="col-lg-4 viloyat"
+                                             :class="{ error: !selectedProvince2 && showErrorRegion2 }">
+                                             <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                             <div class="select-wrapper">
+                                                <select id="province" name="province" class="form-control"
+                                                   v-model="selectedProvince2" @change="fetchDistricts2">
+                                                   <option value="" disabled selected>{{ $t('choose_region') }}
+                                                   </option>
+                                                   <option v-for="(name, id) in regions2" :key="name" :value="name">
+                                                      {{ id }}
+                                                   </option>
+                                                </select>
+                                                <span v-if="!selectedProvince2" class="red-star">*</span>
                                              </div>
                                           </div>
 
-                                          <div class="col-lg-4 tuman">
-                                             <div class="frm__grp"
-                                                :class="{ error: !selectedDistrict2 && showErrorDistrict2 }">
-                                                <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
-                                                <div class="select-wrapper">
-                                                   <select id="district" name="district" class="form-control"
-                                                      v-model="selectedDistrict2">
-                                                      <option value="" disabled selected>
-                                                         {{ $t('choose_district') }}
-                                                      </option>
-                                                      <option v-for="(name, id) in districts2" :key="id"
-                                                         :value="name.id">
-                                                         {{ name.name }}
-                                                      </option>
-                                                   </select>
-                                                   <span v-if="!selectedDistrict2" class="red-star">*</span>
-                                                </div>
+                                          <div class="col-lg-4 tuman"
+                                             :class="{ error: !selectedDistrict2 && showErrorDistrict2 }">
+                                             <label for="district" class="fz-18 fw-500 inter title mb-16"></label>
+                                             <div class="select-wrapper">
+                                                <select id="district" name="district" class="form-control"
+                                                   v-model="selectedDistrict2">
+                                                   <option value="" disabled selected>
+                                                      {{ $t('choose_district') }}
+                                                   </option>
+                                                   <option v-for="(name, id) in districts2" :key="id" :value="name.id">
+                                                      {{ name.name }}
+                                                   </option>
+                                                </select>
+                                                <span v-if="!selectedDistrict2" class="red-star">*</span>
                                              </div>
                                           </div>
 
                                           <div class="col-lg-4 manzil">
-                                             <div class="frm__grp">
-                                                <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
+                                             <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
+                                             <div class="select-wrapper">
+
                                                 <div style="position: relative;">
                                                    <input type="text" id="address" name="address" class="form-control"
                                                       :placeholder="$t('recipient_address')">
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <p style="color: blek; font-size: small; position: relative; top: -55px;">
-                                          {{ $t('address_note') }}</p>
-                                    </form>
-                                 </div>
-                                 <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
-                                    style="    position: relative; top: -60px;">
-                                    <h6 style="color: red; font-size: small;">{{ $t('service_unavailable') }} </h6>
-                                 </div>
-                                 <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
 
-                                    <div class="col-lg-4 viloyat" style="position: relative; top: -60px;">
-                                       <div class="frm__grp"
-                                          :class="{ error: !selectedProvince3 && showErrorProvince3 }">>
-                                          <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
-                                          <div class="select-wrapper">
-                                             <select id="province" name="province" class="form-control"
-                                                style="    width: 100%;" v-model="selectedProvince3">
-                                                <option value="" disabled selected>{{ $t('Host_Country') }}</option>
-                                                <option v-for="province in provinces" :key="province.id"
-                                                   :value="province.id">
-                                                   {{ province.name }}
-                                                </option>
-                                             </select>
-                                             <span v-if="!selectedProvince3" class="red-star">*</span>
-                                          </div>
+
                                        </div>
+                                       <p style="color: blek; font-size: small; position: relative; top: 10px;">
+                                          {{ $t('address_note') }}</p>
                                     </div>
 
-                                 </div>
-                                 <h3 class="title mb-20" style="    position: relative; top: -40px;">
+                                    <div class="flex-container">
 
-                                 </h3>
+                                       <div id="Pochtam" class="tabcontent1" v-show="activeTab === 'Pochtam'"
+                                          style="    position: relative; top: 10px;">
+                                          <h6 style="color: red; font-size: small;">{{ $t('service_unavailable') }}
+                                          </h6>
+                                       </div>
+                                    </div>
+                                    <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
+                                       <div class="flex-container">
+                                          <div class="col-lg-4 viloyat" style="position: relative; top: -50px;"
+                                             :class="{ error: !selectedProvince3 && showErrorProvince3 }">
+                                             <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
+                                             <div class="select-wrapper">
+                                                <select id="province" name="province" class="form-control"
+                                                   style="    width: 100%;" v-model="selectedProvince3">
+                                                   <option value="" disabled selected>{{ $t('Host_Country') }}
+                                                   </option>
+                                                   <option v-for="province in provinces" :key="province.id"
+                                                      :value="province.id">
+                                                      {{ province.name }}
+                                                   </option>
+                                                </select>
+                                                <span v-if="!selectedProvince3" class="red-star">*</span>
+                                             </div>
+                                          </div>
+
+                                       </div>
+                                    </div>
+                                 </div>
                                  <div class="row" style="    position: relative; top: -60px;">
                                     <div class="col-lg-6 vesi left-align">
                                        <div class="frm__grp">
                                           <label for="vesi" class="fz-180 fw-500 inter title mb-16">{{ $t('weight')
-                                             }}</label>
+                                          }}</label>
                                           <div class="input-wrapper">
 
                                              <input type="number" id="vesi" name="vesi" class="form-control"
@@ -861,6 +853,90 @@ export default {
 
 
 <style>
+.bordered-container {
+   border: 2px solid black;
+   padding: 15px;
+   margin: 20px;
+   border-radius: 10px;
+   background-color: #e6effd;
+}
+
+.flex-container {
+   display: flex;
+   flex-direction: row;
+   gap: 5px;
+   margin-top: 20px;
+   flex-wrap: wrap;
+}
+
+
+.col-lg-4 {
+   flex: 1 1 calc(33.33% - 10px);
+   /* 3 ta element yonma-yon */
+   min-width: 100px;
+}
+
+.viloyat {
+   order: 1;
+   /* Viloyat birinchi */
+}
+
+.tuman {
+   order: 2;
+   /* Tuman ikkinchi */
+}
+
+.manzil {
+   order: 3;
+   /* Manzil uchinchi */
+}
+
+p {
+   color: black;
+}
+
+.select-wrapper {
+   width: 200px;
+   /* Kengligini 150px qilish */
+   padding: 5px;
+   /* Ichki bo'shliqni kamaytirish */
+}
+
+.select-wrapper select {
+   width: 100%;
+   /* Select maydonining kengligini 100% qilish */
+   padding: 8px;
+   /* Select maydonidagi ichki bo'shliqni kamaytirish */
+   font-size: 14px;
+   /* Shrify o'lchamini kichiklashtirish */
+   box-sizing: border-box;
+   /* Padding va borderni elementning umumiy kengligiga qo'shish */
+}
+
+/* Media Query for smaller screens (e.g., mobile devices) */
+@media (max-width: 768px) {
+   .flex-container {
+      flex-wrap: wrap;
+      flex-direction: row;
+   }
+
+   .col-lg-4 {
+      flex: 1 1 100%;
+      /* Make each column take up the full width on smaller screens */
+      margin-bottom: 15px;
+      /* Add some space between the columns */
+   }
+
+   .viloyat,
+   .tuman .manzil {
+      flex: 1 1 calc(50% - 5px);
+      /* Viloyat va tuman yonma-yon */
+      min-width: 48%;
+   }
+
+}
+
+
 .error-message1 {
    position: fixed;
    bottom: 20px;
@@ -1026,12 +1102,10 @@ export default {
 
 .red-starinput {
    color: red;
-   /* Yulduzchaning rangini qizil qilish */
    font-weight: bold;
    position: absolute;
-   top: -50px;
+   top: 10px;
    right: 5px;
-   /* Yulduzchaning joylashuvi */
    transform: translateY(-50%);
    font-size: 18px;
 }

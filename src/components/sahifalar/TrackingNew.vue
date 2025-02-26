@@ -278,7 +278,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 #adCarousel .carousel-control-prev,
 #adCarousel .carousel-control-next {
     display: none;
@@ -336,5 +336,134 @@ export default {
     /* Rasm kengligi */
     height: auto;
     /* Asl nisbatni saqlash */
+}
+
+/* 750px dan kichik ekranlar uchun qo'llanadigan uslublar */
+@media (max-width: 750px) {
+
+/* Popupni markazga joylashtirish */
+/* Popupning umumiy uslubi (750px dan katta ekranlar uchun eski ko'rinish) */
+.popup {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 400px;
+   background-color: white;
+   /* border-radius: 8px; */
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   overflow: hidden;
+   z-index: 1000;
+}
+
+.popup-content {
+   padding: 20px;
+}
+
+.close-btn {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 20px;
+   color: #333;
+   cursor: pointer;
+}
+
+/* Matnlarni markazlash va joylashtirish */
+.popup h2 {
+   text-align: center;
+   font-size: 18px;
+   margin-bottom: 15px;
+   font-weight: bold;
+   color: #183e98;
+}
+
+ul.blog__categories {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+ul.blog__categories li {
+   /* display: flex; */
+   flex-direction: column;
+   padding: 10px;
+   border-bottom: 1px solid #f0f0f0;
+}
+
+ul.blog__categories li a {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-items: center;
+   text-decoration: none;
+   color: #333;
+}
+
+ul.blog__categories li span {
+   font-size: 14px;
+   /* color: #555; */
+}
+
+/* Flag uchun rasmni moslashtirish */
+.flag-icon {
+   width: 20px;
+   height: auto;
+   margin-right: 8px;
+}
+
+/* Mobil qurilmalarga moslashtirish faqat ekran kengligi 750px dan kichik bo'lsa */
+@media (max-width: 750px) {
+   .popup {
+      width: 90%;
+      max-width: none;
+   }
+
+   ul.blog__categories li {
+      flex-direction: column;
+      align-items: flex-start;
+   }
+
+   ul.blog__categories li a {
+      flex-direction: column;
+      align-items: flex-start;
+   }
+
+   ul.blog__categories li span {
+      font-size: 12px;
+   }
+
+   .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background-color: white;
+      z-index: 1100;
+      /* Yuqori qiymat beriladi */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+   }
+
+   .header-section {
+      position: relative;
+      z-index: 100;
+      /* Pastroq qiymat qo'yiladi */
+   }
+
+   .sub-menu {
+      z-index: 100;
+      /* Menyular pastroq bo'lishi uchun */
+   }
+
+}
+}
+
+
+.search__component input {
+    width: 100%;
+    text-align: left;
+    padding-left: 10px; /* Matnni chap tomonga yaqinlashtirish uchun */
 }
 </style>
