@@ -66,6 +66,14 @@ Section css
 }
 
 @font-face {
+  font-family: 'RobotoCondensed-BoldItalic'; /* Shriftning nomi */
+  src: url('fonts/RobotoCondensed-BoldItalic.ttf') format('truetype'); /* TTF faylning yo'li */
+}
+.RobotoCondensed-BoldItalic {
+  font-family: "RobotoCondensed-BoldItalic", sans-serif;
+}
+
+@font-face {
   font-family: 'Roboto-Condensed-Italik'; /* Shriftning nomi */
   src: url('fonts/RobotoCondensed-Italic.ttf') format('truetype'); /* TTF faylning yo'li */
 }
@@ -337,6 +345,14 @@ p {
   font-weight: 0;
   display: block;
   font-family: "Roboto-Condensed", sans-serif;
+}
+
+.d41 {
+  font-size: 56px;
+  line-height: 150%;
+  font-weight: 0;
+  display: block;
+  font-family: "RobotoCondensed-BoldItalic", sans-serif;
 }
 
 .pfz-24 {

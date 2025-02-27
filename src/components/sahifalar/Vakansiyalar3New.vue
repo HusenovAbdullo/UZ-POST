@@ -18,7 +18,7 @@
                     <div class="row g-4 align-items-center justify-content-between">
                         <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                             <div class="breadcumnd__content">
-                                <span class="d4 mb-24">
+                                <span class="d41 mb-24">
                                 </span>
                                 <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
                      <li>

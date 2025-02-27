@@ -19,7 +19,7 @@
                <div class="row g-4 align-items-center justify-content-between">
                   <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                      <div class="breadcumnd__content">
-                        <span class="d4 mb-24">
+                        <span class="d41 mb-24">
                            {{ $t('uzpost_contact') }}
                         </span>
                      </div>
@@ -163,9 +163,9 @@
                   </h3>
                   <form @submit.prevent="submitForm" class="write__review">
                      <div class="row g-4">
-                        <div class="col-lg-6">
+                        <div class="col-lg-61">
                            <div class="frm__grp">
-                              <label for="name" class="fz-18 fw-500 inter title mb-16">
+                              <label for="name" class=" fw-500 inter title mb-16">
                                  {{ $t("applicant") }} <span class="text-danger">*</span>
                               </label>
                               <input type="text" id="name" v-model="form.name" :placeholder="$t('enter_your_name')" />
@@ -174,18 +174,18 @@
                               </small>
                            </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-61">
                            <div class="frm__grp">
-                              <label for="email" class="fz-18 fw-500 inter title mb-16">
+                              <label for="email" class=" fw-500 inter title mb-16">
                                  {{ $t("email") }}
                               </label>
                               <input type="email" id="email" v-model="form.email"
                                  :placeholder="$t('email_placeholder')" />
                            </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-61">
                            <div class="frm__grp">
-                              <label for="phone" class="fz-18 fw-500 inter title mb-16">
+                              <label for="phone" class=" fw-500 inter title mb-16">
                                  {{ $t("phone_number") }} <span class="text-danger">*</span>
                               </label>
                               <input type="text" id="phone" v-model="form.phone"
@@ -197,7 +197,7 @@
                         </div>
                         <div class="col-lg-12">
                            <div class="frm__grp">
-                              <label for="file-upload" class="fz-18 fw-500 inter title mb-16">
+                              <label for="file-upload" class=" fw-500 inter title mb-16">
                                  {{ $t("file") }}
                               </label>
                               <input type="file" id="file-upload" @change="handleFileUpload" />
@@ -205,7 +205,7 @@
                         </div>
                         <div class="col-lg-12">
                            <div class="frm__grp">
-                              <label class="fz-18 fw-500 inter title mb-16">
+                              <label class=" fw-500 inter title mb-16">
                                  {{ $t("message_text") }} <span class="text-danger">*</span>
                               </label>
                               <textarea v-model="form.message" cols="30" rows="5"

@@ -304,4 +304,8 @@ export default {
   izlashkocha: "Ko'cha yoki mahalla nomini kiriting",
   oddiy: "Oddiy ko'rinish",
   rangsiz: "Rangsiz ko'rinish",
+  manzilbilan: "Manzil bilan izlash",
+  bolimizlash: "Bo'limni izlash",
+  mahallanomi: "Ko‘cha yoki mahalla nomini kiriting",
+  aloqanomi: "Aloqa bo'lim nomi yoki indeksini kiriting",
 };

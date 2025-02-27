@@ -19,38 +19,45 @@
                            EMS
                         </button>
                      </div>
-                     <div class="tabs d-flex" style="gap: 5px;">
+                     <div class="tabs d-flex" style="gap: 5px; align-self: flex-start !important;">
                         <button class="tab-btn" :class="{ 'active-tab': activeTab === 'apidagi_nomlar' }"
                            @click="setActiveTab('apidagi_nomlar')">
-                           Ko‘cha nomlari orqali izlash
+                           {{ $t('manzilbilan') }}
                         </button>
                         <button class="tab-btn" :class="{ 'active-tab': activeTab === 'kocha_nomi' }"
                            @click="setActiveTab('kocha_nomi')">
-                           Apidagi nom va manzillar
+                           {{ $t('bolimizlash') }}
                         </button>
                      </div>
-                     <div class="search-wrapper">
-                        <form v-if="activeTab === 'apidagi_nomlar'"
-                           class="d-flex align-items-center position-relative mt-4">
-                           <input type="text" placeholder="Ko‘cha yoki mahalla nomini kiriting" class="search-input"
+                     <div class="search-wrapper" style="align-self: flex-start !important;">
+                        <!-- Ko‘cha nomi qidirish bo‘limi (activeTab === 'apidagi_nomlar') -->
+                        <form v-if="activeTab === 'apidagi_nomlar'">
+                           <input type="text"  :placeholder="$t('mahallanomi')" class="search-input"
                               @input="searchLocation($event.target.value)" />
                            <div class="search-icon">
                               <i class="bi bi-search fz-12"></i> {{ $t('search') }}
                            </div>
                         </form>
-                        <form v-else class="d-flex align-items-center position-relative mt-4">
-                           <input type="text" placeholder="Aloqa bo‘lim indeksi yoki nomi bilan izlang"
+                        <!-- Pochta bo‘limi qidirish bo‘limi (activeTab === 'kocha_nomi') -->
+                        <form v-if="activeTab === 'kocha_nomi'">
+                           <input type="text" :placeholder="$t('aloqanomi')"
                               class="search-input" @input="searchPostOffices($event.target.value)" />
                            <div class="search-icon">
                               <i class="bi bi-search fz-12"></i> {{ $t('search') }}
                            </div>
                         </form>
 
-
-
-                        <ul v-if="searchResults.length" class="search-results">
+                        <!-- Natijalar ro‘yxati: ko‘cha qidiruvi uchun -->
+                        <ul v-if="activeTab === 'apidagi_nomlar' && searchResults.length" class="search-results">
                            <li v-for="location in searchResults" :key="location.lat" @click="selectLocation(location)">
                               {{ location.address }}
+                           </li>
+                        </ul>
+
+                        <!-- Natijalar ro‘yxati: pochta bo‘limi qidiruvi uchun -->
+                        <ul v-if="activeTab === 'kocha_nomi' && searchResults.length" class="search-results">
+                           <li v-for="office in searchResults" :key="office.index" @click="selectOffice(office)">
+                              {{ office.index }} – {{ office.name_uz }}
                            </li>
                         </ul>
                      </div>
@@ -84,24 +91,59 @@ export default {
       await this.fetchPostOffices();
       this.filterData("all"); // Sahifa yuklanganda barcha ofislar ko'rsin
       this.loadYandexMap();
+      await this.fetchInitialPostOffices();
    },
    methods: {
-      // Pochta bo‘limlarini qidirish
-      searchPostOffices(query) {
-         this.searchQuery = query;
-         if (query.length > 2) {
-            fetch(`https://new.pochta.uz/api/v1/maps/post/offices/?search=${query}`)
-               .then(response => response.json())
-               .then(data => {
-                  console.log('API javobi:', data); // Bu yerda API'dan olingan javobni konsolga chiqaramiz
-                  this.searchResults = data.result || []; // Natijalarni saqlash
-               })
-               .catch(error => console.error('API xatosi:', error)); // Xatoliklarni konsolga chiqarish
 
-         } else {
-            this.searchResults = [];
+      async fetchInitialPostOffices() {
+         try {
+            const response = await fetch("https://new.pochta.uz/api/v1/maps/new/post/offices/");
+            const data = await response.json();
+            this.offices = data.result || [];
+            this.filteredOffices = this.offices; // Barcha bo‘limlar xaritada
+         } catch (error) {
+            console.error("API dan pochta bo‘limlarini olishda xatolik:", error);
          }
       },
+
+      // Bu yerda qidiruv uchun boshqa endpointdan ma'lumot olinmoqda
+      async searchPostOffices(query) {
+         try {
+            // Agar foydalanuvchi 3 yoki undan ko‘p belgidan so‘ng qidirsa
+            if (query.length > 2) {
+               const response = await fetch("https://new.pochta.uz/api/v1/maps/post/offices/");
+               const data = await response.json();
+               this.offices = data.result || [];
+
+               const lowerQuery = query.toLowerCase();
+               const fieldsToSearch = [
+                  "index",
+                  "name_uz",
+                  "name_eng",
+                  "name_ru",
+                  "region"
+               ];
+
+               // JSON ichidagi har bir 'postal_office' obyektining kerakli maydonlarida qidiramiz
+               this.searchResults = this.offices
+                  .filter(item => {
+                     const office = item.postal_office;
+                     return fieldsToSearch.some(field => {
+                        const value = office[field];
+                        return value && value.toString().toLowerCase().includes(lowerQuery);
+                     });
+                  })
+                  .map(item => item.postal_office)
+                  .slice(0, 5); // 5 ta eng mos natija
+            } else {
+               this.searchResults = [];
+            }
+         } catch (error) {
+            console.error("API dan pochta bo‘limlarini olishda xatolik:", error);
+         }
+      },
+
+
 
       // Xaritada manzil qidirish
       async searchLocationOnMap(query) {
@@ -135,30 +177,113 @@ export default {
       // Pochta ofisini tanlash
       selectOffice(office) {
          this.selectedOffice = office;
-         this.$emit('showOfficeOnMap', office);
-      },
+         // Qidiruv natijalarini tozalash
+         this.searchResults = [];
+
+         if (office.lat && office.lng) {
+            // Marker yaratish
+            const placemark = new window.ymaps.Placemark(
+               [parseFloat(office.lat), parseFloat(office.lng)],
+               {
+                  balloonContent: `<strong>${office.name_uz}</strong><br><strong>Indeks:</strong> ${office.index}<br>
+      <strong>Xalq global:</strong> ${office.xalq_global}<br>
+      <strong>Zoodmal:</strong> ${office.zoodmall}<br>
+      <strong>Uzum:</strong> ${office.uzum}<br>
+      <strong>Ozon:</strong> ${office.ozon}<br>
+      <strong>EMS:</strong> ${office.EMS}<br>
+      <strong>Bir qadam:</strong> ${office.one_step}<br>
+   <strong>Viloyat:</strong> ${office.region}<br>
+      <strong>Tuman:</strong> ${office.district}<br>
+      <strong>Geolokatsiya:</strong> <a href="${office.geolocation}" target="_blank">Ko‘rish</a>
+                  `
+               },
+               {
+                  iconLayout: 'default#image',
+                  iconImageHref: 'https://new.pochta.uz/media/UzPost_for_ma1p.svg',
+                  iconImageSize: [30, 30],
+                  iconImageOffset: [-15, -15]
+               }
+            );
+
+            placemark.events.add('click', () => {
+               this.fetchOfficeDetail(office.index, placemark);
+            });
+            this.map.geoObjects.add(placemark);
+            this.map.setCenter([parseFloat(office.lat), parseFloat(office.lng)], 15);
+            placemark.balloon.open();
+
+            // To'liq ma'lumotlarni olish: API dan kelgan obyektlar ichidan mos keluvchini topish
+            const officeData = this.offices.find(item => item.postal_office.index === office.index);
+
+            if (officeData && officeData.locations && officeData.locations.locations.length) {
+               // Avvalgi poligon mavjud bo'lsa, olib tashlash
+               if (this.currentPolygon) {
+                  this.map.geoObjects.remove(this.currentPolygon);
+               }
+               // Yangi poligon yaratish
+               this.currentPolygon = new window.ymaps.Polygon(
+                  [officeData.locations.locations],
+                  {
+                     hintContent: office.name_uz,
+                     balloonContent: `<strong>${office.name_uz}</strong><br><strong>Indeks:</strong> ${office.index}`
+                  },
+                  {
+                     fillColor: officeData.locations.fill,
+                     fillOpacity: parseFloat(officeData.locations.fill_opacity),
+                     strokeColor: officeData.locations.stroke,
+                     strokeWidth: parseFloat(officeData.locations.stroke_width),
+                     strokeOpacity: parseFloat(officeData.locations.stroke_opacity)
+                  }
+               );
+               this.map.geoObjects.add(this.currentPolygon);
+               // Xarita chegaralarini poligon atrofida sozlash (ixtiyoriy)
+               const bounds = this.currentPolygon.geometry.getBounds();
+               this.map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 20 });
+            }
+         }
+      }
+      ,
       setActiveTab(tab) {
          this.activeTab = tab;
+         // this.fetchInitialPostOffices();
       },
       filterData(type) {
          this.activeButton = type;
-
+         console.log(this.offices)
          let iconUrl = 'https://new.pochta.uz/media/UzPost_for_ma1p.svg'; // Default icon
-
          if (type === "all") {
-            this.filteredOffices = this.offices; // Barcha ofislar ko'rsin
+            this.filteredOffices = this.offices
+                  .filter(office => office.postal_office) // postal_office mavjudligini tekshiramiz
+                  .map(office => office.postal_office);   // faqat postal_office obyektini olamiz            console.log(this.filteredOffices)
+            // if (this.filteredOffices.length === 0) {
+            //    this.filteredOffices = this.offices
+            //       .filter(office => office.postal_office) // postal_office mavjudligini tekshiramiz
+            //       .map(office => office.postal_office);   // faqat postal_office obyektini olamiz
+            // }
          } else if (type === "one_step") {
             this.filteredOffices = this.offices.filter(office => office.one_step === "Bor");
+            if (this.filteredOffices.length === 0) {
+               // Agar yuqoridagi filter natijasi bo‘sh bo‘lsa, postal_office obyektlarini olish:
+               this.filteredOffices = this.offices
+                  .filter(office => office.postal_office && office.postal_office.one_step === "Bor")
+                  .map(office => office.postal_office);
+            }
             iconUrl = 'https://new.pochta.uz/media/1Q_for_map.svg';
          } else if (type === "EMS") {
             this.filteredOffices = this.offices.filter(office => office.ems_international_post === "Bor");
+            if (this.filteredOffices.length === 0) {
+               // Agar yuqoridagi filter natijasi bo‘sh bo‘lsa, postal_office obyektlarini olish:
+               this.filteredOffices = this.offices
+                  .filter(office => office.postal_office && office.postal_office.EMS === "Bor")
+                  .map(office => office.postal_office);
+            }
             iconUrl = 'https://new.pochta.uz/media/Ems_for_map.svg';
          }
 
          this.updateMap(iconUrl); // Xaritada yangilash
       },
 
-      updateMap(iconUrl = 'https://new.pochta.uz/media/UzPost_for_ma1p.svg') {
+      updateMap(iconUrl) {
          if (!this.map) return;
 
          this.map.geoObjects.removeAll(); // Avvalgi markerlarni tozalash
@@ -169,8 +294,8 @@ export default {
             clusterDisableClickZoom: false,
             clusterOpenBalloonOnClick: true,
          });
-
          const placemarks = this.filteredOffices.map(office => {
+            // console.log(office.lat)
             if (office.lat && office.lng) {
                const placemark = new window.ymaps.Placemark(
                   [parseFloat(office.lat), parseFloat(office.lng)],
@@ -297,68 +422,85 @@ export default {
          } catch (error) {
             console.error("Pochta bo‘limini olishda xatolik:", error);
          }
-      }
-
-
-      ,
+      },
+      // Barcha pochta bo‘limlarini API dan yuklab olish
       async fetchPostOffices() {
          try {
-            const response = await fetch("https://new.pochta.uz/api/v1/maps/new/post/offices/");
+            const response = await fetch("https://new.pochta.uz/api/v1/maps/post/offices/");
             const data = await response.json();
-            this.offices = data.result || [];
-            this.filteredOffices = this.offices;
+            this.offices = data.result || []; // Barcha ma'lumotlarni saqlab qo'yamiz
          } catch (error) {
             console.error("API dan pochta bo‘limlarini olishda xatolik:", error);
          }
-      },
+      }
+      ,
       async fetchOfficeDetail(index, placemark) {
          try {
             const response = await fetch(`https://new.pochta.uz/api/v1/maps/new/post/offices/detail/${index}/`);
             const data = await response.json();
-            const postalOffice = data.result.postal_office;
+            const postalOffice = data.result.postal_office || {};
 
-            const name = this.lang === 'uz' ? postalOffice.name_uz : this.lang === 'ru' ? postalOffice.name_ru : postalOffice.name_eng;
+            // Ma'lumotlarni (null yoki bo'sh bo'lsa ham) to'g'ridan-to'g'ri yozish o'rniga, "||" bilan tekshiruvdan o‘tkazish foydali bo‘lishi mumkin.
+            const nameUz = postalOffice.name_uz || '';
+            const idx = postalOffice.index || '';
+            const EMS = postalOffice.EMS || 'Yo‘q';
+            const oneStep = postalOffice.one_step || 'Yo‘q';
+            const region = postalOffice.region || '';
+            const district = postalOffice.district || '';
+            const street = postalOffice.street || '';
+            const workingHours = postalOffice.working_hours || '';
+            const geolocation = postalOffice.geolocation || '#';
 
+            // Ballon ichida ko‘rsatmoqchi bo‘lgan matnni shu yerda to‘liq shakllantiramiz:
             const info = `
-           <strong></strong> ${name || ''}<br>
-           <strong>${this.$t('index')}</strong> ${postalOffice.index || ''}<br>
-           ${postalOffice.EMS ? `<strong>EMS:</strong> ${postalOffice.EMS}<br>` : ''}
-           ${postalOffice.one_step ? `<strong>${this.$t('one_step')}:</strong> ${postalOffice.one_step}<br>` : ''}
-           ${postalOffice.region && postalOffice.region.trim() ? `<strong>${this.$t('hudud')}</strong> ${postalOffice.region}<br>` : ''}
-           ${postalOffice.city && postalOffice.city.trim() ? `<strong>${this.$t('shahar')}</strong> ${postalOffice.city}<br>` : ''}
-           ${postalOffice.district && postalOffice.district.trim() ? `<strong>${this.$t('district')}</strong> ${postalOffice.district}<br>` : ''}
-           ${postalOffice.street && postalOffice.street.trim() ? `<strong>${this.$t('street')}</strong> ${postalOffice.street}<br>` : ''}
-           ${postalOffice.house && postalOffice.house.trim() ? `<strong>${this.$t('uy')}</strong> ${postalOffice.house}<br>` : ''}
-           ${postalOffice.working_hours && postalOffice.working_hours.trim() ? `<strong>${this.$t('working_hours')}</strong> ${postalOffice.working_hours}<br>` : ''}
-           <strong>${this.$t('Geolokatsiya')}</strong> <a href="${postalOffice.geolocation}" target="_blank">${this.$t('korish')}</a>
-       `;
+      <strong>${nameUz}</strong><br>
+      <strong>Indeks:</strong> ${idx}<br>
+      <strong>EMS:</strong> ${EMS}<br>
+      <strong>Bir Qadam:</strong> ${oneStep}<br>
+      <strong>Hudud:</strong> ${region}<br>
+      <strong>Tuman:</strong> ${district}<br>
+      <strong>Ko‘cha:</strong> ${street}<br>
+      <strong>Ish vaqti:</strong> ${workingHours}<br>
+      <strong>Geolokatsiya:</strong> <a href="${geolocation}" target="_blank">Ko‘rish</a>
+    `;
 
+            // Tayyor matnni placemark ballooniga o‘rnatamiz:
             placemark.properties.set('balloonContent', info);
 
-            const locations = data.result.locations;
-
-            // Avvalgi poligonni o‘chirish
+            // Agar poligon ham bo‘lsa, avval eski poligonni o‘chiramiz:
             if (this.currentPolygon) {
                this.map.geoObjects.remove(this.currentPolygon);
             }
 
-            // Yangi poligon yaratish
-            this.currentPolygon = new window.ymaps.Polygon([locations.locations], {
-               hintContent: name,
-               balloonContent: info
-            }, {
-               fillColor: locations.fill,
-               fillOpacity: parseFloat(locations.fill_opacity),
-               strokeColor: locations.stroke,
-               strokeWidth: parseFloat(locations.stroke_width),
-               strokeOpacity: parseFloat(locations.stroke_opacity),
-            });
+            // Poligon chizish uchun API'dan kelgan locations ma'lumotini olamiz
+            const locations = data.result.locations;
+            if (locations && locations.locations) {
+               this.currentPolygon = new window.ymaps.Polygon(
+                  [locations.locations],
+                  {
+                     hintContent: nameUz,
+                     balloonContent: info
+                  },
+                  {
+                     fillColor: locations.fill,
+                     fillOpacity: parseFloat(locations.fill_opacity),
+                     strokeColor: locations.stroke,
+                     strokeWidth: parseFloat(locations.stroke_width),
+                     strokeOpacity: parseFloat(locations.stroke_opacity)
+                  }
+               );
 
-            this.map.geoObjects.add(this.currentPolygon);
+               this.map.geoObjects.add(this.currentPolygon);
+
+               // Poligonni xaritada to‘liq ko‘rinadigan qilib markazlash
+               const bounds = this.currentPolygon.geometry.getBounds();
+               this.map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 20 });
+            }
          } catch (error) {
             console.error("Aloqa bo‘lim ma'lumotlarini olishda xatolik:", error);
          }
-      },
+      }
+      ,
       loadYandexMap() {
          if (document.getElementById("yandex-maps-script")) {
             this.initMap();
@@ -453,7 +595,7 @@ export default {
 .search-input {
    padding: 8px 100px 8px 12px;
    /* Chap tomondan joy qoldiramiz */
-   font-size: 14px;
+   font-size: 12px;
    border: 1px solid var(--base);
    border-radius: 4px;
    width: 100%;
@@ -482,7 +624,7 @@ export default {
    padding: 0;
    margin: 0;
    position: absolute;
-   top: calc(100% + 5px);
+   /* top: calc(100% + 5px); */
    /* Izlash maydonidan biroz pastda */
    left: 0;
    width: 100%;
@@ -511,7 +653,7 @@ export default {
    padding: 0;
    margin: 0;
    position: absolute;
-   top: 62px;
+   /* top: 62px; */
    left: 0;
    width: 100%;
    background: #183e98;
@@ -666,7 +808,7 @@ body {
 
 .map-container {
    width: 100%;
-   max-width: 1200px;
+   /* max-width: 1200px; */
    height: 650px;
    margin: 0 auto;
    border: 1px solid #ccc;
@@ -756,21 +898,22 @@ body {
 
 .tabs {
    display: flex;
-   border-bottom: 2px solid #ccc;
+   border-bottom: 2px solid #ffffff;
    gap: 5px;
 }
 
 .tab-btn {
    background: none;
-   border: 1px solid transparent;
-   padding: 10px 20px;
-   font-size: 14px;
+   border: 1px solid #19398a;
+   ;
+   padding: 3px 6px;
+   font-size: 12px;
    cursor: pointer;
-   font-weight: bold;
+   /* font-weight: bold; */
    transition: all 0.3s ease;
-   border-radius: 8px 8px 0 0;
+   border-radius: 4px 4px 0 0;
    color: #19398A;
-   margin-bottom: -2px;
+   margin-bottom: -3px;
 }
 
 .active-tab {
@@ -780,7 +923,7 @@ body {
 }
 
 .tab-btn:hover {
-   background-color: rgba(25, 57, 138, 0.1);
+   background-color: rgb(240 120 36);
    border: 1px solid #19398A;
 }
 
@@ -810,11 +953,35 @@ body {
 .search-input {
    width: 100%;
    padding: 8px;
-   border: 1px solid #ccc;
+   border: 1px solid #19398a;
    border-radius: 4px;
+   border-top-left-radius: 0px;
 }
 
 .list-group-item {
    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+
+
+
+
+
+   /* Qidiruv inputni butun kenglikda ko'rsatish */
+   .search-wrapper {
+      width: 100% !important;
+   }
+
 }
 </style>
