@@ -169,12 +169,12 @@
                                        style="--bs-gutter-y: 5rem;     position: relative; top: 10px;">
                                        <button class="tablinks1" type="button"
                                           :class="{ active: activeTab === 'Index' }" @click="activeTab = 'Index'"
-                                          style="display: block;">
+                                          >
                                           <p>{{ $t('index') }}</p>
                                        </button>
                                        <button class="tablinks1" type="button"
                                           :class="{ active: activeTab === 'Manzil' }" @click="activeTab = 'Manzil'"
-                                          id="firstTab" style="display: block;">
+                                          id="firstTab" >
                                           <p>{{ $t('address2') }}</p>
                                        </button>
                                        <button class="tablinks1" type="button"
@@ -271,7 +271,7 @@
                                     </div>
                                     <div id="Davlat" class="tabcontent1" v-show="activeTab === 'Davlat'">
                                        <div class="flex-container">
-                                          <div class="col-lg-4 viloyat" style="position: relative; top: -50px;"
+                                          <div class="col-lg-4 viloyat"
                                              :class="{ error: !selectedProvince3 && showErrorProvince3 }">
                                              <label for="province" class="fz-18 fw-500 inter title mb-16"></label>
                                              <div class="select-wrapper">
@@ -910,7 +910,8 @@ p {
    font-size: 14px;
    /* Shrify o'lchamini kichiklashtirish */
    box-sizing: border-box;
-   /* Padding va borderni elementning umumiy kengligiga qo'shish */
+   -webkit-appearance: none;
+   appearance: none;
 }
 
 /* Media Query for smaller screens (e.g., mobile devices) */
