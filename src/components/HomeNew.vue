@@ -1293,4 +1293,23 @@ export default {
     image-rendering: auto; /* Rasm renderlash sifatini yaxshilash */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+.task__item .title {
+    min-height: 60px; /* Eng uzun sarlavha balandligiga moslang */
+    display: flex;
+    align-items: center;
+}
+
+
 </style>

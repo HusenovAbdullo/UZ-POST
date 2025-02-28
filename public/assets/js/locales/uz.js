@@ -215,6 +215,7 @@ export default {
   Calculate_cost_time: "Xarajatlarni va yetkazib berish vaqtini hisoblang",
 
   from: "Kimdan",
+  from1: "F.I.Sh",
   to_whom: "Kimga",
   enter_city_address: "Jo‘natuvchining shaharini yoki manzilini kiriting.",
   address_note: "Aniqroq hisob-kitob uchun to‘liq manzilni kiriting",
@@ -305,7 +306,7 @@ export default {
   oddiy: "Oddiy ko'rinish",
   rangsiz: "Rangsiz ko'rinish",
   manzilbilan: "Manzil bilan izlash",
-  bolimizlash: "Bo'limni izlash",
-  mahallanomi: "Ko‘cha yoki mahalla nomini kiriting",
-  aloqanomi: "Aloqa bo'lim nomi yoki indeksini kiriting",
+  bolimizlash: "Indeks bilan izlash",
+  mahallanomi: "Manzilni kiriting",
+  aloqanomi: "Pochta bo'limi indeksini kiriting",
 };

@@ -65,12 +65,12 @@
                            {{ $t('email') }}
                         </h5>
                         <span class="fz-16 d-block inter title">
-                           <a href="https://pixner.net/cdn-cgi/l/email-protection" class="__cf_email__"
+                           <a href="mailto:uzpost.business@gmail.com" class="__cf_email__"
                               data-cfemail="cda4a3aba28da8b5aca0bda1a8e3aea2a0">uzpost.business@gmail.com </a>
                            <p class="fz-14">({{ $t('questions_suggestions') }})</p>
                         </span>
                         <span class="fz-16 d-block inter title">
-                           <a href="https://pixner.net/cdn-cgi/l/email-protection" class="__cf_email__"
+                           <a href="mailto:info@pochta.uz" class="__cf_email__"
                               data-cfemail="1e777078715e7b667f736e727b307d7173">info@pochta.uz </a>
                            <p class="fz-14">({{ $t('official_letters') }})</p>
                         </span>

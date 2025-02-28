@@ -109,7 +109,7 @@
                                              <label for="address" class="fz-18 fw-500 inter title mb-16"></label>
                                              <div class="input-wrapperfrom">
                                                 <input type="text" id="from" name="from" class="form-control"
-                                                   :placeholder="$t('from')" v-model="senderName">
+                                                   :placeholder="$t('from1')" v-model="senderName">
                                                 <span v-if="!senderName" class="red-starinputfrom">*</span>
                                              </div>
 
@@ -198,7 +198,7 @@
                                              <div class="input-wrapperfrom">
 
                                                 <input type="text" id="to_whom" name="to_whom" class="form-control"
-                                                   :placeholder="$t('to_whom')" v-model="receiverName">
+                                                   :placeholder="$t('from1')" v-model="receiverName">
                                                 <span v-if="!receiverName" class="red-starinputfrom">*</span>
 
                                              </div>
