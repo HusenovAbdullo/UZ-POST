@@ -563,13 +563,22 @@ export default {
          this.combinedTracking = [];
          this.errorMessage = null;
 
+         // Check if the tracking number starts with CZ, RZ, or E
+         const trackingNumberPrefix = this.trackingNumber.substring(0, 2); // Get the first 2 characters of the tracking number
+         let apiUrl = '';
+
+         if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
+         } else {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
+         }
+
          const xhr = new XMLHttpRequest();
-         xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+         xhr.open('GET', apiUrl, true);
          xhr.onload = () => {
             this.loading = false;
             if (xhr.status >= 200 && xhr.status < 300) {
                const data = JSON.parse(xhr.responseText);
-
                if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
                   const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
                   this.trackingData = {
@@ -628,6 +637,30 @@ export default {
 
          let shipoxList = [];
          let gdeposilkaList = [];
+         if (data.data) {
+            shipoxList = data.data.reverse().map(item => {
+               let date = new Date(item.date);
+               date.setSeconds(0, 0);
+               date.setHours(date.getHours() + 5);
+
+               const formattedDate = date.toLocaleString('en-GB', {
+                  hour12: false,
+                  year: 'numeric',
+                  month: 'numeric',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric'
+               });
+
+               return {
+                  date: formattedDate,
+                  data: item.data || 'UzPost',
+                  location: item.warehouse?.name || '',
+                  status: item["IPSEventType"]["Name"],
+                  country_code: 'UZ'
+               };
+            });
+         }
 
          if (data.shipox?.data?.list) {
             shipoxList = data.shipox.data.list.map(item => ({

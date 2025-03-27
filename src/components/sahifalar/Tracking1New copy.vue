@@ -189,7 +189,7 @@ export default {
 
             // API so'rovini yuborish
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+            xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`, true);
 
             xhr.onload = () => {
                 this.loading = false;

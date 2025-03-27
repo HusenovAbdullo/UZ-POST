@@ -178,7 +178,7 @@ export default {
             this.errorMessage = null;
 
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `https://new.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
+            xhr.open('GET', `https://new.pochta.uz/api/v1/public/new/${this.trackingNumber}/`, true);
             xhr.onload = () => {
                 this.loading = false;
                 if (xhr.status >= 200 && xhr.status < 300) {

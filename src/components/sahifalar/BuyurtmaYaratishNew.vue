@@ -178,7 +178,7 @@
 
                                              <div style="position: relative;">
                                                 <input type="text" id="address" name="address" class="form-control"
-                                                   :placeholder="$t('Address')" v-model="address">
+                                                   :placeholder="$t('Address')" v-model="senderAddress">
                                              </div>
                                           </div>
                                        </div>
@@ -516,7 +516,8 @@ export default {
       validateOrder() {
          if (this.activeTab === 'Index') {
             if (!this.senderName || !this.senderPhone || !this.senderAddress || !this.selectedProvince1 || !this.selectedDistrict1 || !this.receiverName || !this.receiverPhone || !this.index || !this.weight) {
-               this.totalPrice = 0;
+               console.log(this.senderName, this.senderPhone, this.senderAddress, this.selectedProvince1, this.selectedDistrict1, this.receiverName, this.receiverPhone, this.index, this.weight)
+               // this.totalPrice = 0;
                document.getElementById("error-message1").style.display = "block";
                setTimeout(() => {
                   document.getElementById("error-message1").style.display = "none";

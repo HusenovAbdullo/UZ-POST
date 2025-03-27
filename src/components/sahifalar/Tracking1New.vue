@@ -184,50 +184,59 @@ export default {
     },
     methods: {
         fetchTrackingData() {
-            this.loading = true;
-            this.trackingData = null;
-            this.combinedTracking = [];
-            this.errorMessage = null;
+         this.loading = true;
+         this.trackingData = null;
+         this.combinedTracking = [];
+         this.errorMessage = null;
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`, true);
-            xhr.onload = () => {
-                this.loading = false;
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const data = JSON.parse(xhr.responseText);
+         // Check if the tracking number starts with CZ, RZ, or E
+         const trackingNumberPrefix = this.trackingNumber.substring(0, 2); // Get the first 2 characters of the tracking number
+         let apiUrl = '';
 
-                    if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
-                        const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-                        this.trackingData = {
-                            number: mailItem.InternationalId,
-                            senderCountry: mailItem.OrigCountry.Name || '',
-                            senderAddress: mailItem.OrigAddress || '',
-                            senderPostcode: mailItem.OrigPostcode || '',
-                            recipientCountry: mailItem.DestCountry.Name || '',
-                            recipientAddress: mailItem.DestAddress || '',
-                            recipientPostcode: mailItem.DestPostcode || ''
-                        };
+         if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
+         } else {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
+         }
 
-                        this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
-                    } else {
-                        this.processAlternativeData(data);
-                    }
-                } else if (xhr.status === 404) {
-                    // 404 xatolik uchun popup ko‘rsatish
-                    this.trackingData = {
-                        number: this.trackingNumber,
-                        errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
-                    };
-                } else {
-                    this.errorMessage = 'Ma\'lumot topilmadi';
-                }
-            };
-            xhr.onerror = () => {
-                this.loading = false;
-                this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
-            };
-            xhr.send();
-        },
+         const xhr = new XMLHttpRequest();
+         xhr.open('GET', apiUrl, true);
+         xhr.onload = () => {
+            this.loading = false;
+            if (xhr.status >= 200 && xhr.status < 300) {
+               const data = JSON.parse(xhr.responseText);
+               if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+                  const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
+                  this.trackingData = {
+                     number: mailItem.InternationalId,
+                     senderCountry: mailItem.OrigCountry.Name || '',
+                     senderAddress: mailItem.OrigAddress || '',
+                     senderPostcode: mailItem.OrigPostcode || '',
+                     recipientCountry: mailItem.DestCountry.Name || '',
+                     recipientAddress: mailItem.DestAddress || '',
+                     recipientPostcode: mailItem.DestPostcode || ''
+                  };
+
+                  this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
+               } else {
+                  this.processAlternativeData(data);
+               }
+            } else if (xhr.status === 404) {
+               // 404 xatolik uchun popup ko‘rsatish
+               this.trackingData = {
+                  number: this.trackingNumber,
+                  errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
+               };
+            } else {
+               this.errorMessage = 'Ma\'lumot topilmadi';
+            }
+         };
+         xhr.onerror = () => {
+            this.loading = false;
+            this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+         };
+         xhr.send();
+      },
 
         processEvents(events, countryCode) {
             const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
@@ -256,7 +265,30 @@ export default {
 
             let shipoxList = [];
             let gdeposilkaList = [];
+            if (data.data) {
+            shipoxList = data.data.reverse().map(item => {
+               let date = new Date(item.date);
+               date.setSeconds(0, 0);
+               date.setHours(date.getHours() + 5);
 
+               const formattedDate = date.toLocaleString('en-GB', {
+                  hour12: false,
+                  year: 'numeric',
+                  month: 'numeric',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric'
+               });
+
+               return {
+                  date: formattedDate,
+                  data: item.data || 'UzPost',
+                  location: item.warehouse?.name || '',
+                  status: item["IPSEventType"]["Name"],
+                  country_code: 'UZ'
+               };
+            });
+         }
             if (data.shipox?.data?.list) {
                 shipoxList = data.shipox.data.list.map(item => ({
                     date: new Date(item.date),
