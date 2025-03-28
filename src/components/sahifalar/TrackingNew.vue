@@ -181,6 +181,7 @@ export default {
                 this.loading = false;
                 if (xhr.status >= 200 && xhr.status < 300) {
                     const data = JSON.parse(xhr.responseText);
+                    console.log(data)
                     if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
                         const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
                         this.trackingData = this.extractTrackingData(mailItem);

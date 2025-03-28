@@ -625,71 +625,72 @@ export default {
          })).sort((a, b) => b.date - a.date);
       },
       processAlternativeData(data) {
-         this.trackingData = {
-            number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
-            senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
-            senderAddress: data.header?.data?.locations?.[0]?.address || '',
-            senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
-            recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
-            recipientAddress: data.header?.data?.locations?.[1]?.address || '',
-            recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
-         };
+            this.trackingData = {
+                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+                senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
+                senderAddress: data.header?.data?.locations?.[0]?.address || '',
+                senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
+                recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
+                recipientAddress: data.header?.data?.locations?.[1]?.address || '',
+                recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+            };
+            let TemuList = [];
+            let shipoxList = [];
+            let gdeposilkaList = [];
+            if (data.data) {
+                TemuList = data.data.map(item => {
+                    let date = new Date(item.date);
 
-         let shipoxList = [];
-         let gdeposilkaList = [];
-         if (data.data) {
-            shipoxList = data.data.reverse().map(item => {
-               let date = new Date(item.date);
-               date.setSeconds(0, 0);
-               date.setHours(date.getHours() + 5);
+                    // Sekundlarni olib tashlash
+                    date.setSeconds(0, 0);
 
-               const formattedDate = date.toLocaleString('en-GB', {
-                  hour12: false,
-                  year: 'numeric',
-                  month: 'numeric',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric'
-               });
+                    // Soatga 5 qo'shish
 
-               return {
-                  date: formattedDate,
-                  data: item.data || 'UzPost',
-                  location: item.warehouse?.name || '',
-                  status: item["IPSEventType"]["Name"],
-                  country_code: 'UZ'
-               };
-            });
-         }
+                    return {
+                        date: date, // Mana, endi o'zgartirilgan `Date` ob'ekti chiqadi
+                        data: item.data || 'UzPost',
+                        location: item.warehouse?.name || '',
+                        status: item["IPSEventType"]["Name"],
+                        country_code: 'UZ'
+                    };
+                });
+                TemuList = TemuList.reverse();
+            }
 
-         if (data.shipox?.data?.list) {
-            shipoxList = data.shipox.data.list.map(item => ({
-               date: new Date(item.date),
-               data: item.data || 'UzPost',
-               location: item.warehouse?.name || '',
-               status: this.getLocalizedStatus(item),
-               country_code: 'UZ'
-            }));
-         }
+            if (data.shipox?.data?.list) {
+                shipoxList = data.shipox.data.list.map(item => ({
+                    date: new Date(item.date),
+                    data: item.data || 'UzPost',
+                    location: item.warehouse?.name || '',
+                    status: this.getLocalizedStatus(item),
+                    country_code: 'UZ'
+                }));
+            }
 
-         if (data.gdeposilka?.data?.checkpoints) {
-            gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
-               date: new Date(item.time),
-               location: item.location_translated,
-               region: item.courier.name,
-               status: this.getLocalizedStatus(item),
-               country_code: item.courier.country_code
-            }));
-         }
+            if (data.gdeposilka?.data?.checkpoints) {
+                gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
+                    date: new Date(item.time),
+                    location: item.location_translated,
+                    region: item.courier.name,
+                    status: this.getLocalizedStatus(item),
+                    country_code: item.courier.country_code
+                }));
+            }
 
-         const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
-         const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-         this.combinedTracking =
-            new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
-               ? [...sortedShipoxList, ...sortedGdeposilkaList]
-               : [...sortedGdeposilkaList, ...sortedShipoxList];
-      },
+            if (TemuList.length === 0) {
+                // Agar TemuList bo'sh bo'lsa, shipoxList va gdeposilkaList-ni sanaga qarab birlashtiramiz
+                this.combinedTracking =
+                    new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
+                        ? [...sortedShipoxList, ...sortedGdeposilkaList]
+                        : [...sortedGdeposilkaList, ...sortedShipoxList];
+            } else {
+                // Agar TemuList bo'sh bo'lmasa, TemuList-ni combinedTracking-ga qo'shamiz
+                this.combinedTracking = [...TemuList];
+            }
+        },
       // getLocalizedStatus(item) {
       //    const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
       //    if (lang === 'uz') {
