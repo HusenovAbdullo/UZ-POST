@@ -633,9 +633,9 @@ progress {
   margin-top: var(--bs-gutter-y);
   --bs-gutter-y: 1.5rem;
 }
-.row {
+/* .row {
   margin-right: calc(var(--bs-gutter-x)* 0.7);
-}
+} */
 .col {
   flex: 1 0 0%;
 }
