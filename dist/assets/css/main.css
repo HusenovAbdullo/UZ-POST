@@ -2164,11 +2164,11 @@ p {
     margin-bottom: 7px;
     border: 1px solid rgba(170, 181, 200, 0.5);
   }
-  .main-menu li a {
+  /* .main-menu li a {
     display: block;
     padding: 8px 10px 6px;
     font-size: 17px;
-  }
+  } */
   .main-menu li .sub-menu {
     display: none;
     margin: 0px 10px 15px 20px !important;
@@ -3051,8 +3051,10 @@ p {
 @media (max-width: 991px) {
   .task__item {
     flex-wrap: wrap;
-    gap: 15px;
-    padding: 22px 25px;
+    /* gap: 15px;
+    padding: 22px 25px; */
+    gap: 1px;
+    padding: 5px 10px;
   }
   .task__item .thumb {
     width: 100px;

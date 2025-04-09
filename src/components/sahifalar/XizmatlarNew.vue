@@ -26,7 +26,7 @@
 
                 <div class="row ralt g-4">
                     <div v-for="(service, serviceIndex) in category.services_id" :key="serviceIndex"
-                        class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                        class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 wow fadeInDown">
                         <div class="task__item round16 bgwhite d-flex align-items-center">
                             <div class="thumb">
                                 <img :src="convertToHttps(service.save_image) || 'default-image.png'" alt="img" />

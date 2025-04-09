@@ -18,7 +18,7 @@
         </div>
     </section>
     <!-- timely worktwo Here 6 taliksadasdasdasdEDsS -->
-    <section class="categoris__section sectionbg pb-220 pt-220" style="background-color: #ffffff;">
+    <section class="categoris__section sectionbg pb-220 pt-22" style="background-color: #ffffff;">
         <div class="background-overlay"></div>
         <div class="container">
             <br>
@@ -241,7 +241,7 @@
     </section> -->
     <!-- Categoris section End -->
     <!-- task categorish Section Here -->
-    <section class="app__section ralt bg__all2 pt-120">
+    <section class="app__section ralt bg__all2 pt-12">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
@@ -258,7 +258,7 @@
             </div>
             <div class="row ralt g-4">
                 <div v-for="service in services.slice(-4)" :key="service.id"
-                    class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                    class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 wow fadeInDown">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
                             <img v-if="service.save_image" :src="service.save_image.replace('http://', 'https://')"
@@ -302,7 +302,7 @@
     </section>
     <!-- task categorish Section End -->
     <!-- Perfoming section Here -->
-    <section class="perfoming__section bgwhite overhid pt-220 pb-220  sectionbg5" style="color: #ffffff;">
+    <section class="perfoming__section bgwhite overhid pt-22 pb-22  sectionbg5" style="color: #ffffff;">
         <div class="container">
             <div class="divider">
                 <span>{{ $t('cooperating_with_us') }}</span>
@@ -335,7 +335,7 @@
 
 
     <!-- Perfoming section Here -->
-    <section class="perfoming__section bgwhite overhid pt-220 pb-220">
+    <section class="perfoming__section bgwhite overhid pt-22 pb-22">
         <div class="container">
             <div class="perfoming__content">
                 <div class="section__title mb-40">
@@ -422,7 +422,7 @@
     </section>
     <!-- Perfoming section End -->
     <!-- Categoris section Here -->
-    <!-- <section class="freelancer__section1 ralt pt-120 pb-120 sectionbg5">
+    <!-- <section class="freelancer__section1 ralt pt-12 pb-12 sectionbg5">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
@@ -529,7 +529,7 @@
     </section> -->
     <!-- Categoris section End -->
     <!-- App Here -->
-    <!-- <section class="app__section ralt bg__all pt-120">
+    <!-- <section class="app__section ralt bg__all pt-12">
         <div class="container">
             <div class="row g-4 flex-row-reverse align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-7">
@@ -564,7 +564,7 @@
         </div>
     </section> -->
     <!-- App End -->
-    <section class="app__section ralt bg__all pt-120">
+    <section class="app__section ralt bg__all pt-12">
         <div class="container">
             <div>
                 <div>
@@ -745,7 +745,7 @@
             </div>
         </div>
     </section>
-    <section class="app__section ralt bg__all1 pb-120 pt-120">
+    <section class="app__section ralt bg__all1 pb-12 pt-12">
         <div class="container">
             <div class="row">
                 <div class="col-xxl-6 col-xl-8 col-lg-8">
@@ -1100,7 +1100,7 @@ export default {
 
 @media (max-width: 480px) {
     .frelancer__item {
-        flex: 1 1 100%;
+        /* flex: 1 1 100%; */
         /* Juda kichik ekranda 1 ta ustun */
     }
 }
@@ -1234,7 +1234,7 @@ export default {
 
 
 
-@media (max-width: 1200px) {
+@media (max-width: 120px) {
     .task__item {
         flex-direction: column;
         /* Elementlarni vertikal qilib o'rnatadi */
