@@ -1172,6 +1172,21 @@ export default {
 }
 
 
+@media (max-width: 991px) {
+    .task__item {
+        /* flex-wrap: wrap;
+        gap: 1px;
+        padding: 5px 10px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1px;
+        padding: 5px 10px;
+        text-align: center;
+    }
+}
+
 
 @media (max-width: 992px) {
     .frelancer__item2 {
