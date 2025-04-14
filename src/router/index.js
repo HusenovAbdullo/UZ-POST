@@ -73,7 +73,7 @@ import IndexViewVue from '@/views/IndexView.vue';
 const routes = [
   
   {
-    path: '/:lang(uz|ru)/',
+    path: '/:lang(uz|ru)',
     name: 'home',
     component: HomeView
   },

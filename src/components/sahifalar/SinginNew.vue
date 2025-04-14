@@ -16,9 +16,9 @@
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
                                         <label for="phone" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_phone')
-                                            }}</label>
+                                        }}</label>
                                         <input type="tel" id="phone" v-model="phone_number" @focus="prependCountryCode"
-                                            placeholder="+998 XX XXX XX XX">
+                                            @input="formatPhone" placeholder="+998 XX XXX XX XX" />
                                     </div>
                                 </div>
                                 <br>
@@ -26,7 +26,7 @@
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
                                         <label for="pas" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_password')
-                                            }}</label>
+                                        }}</label>
                                         <div class="password-wrapper">
                                             <input :type="showPassword ? 'text' : 'password'" id="pas"
                                                 v-model="password" placeholder="">
@@ -110,6 +110,10 @@ export default {
                 this.phone_number = '+998';
             }
         },
+        formatPhone() {
+            // Faqat raqam va + belgisi qoldiradi
+            this.phone_number = this.phone_number.replace(/[^\d+]/g, '').replace(/\s+/g, '');
+        },
         togglePasswordVisibility() {
             this.showPassword = !this.showPassword;
         },
@@ -118,8 +122,11 @@ export default {
         },
         async handleLogin() {
             try {
+                // Bo‘sh joylarni olib tashlash
+                const cleanedPhone = this.phone_number.replace(/\s+/g, '');
+
                 const response = await axios.post('https://new.pochta.uz/api/v1/public/authenticate/', {
-                    phone_number: this.phone_number,
+                    phone_number: cleanedPhone,
                     password: this.password,
                 });
 
@@ -132,10 +139,9 @@ export default {
                     this.showErrorPopup = true;
                 }
             } catch (error) {
-                this.errorMessage = this.$t('invalid_login'); // Xabarni tarjima qilish
+                this.errorMessage = this.$t('invalid_login');
                 this.showErrorPopup = true;
             }
-
         },
     },
 };
