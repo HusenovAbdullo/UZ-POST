@@ -369,8 +369,6 @@
                                  <div class="based__content border round16 bgwhite">
                                     <div class="freelancer__education bborderdash pb-30 mb-30">
                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                       <br>
-                                       <br>
                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
                                           style="color: red; font-size: 20px;">
                                           {{ trackingData.errorMessage }}

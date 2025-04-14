@@ -235,10 +235,10 @@
                                           id="firstTab" style="display: block;">
                                           <p>{{ $t('address2') }}</p>
                                        </button>
-                                       <button class="tablinks1" type="button"
+                                       <!-- <button class="tablinks1" type="button"
                                           :class="{ active: activeTab === 'Pochtam' }" @click="activeTab = 'Pochtam'">
                                           <p>{{ $t('postomat') }}</p>
-                                       </button>
+                                       </button> -->
                                        <button class="tablinks1" type="button"
                                           :class="{ active: activeTab === 'Davlat' }" @click="activeTab = 'Davlat'"
                                           v-if="activeService !== 209">

@@ -355,6 +355,13 @@ p {
   font-family: "RobotoCondensed-BoldItalic", sans-serif;
 }
 
+/* Mobil versiya uchun o'zgartirish */
+@media (max-width: 768px) {
+  .d41 {
+    font-size: 24px;
+  }
+}
+
 .pfz-24 {
   font-size: 24px;
   line-height: 150%;
@@ -493,7 +500,8 @@ p {
 }
 @media (max-width: 991px) {
   .pt-100 {
-    padding-top: 80px;
+    /* padding-top: 80px; */
+    padding-top: 10px;
   }
 }
 
@@ -2983,7 +2991,7 @@ p {
 }
 @media (max-width: 575px) {
   .setting__breadcumnd {
-    padding: 40px 0 230px;
+    padding: 40px 0 150px;
   }
 }
 
@@ -7201,6 +7209,15 @@ iframe {
   gap: 12px;
   transition: all 0.4s;
 }
+
+/* Mobil versiya uchun (masalan, 768px dan kichik ekranlar) */
+@media (max-width: 768px) {
+  .blog__categories li a {
+    gap: 1px;
+  }
+}
+
+
 .blog__categories li a .cateicon {
   /* background: var(--white); */
   width: 32px;

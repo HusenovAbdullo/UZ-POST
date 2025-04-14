@@ -328,6 +328,9 @@
                 <div class="company__logo">
                     <img src="assets/img/companiy2/temu.png" alt="company">
                 </div>
+                <div class="company__logo">
+                    <img src="https://new.pochta.uz/media/Asset_1.jpg" alt="company">
+                </div>
             </div>
         </div>
     </section>
