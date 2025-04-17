@@ -70,7 +70,7 @@
               </div>
               <div class="d-flex align-items-center mt-20 justify-content-between">
                 <span class="fz-18 fw-600 inter base">
-                  {{ mark.price }}
+                  <!-- {{ mark.price }} -->
                 </span>
                 <router-link :to="`/${$i18n.locale}/marka2/${mark.id}`"
                   class="aylana boxes1 round50 d-flex align-items-center justify-content-center">

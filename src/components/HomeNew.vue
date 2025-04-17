@@ -786,7 +786,7 @@
                     </div>
                     <div class="d-flex align-items-center mt-20 justify-content-between">
                         <span class="fz-18 fw-600 inter base">
-                            {{ formatPrice(item[`price_${$i18n.locale}`]) }}
+                            <!-- {{ formatPrice(item[`price_${$i18n.locale}`]) }} -->
                         </span>
                         <div class="cmn__ibox boxes1 round50 d-flex align-items-center justify-content-center">
                             <router-link :to="`/${$i18n.locale}/marka2/${item.id}`">
