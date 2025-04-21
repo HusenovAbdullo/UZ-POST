@@ -63,7 +63,7 @@
                                 </div>
                                 <div v-else>
                                     <div class="col-lg-12" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
-                                        <div v-if="(activeMenu === null && subItem.name_uz === MenuName) || (activeMenu !== null && activeMenu === subItem.id)"
+                                        <div v-if="(activeMenu === null && subItem.name_uz === MenuNameUz) || (activeMenu !== null && activeMenu === subItem.id)"
                                             class="overview__gitwrapper bgwhite round16 border">
                                             <h2 class="pb-40 bborderdash mb-20 title2">
                                                 {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
@@ -98,6 +98,7 @@ export default {
 
             serviceText: '', // HTML formatidagi matn
             MenuName: null,
+            MenuNameUz: null,
             menus: [], // JSON ma'lumotlari
             menuId: null, // Menu ID
             activeMenu: null, // Dastlabki faol menyu
@@ -161,18 +162,23 @@ export default {
                 });
         },
         toggleMenu(menuId) {
-            if (this.activeMenu === menuId) {
-                // Agar menyu allaqachon ochilgan bo'lsa — yopiladi va sub-item tozalanadi
-                this.activeMenu = null;
-                this.activeSubItem = null;
-                this.pageData = null;
-            } else {
-                // Boshqa menyu ochilsa — eski sub-itemni tozalaydi
-                this.activeMenu = menuId;
-                this.activeSubItem = null;
-                this.pageData = null;
-            }
-        },
+    if (this.activeMenu === menuId) {
+        this.activeMenu = null;
+        this.activeSubItem = null;
+        this.pageData = null;
+        this.MenuName = null;
+    } else {
+        this.activeMenu = menuId;
+        this.activeSubItem = null;
+        this.pageData = null;
+
+        // Tanlangan menyu nomini yangilash
+        const selectedMenu = this.allSubItems.find(item => item.id === menuId);
+        if (selectedMenu) {
+            this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
+        }
+    }
+},
 
         setActiveSubItemAndMenu(menuId, subItemId) {
             this.activeMenu = menuId;
@@ -194,6 +200,7 @@ export default {
                 if (response.data && response.data.item_pages) {
                     this.menus = [response.data];
                     this.MenuName = this.menus[0][`name_${locale}`] || ' '
+                    this.MenuNameUz = this.menus[0]['name_uz'] || ' '
 
                 } else {
                     console.error('API natijasi noto\'g\'ri formatda');
