@@ -37,7 +37,7 @@
 
                   <!-- Contact Section -->
                   <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp item2"
-                     style="width: 25%; margin-top: 80px;">
+                     :style="contactSectionStyle">
                      <div class="footer__item">
                         <a href="javascript:void(0)" class="footer__title fz-24 fw-600 inter text-white mb-24 d-block">
                            {{ $t('contact_us') }}
@@ -148,49 +148,60 @@ import axios from 'axios';
 export default {
    data() {
       return {
-         footerMenu: []
+         footerMenu: [],
+         windowWidth: window.innerWidth, // Ekran o'lchamini kuzatish
       };
    },
+   computed: {
+      contactSectionStyle() {
+         return {
+            width: '25%',
+            marginTop: this.windowWidth <= 900 ? '-170px' : '80px',
+         };
+      },
+   },
    created() {
-      axios.get('https://new.pochta.uz/api/v1/public/futer-menu/')
-         .then(response => {
+      axios
+         .get('https://new.pochta.uz/api/v1/public/futer-menu/')
+         .then((response) => {
             this.footerMenu = response.data;
          })
-         .catch(error => {
+         .catch((error) => {
             console.error('There was an error fetching the footer menu:', error);
          });
+   },
+   mounted() {
+      window.addEventListener('resize', this.updateWindowWidth);
+   },
+   beforeUnmount() {
+      window.removeEventListener('resize', this.updateWindowWidth);
    },
    methods: {
       reloadPage() {
          setTimeout(() => {
             window.location.reload();
-         }, 100); // Sahifa o‘tishi uchun 100ms kutish
+         }, 100);
       },
       getLink(link) {
-         // Agar pdf_uz bo'lsa, faqat PDF ochiladi
-         const lang = this.$i18n.locale || "uz"; // Tilni aniqlash
-
-
-         // Agar link_uz bo'lsa, faqat uni qaytarish
+         const lang = this.$i18n.locale || 'uz';
          if (link.link_uz) {
             return {
                path: link.link_uz,
                params: { name: link.name_uz },
             };
          }
-
-         // Agar hech biri bo'lmasa, sahifaga yo'naltirish
          return {
             path: `/${lang}/sahifalar/${link.name_uz}`,
             query: { id: link.id },
          };
-      }
-   }
-
-
-
+      },
+      updateWindowWidth() {
+         this.windowWidth = window.innerWidth;
+      },
+   },
 };
 </script>
+
 
 
 <style scoped>
@@ -211,6 +222,33 @@ export default {
    .item2 {
       flex: 1 1 calc(50% - 16px);
       /* 2 ta element uchun kenglik */
+   }
+}
+
+
+
+
+@media (max-width: 900px) {
+   .item2 {
+      flex: 1 1 calc(50% - 16px);
+   }
+
+   .footer__title {
+      font-size: 18px !important;
+   }
+
+   .quick__link a,
+   .footer__contact a,
+   .footer__contact span,
+   .pfz-18,
+   .cef__pra,
+   .fz-18 {
+      font-size: 14px !important;
+   }
+
+   .footer__bottom p,
+   .help__support li a {
+      font-size: 13px !important;
    }
 }
 </style>

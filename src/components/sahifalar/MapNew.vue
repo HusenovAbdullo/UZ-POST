@@ -185,17 +185,20 @@ export default {
             const placemark = new window.ymaps.Placemark(
                [parseFloat(office.lat), parseFloat(office.lng)],
                {
-                  balloonContent: `<strong>${office.name_uz}</strong><br><strong>Indeks:</strong> ${office.index}<br>
-       <strong>Xalq global:</strong> ${office.xalq_global}<br>
-       <strong>Zoodmal:</strong> ${office.zoodmall}<br>
-       <strong>Uzum:</strong> ${office.uzum}<br>
-       <strong>Ozon:</strong> ${office.ozon}<br>
-       <strong>EMS:</strong> ${office.EMS}<br>
-       <strong>Bir qadam:</strong> ${office.one_step}<br>
-    <strong>Viloyat:</strong> ${office.region}<br>
-       <strong>Tuman:</strong> ${office.district}<br>
-       <strong>Geolokatsiya:</strong> <a href="${office.geolocation}" target="_blank">Ko‘rish</a>
-                   `
+                  balloonContent: `
+  <strong style="font-size: 18px; color: #2c3e50; display: block; margin-bottom: 8px;">${office.name_uz || ''}</strong>
+  ${office.index ? `<strong>Indeks:</strong> ${office.index}<br>` : ''}
+  ${office.xalq_global ? `<strong>Xalq global:</strong> ${office.xalq_global}<br>` : ''}
+  ${office.zoodmall ? `<strong>Zoodmal:</strong> ${office.zoodmall}<br>` : ''}
+  ${office.uzum ? `<strong>Uzum:</strong> ${office.uzum}<br>` : ''}
+  ${office.ozon ? `<strong>Ozon:</strong> ${office.ozon}<br>` : ''}
+  ${office.EMS ? `<strong>EMS:</strong> ${office.EMS}<br>` : ''}
+  ${office.one_step ? `<strong>Bir qadam:</strong> ${office.one_step}<br>` : ''}
+  ${office.region ? `<strong>Viloyat:</strong> ${office.region}<br>` : ''}
+  ${office.district ? `<strong>Tuman:</strong> ${office.district}<br>` : ''}
+  ${office.geolocation ? `<strong>Geolokatsiya:</strong> <a href="${office.geolocation}" target="_blank">Ko‘rish</a>` : ''}
+`
+
                },
                {
                   iconLayout: 'default#image',
@@ -225,7 +228,7 @@ export default {
                   [officeData.locations.locations],
                   {
                      hintContent: office.name_uz,
-                     balloonContent: `<strong>${office.name_uz}</strong><br><strong>Indeks:</strong> ${office.index}`
+                     balloonContent: `<strong style="font-size: 18px; color: #2c3e50; display: block; margin-bottom: 8px;">${office.name_uz || ''}</strong><br><strong>Indeks:</strong> ${office.index}`
                   },
                   {
                      fillColor: officeData.locations.fill,
@@ -453,7 +456,8 @@ export default {
 
             // Ballon ichida ko‘rsatmoqchi bo‘lgan matnni shu yerda to‘liq shakllantiramiz:
             const info = `
-       <strong>${nameUz}</strong><br>
+       <strong style="font-size: 18px; color: #2c3e50; display: block; margin-bottom: 8px;">${nameUz}</strong>
+       <br>
        <strong>Indeks:</strong> ${idx}<br>
        <strong>EMS:</strong> ${EMS}<br>
        <strong>Bir Qadam:</strong> ${oneStep}<br>
