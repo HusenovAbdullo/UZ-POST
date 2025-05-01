@@ -436,12 +436,6 @@
                               <i class="fa fa-copy" style="color: green; font-size: 15px;"></i> <!-- Icon -->
                            </button>{{ $t('Deliver_shipment') }}
                         </p>
-                        <!-- DOM mavjudligini kafolatlaydi -->
-                        <div v-if="orderNumber" style="margin-top: 10px; text-align: center;">
-                           <svg id="barcode"></svg>
-                        </div>
-
-
                      </div>
 
                   </div>
@@ -456,8 +450,6 @@
 
 <script>
 import axios from "axios";
-import JsBarcode from "jsbarcode";
-import { nextTick } from "vue";
 
 export default {
    data() {
@@ -497,25 +489,7 @@ export default {
          // Xabarni ko'rsatish uchun bayroq
       };
    },
-   watch: {
-      orderNumber(newVal) {
-         if (newVal) {
-            this.generateBarcode(newVal);
-         }
-      }
-   },
    methods: {
-
-      async generateBarcode(value) {
-         await nextTick(); // DOM tayyor bo‘lishini kut
-         JsBarcode("#barcode", value, {
-            format: "CODE128",
-            lineColor: "#000",
-            width: 1.5,        // chiziqlar eni
-            height: 40,        // chiziqlar balandligi
-            displayValue: false // yozuvi bo‘lmasin
-         });
-      },
 
       copyOrderNumber() {
          const el = document.createElement('textarea'); // Yangi textarea yaratamiz

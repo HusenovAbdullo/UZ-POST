@@ -85,7 +85,6 @@ export default {
          activeTab: 'apidagi_nomlar',
          searchQuery: '',
          selectedOffice: null,
-         currentRoute: null, // 🔵 Chizilgan yo‘lni saqlash uchun
       };
    },
    async beforeMount() {
@@ -356,7 +355,7 @@ export default {
       },
       async selectLocation(location) {
          this.selectedLocation = location;
-         this.searchResults = [];
+         this.searchResults = []; // Natijalarni tozalash
 
          try {
             const response = await fetch(
@@ -366,27 +365,11 @@ export default {
 
             if (data.result && data.result.postal_office) {
                const postalOffice = data.result.postal_office;
-               const locations = data.result.locations.locations;
+               const locations = data.result.locations.locations; // Hudud koordinatalari
 
-               // 1️⃣ — Foydalanuvchi yozgan joyga marker
-               const searchPointMarker = new window.ymaps.Placemark(
-                  [location.lat, location.lng],
-                  {},
-                  {
-                     iconLayout: 'default#image',
-                     iconImageHref: 'https://new.pochta.uz/media/address_selected_point.svg',
-                     iconImageSize: [30, 30],
-                     iconImageOffset: [-15, -15]
-                  }
-               );
-               this.map.geoObjects.add(searchPointMarker);
-
-               // 2️⃣ — Aloqa bo‘limining joylashuviga ballonli marker
-               const officeLat = parseFloat(postalOffice.lat);
-               const officeLng = parseFloat(postalOffice.lng);
-
-               const info = [
-                  postalOffice.name_uz ? `<strong style="font-size: 16px; display: block; margin-bottom: 6px;">${postalOffice.name_uz}</strong>` : '',
+               // **Dinamik ma'lumotlarni faqat mavjud bo'lsa chiqarish**
+               const infoData = [
+                  postalOffice.name_uz ? `<strong></strong> ${postalOffice.name_uz}` : '',
                   postalOffice.index ? `<strong>${this.$t("index")}:</strong> ${postalOffice.index}` : '',
                   postalOffice.region ? `<strong>${this.$t("hudud")}:</strong> ${postalOffice.region}` : '',
                   postalOffice.city ? `<strong>${this.$t("shahar")}:</strong> ${postalOffice.city}` : '',
@@ -397,71 +380,47 @@ export default {
                   postalOffice.EMS ? `<strong>${this.$t("EMS")}:</strong> ${postalOffice.EMS}` : '',
                   postalOffice.one_step ? `<strong>${this.$t("one_step")}:</strong> ${postalOffice.one_step}` : '',
                   postalOffice.geolocation ? `<strong>${this.$t("Geolokatsiya")}:</strong> <a href="${postalOffice.geolocation}" target="_blank">${this.$t("korish")}</a>` : ''
-               ].filter(Boolean).join("<br>");
+               ];
 
-               const officeMarker = new window.ymaps.Placemark(
-                  [officeLat, officeLng],
-                  {
-                     balloonContent: info
-                  },
-                  {
-                     iconLayout: 'default#image',
-                     iconImageHref: 'https://new.pochta.uz/media/UzPost_for_ma1p.svg',
-                     iconImageSize: [30, 30],
-                     iconImageOffset: [-15, -15]
-                  }
-               );
-               this.map.geoObjects.add(officeMarker);
-               officeMarker.balloon.open();
+               // **Bo'sh bo'lgan ma'lumotlarni chiqarib tashlash**
+               const info = infoData.filter(item => item !== '').join('<br>');
 
-               // 3️⃣ — Yo‘lni ko‘k rangda chizish
-               if (this.currentRoute) {
-                  this.map.geoObjects.remove(this.currentRoute);
-               }
-               const multiRoute = new window.ymaps.multiRouter.MultiRoute({
-                  referencePoints: [
-                     [location.lat, location.lng],
-                     [officeLat, officeLng]
-                  ],
-                  params: {
-                     routingMode: "auto", // ❗ avtomobil yo‘llaridan foydalanadi
-                     results: 1
-                  }
+               // Markerni yaratish va ma’lumotlarini qo‘shish
+               const placemark = new window.ymaps.Placemark([location.lat, location.lng], {
+                  balloonContent: info
                }, {
-                  boundsAutoApply: false,
-                  routeStrokeColor: "#007bff",
-                  routeStrokeWidth: 5,
-                  routeStrokeStyle: "solid",
-                  wayPointVisible: false
+                  iconLayout: 'default#image',
+                  iconImageHref: 'https://new.pochta.uz/media/address_selected_point.svg',
+                  iconImageSize: [30, 30],
+                  iconImageOffset: [-15, -15]
                });
 
+               this.map.geoObjects.add(placemark);
+               placemark.balloon.open();
 
-               this.map.geoObjects.add(multiRoute);
-               this.currentRoute = multiRoute;
-
-               // 4️⃣ — Hudud poligoni (avvalgisini o‘chirish)
+               // Avvalgi poligonni o‘chirish
                if (this.currentPolygon) {
                   this.map.geoObjects.remove(this.currentPolygon);
                }
-               this.currentPolygon = new window.ymaps.Polygon(
-                  [locations],
-                  {
-                     hintContent: postalOffice.name_uz,
-                     balloonContent: info
-                  },
-                  {
-                     fillColor: data.result.locations.fill,
-                     fillOpacity: parseFloat(data.result.locations.fill_opacity),
-                     strokeColor: data.result.locations.stroke,
-                     strokeWidth: parseFloat(data.result.locations.stroke_width),
-                     strokeOpacity: parseFloat(data.result.locations.stroke_opacity),
-                  }
-               );
+
+               // **Poligon yaratish va rang berish**
+               this.currentPolygon = new window.ymaps.Polygon([locations], {
+                  hintContent: postalOffice.name_uz,
+                  balloonContent: info
+               }, {
+                  fillColor: data.result.locations.fill, // JSON dagi rang
+                  fillOpacity: parseFloat(data.result.locations.fill_opacity),
+                  strokeColor: data.result.locations.stroke,
+                  strokeWidth: parseFloat(data.result.locations.stroke_width),
+                  strokeOpacity: parseFloat(data.result.locations.stroke_opacity),
+               });
+
                this.map.geoObjects.add(this.currentPolygon);
 
-               // 5️⃣ — Xarita ko‘rinishini sozlash
-               const bounds = this.currentPolygon.geometry.getBounds();
+               // **Hududni xaritaga moslashtirish (to‘liq ko‘rinishi uchun)**
+               const bounds = this.currentPolygon.geometry.getBounds(); // Hudud chegaralarini olish
                this.map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 20 });
+
             }
          } catch (error) {
             console.error("Pochta bo‘limini olishda xatolik:", error);
