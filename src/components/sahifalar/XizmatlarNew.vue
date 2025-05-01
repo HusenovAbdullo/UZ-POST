@@ -136,4 +136,40 @@ export default {
     align-items: center;
 }
 
+
+
+@media (max-width: 576px) {
+  .content{
+    text-align: center;
+  }
+
+  .task__item .title {
+    font-size: 14px;
+    min-height: 40px;
+    justify-content: center;
+  }
+
+  .pra {
+    font-size: 13px;
+    -webkit-line-clamp: 3;
+  }
+
+  .cmn--btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .section__title p.sub {
+    font-size: 30px !important;
+  }
+
+  .section__title h2.title {
+    font-size: 20px;
+  }
+}
+
+
+.task__item {
+    height: 100%; /* Har bir kartochka to‘liq balandlikni egallaydi */
+}
 </style>

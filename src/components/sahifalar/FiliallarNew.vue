@@ -55,8 +55,9 @@
                                 <div class="row justify-content-center g-4">
                                     <!-- Filiallarni ko'rsatish -->
                                     <div v-for="branch in paginatedBranches" :key="branch.id"
-                                        class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                                        <div class="service__item shadow2 round16 p-8 bgwhite" style="display: block;">
+                                        class="col-xxl-4 col-xl-4 col-md-4 col-sm-6 d-flex">
+                                        <div
+                                            class="service__item shadow2 round16 p-8 bgwhite h-100 w-100 d-flex flex-column">
                                             <router-link :to="`/${$i18n.locale}/filial/${branch.id}`"
                                                 class="thumb round16 w-100">
                                                 <img :src="branch.save_image || 'assets/img/default.png'"
@@ -64,12 +65,14 @@
                                             </router-link>
 
                                             <h5 class="mt-24 mb-20">
-                                                <router-link :to="`/${$i18n.locale}/filial/${branch.id}`" class="titley">
+                                                <router-link :to="`/${$i18n.locale}/filial/${branch.id}`"
+                                                    class="titley">
                                                     {{ branch[`title_${$i18n.locale}`] || branch.title_uz }}
                                                 </router-link>
                                             </h5>
+
                                             <div
-                                                class="d-flex bborderdash pb-20 align-items-center justify-content-between">
+                                                class="d-flex bborderdash pb-20 align-items-center justify-content-between mt-auto">
                                                 <div class="d-flex fz-14 fw-400 gap-2 inter pra align-items-center">
                                                     <i class="bi bi-stopwatch"></i>
                                                     {{ $t('branch_working_hours') }} <br /> {{ branch.work_time || '' }}
@@ -80,11 +83,12 @@
                                                     style="color: #0141a2;">
                                                     <i class="bi bi-geo-alt"></i>
                                                     {{ $t('address3') }} <br /> {{ branch[`address_${$i18n.locale}`] ||
-                                                        branch.address_uz }}
+                                                    branch.address_uz }}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <!-- Pagination -->
                                 <ul class="pagination justify-content-center mt-40">
@@ -168,3 +172,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.service__item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+</style>

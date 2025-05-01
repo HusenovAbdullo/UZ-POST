@@ -768,7 +768,7 @@
                             class="round16 w-100" alt="service" />
                     </router-link>
 
-                    <h5 class="mt-24 mb-20">
+                    <h5 class="mt-24 mb-20" style="font-size: 16px;">
                         <router-link :to="`/${$i18n.locale}/marka2/${item.id}`" class="titley">
                             {{ truncateTitle(item[`title_${$i18n.locale}`] || item.title_uz, 45) }}
                         </router-link>
@@ -1135,20 +1135,30 @@ export default {
 }
 
 @media (max-width: 768px) {
-
-    /* 768px yoki undan kichik ekranlar uchun */
     .button-container {
         display: flex;
-        flex-direction: column;
-        /* Tugmalarni ustma-ust joylashtiradi */
+        flex-direction: row;
+        /* tugmalar yonma-yon */
         gap: 10px;
-        /* Tugmalar orasidagi masofani moslaydi */
-        align-items: center;
-        /* Tugmalarni markazlaydi */
+        align-items: flex-start;
         margin-top: 20px;
-        /* Yuqori chetidan masofa */
+        transform: translateY(85px);
+
+        font-size: 12px;
+        /* yozuvni kichikroq qiladi */
+    }
+
+    .button-container button,
+    .button-container a {
+        font-size: 10px;
+        /* tugma ichidagi yozuv */
+        padding: 5px 9px;
+        /* tugma o‘lchami */
+        min-width: auto;
+        height: auto;
     }
 }
+
 
 @media (max-width: 480px) {
 
@@ -1161,7 +1171,7 @@ export default {
 
 @media screen and (max-width: 1000px) {
     .button-container {
-        display: none;
+        /* display: none; */
     }
 }
 
@@ -1297,18 +1307,26 @@ export default {
 
 
 .thumb {
-    width: 150px; /* Rasm kengligi */
-    height: 150px; /* Rasm balandligi */
-    border-radius: 50%; /* Aylanaga aylantirish */
-    overflow: hidden; /* Ortiqcha qismlar ko'rinmasin */
+    width: 150px;
+    /* Rasm kengligi */
+    height: 150px;
+    /* Rasm balandligi */
+    border-radius: 50%;
+    /* Aylanaga aylantirish */
+    overflow: hidden;
+    /* Ortiqcha qismlar ko'rinmasin */
 }
 
 .thumb img {
-    width: 150px; /* Rasmni o'z o'lchamida qoldirish */
+    width: 150px;
+    /* Rasmni o'z o'lchamida qoldirish */
     height: 150px;
-    object-fit: cover; /* Kesib, to'ldirish */
-    object-position: center; /* Markazga joylash */
-    image-rendering: auto; /* Rasm renderlash sifatini yaxshilash */
+    object-fit: cover;
+    /* Kesib, to'ldirish */
+    object-position: center;
+    /* Markazga joylash */
+    image-rendering: auto;
+    /* Rasm renderlash sifatini yaxshilash */
 }
 
 
@@ -1324,10 +1342,54 @@ export default {
 
 
 .task__item .title {
-    min-height: 60px; /* Eng uzun sarlavha balandligiga moslang */
+    min-height: 60px;
+    /* Eng uzun sarlavha balandligiga moslang */
     display: flex;
     align-items: center;
 }
 
 
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+
+
+
+    .task__item .content h3 {
+        font-size: 16px;
+        /* sarlavha kichikroq */
+        margin-bottom: 12px;
+    }
+
+    .task__item .content p {
+        font-size: 13px;
+        /* matn kichikroq */
+        margin-bottom: 20px;
+    }
+
+    .cmn--btn {
+        font-size: 13px;
+        /* tugma matni kichikroq */
+        padding: 6px 14px;
+    }
+
+    .section__title h2.title2 {
+        font-size: 22px;
+    }
+
+    .section__title p.pra {
+        font-size: 14px;
+    }
+
+    .text-center.mt-40 .cmn--btn {
+        font-size: 14px;
+        padding: 8px 18px;
+    }
+}
 </style>

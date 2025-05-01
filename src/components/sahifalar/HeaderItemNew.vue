@@ -116,9 +116,25 @@ export default {
         },
     },
     async created() {
-        this.menuId = this.$route.query.id; // URL query'dan menuId olish
+        this.menuId = this.$route.query.id;
+        const id1 = this.$route.query.id1;
+        const id2 = this.$route.query.id2;
+
         if (this.menuId) {
-            await this.fetchMenus(); // Menyu ma'lumotlarini olish
+            await this.fetchMenus(this.$i18n.locale);
+
+            if (id1) {
+                this.activeMenu = Number(id1);
+                const selectedMenu = this.allSubItems.find(item => item.id === Number(id1));
+                if (selectedMenu) {
+                    this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
+                }
+            }
+
+            if (id2) {
+                this.activeSubItem = Number(id2);
+                this.fetchPageData(Number(id2), this.$i18n.locale);
+            }
         }
     },
     async mounted() {
@@ -162,34 +178,46 @@ export default {
                 });
         },
         toggleMenu(menuId) {
-    if (this.activeMenu === menuId) {
-        this.activeMenu = null;
-        this.activeSubItem = null;
-        this.pageData = null;
-        this.MenuName = null;
-    } else {
-        this.activeMenu = menuId;
-        this.activeSubItem = null;
-        this.pageData = null;
+            if (this.activeMenu === menuId) {
+                this.activeMenu = null;
+                this.activeSubItem = null;
+                this.pageData = null;
+                this.MenuName = null;
 
-        // Tanlangan menyu nomini yangilash
-        const selectedMenu = this.allSubItems.find(item => item.id === menuId);
-        if (selectedMenu) {
-            this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
-        }
-    }
-},
+                this.updateQueryParams({ id1: null, id2: null }); // id1 va id2 query'dan o'chadi
+            } else {
+                this.activeMenu = menuId;
+                this.activeSubItem = null;
+                this.pageData = null;
+
+                const selectedMenu = this.allSubItems.find(item => item.id === menuId);
+                if (selectedMenu) {
+                    this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
+                }
+
+                this.updateQueryParams({ id1: menuId, id2: null }); // faqat id1 ni yangilaymiz
+            }
+        },
 
         setActiveSubItemAndMenu(menuId, subItemId) {
             this.activeMenu = menuId;
             this.activeSubItem = subItemId;
             this.fetchPageData(subItemId, this.$i18n.locale);
+
+            this.updateQueryParams({ id1: menuId, id2: subItemId });
         },
 
         setActiveSubItem(subItemId) {
-            this.activeSubItem = subItemId;
-            this.pageData = null;
-            this.fetchPageData(subItemId, this.$i18n.locale);
+            if (this.activeSubItem === subItemId) {
+                this.activeSubItem = null;
+                this.pageData = null;
+                this.updateQueryParams({ id2: null }); // id2 query'dan o'chadi
+            } else {
+                this.activeSubItem = subItemId;
+                this.pageData = null;
+                this.fetchPageData(subItemId, this.$i18n.locale);
+                this.updateQueryParams({ id2: subItemId }); // id2 ni yangilaymiz
+            }
         },
 
         // Menyu elementlarini olish
@@ -208,6 +236,20 @@ export default {
             } catch (error) {
                 console.error('Menyu ma\'lumotlarini olishda xatolik:', error);
             }
+        },
+        updateQueryParams(params) {
+            const currentQuery = { ...this.$route.query };
+
+            // Parametrlar qo‘shish yoki o‘chirish
+            for (const key in params) {
+                if (params[key] === null || params[key] === undefined) {
+                    delete currentQuery[key];
+                } else {
+                    currentQuery[key] = params[key];
+                }
+            }
+
+            this.$router.replace({ query: currentQuery }).catch(() => { });
         },
         async fetchPageData(subItemId, locale) {
             try {
