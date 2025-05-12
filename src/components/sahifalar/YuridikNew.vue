@@ -48,14 +48,7 @@
                   </div>
                </div>
 
-               <!-- Modal popup -->
-               <div v-if="showPopup" class="popup-overlay" @click.self="showPopup = false">
-                  <div class="popup-box">
-                     
-                     <p><strong></strong> {{ $t('yur') }}</p>
-                     <button @click="showPopup = false" class="close-btn">X</button>
-                  </div>
-               </div>
+
 
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
@@ -70,14 +63,18 @@
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40">
                      </p>
-                     <router-link to="/singin" class="cmn--btn outline__btn">
+                     <!-- <router-link to="/singin" class="cmn--btn outline__btn">
                         <span>
                            {{ $t('processing') }}
                         </span>
                         <span>
                            <i class="bi bi-arrow-up-right"></i>
                         </span>
-                     </router-link>
+                     </router-link> -->
+                     <button @click="showPopup = true" class="cmn--btn outline__btn">
+                        <span>{{ $t('processing') }}</span>
+                        <span><i class="bi bi-arrow-up-right"></i></span>
+                     </button>
                   </div>
                </div>
             </div>
@@ -212,6 +209,15 @@
       </div>
    </section>
    <!-- Company Logo End -->
+
+   <!-- Modal popup -->
+   <div v-if="showPopup" class="popup-overlay" @click.self="showPopup = false">
+      <div class="popup-box">
+
+         <p><strong></strong> {{ $t('yur') }}</p>
+         <button @click="showPopup = false" class="close-btn">X</button>
+      </div>
+   </div>
 </template>
 
 <script>
@@ -310,10 +316,23 @@ export default {
       this.fetchServices();
    },
    mounted() {
-      // Bannerlarni olish va slideshow'ni boshlash
+      const reloadCount = sessionStorage.getItem('reload_count_xizmatlar');
+
+      if (!reloadCount) {
+         sessionStorage.setItem('reload_count_xizmatlar', '1');
+         window.location.reload();
+      } else if (reloadCount === '1') {
+         sessionStorage.setItem('reload_count_xizmatlar', '2');
+         window.location.reload();
+      } else {
+         sessionStorage.removeItem('reload_count_xizmatlar');
+      }
+
+      // Banner va xizmatlarni yuklash
       this.fetchBanners().then(() => {
          this.startBannerSlideshow();
       });
+      this.fetchServices();
    },
 };
 </script>
