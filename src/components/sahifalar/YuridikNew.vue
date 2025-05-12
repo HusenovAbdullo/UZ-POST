@@ -41,10 +41,14 @@
                         {{ $t('access_legal_entity_profile') }}
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40"></p>
-                     <button @click="openPopup" class="cmn--btn outline__btn">
-                        <span>{{ $t('login') }}</span>
-                        <span><i class="bi bi-arrow-up-right"></i></span>
-                     </button>
+                     <router-link :to="`/${$i18n.locale}/sahifa/23`" class="cmn--btn outline__btn">
+                        <span>
+                           {{ $t('login') }}
+                        </span>
+                        <span>
+                           <i class="bi bi-arrow-up-right"></i>
+                        </span>
+                     </router-link>
                   </div>
                </div>
 
@@ -63,18 +67,19 @@
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40">
                      </p>
-                     <!-- <router-link to="/singin" class="cmn--btn outline__btn">
+                     <router-link :to="`/${$i18n.locale}/sahifa/23`" class="cmn--btn outline__btn">
                         <span>
                            {{ $t('processing') }}
                         </span>
                         <span>
                            <i class="bi bi-arrow-up-right"></i>
                         </span>
-                     </router-link> -->
-                     <button @click="showPopup = true" class="cmn--btn outline__btn">
+                     </router-link>
+
+                     <!-- <button @click="showPopup = true" class="cmn--btn outline__btn">
                         <span>{{ $t('processing') }}</span>
                         <span><i class="bi bi-arrow-up-right"></i></span>
-                     </button>
+                     </button> -->
                   </div>
                </div>
             </div>
@@ -258,10 +263,6 @@ export default {
       },
    },
    methods: {
-      openPopup() {
-         console.log('Popup tugmasi bosildi');
-         this.showPopup = true;
-      },
       // API'dan banner ma'lumotlarini olish
       async fetchBanners() {
          try {
@@ -333,7 +334,6 @@ export default {
             sessionStorage.removeItem('reload_count_xizmatlar');
          }
       }
-      this.showPopup = true; // sahifa yuklanganda popup chiqadi
 
       // Serverda ishlashi uchun
       this.fetchBanners().then(() => {
