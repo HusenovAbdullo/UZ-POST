@@ -316,19 +316,21 @@ export default {
       this.fetchServices();
    },
    mounted() {
-      const reloadCount = sessionStorage.getItem('reload_count_xizmatlar');
-
-      if (!reloadCount) {
-         sessionStorage.setItem('reload_count_xizmatlar', '1');
-         window.location.reload();
-      } else if (reloadCount === '1') {
-         sessionStorage.setItem('reload_count_xizmatlar', '2');
-         window.location.reload();
-      } else {
-         sessionStorage.removeItem('reload_count_xizmatlar');
+      // LOCALHOST uchun 2 marta refresh
+      if (window.location.hostname === 'localhost') {
+         const reloadCount = sessionStorage.getItem('reload_count_xizmatlar');
+         if (!reloadCount) {
+            sessionStorage.setItem('reload_count_xizmatlar', '1');
+            window.location.reload();
+         } else if (reloadCount === '1') {
+            sessionStorage.setItem('reload_count_xizmatlar', '2');
+            window.location.reload();
+         } else {
+            sessionStorage.removeItem('reload_count_xizmatlar');
+         }
       }
 
-      // Banner va xizmatlarni yuklash
+      // Serverda ishlashi uchun
       this.fetchBanners().then(() => {
          this.startBannerSlideshow();
       });
