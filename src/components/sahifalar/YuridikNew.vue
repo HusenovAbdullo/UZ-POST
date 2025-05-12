@@ -321,26 +321,31 @@ export default {
       this.fetchServices();
    },
    mounted() {
-      // LOCALHOST uchun 2 marta refresh
-      if (window.location.hostname === 'localhost') {
-         const reloadCount = sessionStorage.getItem('reload_count_xizmatlar');
+      const hostname = window.location.hostname;
+      const allowReload = (hostname === 'localhost' || hostname === 'uz.post');
+      const reloadCount = sessionStorage.getItem('reload_count_xizmatlar');
+
+      if (allowReload) {
          if (!reloadCount) {
             sessionStorage.setItem('reload_count_xizmatlar', '1');
             window.location.reload();
+            return;
          } else if (reloadCount === '1') {
             sessionStorage.setItem('reload_count_xizmatlar', '2');
             window.location.reload();
+            return;
          } else {
             sessionStorage.removeItem('reload_count_xizmatlar');
          }
       }
 
-      // Serverda ishlashi uchun
+      // Ma'lumotlarni olish
       this.fetchBanners().then(() => {
          this.startBannerSlideshow();
       });
       this.fetchServices();
    },
+
 };
 </script>
 
