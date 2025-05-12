@@ -33,10 +33,10 @@
                            {{ $t('for_individuals') }}
                         </router-link>
                         <!-- about.html shuni o'rniga qo'yilgan -->
-                        <!-- <router-link to="/yuridik" class="pra mdnone inter fw-400">
+                        <router-link to="/yuridik" class="pra mdnone inter fw-400">
                            {{ $t('for_legal_entities') }}
-                        </router-link> -->
-                        <a class="pra mdnone inter fw-400">{{ $t('for_legal_entities') }}</a>
+                        </router-link>
+                        <!-- <a class="pra mdnone inter fw-400">{{ $t('for_legal_entities') }}</a> -->
                      </div>
                      <div class="header__topsearch d-flex align-items-center">
                         <form action="#"

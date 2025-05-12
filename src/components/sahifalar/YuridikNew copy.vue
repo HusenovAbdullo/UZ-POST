@@ -12,15 +12,15 @@
                </router-link> -->
             </div>
             <div class="button-container">
-               <template v-for="(link, index) in currentLinks" :key="index">
-                  <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
-                     <span>{{ link.title }}</span>
-                  </router-link>
-                  <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
-                     <span>{{ link.title }}</span>
-                  </a>
-               </template>
-            </div>
+                    <template v-for="(link, index) in currentLinks" :key="index">
+                        <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
+                            <span>{{ link.title }}</span>
+                        </router-link>
+                        <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
+                            <span>{{ link.title }}</span>
+                        </a>
+                    </template>
+                </div>
          </div>
       </div>
    </section>
@@ -31,32 +31,27 @@
 
          <div class="row ralt g-4">
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
-               <!-- Sizning mavjud task__item -->
                <div class="task__item round16 bgwhite d-flex align-items-center">
                   <div class="thumb">
                      <img src="https://new.pochta.uz/media/1.svg" alt="img">
                   </div>
+
                   <div class="content">
                      <h3 class="inter title mb-24">
                         {{ $t('access_legal_entity_profile') }}
                      </h3>
-                     <p class="fz-14 fw-400 inter pra mb-40"></p>
-                     <button @click="showPopup = true" class="cmn--btn outline__btn">
-                        <span>{{ $t('login') }}</span>
-                        <span><i class="bi bi-arrow-up-right"></i></span>
-                     </button>
+                     <p class="fz-14 fw-400 inter pra mb-40">
+                     </p>
+                     <router-link to="/singin" class="cmn--btn outline__btn">
+                        <span>
+                           {{ $t('login') }}
+                        </span>
+                        <span>
+                           <i class="bi bi-arrow-up-right"></i>
+                        </span>
+                     </router-link>
                   </div>
                </div>
-
-               <!-- Modal popup -->
-               <div v-if="showPopup" class="popup-overlay" @click.self="showPopup = false">
-                  <div class="popup-box">
-                     
-                     <p><strong></strong> {{ $t('yur') }}</p>
-                     <button @click="showPopup = false" class="close-btn">X</button>
-                  </div>
-               </div>
-
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
                <div class="task__item round16 bgwhite d-flex align-items-center">
@@ -225,7 +220,6 @@ export default {
          banners: [], // API'dan kelayotgan bannerlar
          currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan banner indeksi
          locale: this.$i18n.locale === "uz" ? "description_uz" : "description_ru",
-         showPopup: false, // Popup holati
       };
    },
    computed: {
@@ -537,36 +531,36 @@ export default {
 
 
 
-   .task__item .content h3 {
-      font-size: 16px;
-      /* sarlavha kichikroq */
-      margin-bottom: 12px;
-   }
+.task__item .content h3 {
+    font-size: 16px;
+    /* sarlavha kichikroq */
+    margin-bottom: 12px;
+}
 
-   .task__item .content p {
-      font-size: 13px;
-      /* matn kichikroq */
-      margin-bottom: 20px;
-   }
+.task__item .content p {
+    font-size: 13px;
+    /* matn kichikroq */
+    margin-bottom: 20px;
+}
 
-   .cmn--btn {
-      font-size: 13px;
-      /* tugma matni kichikroq */
-      padding: 6px 14px;
-   }
+.cmn--btn {
+    font-size: 13px;
+    /* tugma matni kichikroq */
+    padding: 6px 14px;
+}
 
-   .section__title h2.title2 {
-      font-size: 22px;
-   }
+.section__title h2.title2 {
+    font-size: 22px;
+}
 
-   .section__title p.pra {
-      font-size: 14px;
-   }
+.section__title p.pra {
+    font-size: 14px;
+}
 
-   .text-center.mt-40 .cmn--btn {
-      font-size: 14px;
-      padding: 8px 18px;
-   }
+.text-center.mt-40 .cmn--btn {
+    font-size: 14px;
+    padding: 8px 18px;
+}
 }
 
 
@@ -578,307 +572,307 @@ export default {
 
 
 .company__logo img {
-   max-width: 200px;
-   max-height: 200px;
-   object-fit: contain;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
 }
 
 .perfoming__item:hover .cmn__ibox {
-   background-color: #f0f0f0;
-   /* O'zgartirish kerak bo'lgan rang */
-   transition: background-color 0.3s ease;
+    background-color: #f0f0f0;
+    /* O'zgartirish kerak bo'lgan rang */
+    transition: background-color 0.3s ease;
 }
 
 .perfoming__item:hover img {
-   filter: none;
-   /* Rangi o'zgarmasligi uchun hech qanday filtr qo‘llanmaydi */
+    filter: none;
+    /* Rangi o'zgarmasligi uchun hech qanday filtr qo‘llanmaydi */
 }
 
 
 
 .readmore span.fz-16 {
-   color: inherit !important;
-   transition: none !important;
+    color: inherit !important;
+    transition: none !important;
 }
 
 .readmore:hover span.fz-16 {
-   color: inherit !important;
+    color: inherit !important;
 }
 
 
 
 .banner-image {
-   width: 100%;
-   height: auto;
-   display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .container4 {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .frelancer__item {
-   background: white;
-   border-radius: 4px;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-   padding: 1rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
 }
 
 
 /* Elementlar gorizontal tarzda chiqishi uchun */
 .freelancer__wrapper {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   gap: 1.5rem;
-   /* Kartalar orasidagi masofa */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    /* Kartalar orasidagi masofa */
 }
 
 .frelancer__item {
-   flex: 1 1 calc(25% - 1.5rem);
-   /* Har biri 4 qismga teng */
-   /* max-width: calc(% - 1.5rem); */
-   /* Katta ekranlar uchun cheklash */
-   /* display: flex;
+    flex: 1 1 calc(25% - 1.5rem);
+    /* Har biri 4 qismga teng */
+    /* max-width: calc(% - 1.5rem); */
+    /* Katta ekranlar uchun cheklash */
+    /* display: flex;
     flex-direction: column;
     justify-content: space-between; */
 }
 
 @media (max-width: 768px) {
-   .frelancer__item {
-      flex: 1 1 calc(50% - 1.5rem);
-      /* Mobilda 2 ta ustun */
-   }
+    .frelancer__item {
+        flex: 1 1 calc(50% - 1.5rem);
+        /* Mobilda 2 ta ustun */
+    }
 }
 
 @media (max-width: 480px) {
-   .frelancer__item {
-      /* flex: 1 1 100%; */
-      /* Juda kichik ekranda 1 ta ustun */
-   }
+    .frelancer__item {
+        /* flex: 1 1 100%; */
+        /* Juda kichik ekranda 1 ta ustun */
+    }
 }
 
 /* Umumiy rasm uslubi */
 .header-wrapper img {
-   max-width: 100%;
-   height: auto;
-   /* Rasm nisbatlarini saqlab qoladi */
-   display: block;
-   margin: 0 auto;
-   /* Rasmni markazlashtirish uchun */
+    max-width: 100%;
+    height: auto;
+    /* Rasm nisbatlarini saqlab qoladi */
+    display: block;
+    margin: 0 auto;
+    /* Rasmni markazlashtirish uchun */
 }
 
 /* Kichik ekranlar uchun maxsus uslublar */
 @media (max-width: 768px) {
-   .header-wrapper img {
-      max-width: 90%;
-      /* Rasm ekran kengligining 90% gacha qisqaradi */
-   }
+    .header-wrapper img {
+        max-width: 90%;
+        /* Rasm ekran kengligining 90% gacha qisqaradi */
+    }
 }
 
 /* Juda kichik ekranlar uchun (mobil telefonlar) */
 @media (max-width: 480px) {
-   .header-wrapper img {
-      max-width: 100%;
-      height: auto;
-   }
+    .header-wrapper img {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 @media (max-width: 768px) {
-   .button-container {
-      display: flex;
-      flex-direction: row;
-      /* tugmalar yonma-yon */
-      gap: 10px;
-      align-items: flex-start;
-      margin-top: 20px;
-      transform: translateY(85px);
+    .button-container {
+        display: flex;
+        flex-direction: row;
+        /* tugmalar yonma-yon */
+        gap: 10px;
+        align-items: flex-start;
+        margin-top: 20px;
+        transform: translateY(85px);
 
-      font-size: 12px;
-      /* yozuvni kichikroq qiladi */
-   }
+        font-size: 12px;
+        /* yozuvni kichikroq qiladi */
+    }
 
-   .button-container button,
-   .button-container a {
-      font-size: 10px;
-      /* tugma ichidagi yozuv */
-      padding: 5px 9px;
-      /* tugma o‘lchami */
-      min-width: auto;
-      height: auto;
-   }
+    .button-container button,
+    .button-container a {
+        font-size: 10px;
+        /* tugma ichidagi yozuv */
+        padding: 5px 9px;
+        /* tugma o‘lchami */
+        min-width: auto;
+        height: auto;
+    }
 }
 
 
 @media (max-width: 480px) {
 
-   /* 480px yoki undan kichik ekranlar uchun */
-   .button-container {
-      margin-top: 50px;
-      /* Yuqoridan masofani oshiradi */
-   }
+    /* 480px yoki undan kichik ekranlar uchun */
+    .button-container {
+        margin-top: 50px;
+        /* Yuqoridan masofani oshiradi */
+    }
 }
 
 @media screen and (max-width: 1000px) {
-   .button-container {
-      /* display: none; */
-   }
+    .button-container {
+        /* display: none; */
+    }
 }
 
 .freelancer__wrapper2 {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   /* Elementlarni markazga hizalash */
-   gap: 16px;
-   /* Elementlar orasidagi masofa */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Elementlarni markazga hizalash */
+    gap: 16px;
+    /* Elementlar orasidagi masofa */
 }
 
 
 @media (max-width: 991px) {
-   .task__item {
-      /* flex-wrap: wrap;
+    .task__item {
+        /* flex-wrap: wrap;
         gap: 1px;
         padding: 5px 10px; */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1px;
-      padding: 5px 10px;
-      text-align: center;
-   }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1px;
+        padding: 5px 10px;
+        text-align: center;
+    }
 }
 
 
 @media (max-width: 992px) {
-   .frelancer__item2 {
-      flex: 1 1 calc(50% - 16px);
-      /* O'rta ekran uchun 2 ustun */
-      max-width: calc(50% - 16px);
-   }
+    .frelancer__item2 {
+        flex: 1 1 calc(50% - 16px);
+        /* O'rta ekran uchun 2 ustun */
+        max-width: calc(50% - 16px);
+    }
 }
 
 @media (max-width: 576px) {
-   .frelancer__item2 {
-      flex: 1 1 100%;
-      /* Kichik ekran uchun 1 ustun */
-      max-width: 100%;
-   }
+    .frelancer__item2 {
+        flex: 1 1 100%;
+        /* Kichik ekran uchun 1 ustun */
+        max-width: 100%;
+    }
 }
 
 .custom-button span {
-   text-transform: none;
+    text-transform: none;
 }
 
 .service__item {
-   display: flex;
-   flex-direction: column;
-   /* Tarkibni ustun shaklida joylashtiradi */
-   justify-content: space-between;
-   /* Pastki elementlarni chekka joylarga itaradi */
-   height: 100%;
-   /* Kartochkaning balandligini teng qiladi */
-   min-height: 300px;
-   /* Minimal balandlik */
+    display: flex;
+    flex-direction: column;
+    /* Tarkibni ustun shaklida joylashtiradi */
+    justify-content: space-between;
+    /* Pastki elementlarni chekka joylarga itaradi */
+    height: 100%;
+    /* Kartochkaning balandligini teng qiladi */
+    min-height: 300px;
+    /* Minimal balandlik */
 }
 
 .thumb {
-   flex-shrink: 0;
-   /* Rasm qisqarib qolmasligi uchun */
+    flex-shrink: 0;
+    /* Rasm qisqarib qolmasligi uchun */
 }
 
 .service__content {
-   flex-grow: 1;
-   /* Tarkib qismini bo‘sh joyni to‘ldirish uchun */
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
+    flex-grow: 1;
+    /* Tarkib qismini bo‘sh joyni to‘ldirish uchun */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .titley,
 .titlet {
-   display: -webkit-box;
-   /* Flexboxga o'xshash usul */
-   -webkit-line-clamp: 2;
-   /* Ikki qator bilan cheklaydi */
-   -webkit-box-orient: vertical;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   /* Oxiriga uch nuqta qo'shadi */
-   white-space: normal;
+    display: -webkit-box;
+    /* Flexboxga o'xshash usul */
+    -webkit-line-clamp: 2;
+    /* Ikki qator bilan cheklaydi */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Oxiriga uch nuqta qo'shadi */
+    white-space: normal;
 }
 
 
 
 
 @media (max-width: 120px) {
-   .task__item {
-      flex-direction: column;
-      /* Elementlarni vertikal qilib o'rnatadi */
-      text-align: center;
-      /* Kontentni markazlashtiradi */
-   }
+    .task__item {
+        flex-direction: column;
+        /* Elementlarni vertikal qilib o'rnatadi */
+        text-align: center;
+        /* Kontentni markazlashtiradi */
+    }
 
-   .task__item .thumb {
-      margin-bottom: 20px;
-      /* Rasmlar va kontent orasida masofa qo'shadi */
-      flex: 0 0 auto;
-      /* Rasm qisqarishini oldini oladi */
-   }
+    .task__item .thumb {
+        margin-bottom: 20px;
+        /* Rasmlar va kontent orasida masofa qo'shadi */
+        flex: 0 0 auto;
+        /* Rasm qisqarishini oldini oladi */
+    }
 
-   .task__item .content {
-      flex: 1 1 auto;
-      /* Kontent qismini to'ldiradi */
-   }
+    .task__item .content {
+        flex: 1 1 auto;
+        /* Kontent qismini to'ldiradi */
+    }
 
-   .task__item img {
-      max-width: 100%;
-      /* height: auto; */
-      margin: 0 auto;
-      /* Rasmlarni markazlashtiradi */
-   }
+    .task__item img {
+        max-width: 100%;
+        /* height: auto; */
+        margin: 0 auto;
+        /* Rasmlarni markazlashtiradi */
+    }
 
-   .container {
-      padding: 0 15px;
-      /* Yon tomondagi bo'shliqni sozlaydi */
-   }
+    .container {
+        padding: 0 15px;
+        /* Yon tomondagi bo'shliqni sozlaydi */
+    }
 }
 
 .pra {
-   display: -webkit-box;
-   -webkit-line-clamp: 2;
-   /* 2 qatorga cheklash */
-   -webkit-box-orient: vertical;
-   overflow: hidden;
-   text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* 2 qatorga cheklash */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
 
 .thumb {
-   width: 150px;
-   /* Rasm kengligi */
-   height: 150px;
-   /* Rasm balandligi */
-   border-radius: 50%;
-   /* Aylanaga aylantirish */
-   overflow: hidden;
-   /* Ortiqcha qismlar ko'rinmasin */
+    width: 150px;
+    /* Rasm kengligi */
+    height: 150px;
+    /* Rasm balandligi */
+    border-radius: 50%;
+    /* Aylanaga aylantirish */
+    overflow: hidden;
+    /* Ortiqcha qismlar ko'rinmasin */
 }
 
 .thumb img {
-   width: 150px;
-   /* Rasmni o'z o'lchamida qoldirish */
-   height: 150px;
-   object-fit: cover;
-   /* Kesib, to'ldirish */
-   object-position: center;
-   /* Markazga joylash */
-   image-rendering: auto;
-   /* Rasm renderlash sifatini yaxshilash */
+    width: 150px;
+    /* Rasmni o'z o'lchamida qoldirish */
+    height: 150px;
+    object-fit: cover;
+    /* Kesib, to'ldirish */
+    object-position: center;
+    /* Markazga joylash */
+    image-rendering: auto;
+    /* Rasm renderlash sifatini yaxshilash */
 }
 
 
@@ -894,51 +888,18 @@ export default {
 
 
 .task__item .title {
-   min-height: 60px;
-   /* Eng uzun sarlavha balandligiga moslang */
-   display: flex;
-   align-items: center;
+    min-height: 60px;
+    /* Eng uzun sarlavha balandligiga moslang */
+    display: flex;
+    align-items: center;
 }
 
 
 
 .app__thumb img {
-   max-width: 100%;
-   height: auto;
-   display: block;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-
-.popup-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   background: rgba(0, 0, 0, 0.5);
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   z-index: 9999;
-}
-
-.popup-box {
-   background: #fff;
-   padding: 25px;
-   border-radius: 10px;
-   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-   text-align: center;
-   max-width: 300px;
-   width: 90%;
-}
-
-.close-btn {
-   margin-top: 15px;
-   padding: 8px 16px;
-   background-color: #183e98;
-   color: #fff;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-}
 </style>

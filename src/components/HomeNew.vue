@@ -838,16 +838,16 @@
         <div class="container">
             <div class="company__wrap owl-carousel">
                 <div class="company__logo">
-                    <img src="assets/img/company/company1.png" alt="company">
+                    <img src="https://new.pochta.uz/media/company1.png" alt="company">
                 </div>
                 <div class="company__logo">
-                    <img src="assets/img/company/company2.png" alt="company">
+                    <img src="https://new.pochta.uz/media/company2.png" alt="company">
                 </div>
                 <div class="company__logo">
-                    <img src="assets/img/company/company3.png" alt="company">
+                    <img src="https://new.pochta.uz/media/company3.png" alt="company">
                 </div>
                 <div class="company__logo">
-                    <img src="assets/img/company/company4.png" alt="company">
+                    <img src="https://new.pochta.uz/media/company4.png" alt="company">
                 </div>
             </div>
         </div>

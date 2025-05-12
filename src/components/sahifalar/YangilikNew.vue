@@ -75,15 +75,11 @@
                   <span class="base fz-18 fw-500 inter">
                     {{ $t('tags') }}
                   </span>
-                  <a href="#0" class="ata__tag fz-14 fw-400 pra border round100">
-                    Umumjahon pochta
-                  </a>
-                  <a href="#0" class="ata__tag fz-14 fw-400 pra border round100">
-                    UzPost
-                  </a>
-                  <a href="#0" class="ata__tag fz-14 fw-400 pra border round100">
-                    Elektron tijorat
-                  </a>
+                  <template v-for="tag in newsItem.tags" :key="tag.id">
+                    <a href="#0" class="ata__tag fz-14 fw-400 pra border round100">
+                      {{ tag[`name_${$i18n.locale}`] || tag.name_uz }}
+                    </a>
+                  </template>
                 </div>
                 <div class="share d-flex align-items-center gap-2">
                   <span class="fz-18 fw-500 inter base">
@@ -113,6 +109,7 @@
                   </ul>
                 </div>
               </div>
+
             </div>
           </div>
 

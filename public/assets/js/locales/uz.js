@@ -307,4 +307,5 @@ export default {
   bolimizlash: "Indeks bilan izlash",
   mahallanomi: "Manzilni kiriting",
   aloqanomi: "Pochta bo'limi indeksini kiriting",
+  yur: "UzPost'ning mavjud xizmatlari bo'yicha yuridik shaxs sifatida hamkorlik qilish uchun uzpost.business@gmail.com elektron pochtasiga yoki 55-520-02-70 telefon raqami orqali hamkorlik tafsilotlari bilan murojaat qoldiring!",
 };

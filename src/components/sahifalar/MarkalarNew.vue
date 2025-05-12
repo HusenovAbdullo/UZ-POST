@@ -291,4 +291,14 @@ export default {
   object-fit: contain;
   margin: auto;
 }
+
+.service__item1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 100%; /* bu muhim */
+  min-height: 400px; /* kerakli balandlik */
+}
+
 </style>
