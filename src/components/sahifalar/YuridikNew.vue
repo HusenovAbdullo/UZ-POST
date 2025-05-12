@@ -41,7 +41,7 @@
                         {{ $t('access_legal_entity_profile') }}
                      </h3>
                      <p class="fz-14 fw-400 inter pra mb-40"></p>
-                     <button @click="showPopup = true" class="cmn--btn outline__btn">
+                     <button @click="openPopup" class="cmn--btn outline__btn">
                         <span>{{ $t('login') }}</span>
                         <span><i class="bi bi-arrow-up-right"></i></span>
                      </button>
@@ -258,6 +258,10 @@ export default {
       },
    },
    methods: {
+      openPopup() {
+         console.log('Popup tugmasi bosildi');
+         this.showPopup = true;
+      },
       // API'dan banner ma'lumotlarini olish
       async fetchBanners() {
          try {
@@ -329,6 +333,7 @@ export default {
             sessionStorage.removeItem('reload_count_xizmatlar');
          }
       }
+      this.showPopup = true; // sahifa yuklanganda popup chiqadi
 
       // Serverda ishlashi uchun
       this.fetchBanners().then(() => {
