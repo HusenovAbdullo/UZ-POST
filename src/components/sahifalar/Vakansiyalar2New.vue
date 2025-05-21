@@ -21,43 +21,8 @@
                                 <span class="d41 mb-24">
                                     Ariza qoldirish
                                 </span>
-                                <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
-                     <li>
-                        <a href="index.html" class="fz-16 fw-400 inter text-white">
-                           Home
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter text-white">
-                           User Profile
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter base2">
-                           Post a Request
-                        </a>
-                     </li>
-                  </ul> -->
                             </div>
                         </div>
-                        <!-- <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">
-               <div class="logout__btn">
-                  <a href="#0" class="cmn--logout">
-                     <span>
-                        <i class="bi bi-box-arrow-right"></i>
-                     </span>
-                     <span class="fz-16 fw-600 inter">
-                        Log out
-                     </span>
-                  </a>
-               </div>
-            </div> -->
                     </div>
                 </div>
             </div>
@@ -122,19 +87,6 @@
                                         <input type="text" id="numbers" placeholder="Telefon raqamingizni kiriting">
                                     </div>
                                 </div>
-                                <!-- <div style=" align-items: center; font-family: Arial, sans-serif;">
-                     <label for="file-upload"
-                        style="font-weight: bold; margin-right: 10px;color:#080000">Fayl</label><br>
-                     <div class="fz-14"
-                        style="display: flex; align-items: center; border: 1px solid #e0e1e5;     width: 25%; border-radius: 5px; padding: 8px 12px; background-color: #f2f7fe;">
-                        <label for="file-upload" style="cursor: pointer; color: #404a60;">
-                           Faylni biriktirish
-                        </label>
-                        <input id="file-upload" type="file" style="display: none;">
-                        <i class="bi bi-paperclip ms-2" style="color: #404a60;"></i>
-                     </div>
-                  </div> -->
-
                                 <br>
                                 <br>
                                 <br>
@@ -142,9 +94,6 @@
                                 <div class="divider">
                                     <span>Qo‘shimcha ravishda</span>
                                 </div>
-
-
-
 
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
@@ -158,11 +107,12 @@
                                             Saqlash va jo‘natish
                                         </span>
                                     </router-link>
-                                    <a href="javascript:void(0)" class="cmn--btn outline__btn">
+                                    <router-link to="/vakansiyalar" class="cmn--btn outline__btn">
                                         <span>
                                             Ortga qaytish
                                         </span>
-                                    </a>
+                                    </router-link>
+
                                 </div>
                             </div>
                         </form>

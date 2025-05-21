@@ -20,43 +20,8 @@
                             <div class="breadcumnd__content">
                                 <span class="d41 mb-24">
                                 </span>
-                                <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
-                     <li>
-                        <a href="index.html" class="fz-16 fw-400 inter text-white">
-                           Home
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter text-white">
-                           User Profile
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter base2">
-                           Post a Request
-                        </a>
-                     </li>
-                  </ul> -->
                             </div>
                         </div>
-                        <!-- <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">
-               <div class="logout__btn">
-                  <a href="#0" class="cmn--logout">
-                     <span>
-                        <i class="bi bi-box-arrow-right"></i>
-                     </span>
-                     <span class="fz-16 fw-600 inter">
-                        Log out
-                     </span>
-                  </a>
-               </div>
-            </div> -->
                     </div>
                 </div>
             </div>
@@ -71,7 +36,8 @@
                                 <div class="contact__wrapper round16 bgwhite">
 
                                     <div class="center" style="margin-top: -80px;">
-                                        <img src="assets/img/aralash/123.svg" alt="SVG rasm" width="100" height="100">
+                                        <img src="https://new.pochta.uz/media/123.svg" alt="SVG rasm" width="100"
+                                            height="100">
                                         <br>
                                         <br>
                                         <br>

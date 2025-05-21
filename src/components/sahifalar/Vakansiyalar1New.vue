@@ -21,43 +21,8 @@
                                 <span class="d41 mb-24">
                                     Ariza qoldirish
                                 </span>
-                                <!-- <ul class="breadcun__list flex-wrap gap-1 d-flex align-items-center">
-                     <li>
-                        <a href="index.html" class="fz-16 fw-400 inter text-white">
-                           Home
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter text-white">
-                           User Profile
-                        </a>
-                     </li>
-                     <li>
-                        <i class="bi bi-chevron-right"></i>
-                     </li>
-                     <li>
-                        <a href="#0" class="fz-16 fw-400 inter base2">
-                           Post a Request
-                        </a>
-                     </li>
-                  </ul> -->
                             </div>
                         </div>
-                        <!-- <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5 col-sm-5">
-               <div class="logout__btn">
-                  <a href="#0" class="cmn--logout">
-                     <span>
-                        <i class="bi bi-box-arrow-right"></i>
-                     </span>
-                     <span class="fz-16 fw-600 inter">
-                        Log out
-                     </span>
-                  </a>
-               </div>
-            </div> -->
                     </div>
                 </div>
             </div>
@@ -145,13 +110,10 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <a href="javascript:void(0)" class="image__upbox d-block text-center round16 border">
-                                    <img src="assets/img/details/imgs.png" class="mb-3" alt="img">
+                                    <img src="https://new.pochta.uz/media/imgs.png" class="mb-3" alt="img">
                                     <span class="fz-14 d-block inter pra mb-2">
                                         Faylni yuklash
                                     </span>
-                                    <!-- <span class="base fw-14">
-                        Browse
-                     </span> -->
                                 </a>
                             </div>
                         </div>
@@ -166,11 +128,12 @@
                                     Saqlash
                                 </span>
                             </router-link>
-                            <a href="javascript:void(0)" class="cmn--btn outline__btn">
+                            <router-link to="/vakansiyalar" class="cmn--btn outline__btn">
                                 <span>
                                     Bekor qilish
                                 </span>
-                            </a>
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -180,11 +143,8 @@
                             <h3 class="title2 mb-24">
                                 Keling tanishaylik!
                             </h3>
-                            <!-- <span class="fz-16 fw-400 inter pra">
-                  This is where you fill us in on the big picture.
-               </span> -->
                             <div class="man__matching">
-                                <img src="assets/img/details/matching.png" alt="img">
+                                <img src="https://new.pochta.uz/media/matching.png" alt="img">
                             </div>
                         </div>
                     </div>
@@ -194,3 +154,17 @@
     </section>
     <!-- description body Section End -->
 </template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const alreadyReloaded = sessionStorage.getItem('reloaded')
+  if (!alreadyReloaded) {
+    sessionStorage.setItem('reloaded', 'true')
+    window.location.reload()
+  } else {
+    sessionStorage.removeItem('reloaded') // keyingi kirishda yana ishlashi uchun
+  }
+})
+</script>

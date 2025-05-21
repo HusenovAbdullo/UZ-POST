@@ -6107,6 +6107,10 @@ fieldset:disabled .btn {
 .d-flex {
   display: flex !important;
 }
+.d-flex1 {
+  display: flex !important;
+  flex-wrap: wrap;
+}
 .d-inline-flex {
   display: inline-flex !important;
 }
