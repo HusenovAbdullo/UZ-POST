@@ -229,7 +229,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -272,7 +272,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
 
@@ -334,7 +334,7 @@
                                     <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -350,17 +350,17 @@
                                     <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('country') }}</strong> <br />
                                        <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                     <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('address5') }}</strong> <br />
                                        <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                     <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -431,7 +431,7 @@
                                              <li v-for="(event, index) in combinedTracking" :key="index">
                                                 <a class="d-flex align-items-center">
                                                    <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                   }}</span>
+                                                      }}</span>
                                                    <span class="cateicon">
                                                       <img
                                                          :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -442,10 +442,10 @@
                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                       event.data }}</span>
                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                   }}</span>
+                                                      }}</span>
                                                    <span>
                                                       <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                      }}</span>
+                                                         }}</span>
                                                       <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                          style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                          {{ event.malumot }}
@@ -516,8 +516,8 @@
             <!-- Accordion header -->
             <div class="accordion-header" :class="{ active: openedMenu === index }" @click="toggleAccordion(index)">
                <span>{{ item[`name_${$i18n.locale}`] || item.name_uz }}</span>
-               <img :class="{ rotated: openedMenu === index }" src="https://new.pochta.uz/media/sayt.svg" alt="chevron"
-                  class="arrow-icon" />
+               <img v-if="!item.link_uz" :class="{ rotated: openedMenu === index }"
+                  src="https://new.pochta.uz/media/sayt.svg" alt="chevron" class="arrow-icon" />
             </div>
 
             <!-- Accordion body -->
@@ -638,12 +638,12 @@ export default {
       this.fetchMenuElements();
    },
    mounted() {
-       // ROUTE asosida person type ni aniqlash
-   if (this.$route.path.includes('/yuridik')) {
-      this.selectedPersonType = 'legal';
-   } else {
-      this.selectedPersonType = 'individual';
-   }
+      // ROUTE asosida person type ni aniqlash
+      if (this.$route.path.includes('/yuridik')) {
+         this.selectedPersonType = 'legal';
+      } else {
+         this.selectedPersonType = 'individual';
+      }
       const savedMode = localStorage.getItem('accessibilityMode');
       if (savedMode === 'colorblind') {
          this.setAccessibilityMode('colorblind');
@@ -661,11 +661,20 @@ export default {
    },
    methods: {
       closeMobileMenu() {
-      this.isMobileMenuOpen = false;
-   },
-      toggleAccordion(index) {
-         this.openedMenu = this.openedMenu === index ? null : index;
+         this.isMobileMenuOpen = false;
       },
+      toggleAccordion(index) {
+         const item = this.menuElementsItems[index];
+         // Faqat agar link_uz yo'q bo‘lsa, accordion ochiladi
+         if (!item.link_uz) {
+            this.openedMenu = this.openedMenu === index ? null : index;
+         } else {
+            // Aks holda sahifaga yo'naltiriladi
+            this.$router.push(item.link_uz);
+            this.isMobileMenuOpen = false; // menyuni yopish
+         }
+      }
+      ,
       setAccessibilityMode(mode) {
          if (mode === 'colorblind') {
             this.isColorblind = true;
@@ -1802,21 +1811,24 @@ span:first-letter {
 
 /* 768px dan kichik ekranlarda yashiriladi */
 @media (max-width: 767px) {
-  .desktop-only {
-    display: none !important;
-  }
+   .desktop-only {
+      display: none !important;
+   }
 }
+
 .track-form-modern input::placeholder {
-  color: #ffffff93;
-  opacity: 1; /* To‘liq ko‘rinishi uchun */
+   color: #ffffff93;
+   opacity: 1;
+   /* To‘liq ko‘rinishi uchun */
 }
+
 .track-form-modern input {
-  color: #9C9C9C80;
+   color: #9C9C9C80;
 }
+
 .person-toggle button.active {
    background-color: #386EC2;
    color: #ffffff;
    /* font-weight: bold; */
 }
-
 </style>

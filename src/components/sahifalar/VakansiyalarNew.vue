@@ -18,7 +18,7 @@
                         <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
                             <div class="breadcumnd__content">
                                 <span class="d41 mb-24">
-                                    Vakansiyalar
+                                    {{ $t('vacancies') }}
                                 </span>
                             </div>
                         </div>
@@ -35,10 +35,10 @@
                 <div class="col-lg-8">
                     <div class="overview__gitwrapper bgwhite round16 border">
                         <h2 class="pb-40 bborderdash mb-40 title2">
-                            Ochiq vakansiyalar
+                            {{ $t('open_vacancies') }}
                         </h2>
                         <h3 class="pb-40 bborderdash mb-40 title2">
-                            O‘zingizga qiziq bo‘lgan vakansiyani tanlang va rezyumeingizni qoldiring
+                            {{ $t('select_interesting_vacancy') }}
                         </h3>
                         <div v-for="(vacancy, index) in vacancies" :key="index"
                             class="natural__language round16 border mb-3">
@@ -54,7 +54,8 @@
                                             }}
                                         </span>
                                         <p class="title2 mb-0 text-end">
-                                            {{ vacancy.select_vacancy.price.toLocaleString() }}&nbsp;so'm
+                                            {{ vacancy.select_vacancy.price.toLocaleString() }}&nbsp;{{ $t('summ') }}
+
                                         </p>
 
                                     </div>
@@ -71,7 +72,7 @@
                                         </div>
                                         <button class="cmn--btn" style="background-color: #0D47A1;"
                                             @click="openModal(vacancy.id)">
-                                            <span>Batafsil</span>
+                                            <span>{{ $t('details') }}</span>
                                         </button>
 
                                     </div>
@@ -99,10 +100,10 @@
                         <div class="card__sidebar side__sticky round16">
                             <div class="card__common__item bgwhite round16">
                                 <h4 class="head fw-600  title mb-24" style="font-size: 28px;">
-                                    Filtr
+                                    {{ $t('filter') }}
                                 </h4>
                                 <div class="bank__check__wrap tborderdash pb-24">
-                                    <h5 class="title mb-16 pt-20">Mintaqa</h5>
+                                    <h5 class="title mb-16 pt-20">{{ $t('branches') }}</h5>
 
                                     <!-- Viloyatlar ro'yxati -->
                                     <div v-for="region in filteredRegions" :key="region.id" class="mb-3">
@@ -176,7 +177,7 @@
 
                                 <div class="bank__check__wrap pb-24 tborderdash">
                                     <h5 class="title mb-16 pt-24">
-                                        Ish tajribasi
+                                        {{ $t('experience') }}
                                     </h5>
                                     <div v-for="(item, index) in experiences" :key="index"
                                         class="d-flex align-items-center justify-content-between">
@@ -197,7 +198,7 @@
 
                                 <div class="bank__check__wrap pb-24 tborderdash">
                                     <h5 class="title mb-16 pt-24">
-                                        Bo'lim
+                                        {{ $t('department') }}
                                     </h5>
                                     <div v-for="(section, index) in sections" :key="index"
                                         class="d-flex align-items-center justify-content-between">
@@ -222,11 +223,11 @@
 
                                 <div class="d-flex gap-2 mt-3">
                                     <a href="#0" @click.prevent="applyFilter" class="btn-filter btn-apply">
-                                        Qo‘llash
+                                        {{ $t('apply') }}
                                     </a>
 
                                     <a href="#0" @click.prevent="clearAllFilters" class="btn-filter btn-clear">
-                                        Tozalash
+                                        {{ $t('clear') }}
                                     </a>
                                 </div>
 
@@ -247,34 +248,35 @@
                 <div class="col-lg-8">
                     <div class="overview__gitwrapper bgwhite round16 border">
                         <h3 class="pb-40 bborderdash mb-40 title2">
-                            Ariza to'ldirish
+                            {{ $t('fill_application') }}
                         </h3>
                         <span class="fz-20  title inter mb-10 d-block">
-                            F.I.Sh
+                            {{ $t('full_name') }}
                         </span>
                         <p class="fz-14 title mb-24 inter">
-                            Familiyangiz, ism-sharifingizni kiriting
+                            {{ $t('enter_full_name') }}
                         </p>
                         <input v-model="resumeData.fish"
-                            :class="['addquestion mb-30 rad4', fishError ? 'input-error' : '']" placeholder="F.I.Sh" />
+                            :class="['addquestion mb-30 rad4', fishError ? 'input-error' : '']"
+                            :placeholder="$t('full_name')" />
 
                         <span class="fz-20  title inter mb-10 d-block">
-                            O'zingiz haqingizda qisqacha ma'lumot qoldiring
+                            {{ $t('about_yourself') }}
                         </span>
                         <p class="fz-14 title mb-24 inter">
-                            Ma'lumotingiz, tajribangiz, shaxsiy yutuqlaringiz va boshqalar.
+                            {{ $t('description_hint') }}
                         </p>
                         <div class="bio-box"
                             style="margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; padding: 10px;">
-                            <textarea v-model="resumeData.description" name="bio" placeholder="Matn yozing"
+                            <textarea v-model="resumeData.description" name="bio" :placeholder="$t('write_text')"
                                 style="width: 100%; height: 100px;"></textarea>
                         </div>
 
                         <span class="fz-20 mt-30 fw-500 inter d-block title mb-10">
-                            Rezyumeni yuklang
+                            {{ $t('upload_resume') }}
                         </span>
                         <p class="fz-16 fw-400 mb-24 inter pra">
-                            · Maksimal 50 MB hajmli 5 tagacha fayl biriktiring
+                            · {{ $t('max_files_hint') }}
                         </p>
                         <div class="row">
                             <div class="col-lg-4">
@@ -283,7 +285,7 @@
                                     style="cursor: pointer;">
                                     <img src="https://new.pochta.uz/media/imgs.png" class="mb-3" alt="img">
                                     <span class="fz-14 d-block inter pra mb-2">
-                                        Faylni yuklash
+                                        {{ $t('upload_file') }}
                                     </span>
                                 </label>
                                 <input id="cv-upload" type="file" @change="onFileChange" style="display: none;" />
@@ -297,13 +299,13 @@
 
                         <div class="btn__grp d-flex align-items-center gap-4 flex-wrap">
                             <button class="cmn--btn" @click="goToContactStep">
-                                <span>Saqlash</span>
+                                <span>{{ $t('save1') }}</span>
                             </button>
 
 
                             <a href="/vakansiyalar" class="cmn--btn outline__btn">
                                 <span>
-                                    Bekor qilish
+                                    {{ $t('cancel') }}
                                 </span>
                             </a>
 
@@ -315,7 +317,7 @@
                     <div class="start__definingbar">
                         <div class="defining__box round16 border bgwhite">
                             <h3 class="title2 mb-24">
-                                Keling tanishaylik!
+                                {{ $t('lets_get_acquainted') }}
                             </h3>
                             <div class="man__matching">
                                 <img src="https://new.pochta.uz/media/matching.png" alt="img">
@@ -333,50 +335,52 @@
                 <div class="col-lg-8">
                     <div class="contact__wrapper round16 bgwhite">
                         <h2 class="pb-30 bborderdash mb-30 title2">
-                            Bog'lanish uchun kontakt ma'lumotlaringizni qoldiring
+                            {{ $t('contact_info') }}
                         </h2>
                         <form action="#0" class="write__review">
                             <div class="row g-4">
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
-                                        <label for="phone1" class="fz-18 fw-500 inter title mb-16">Telefon raqam</label>
+                                        <label for="phone1" class="fz-18 fw-500 inter title mb-16">{{
+                                            $t('phone_number3') }}</label>
                                         <input v-model="resumeData.phone_number"
                                             :class="['form-control', phoneError ? 'input-error' : '']" type="text"
-                                            id="phone1" placeholder="Telefon raqamingizni kiriting" />
+                                            id="phone1" :placeholder="$t('enter_phone2')" />
 
                                     </div>
                                 </div>
 
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
-                                        <label for="phone2" class="fz-18 fw-500 inter title mb-16">Telefon raqam
-                                            (qo'shimcha)</label>
+                                        <label for="phone2" class="fz-18 fw-500 inter title mb-16">{{
+                                            $t('additional_phone') }}</label>
                                         <input v-model="resumeData.additional_phone_number"
                                             :class="['form-control', additionalPhoneError ? 'input-error' : '']"
-                                            type="text" id="phone2" placeholder="Telefon raqamingizni kiriting" />
+                                            type="text" id="phone2" :placeholder="$t('enter_phone2')" />
 
                                     </div>
                                 </div>
 
                                 <div class="divider">
-                                    <span>Qo‘shimcha ravishda</span>
+                                    <span>{{ $t('additional') }}</span>
                                 </div>
 
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
-                                        <label for="email" class="fz-18 fw-500 inter title mb-16">E-mail</label>
+                                        <label for="email" class="fz-18 fw-500 inter title mb-16">{{ $t('email')
+                                            }}</label>
                                         <input v-model="resumeData.email" type="text" id="email"
-                                            placeholder="Email manzilingizni kiriting...">
+                                            :placeholder="$t('enter_email')">
                                     </div>
                                 </div>
 
                                 <div class="btn__grp d-flex align-items-center gap-4 flex-wrap">
                                     <button class="cmn--btn" @click.prevent="submitForm">
-                                        <span>Saqlash va jo‘natish</span>
+                                        <span>{{ $t('save_and_send') }}</span>
                                     </button>
 
                                     <button class="cmn--btn outline__btn" @click.prevent="step = 2">
-                                        <span>Ortga qaytish</span>
+                                        <span>{{ $t('go_back') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -429,7 +433,7 @@
                                         <br>
                                         <br>
                                         <h3 class="pb-30 mb-30 title2">
-                                            Tez orada UzPost mas'ul xodimlari siz bilan bog'lanishlari mumkin.
+                                            {{ $t('uzpost_contact_notice') }}
                                         </h3>
                                         <br>
                                         <h3 class="pb-30 bborderdash mb-30 title2">
@@ -439,7 +443,7 @@
                                         <button class="cmn--btn outline__btn" @click="goToVacancyPage">
                                             <span>
                                                 <i class="fa fa-arrow-left" style="margin-right: 5px;"></i>
-                                                Vakansiyalar
+                                                {{ $t('vacancies') }}
                                             </span>
                                         </button>
 
@@ -489,13 +493,15 @@
             <div class="d-flex flex-wrap gap-5 mt-3">
                 <!-- Chap ustun -->
                 <div class="left-col">
-                    <p class="title2 mb-0">Maosh: {{ modalData.vacancy.select_vacancy.price.toLocaleString() }} so'm</p>
-                    <p class="title2 mb-0">Bo‘lim: {{ modalData.vacancy.section.name_uz }}</p>
-                    <p class="title2 mb-0">Tajriba: {{ modalData.vacancy.work_experience[0].name_uz }}</p>
+                    <p class="title2 mb-0">{{ $t('salary') }}: {{
+                        modalData.vacancy.select_vacancy.price.toLocaleString() }} {{ $t('summ') }}</p>
+                    <p class="title2 mb-0">{{ $t('department') }}: {{ modalData.vacancy.section.name_uz }}</p>
+                    <p class="title2 mb-0">{{ $t('experience1') }}: {{ modalData.vacancy.work_experience[0].name_uz }}
+                    </p>
                 </div>
                 <!-- O‘ng ustun: filiallar checkbox bilan -->
                 <div class="right-col">
-                    <p class="title">Filialni tanlang</p>
+                    <p class="title">{{ $t('select_branch') }}</p>
                     <div v-for="(branch, index) in modalData.filials" :key="index"
                         class="d-flex align-items-center justify-content-between">
                         <div class="bank__checkitem mb-8 d-flex align-items-center">
@@ -514,12 +520,12 @@
                 <button class="cmn--btn" :disabled="!selectedBranch"
                     :style="{ pointerEvents: selectedBranch ? 'auto' : 'none', opacity: selectedBranch ? 1 : 0.5 }"
                     @click="handleContinue">
-                    <span>Saqlash va davom etish</span>
+                    <span>{{ $t('save_and_continue') }}</span>
                 </button>
 
 
                 <a href="javascript:void(0)" class="cmn--btn outline__btn" @click="x">
-                    <span>Bekor qilish</span>
+                    <span>{{ $t('cancel') }}</span>
                 </a>
 
             </div>
@@ -854,7 +860,7 @@ onMounted(fetchData)
     flex: 1;
     text-align: center;
     padding: 8px 12px;
-    font-weight: 600;
+    /* font-weight: 600; */
     border-radius: 4px;
     font-size: 14px;
     white-space: nowrap;

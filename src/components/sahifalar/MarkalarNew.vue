@@ -29,12 +29,12 @@
       <div class="row g-3 justify-content-center">
         <div class="col-lg-4 mb-4">
           <div class="card__sidebar side__sticky round16">
-            
+
             <div class="bank__check__wrap tborderdash pb-24">
               <h5 class="title mb-16 pt-20">
                 {{ $t('yil') }}
               </h5>
-              <div v-for="(rangeItem, index) in yearRanges" :key="index"
+              <div v-for="(rangeItem, index) in yearRanges.filter(r => r.count > 0)" :key="index"
                 class="d-flex align-items-center justify-content-between">
                 <div class="bank__checkitem mb-8 d-flex align-items-center">
                   <input class="form-check-input" type="checkbox" :id="`year_${index}`" v-model="rangeItem.checked" />
@@ -52,7 +52,8 @@
               <h5 class="title mb-16 pt-20">
                 {{ $t('turkum') }}
               </h5>
-              <div v-for="(cat) in categories" :key="cat.id" class="d-flex align-items-center justify-content-between">
+              <div v-for="(cat) in categories.filter(c => c.marks_count > 0)" :key="cat.id"
+                class="d-flex align-items-center justify-content-between">
                 <div class="bank__checkitem mb-8 d-flex align-items-center">
                   <input class="form-check-input" type="checkbox" :id="`cat_${cat.id}`" v-model="cat.checked" />
                   <label class="form-check-label fz-16 fw-400 ptext2 inter" :for="`cat_${cat.id}`">
@@ -63,6 +64,7 @@
                   {{ cat.marks_count }}
                 </span>
               </div>
+
             </div>
           </div>
         </div>
@@ -297,8 +299,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  height: 100%; /* bu muhim */
-  min-height: 400px; /* kerakli balandlik */
+  height: 100%;
+  /* bu muhim */
+  min-height: 400px;
+  /* kerakli balandlik */
 }
-
 </style>
