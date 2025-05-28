@@ -229,7 +229,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -272,7 +272,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
 
@@ -283,11 +283,12 @@
 
 
                         </div>
-                        <div class="header-bar d-lg-none">
+                        <div class="header-bar d-lg-none" @click="isMobileMenuOpen = true">
                            <span></span>
                            <span></span>
                            <span></span>
                         </div>
+
                      </div>
                   </div>
                </div>
@@ -333,7 +334,7 @@
                                     <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -349,17 +350,17 @@
                                     <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('country') }}</strong> <br />
                                        <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                     <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('address5') }}</strong> <br />
                                        <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                     <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -430,7 +431,7 @@
                                              <li v-for="(event, index) in combinedTracking" :key="index">
                                                 <a class="d-flex align-items-center">
                                                    <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                   }}</span>
+                                                      }}</span>
                                                    <span class="cateicon">
                                                       <img
                                                          :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -441,10 +442,10 @@
                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                       event.data }}</span>
                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                   }}</span>
+                                                      }}</span>
                                                    <span>
                                                       <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                      }}</span>
+                                                         }}</span>
                                                       <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                          style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                          {{ event.malumot }}
@@ -473,6 +474,89 @@
          </div>
       </section>
    </div>
+
+   <!-- Mobil menyu (hamburger bosilganda) -->
+   <div v-if="isMobileMenuOpen" class="mobile-fullscreen-menu">
+      <div class="menu-header">
+         <button class="close-btn" @click="isMobileMenuOpen = false">&times;</button>
+      </div>
+
+      <!-- Shaxs turi -->
+      <div class="person-toggle">
+         <button :class="{ active: selectedPersonType === 'individual' }" @click="selectedPersonType = 'individual'">
+            Jismoniy shaxslar uchun
+         </button>
+         <button :class="{ active: selectedPersonType === 'legal' }" @click="selectedPersonType = 'legal'">
+            Yuridik shaxslar uchun
+         </button>
+      </div>
+
+
+
+      <!-- Trek-kod bo‘yicha qidiruv -->
+      <form class="track-form-modern" @submit.prevent="fetchTrackingData">
+         <input v-model="trackingNumber" placeholder="CC123456789UZ" @keyup.enter="fetchTrackingData" />
+         <button type="button" @click="fetchTrackingData">
+            <i class="bi bi-search"></i>
+            {{ $t('tracking') }}
+         </button>
+      </form>
+
+
+      <!-- Profil -->
+      <div class="profile-section">
+         <img src="https://new.pochta.uz/media/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jfif"
+            alt="profile" />
+         <span>{{ $t('welcome') }}</span>
+      </div>
+
+      <!-- Menyu ro‘yxati -->
+      <ul class="accordion-menu">
+         <li v-for="(item, index) in menuElementsItems" :key="item.id">
+            <div class="accordion-header" :class="{ active: openedMenu === index }" @click="toggleAccordion(index)">
+               <span>{{ item[`name_${$i18n.locale}`] || item.name_uz }}</span>
+               <img :class="{ rotated: openedMenu === index }" src="https://new.pochta.uz/media/sayt.svg" alt="chevron"
+                  class="arrow-icon" />
+            </div>
+
+
+            <transition name="fade">
+               <ul v-show="openedMenu === index" class="accordion-body">
+                  <li v-for="sub in item.elements" :key="sub.id" class="accordion-subitem">
+                     <router-link :to="sub.link_uz || getLink(sub).path">
+                        {{ sub[`name_${$i18n.locale}`] || sub.name_uz }}
+                     </router-link>
+                  </li>
+               </ul>
+            </transition>
+         </li>
+      </ul>
+
+
+      <!-- Xarita va Yordam -->
+      <div class="footer-buttons">
+         <div class="footer-icon-wrapper">
+            <router-link to="/map" class="footer-icon-link">
+               <div class="circle-icon">
+                  <i class="bi bi-geo-alt"></i>
+               </div>
+               <span class="footer-label">Xarita</span>
+            </router-link>
+         </div>
+         <div class="footer-icon-wrapper">
+            <router-link to="/aloqa" class="footer-icon-link">
+               <div class="circle-icon">
+                  <i class="bi bi-life-preserver"></i>
+               </div>
+               <span class="footer-label">Yordam</span>
+            </router-link>
+         </div>
+      </div>
+
+   </div>
+
+
+
 </template>
 <script>
 import axios from "axios";
@@ -494,6 +578,8 @@ onBeforeUnmount(() => {
    window.removeEventListener('resize', checkIsMobile)
 })
 
+
+
 export default {
    data() {
       return {
@@ -514,7 +600,19 @@ export default {
          mode: 'simple',
          hideImages: false,
          isColorblind: false,
+         isMobileMenuOpen: false,
+         selectedPersonType: 'individual', // 'individual' yoki 'legal'
+         openedMenu: null,
       };
+   },
+   watch: {
+      selectedPersonType(newVal) {
+         if (newVal === 'individual') {
+            this.$router.push('/');
+         } else if (newVal === 'legal') {
+            this.$router.push('/yuridik');
+         }
+      }
    },
    created() {
       this.fetchMenuElements();
@@ -536,6 +634,9 @@ export default {
       }
    },
    methods: {
+      toggleAccordion(index) {
+         this.openedMenu = this.openedMenu === index ? null : index;
+      },
       setAccessibilityMode(mode) {
          if (mode === 'colorblind') {
             this.isColorblind = true;
@@ -1205,35 +1306,462 @@ span:first-letter {
 }
 
 @media (min-width: 992px) {
-    .col-lg-6 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
+   .col-lg-6 {
+      flex: 0 0 auto;
+      width: 50%;
+   }
 }
 
 @media (min-width: 768px) {
-    .col-md-12 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
+   .col-md-12 {
+      flex: 0 0 auto;
+      width: 50%;
+   }
 }
 
 .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #f07824;
-  color: #fff;
-  border: none;
-  padding: 1px 8px;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 10;
-}
-.close-btn:hover {
-  background-color: #d8651e;
+   position: absolute;
+   top: -1px;
+   right: 2px;
+   background-color: #f07824;
+   color: #fff;
+   border: none;
+   padding: 1px 8px;
+   border-radius: 4px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   z-index: 10;
 }
 
+.close-btn:hover {
+   background-color: #d8651e;
+}
+
+
+
+
+.mobile-fullscreen-menu {
+   position: fixed;
+   top: 0;
+   right: 0;
+   /* o‘ng tomondan chiqadi */
+   width: 320px;
+   height: 100vh;
+   background: #003580;
+   color: white;
+   z-index: 9999;
+   overflow-y: auto;
+   padding: 45px 8px 8px 8px;
+   transition: transform 0.3s ease;
+   transform: translateX(0);
+   /* ochilgan holatda */
+   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+   border-left: 1px solid rgba(255, 255, 255, 0.1);
+   border-top-left-radius: 8px;
+   border-bottom-left-radius: 8px;
+}
+
+
+
+.menu-header {
+   display: flex;
+   justify-content: flex-end;
+}
+
+.menu-header .close-btn {
+   font-size: 28px;
+   background: none;
+   border: none;
+   color: white;
+}
+
+.person-toggle {
+   display: flex;
+   gap: 8px;
+   justify-content: center;
+   margin-bottom: 16px;
+}
+
+.person-toggle button {
+   flex: 1;
+   padding: 1px;
+   border: none;
+   border-radius: 4px;
+   background: #ffffff22;
+   color: white;
+   font-size: 12px;
+}
+
+.person-toggle button.active {
+   background: white;
+   color: #003580;
+   font-weight: bold;
+}
+
+.track-form {
+   display: flex;
+   gap: 8px;
+   margin-bottom: 16px;
+}
+
+.track-form input {
+   flex: 1;
+   padding: 8px;
+   border-radius: 4px;
+   border: none;
+}
+
+.track-form button {
+   padding: 8px 12px;
+   background: #f07824;
+   border: none;
+   border-radius: 4px;
+   color: white;
+}
+
+.profile-section {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   margin: 20px 0;
+}
+
+.profile-section img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+}
+
+.mobile-menu-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.mobile-menu-list>li {
+   margin-bottom: 10px;
+}
+
+.mobile-menu-list a {
+   color: white;
+   text-decoration: none;
+   font-size: 16px;
+}
+
+.mobile-menu-list ul {
+   margin-left: 16px;
+   margin-top: 4px;
+}
+
+.footer-buttons {
+   margin-top: 40px;
+   display: flex;
+   justify-content: space-around;
+   color: white;
+}
+
+.footer-icon {
+   color: white;
+   font-size: 18px;
+   text-decoration: none;
+}
+
+
+.person-toggle-wrapper {
+   display: flex;
+   gap: 14px;
+   width: 330px;
+   height: 32px;
+   border: 1px solid #386EC2;
+   border-radius: 4px;
+   padding: 0;
+}
+
+.person-button {
+   flex: 1;
+   height: 32px;
+   padding: 4px 8px;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 400;
+   font-size: 12px;
+   line-height: 24px;
+   color: #FFFFFF;
+   background: transparent;
+   border: none;
+   border-radius: 4px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+}
+
+.person-button.active {
+   background-color: #386EC2;
+   color: #FFFFFF;
+}
+
+
+
+.person-toggle {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   gap: 0px;
+   /* width: 330px; */
+   height: 32px;
+   border: 1px solid #386EC2;
+   border-radius: 4px;
+   overflow: hidden;
+   margin: 0 auto 28px auto;
+   background-color: transparent;
+}
+
+.person-toggle button {
+   flex: 1;
+   height: 32px;
+   background-color: transparent;
+   border: none;
+   font-family: 'Roboto', sans-serif;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 11px;
+   color: #FFFFFF;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 4px 8px;
+   transition: all 0.3s ease;
+   border-radius: 0;
+}
+
+.person-toggle button.active {
+   background-color: #386EC2;
+   color: #FFFFFF;
+}
+
+
+@media (min-width: 768px) {
+   .person-toggle {
+      display: none;
+   }
+}
+
+.track-form-modern {
+   position: relative;
+   max-width: 400px;
+   width: 100%;
+   display: flex;
+   margin: 0 auto;
+   border-radius: 4px;
+   overflow: hidden;
+   background-color: white;
+   border: 1px solid #FDFDFD;
+   width: 300px;
+   margin: 0 0 28px 0;
+   /* Chap tomonga yopishadi */
+}
+
+.track-form-modern input {
+   /* flex: 1; */
+   padding: 12px 2px;
+   border: none;
+   outline: none;
+   font-size: 12px;
+   background-color: #003580;
+   color: #000;
+   /* border-radius: 8px 0 0 8px; */
+}
+
+.track-form-modern input::placeholder {
+   color: rgba(0, 0, 0, 0.4);
+}
+
+.track-form-modern button {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   /* padding: 12px 16px; */
+   background-color: white;
+   color: #003580;
+   border: none;
+   font-weight: 500;
+   font-size: 12px;
+   border-radius: 0 8px 8px 0;
+   cursor: pointer;
+   transition: background-color 0.2s ease;
+
+}
+
+@media (max-width: 768px) {
+   .track-form-modern {
+      max-width: 248px;
+      height: 36px;
+   }
+
+
+}
+
+
+.track-form-modern button:hover {
+   background-color: #f2f2f2;
+}
+
+
+.accordion-menu {
+   display: flex;
+   flex-direction: column;
+   padding: 0;
+   margin: 0;
+   /* width: 319px; */
+   background-color: #003580;
+   color: white;
+}
+
+.accordion-item {
+   border-bottom: 1px solid #386EC2;
+}
+
+.accordion-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 18px;
+   font-weight: 500;
+   line-height: 24px;
+   cursor: pointer;
+   background-color: #0D47A1;
+}
+
+.accordion-body {
+   display: flex;
+   flex-direction: column;
+   gap: 17px;
+   padding: 5px 0 10px 25px;
+   background-color: #003580;
+}
+
+.accordion-subitem a {
+   color: white;
+   font-size: 18px;
+   font-family: 'Roboto Condensed', sans-serif;
+   text-decoration: none;
+}
+
+.arrow-icon {
+   width: 16px;
+   height: 16px;
+   transition: transform 0.3s ease;
+}
+
+.rotated {
+   transform: rotate(180deg);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+   transition: all 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+   opacity: 0;
+   height: 0;
+}
+
+.arrow-icon {
+   width: 16px;
+   height: 16px;
+   transition: transform 0.3s ease;
+}
+
+.rotated {
+   transform: rotate(180deg);
+}
+
+.accordion-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 18px;
+   font-weight: 500;
+   line-height: 24px;
+   cursor: pointer;
+   background-color: #003580;
+   /* default */
+   transition: background-color 0.3s ease;
+}
+
+.accordion-header.active {
+   background-color: #0D47A1;
+   /* faollashtirilgan (ochilgan) bo‘lim */
+}
+
+.yordamcha {
+   display: block;
+   width: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 40px;
+   border-radius: 50%;
+   background: var(--white);
+   border: 1px solid var(--border);
+   align-items: center !important;
+}
+
+.footer-buttons {
+   display: flex;
+   justify-content: center;
+   gap: 24px;
+   margin-top: 30px;
+   padding-left: 20px;
+   /* Chapga yopishish */
+   justify-content: flex-start;
+   /* Chap tomonga hizalash */
+}
+
+.footer-icon-wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   align-items: flex-start;
+   /* Matnlar ham chapga hizalanadi */
+}
+
+.footer-icon-link {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-decoration: none;
+}
+
+.circle-icon {
+   background-color: white;
+   width: 48px;
+   height: 48px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.circle-icon i {
+   color: #003580;
+   font-size: 20px;
+}
+
+.footer-label {
+   color: white;
+   font-size: 14px;
+   margin-top: 8px;
+   font-weight: 500;
+   font-family: 'Roboto Condensed', sans-serif;
+}
 </style>

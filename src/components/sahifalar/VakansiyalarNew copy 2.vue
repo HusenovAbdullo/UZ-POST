@@ -220,10 +220,17 @@
                                 </div>
 
 
-                                <a href="#0" @click.prevent="applyFilter"
-                                    class="reset__filter justify-content-center fw-600 inter fz-16 d-flex align-items-center gap-2 base rad4">
-                                    Qo‘llash
-                                </a>
+                                <div class="d-flex gap-2 mt-3">
+                                    <a href="#0" @click.prevent="applyFilter" class="btn-filter btn-apply">
+                                        Qo‘llash
+                                    </a>
+
+                                    <a href="#0" @click.prevent="clearAllFilters" class="btn-filter btn-clear">
+                                        Tozalash
+                                    </a>
+                                </div>
+
+
 
                             </div>
                         </div>
@@ -626,6 +633,16 @@ const selectedRegionId = ref(null)
 const selectedPubId = ref(null)
 const selectedInternal = ref(null)
 
+const clearAllFilters = async () => {
+    selectedRegionId.value = null
+    selectedPubId.value = null
+    selectedInternal.value = null
+    selectedExperience.value = null
+    selectedSection.value = null
+    await fetchVacancies(1)
+}
+
+
 const filteredRegions = computed(() => regions.value.filter(r => (r.vacancies_count ?? 0) > 0))
 const filteredPubs = computed(() => pubs.value.filter(p => (p.vacancy_count ?? 0) > 0))
 const filteredInternals = computed(() => internals.value.filter(i => (i.vacancy_count ?? 0) > 0))
@@ -808,5 +825,27 @@ onMounted(fetchData)
 .input-error {
     border: 1px solid red !important;
     background-color: #ffe6e6;
+}
+
+.btn-filter {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.btn-apply {
+    background-color: white;
+    color: #0D47A1;
+    border: 1px solid #0D47A1;
+}
+
+.btn-clear {
+    background-color: #f07824;
+    color: white;
+    border: 1px solid #f07824;
 }
 </style>

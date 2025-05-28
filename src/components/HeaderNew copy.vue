@@ -33,10 +33,10 @@
                            {{ $t('for_individuals') }}
                         </router-link>
                         <!-- about.html shuni o'rniga qo'yilgan -->
-                        <!-- <router-link to="/yuridik" class="pra mdnone inter fw-400">
+                        <router-link to="/yuridik" class="pra mdnone inter fw-400">
                            {{ $t('for_legal_entities') }}
-                        </router-link> -->
-                        <a class="pra mdnone inter fw-400">{{ $t('for_legal_entities') }}</a>
+                        </router-link>
+                        <!-- <a class="pra mdnone inter fw-400">{{ $t('for_legal_entities') }}</a> -->
                      </div>
                      <div class="header__topsearch d-flex align-items-center">
                         <form action="#"
@@ -138,9 +138,6 @@
                               </div>
 
                            </div>
-
-                           
-
                            <div class="dropdown ochirish" title="Xarita">
                               <router-link to="/map" class="link glose__icon d-flex align-items-center">
                                  <i class="bi-geo-alt"></i>
@@ -152,75 +149,31 @@
                                  <i class="bi bi-life-preserver"></i>
                               </router-link>
                            </div>
-                           <div>
-    <!-- Ko'rish rejimi tugmasi -->
-    <div class="dropdown ochirish" title="Maxsus imkoniyatlar">
-      <a @click="toggleSpecialOptions" class="link glose__icon d-flex align-items-center">
-        <i class="bi bi-eye"></i>
-      </a>
-    </div>
 
-    <!-- Modal oynasi (Maxsus imkoniyatlar) -->
-    <div v-if="isSpecialOptionsVisible" class="special-options-modal">
-      <div class="modal-content">
-        <button class="close-btn" @click="toggleSpecialOptions">✖</button>
-        <h3>Maxsus imkoniyatlar</h3>
+                           <div id="app">
+                              <div class="dropdown ochirish" title="Maxsus imkoniyatlar">
+                                 <a @click="toggleSpecialOptions" class="link glose__icon d-flex align-items-center">
+                                    <i class="bi bi-eye"></i>
+                                 </a>
+                              </div>
 
-        <!-- Shriftsizni sozlash -->
-        <div class="option">
-          <label>Shrift o‘lchami:</label>
-          <input type="range" v-model="fontSize" min="12" max="24" @input="updateFontSize">
-          <span>{{ fontSize }}px</span>
-        </div>
+                              <div v-if="menuOpen" class="popup-menu">
+                                 <button @click="setAccessibilityMode('simple')" :class="{ active: !isColorblind }"
+                                    style="margin-top: 30px;">
+                                    <i class="bi bi-sun"></i> {{ $t('oddiy') }}
+                                 </button>
+                                 <button @click="setAccessibilityMode('colorblind')" :class="{ active: isColorblind }"
+                                    style="margin-top: 30px;">
+                                    <i class="bi bi-moon"></i> {{ $t('rangsiz') }}
+                                 </button>
+                                 <!-- <button @click="toggleImages" :class="{ active: hideImages }">
+                                    <i class="bi bi-image"></i> Rasmlarni o‘chirish
+                                 </button> -->
+                                 <button @click="toggleSpecialOptions" class="close-btn"
+                                    style="padding: 0px 4px; top: 1px; right: 10px;">✖</button>
+                              </div>
 
-        <!-- Masshtabni sozlash -->
-        <div class="option">
-          <label>Masshtab:</label>
-          <input type="range" v-model="zoomLevel" min="50" max="200" @input="updateZoomLevel">
-          <span>{{ zoomLevel }}%</span>
-        </div>
-
-        <!-- Ekran suhandoni -->
-        <div class="option">
-          <label>Ekran suhandoni:</label>
-          <input type="checkbox" v-model="screenReader">
-          <span v-if="screenReader">Yo‘qish yoqilgan</span>
-          <span v-else>O‘chirilgan</span>
-        </div>
-
-        <!-- Ovoz turi -->
-        <div class="option">
-          <label>Ovoz tanlash:</label>
-          <input type="radio" v-model="voiceType" value="male"> Erkak
-          <input type="radio" v-model="voiceType" value="female"> Ayol
-        </div>
-
-        <!-- Google tarjimon -->
-        <div class="option">
-          <label>Google tarjimon:</label>
-          <select v-model="selectedLanguage">
-            <option value="uz">O'zbek</option>
-            <option value="ru">Rus</option>
-            <option value="en">Ingliz</option>
-          </select>
-        </div>
-
-        <!-- Reset tugmasi -->
-        <button class="reset-btn" @click="resetSettings">Boshlang‘ich holatga qaytarish</button>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
+                           </div>
 
 
                            <div class="dropdown profie__dropdown">
@@ -276,7 +229,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -319,7 +272,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
 
@@ -341,15 +294,6 @@
             </header>
          </div>
 
-
-
-
-
-
-
-
-
-
          <!-- Header End -->
          <div v-if="loading" class="loader truckWrapper">
             <div v-if="loading" class="loader truckWrapper" id="loader">
@@ -369,14 +313,62 @@
                         <h2 class="title wow fadeInUp mb-24" style="text-align: center;" id="trackingNumberDisplay">{{
                            trackingData.number }}
                         </h2>
+                        <div v-if="trackingData.senderCountry"
+                           class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                           <div class="task__item round16 bgwhite d-flex align-items-center">
+                              <div class="thumb">
+                                 <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
+                              </div>
+                              <div class="content">
+                                 <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
+                                 <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('country') }} </strong> <br>
+                                    <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
+                                 </p>
+                                 <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('address5') }}</strong> <br>
+                                    <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
+                                 </p>
+
+                                 <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('postal_code') }}</strong> <br>
+                                    <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode }}</span>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                        <div v-if="trackingData.recipientCountry"
+                           class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
+                           <div class="task__item round16 bgwhite d-flex align-items-center">
+                              <div class="thumb">
+                                 <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
+                              </div>
+                              <div class="content">
+                                 <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
+                                 <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('country') }} </strong> <br>
+                                    <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
+                                    }}</span>
+                                 </p>
+                                 <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('address5') }}</strong> <br>
+                                    <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
+                                    }}</span>
+                                 </p>
+                                 <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                    <strong>{{ $t('postal_code') }}</strong> <br>
+                                    <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
+                                    }}</span>
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
                         <div class="col-xl-12 col-lg-12">
                            <div class="service__detailswrapper">
                               <div class="trending__based mb-40 bgwhite round16 shadow1">
                                  <div class="based__content border round16 bgwhite">
                                     <div class="freelancer__education bborderdash pb-30 mb-30">
                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                       <br>
-                                       <br>
                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
                                           style="color: red; font-size: 20px;">
                                           {{ trackingData.errorMessage }}
@@ -385,7 +377,7 @@
                                           <li v-for="(event, index) in combinedTracking" :key="index">
                                              <a class="d-flex align-items-center">
                                                 <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                   }}</span>
+                                                }}</span>
                                                 <span class="cateicon">
                                                    <img
                                                       :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -396,10 +388,10 @@
                                                 <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                    event.data }}</span>
                                                 <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                   }}</span>
+                                                }}</span>
                                                 <span>
                                                    <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                      }}</span>
+                                                   }}</span>
                                                    <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                       style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                       {{ event.malumot }}
@@ -445,52 +437,62 @@ export default {
          menuElementsItems: [],
          userToken: null, // Boshlang'ich qiymat
          currentLanguage: 'uz', // Boshqa tilda boshlang'ich qiymat o'zgartiriladi
-         isSpecialOptionsVisible: false,
-      fontSize: 100,
-      zoomLevel: 100,
-      screenReader: false,
-      voiceType: "male",
-      selectedLanguage: "uz"
+         menuOpen: false,
+         mode: 'simple',
+         hideImages: false,
+         isColorblind: false,
       };
    },
    created() {
       this.fetchMenuElements();
    },
    mounted() {
-      this.updateFontSize();
-    this.updateZoomLevel();
+      const savedMode = localStorage.getItem('accessibilityMode');
+      if (savedMode === 'colorblind') {
+         this.setAccessibilityMode('colorblind');
+      }
+      const savedHideImages = localStorage.getItem('hideImages');
+      this.hideImages = savedHideImages === 'true';
       // Misol uchun, localStorage orqali tokenni o'qing
       this.userToken = localStorage.getItem("id_token"); // Agar token mavjud bo'lsa, qiymatni o'rnatadi
       const savedLanguage = localStorage.getItem('language');
       if (savedLanguage) {
          this.changeLanguage(savedLanguage);
       } else {
-         this.changeLanguage('uz'); // Standart til
+         this.changeLanguage('uz');
       }
    },
    methods: {
-
+      setAccessibilityMode(mode) {
+         if (mode === 'colorblind') {
+            this.isColorblind = true;
+            localStorage.setItem('accessibilityMode', 'colorblind');
+            document.body.style.filter = 'grayscale(100%)'; // Grayscale qo'shish
+         } else {
+            this.isColorblind = false;
+            localStorage.removeItem('accessibilityMode');
+            document.body.style.filter = ''; // Grayscale ni o'chirish
+         }
+      }
+      ,
+      setMode(mode) {
+         if (mode === 'simple') {
+            this.isColorblind = false;
+         }
+      },
       toggleSpecialOptions() {
-      this.isSpecialOptionsVisible = !this.isSpecialOptionsVisible; // Modalni ochish/yopish
-    },
-    updateFontSize() {
-      document.body.style.fontSize = `${this.fontSize}px`;
-    },
-    updateZoomLevel() {
-      document.body.style.transform = `scale(${this.zoomLevel / 100})`;
-      document.body.style.transformOrigin = "top left";
-    },
-    resetSettings() {
-      this.fontSize = 16;
-      this.zoomLevel = 100;
-      this.screenReader = false;
-      this.voiceType = "male";
-      this.selectedLanguage = "uz";
+         this.menuOpen = !this.menuOpen;
+      },
 
-      this.updateFontSize();
-      this.updateZoomLevel();
-    },
 
+
+
+
+
+      toggleImages() {
+         this.hideImages = !this.hideImages;
+         document.body.classList.toggle('hide-images', this.hideImages);
+      },
       maybeReload(path) {
          if (path.includes('/headeritem/')) { // Faqat "/sahifalar/" yo'liga refresh beradi
             setTimeout(() => {
@@ -559,13 +561,22 @@ export default {
          this.combinedTracking = [];
          this.errorMessage = null;
 
+         // Check if the tracking number starts with CZ, RZ, or E
+         const trackingNumberPrefix = this.trackingNumber.substring(0, 2); // Get the first 2 characters of the tracking number
+         let apiUrl = '';
+
+         if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
+         } else {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
+         }
+
          const xhr = new XMLHttpRequest();
-         xhr.open('GET', `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`, true);
+         xhr.open('GET', apiUrl, true);
          xhr.onload = () => {
             this.loading = false;
             if (xhr.status >= 200 && xhr.status < 300) {
                const data = JSON.parse(xhr.responseText);
-
                if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
                   const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
                   this.trackingData = {
@@ -600,66 +611,111 @@ export default {
       },
 
       processEvents(events, countryCode) {
+         const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
          this.combinedTracking = events.map(event => ({
             date: new Date(event.LocalDateTime),
+            date1: new Date(event.GmtDateTime),
             location: event.EventOffice.Name,
-            status: event.IPSEventType.Name,
+            status: this.getLocalizedStatus(event.IPSEventType, lang), // Statusni lokalizatsiya qilish
             malumot: event.RetentionReason?.Name || '',
             malumot2: event.NonDeliveryReason?.Name || '',
             country_code: countryCode
          })).sort((a, b) => b.date - a.date);
       },
       processAlternativeData(data) {
-         this.trackingData = {
-            number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
-            senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
-            senderAddress: data.header?.data?.locations?.[0]?.address || '',
-            senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
-            recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
-            recipientAddress: data.header?.data?.locations?.[1]?.address || '',
-            recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
-         };
+            this.trackingData = {
+                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
+                senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
+                senderAddress: data.header?.data?.locations?.[0]?.address || '',
+                senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
+                recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
+                recipientAddress: data.header?.data?.locations?.[1]?.address || '',
+                recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+            };
+            let TemuList = [];
+            let shipoxList = [];
+            let gdeposilkaList = [];
+            if (data.data) {
+                TemuList = data.data.map(item => {
+                    let date = new Date(item.date);
 
-         let shipoxList = [];
-         let gdeposilkaList = [];
+                    // Sekundlarni olib tashlash
+                    date.setSeconds(0, 0);
 
-         if (data.shipox?.data?.list) {
-            shipoxList = data.shipox.data.list.map(item => ({
-               date: new Date(item.date),
-               data: item.data || 'UzPost',
-               location: item.warehouse?.name || '',
-               status: this.getLocalizedStatus(item),
-               country_code: 'UZ'
-            }));
-         }
+                    // Soatga 5 qo'shish
 
-         if (data.gdeposilka?.data?.checkpoints) {
-            gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
-               date: new Date(item.time),
-               location: item.location_translated,
-               region: item.courier.name,
-               status: this.getLocalizedStatus(item),
-               country_code: item.courier.country_code
-            }));
-         }
+                    return {
+                        date: date, // Mana, endi o'zgartirilgan `Date` ob'ekti chiqadi
+                        data: item.data || 'UzPost',
+                        location: item.warehouse?.name || '',
+                        status: item["IPSEventType"]["Name"],
+                        country_code: 'UZ'
+                    };
+                });
+                TemuList = TemuList.reverse();
+            }
 
-         const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
-         const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (data.shipox?.data?.list) {
+                shipoxList = data.shipox.data.list.map(item => ({
+                    date: new Date(item.date),
+                    data: item.data || 'UzPost',
+                    location: item.warehouse?.name || '',
+                    status: this.getLocalizedStatus(item),
+                    country_code: 'UZ'
+                }));
+            }
 
-         this.combinedTracking =
-            new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
-               ? [...sortedShipoxList, ...sortedGdeposilkaList]
-               : [...sortedGdeposilkaList, ...sortedShipoxList];
-      },
-      getLocalizedStatus(item) {
+            if (data.gdeposilka?.data?.checkpoints) {
+                gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
+                    date: new Date(item.time),
+                    location: item.location_translated,
+                    region: item.courier.name,
+                    status: this.getLocalizedStatus(item),
+                    country_code: item.courier.country_code
+                }));
+            }
+
+            const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (TemuList.length === 0) {
+                // Agar TemuList bo'sh bo'lsa, shipoxList va gdeposilkaList-ni sanaga qarab birlashtiramiz
+                this.combinedTracking =
+                    new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
+                        ? [...sortedShipoxList, ...sortedGdeposilkaList]
+                        : [...sortedGdeposilkaList, ...sortedShipoxList];
+            } else {
+                // Agar TemuList bo'sh bo'lmasa, TemuList-ni combinedTracking-ga qo'shamiz
+                this.combinedTracking = [...TemuList];
+            }
+        },
+      // getLocalizedStatus(item) {
+      //    const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
+      //    if (lang === 'uz') {
+      //       return item.status_uz;
+      //    } else if (lang === 'ru') {
+      //       return item.status_ru;
+      //    } else {
+      //       return item.status_desc || 'Status unknown';
+      //    }
+      // },
+      getLocalizedStatus(data) {
          const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-         if (lang === 'uz') {
-            return item.status_uz;
-         } else if (lang === 'ru') {
-            return item.status_ru;
-         } else {
-            return item.status_desc || 'Status unknown';
+         if (!data) return 'Status noaniq';
+
+         if ('LocalName_uz' in data || 'LocalName_ru' in data || 'Name' in data) {
+            if (lang === 'uz') return data.LocalName_uz || data.Name;
+            if (lang === 'ru') return data.LocalName_ru || data.Name;
+            return data.Name;
          }
+
+         if ('status_uz' in data || 'status_ru' in data || 'status_desc' in data) {
+            if (lang === 'uz') return data.status_uz;
+            if (lang === 'ru') return data.status_ru;
+            return data.status_desc || 'Status unknown';
+         }
+
+         return 'Status noaniq';
       },
       getStatusText(statusDesc) {
          return statusDesc || 'Status noaniq';
@@ -670,6 +726,7 @@ export default {
       }
    }
 };
+
 document.querySelectorAll('.sub-menu li').forEach(item => {
    item.addEventListener('mouseenter', () => {
       const link = item.querySelector('a');
@@ -713,85 +770,6 @@ document.querySelectorAll('.sub-menu li').forEach(item => {
 
 
 <style scoped>
-
-
-/* Global shrift o'lchamini sozlash */
-:root {
-  --global-font-size: 100%;
-  --global-zoom: 100%;
-}
-
-body {
-  font-size: var(--global-font-size);
-}
-
-/* Modal oynasi */
-.special-options-modal {
-  position: fixed;
-  top: 10%;
-  right: 5%;
-  width: 320px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  border-radius: 8px;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Modal kontent */
-.modal-content {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Tanlovlar */
-.option {
-  margin: 10px 0;
-}
-
-/* Yopish tugmasi */
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  float: right;
-}
-
-/* Reset tugmasi */
-.reset-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.reset-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Animatsiya */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-
-
-
-
-
 /* Sub-menu uchun asosiy uslub */
 .sub-menu {
    background-color: white;
@@ -1024,5 +1002,9 @@ span:first-letter {
    /* Rasm kengligi */
    height: auto;
    /* Asl nisbatni saqlash */
+}
+
+.close-btn:hover {
+   color: #ffffff;
 }
 </style>

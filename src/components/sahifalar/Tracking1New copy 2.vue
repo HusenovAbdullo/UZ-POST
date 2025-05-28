@@ -34,155 +34,98 @@
             </div>
             <div class="row ralt g-4" v-if="trackingData">
                 <h2 class="title wow fadeInUp mb-24 center" id="trackingNumberDisplay">{{ trackingData.number }}</h2>
-                <div class="row d-flex align-items-stretch">
-                    <div v-if="trackingData.senderCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
-                        <div class="task__item round16 bgwhite d-flex align-items-center h-100">
-                            <div class="thumb">
-                                <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
-                            </div>
-                            <div class="content">
-                                <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
-                                <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('country') }}</strong> <br />
-                                    <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
-                                </p>
-                                <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('address5') }}</strong> <br />
-                                    <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
-                                </p>
-                                <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('postal_code') }}</strong> <br />
-                                    <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                    }}</span>
-                                </p>
-                            </div>
+                <div v-if="trackingData.senderCountry" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
+                    <div class="task__item round16 bgwhite d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
                         </div>
-                    </div>
+                        <div class="content">
+                            <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
+                            <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('country') }} </strong> <br>
+                                <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
+                            </p>
+                            <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('address5') }}</strong> <br>
+                                <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
+                            </p>
 
-                    <div v-if="trackingData.recipientCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
-                        <div class="task__item round16 bgwhite d-flex align-items-center h-100">
-                            <div class="thumb">
-                                <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
-                            </div>
-                            <div class="content">
-                                <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
-                                <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('country') }}</strong> <br />
-                                    <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                    }}</span>
-                                </p>
-                                <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('address5') }}</strong> <br />
-                                    <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
-                                    }}</span>
-                                </p>
-                                <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('postal_code') }}</strong> <br />
-                                    <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                    }}</span>
-                                </p>
-                            </div>
+                            <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('postal_code') }}</strong> <br>
+                                <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode }}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="mobile-timeline" v-show="isMobile">
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="service__detailswrapper">
-                            <div class="trending__based mb-40 bgwhite round16 shadow1">
-                                <div class="based__content border round16 bgwhite">
-                                    <div class="freelancer__education bborderdash pb-30 mb-30">
-                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
-                                            style="color: red; font-size: 20px;">
-                                            {{ trackingData.errorMessage }}
-                                        </h1>
-
-                                        <!-- Timeline Tracking Start -->
-                                        <div class="timeline-wrapper">
-                                            <div v-for="(event, index) in combinedTracking" :key="index"
-                                                class="timeline-row">
-                                                <div class="icon-column">
-                                                    <img v-if="index === 0"
-                                                        src="https://new.pochta.uz/media/circle1.svg"
-                                                        class="icon-main" />
-                                                    <img v-else src="https://new.pochta.uz/media/circle.svg"
-                                                        class="icon-circle" />
-                                                    <div v-if="index !== combinedTracking.length - 1" class="icon-line">
-                                                    </div>
-                                                </div>
-                                                <div class="content-column">
-                                                    <div class="status-text">{{ event.status }}</div>
-                                                    <div class="date-text">{{ event.date.toLocaleDateString() }} / {{
-                                                        event.date.toLocaleTimeString() }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-
-                                        <!-- Timeline Tracking End -->
-
-                                    </div>
-                                </div>
-                            </div>
+                <div v-if="trackingData.recipientCountry" class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInUp">
+                    <div class="task__item round16 bgwhite d-flex align-items-center">
+                        <div class="thumb">
+                            <img src="https://uz.post/assets/img/bn/profile.png" alt="img">
+                        </div>
+                        <div class="content">
+                            <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
+                            <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('country') }} </strong> <br>
+                                <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry }}</span>
+                            </p>
+                            <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('address5') }}</strong> <br>
+                                <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress }}</span>
+                            </p>
+                            <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-40">
+                                <strong>{{ $t('postal_code') }}</strong> <br>
+                                <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
+                                    }}</span>
+                            </p>
                         </div>
                     </div>
-                    <!-- Mobilga mo‘ljallangan timeline kodlari shu yerda -->
                 </div>
-                <div class="desktop-timeline" v-show="!isMobile">
-
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="service__detailswrapper">
-                            <div class="trending__based mb-40 bgwhite round16 shadow1">
-                                <div class="based__content border round16 bgwhite">
-                                    <div class="freelancer__education bborderdash pb-30 mb-30">
-                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
-                                            style="color: red; font-size: 20px;">
-                                            {{ trackingData.errorMessage }}
-                                        </h1>
-                                        <ul class="blog__categories" id="combinedTracking">
-                                            <li v-for="(event, index) in combinedTracking" :key="index">
-                                                <a class="d-flex align-items-center">
-                                                    <span class="fz-12 fw-500 title inter">{{
-                                                        event.date.toLocaleString()
-                                                        }}</span>
-                                                    <span class="cateicon">
-                                                        <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
-                                                            alt="flag" class="flag-icon">
-                                                    </span>
-                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
-                                                        event.region }}</span>
-                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
-                                                        event.data }}</span>
-                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
+                <div class="col-xl-12 col-lg-12">
+                    <div class="service__detailswrapper">
+                        <div class="trending__based mb-40 bgwhite round16 shadow1">
+                            <div class="based__content border round16 bgwhite">
+                                <div class="freelancer__education bborderdash pb-30 mb-30">
+                                    <h3 class="title2">{{ $t('kuzatuv') }}</h3>
+                                    <br>
+                                    <br>
+                                    <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
+                                        style="color: red; font-size: 20px;">
+                                        {{ trackingData.errorMessage }}
+                                    </h1>
+                                    <ul class="blog__categories" id="combinedTracking">
+                                        <li v-for="(event, index) in combinedTracking" :key="index">
+                                            <a class="d-flex align-items-center">
+                                                <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
+                                                }}</span>
+                                                <span class="cateicon">
+                                                    <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
+                                                        alt="flag" class="flag-icon">
+                                                </span>
+                                                <span class="fz-12 d-block fw-500 inter success2 region-info">{{
+                                                    event.region }}</span>
+                                                <span class="fz-12 d-block fw-500 inter success2 region-info">{{
+                                                    event.data }}</span>
+                                                <span class="fz-12 fw-500 inter title d-block">{{ event.location
+                                                }}</span>
+                                                <span>
+                                                    <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
                                                     }}</span>
-                                                    <span>
-                                                        <span class="fz-12 fw-500 inter success2 d-block">{{
-                                                            event.status
-                                                            }}</span>
-                                                        <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
-                                                            style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
-                                                            {{ event.malumot }}
-                                                        </span>
-                                                        <span v-if="event.malumot2" class="fz-12 fw-500 inter success2"
-                                                            style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
-                                                            {{ event.malumot2 }}
-                                                        </span>
+                                                    <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
+                                                        style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
+                                                        {{ event.malumot }}
                                                     </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                                    <span v-if="event.malumot2" class="fz-12 fw-500 inter success2"
+                                                        style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
+                                                        {{ event.malumot2 }}
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Kompyuterga mo‘ljallangan list ko‘rinishdagi kodlar shu yerda -->
                 </div>
                 <div class="col-xl-4 col-lg-4">
                     <div class="basic__skilled__wrapper">
@@ -228,25 +171,6 @@
 </template>
 
 <script>
-
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-
-const isMobile = ref(false)
-
-function checkIsMobile() {
-    isMobile.value = window.innerWidth < 768
-}
-
-onMounted(() => {
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-})
-
-onBeforeUnmount(() => {
-    window.removeEventListener('resize', checkIsMobile)
-})
-
-
 export default {
     data() {
         return {
@@ -629,142 +553,5 @@ export default {
     text-align: left;
     padding-left: 10px;
     /* Matnni chap tomonga yaqinlashtirish uchun */
-}
-
-
-
-
-
-
-.timeline-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 0 12px;
-    background: #ffffff;
-    gap: 12px;
-}
-
-.timeline-row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 14px;
-    position: relative;
-}
-
-.icon-column {
-    position: relative;
-    width: 24px;
-    min-width: 24px;
-}
-
-.icon-main {
-    width: 24px;
-    height: 24px;
-    margin-top: 2px;
-}
-
-.icon-circle {
-    width: 24px;
-    height: 24px;
-    margin-top: 2px;
-}
-
-.icon-line {
-    position: absolute;
-    top: 28px;
-    left: 11px;
-    width: 2px;
-    height: calc(100% - 28px);
-    background-image: url('https://new.pochta.uz/media/line.svg');
-    background-repeat: repeat-y;
-    background-size: contain;
-    min-height: 60px;
-    /* Qo‘shing */
-}
-
-
-.content-column {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.status-text {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 15px;
-    color: #4D4D4D;
-    letter-spacing: 0.5px;
-}
-
-.date-text {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 10px;
-    color: #A7A9B7;
-    letter-spacing: 0.2px;
-}
-
-.mobile-timeline {
-    display: none;
-}
-
-.desktop-timeline {
-    display: block;
-}
-
-@media (max-width: 767px) {
-    .mobile-timeline {
-        display: block !important;
-    }
-
-    .desktop-timeline {
-        display: none !important;
-    }
-}
-
-
-/* Mobil qurilmalar uchun */
-@media (max-width: 768px) {
-    .task__item {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-        gap: 16px;
-        text-align: left;
-    }
-
-    .task__item .thumb img {
-        width: 80px;
-        height: 80px;
-        object-fit: contain;
-    }
-
-    .task__item .content {
-        flex: 1;
-    }
-
-    .task__item .content h3 {
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-
-    .task__item .content p {
-        font-size: 12px;
-        margin-bottom: 4px;
-    }
-}
-
-@media (min-width: 992px) {
-    .col-lg-6 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
-}
-
-@media (min-width: 768px) {
-    .col-md-12 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
 }
 </style>

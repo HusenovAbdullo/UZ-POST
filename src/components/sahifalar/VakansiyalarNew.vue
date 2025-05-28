@@ -98,7 +98,7 @@
                     <div class="start__definingbar">
                         <div class="card__sidebar side__sticky round16">
                             <div class="card__common__item bgwhite round16">
-                                <h4 class="head fw-600  title pb-24 mb-24">
+                                <h4 class="head fw-600  title mb-24" style="font-size: 28px;">
                                     Filtr
                                 </h4>
                                 <div class="bank__check__wrap tborderdash pb-24">
@@ -220,10 +220,17 @@
                                 </div>
 
 
-                                <a href="#0" @click.prevent="applyFilter"
-                                    class="reset__filter justify-content-center fw-600 inter fz-16 d-flex align-items-center gap-2 base rad4">
-                                    Qo‘llash
-                                </a>
+                                <div class="d-flex gap-2 mt-3">
+                                    <a href="#0" @click.prevent="applyFilter" class="btn-filter btn-apply">
+                                        Qo‘llash
+                                    </a>
+
+                                    <a href="#0" @click.prevent="clearAllFilters" class="btn-filter btn-clear">
+                                        Tozalash
+                                    </a>
+                                </div>
+
+
 
                             </div>
                         </div>
@@ -294,11 +301,12 @@
                             </button>
 
 
-                            <router-link to="/vakansiyalar" class="cmn--btn outline__btn">
+                            <a href="/vakansiyalar" class="cmn--btn outline__btn">
                                 <span>
                                     Bekor qilish
                                 </span>
-                            </router-link>
+                            </a>
+
 
                         </div>
                     </div>
@@ -510,11 +518,10 @@
                 </button>
 
 
-                <a href="javascript:void(0)" class="cmn--btn outline__btn">
-                    <span>
-                        Bekor qilish
-                    </span>
+                <a href="javascript:void(0)" class="cmn--btn outline__btn" @click="x">
+                    <span>Bekor qilish</span>
                 </a>
+
             </div>
         </div>
     </div>
@@ -535,14 +542,9 @@ const showFormPage = ref(false)
 const step = ref(2)
 const phoneError = ref(false)
 const additionalPhoneError = ref(false)
+const fishError = ref(false)
 
-
-const onFileChange = (event) => {
-    const file = event.target.files[0]
-    resumeData.cv = file
-}
-
-
+// Form data
 const resumeData = reactive({
     fish: '',
     description: '',
@@ -552,19 +554,38 @@ const resumeData = reactive({
     email: ''
 })
 
+const x = () => {
+    console.log("Bekor qilish tugmasi bosildi");
+    // kerakli logika shu yerga yoziladi
+    // masalan, modalni yopish:
+    showModal.value = false
+}
+
+
+// Fayl yuklash
+const onFileChange = (event) => {
+    const file = event.target.files[0]
+    resumeData.cv = file
+}
+
+// Scroll to top
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+// Modalni davom ettirish
 const handleContinue = () => {
     if (selectedBranch.value) {
         const branch = modalData.value?.filials?.find(f => f.branch_name === selectedBranch.value)
         selectedBranchId.value = branch?.id
-        selectedVacancyId.value = modalData.value?.vacancy?.select_vacancy?.id // ✅ to‘g‘risi shu
+        selectedVacancyId.value = modalData.value?.vacancy?.select_vacancy?.id
         showModal.value = false
         showFormPage.value = true
+        scrollToTop()
     }
 }
 
-
-const fishError = ref(false)
-
+// Ariza bosqichi
 const goToContactStep = () => {
     if (!resumeData.fish.trim()) {
         fishError.value = true
@@ -572,46 +593,44 @@ const goToContactStep = () => {
     }
     fishError.value = false
     step.value = 3
+    scrollToTop()
 }
 
-
+// Formani yuborish
 const submitForm = async () => {
     phoneError.value = !resumeData.phone_number.trim()
     additionalPhoneError.value = !resumeData.additional_phone_number.trim()
-
     if (phoneError.value || additionalPhoneError.value) return
 
     try {
         const formData = new FormData()
         formData.append('fish', resumeData.fish)
         formData.append('description', resumeData.description)
-        formData.append('cv', resumeData.cv)
+        if (resumeData.cv) {
+            formData.append('cv', resumeData.cv)
+        }
         formData.append('phone_number', resumeData.phone_number)
         formData.append('additional_phone_number', resumeData.additional_phone_number)
         formData.append('email', resumeData.email)
 
         const res = await fetch(
             `https://new.pochta.uz/api/v1/public/post/resume/${selectedVacancyId.value}/${selectedBranchId.value}/`,
-            {
-                method: 'POST',
-                body: formData
-            }
+            { method: 'POST', body: formData }
         )
-
         if (!res.ok) throw new Error('Xatolik yuz berdi')
-
         step.value = 4
+        scrollToTop()
     } catch (err) {
         alert('Yuborishda xatolik: ' + err.message)
     }
 }
 
-
+// Sahifaga qaytish
 const goToVacancyPage = () => {
     window.location.href = '/vakansiyalar'
 }
 
-// Filtrlash uchun
+// Filtrlar va ma’lumotlar
 const regions = ref([])
 const pubs = ref([])
 const internals = ref([])
@@ -620,6 +639,7 @@ const sections = ref([])
 const vacancies = ref([])
 const currentPage = ref(1)
 const totalPages = ref(1)
+
 const selectedExperience = ref(null)
 const selectedSection = ref(null)
 const selectedRegionId = ref(null)
@@ -630,21 +650,18 @@ const filteredRegions = computed(() => regions.value.filter(r => (r.vacancies_co
 const filteredPubs = computed(() => pubs.value.filter(p => (p.vacancy_count ?? 0) > 0))
 const filteredInternals = computed(() => internals.value.filter(i => (i.vacancy_count ?? 0) > 0))
 
-const togglePub = (id) => {
-    selectedPubId.value = selectedPubId.value === id ? null : id
-    selectedInternal.value = null
-}
-
-const toggleRegion = (id) => {
-    selectedRegionId.value = selectedRegionId.value === id ? null : id
+// Filtrlarni tozalash
+const clearAllFilters = async () => {
+    selectedRegionId.value = null
     selectedPubId.value = null
     selectedInternal.value = null
+    selectedExperience.value = null
+    selectedSection.value = null
+    await fetchVacancies(1)
+    scrollToTop()
 }
 
-const toggleInternal = (id) => {
-    selectedInternal.value = selectedInternal.value === id ? null : id
-}
-
+// Filtrlash
 const applyFilter = async () => {
     const params = new URLSearchParams()
 
@@ -665,11 +682,13 @@ const applyFilter = async () => {
         vacancies.value = data.results
         totalPages.value = data.total_pages
         currentPage.value = 1
+        scrollToTop()
     } catch (error) {
         console.error("Filtrda xatolik:", error)
     }
 }
 
+// Viloyatlarni yuklash
 const fetchRegions = async () => {
     try {
         const res = await fetch('https://new.pochta.uz/api/v1/public/employers/')
@@ -679,6 +698,7 @@ const fetchRegions = async () => {
     }
 }
 
+// Filial va ichki bo‘linmalar
 const selectRegion = async (regionId) => {
     selectedRegionId.value = regionId
     selectedPubId.value = null
@@ -703,18 +723,35 @@ const selectPub = async (pubId) => {
     }
 }
 
+// Togglelar
+const togglePub = (id) => {
+    selectedPubId.value = selectedPubId.value === id ? null : id
+    selectedInternal.value = null
+}
+
+const toggleRegion = (id) => {
+    selectedRegionId.value = selectedRegionId.value === id ? null : id
+    selectedPubId.value = null
+    selectedInternal.value = null
+}
+
+const toggleInternal = (id) => {
+    selectedInternal.value = selectedInternal.value === id ? null : id
+}
+
+// Modalni ochish
 const openModal = async (id) => {
     try {
         const res = await fetch(`https://new.pochta.uz/api/v1/public/vacancies/${id}/`)
         modalData.value = await res.json()
-        selectedVacancyId.value = modalData.value.vacancy.select_vacancy.id // 🔁 shu yer to'g'rilandi
+        selectedVacancyId.value = modalData.value.vacancy.select_vacancy.id
         showModal.value = true
     } catch (err) {
         console.error('Modal ochishda xatolik:', err)
     }
 }
 
-
+// Barcha ma’lumotlarni yuklash
 const fetchData = async () => {
     try {
         const expRes = await fetch('https://new.pochta.uz/api/v1/public/experience/')
@@ -730,6 +767,7 @@ const fetchData = async () => {
     }
 }
 
+// Sahifalash
 const fetchVacancies = async (page) => {
     try {
         const res = await fetch(`https://new.pochta.uz/api/v1/public/vacancies/?page=${page}`)
@@ -745,10 +783,12 @@ const changePage = (page) => {
     if (page < 1 || page > totalPages.value) return
     currentPage.value = page
     fetchVacancies(page)
+    scrollToTop() // ← Sahifaning yuqorisiga qaytarish
 }
 
 onMounted(fetchData)
 </script>
+
 
 
 <style scoped>
@@ -808,5 +848,27 @@ onMounted(fetchData)
 .input-error {
     border: 1px solid red !important;
     background-color: #ffe6e6;
+}
+
+.btn-filter {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.btn-apply {
+    background-color: white;
+    color: #0D47A1;
+    border: 1px solid #0D47A1;
+}
+
+.btn-clear {
+    background-color: #f07824;
+    color: white;
+    border: 1px solid #f07824;
 }
 </style>

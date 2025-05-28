@@ -2222,7 +2222,7 @@ p {
     bottom: 0;
     background: #ffffff;
   }
-  .header-bar.active span:first-child {
+  /* .header-bar.active span:first-child {
     transform: rotate(45deg) translate(3px, 9px);
   }
   .header-bar.active span:nth-child(2) {
@@ -2230,7 +2230,7 @@ p {
   }
   .header-bar.active span:last-child {
     transform: rotate(-45deg) translate(3px, -9px);
-  }
+  } */
   .header-bar:hover {
     cursor: poRoboto-Condensed;
   }
@@ -5943,7 +5943,7 @@ p {
   font-family: "Roboto-Condensed", sans-serif;
   color: #6A7283;
   background: var(--white);
-  padding: 10px 32px 12px;
+  padding: 10px 5px 12px;
 }
 
 .man__matching {
