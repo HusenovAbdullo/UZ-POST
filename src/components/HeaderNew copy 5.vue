@@ -505,7 +505,7 @@
 
       <!-- Profil -->
       <div class="profile-section">
-         <img src="https://new.pochta.uz/media/lets-icons_user-box-duotone_BLUE.png"
+         <img src="https://new.pochta.uz/media/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jfif"
             alt="profile" />
          <span>{{ $t('welcome') }}</span>
       </div>
@@ -1363,7 +1363,7 @@ span:first-letter {
 .close-btn {
    position: absolute;
    top: -1px;
-   /* right: 2px; */
+   right: 2px;
    background-color: #f07824;
    color: #fff;
    border: none;
@@ -1393,8 +1393,7 @@ span:first-letter {
    color: white;
    z-index: 9999;
    overflow-y: auto;
-   /* padding: 45px 8px 8px 8px; */
-   padding: 45px 20px 20px 20px;
+   padding: 45px 8px 8px 8px;
    transition: transform 0.3s ease;
    transform: translateX(0);
    /* ochilgan holatda */
@@ -1682,8 +1681,7 @@ span:first-letter {
    display: flex;
    flex-direction: column;
    gap: 17px;
-   /* padding: 5px 0 10px 25px; */
-   padding: 5px 0 10px 15px;
+   padding: 5px 0 10px 25px;
    background-color: #003580;
 }
 
@@ -1729,8 +1727,7 @@ span:first-letter {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   /* padding: 10px; */
-   padding: 5px 0px 5px 0px;
+   padding: 10px;
    font-family: 'Roboto Condensed', sans-serif;
    font-size: 18px;
    font-weight: 500;
@@ -1764,7 +1761,7 @@ span:first-letter {
    justify-content: center;
    gap: 24px;
    margin-top: 30px;
-   /* padding-left: 20px; */
+   padding-left: 20px;
    /* Chapga yopishish */
    justify-content: flex-start;
    /* Chap tomonga hizalash */

@@ -340,6 +340,9 @@ export default {
   save_and_send: "Saqlash va jo‘natish",
   go_back: "Ortga qaytish",
   lets_get_acquainted: "Keling tanishaylik!",
-  uzpost_contact_notice: "Tez orada UzPost mas'ul xodimlari siz bilan bog'lanishlari mumkin."
-
+  uzpost_contact_notice: "Tez orada UzPost mas'ul xodimlari siz bilan bog'lanishlari mumkin.",
+  language1: "Til",
+  map1: "Xarita",
+  help1: "Yordam",
+  accessibility: "Maxsus imkoniyatlar",
 };

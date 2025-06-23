@@ -1392,4 +1392,12 @@ export default {
         padding: 8px 18px;
     }
 }
+
+@media (min-width: 770px) {
+  .button-container a {
+    margin-right: 12px;
+  }
+}
+
+
 </style>

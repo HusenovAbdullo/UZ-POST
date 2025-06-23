@@ -341,4 +341,8 @@ export default {
   go_back: "Назад",
   lets_get_acquainted: "Давайте познакомимся!",
   uzpost_contact_notice: "Скоро с вами свяжутся ответственные сотрудники UzPost.",
+  language1: "Язык",
+  map1: "Карта",
+  help1: "Помощь",
+  accessibility: "Специальные возможности",
 };
