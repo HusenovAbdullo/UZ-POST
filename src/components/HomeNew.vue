@@ -1,10 +1,38 @@
 <template>
     <section class="slideshow-container" id="slideshow">
         <div class="container">
-            <div class="header-wrapper" style="position: relative; z-index: 1;">
-                <!-- Slideshow -->
-                <img :src="currentImage" alt="" class="banner-image" />
-                <div class="button-container">
+            <div class="header-wrapper banner-wrapper" style="position: relative; z-index: 1;">
+                <!-- Banner Image with transition -->
+                <transition name="slide-fade" mode="out-in">
+  <div class="banner-slide" :key="currentBannerIndex">
+    <img :src="currentImage" alt="" class="banner-image" />
+
+    <!-- Left/Right Arrows -->
+    <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
+    <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button>
+
+    <!-- Buttons -->
+    <div class="button-container">
+      <template v-for="(link, index) in currentLinks" :key="index">
+        <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
+          <span>{{ link.title }}</span>
+        </router-link>
+        <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
+          <span>{{ link.title }}</span>
+        </a>
+      </template>
+    </div>
+  </div>
+</transition>
+
+
+
+                <!-- Left/Right Arrows -->
+                <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
+                <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button>
+
+                <!-- Buttons under the banner -->
+                <!-- <div class="button-container">
                     <template v-for="(link, index) in currentLinks" :key="index">
                         <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
                             <span>{{ link.title }}</span>
@@ -13,7 +41,7 @@
                             <span>{{ link.title }}</span>
                         </a>
                     </template>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -1004,7 +1032,19 @@ export default {
                     this.currentBannerIndex =
                         (this.currentBannerIndex + 1) % this.banners.length;
                 }
-            }, 5000); // Har 5 soniyada bannerni o'zgartirish
+            }, 10000); // Har 5 soniyada bannerni o'zgartirish
+        },
+        prevBanner() {
+            if (this.banners.length > 0) {
+                this.currentBannerIndex =
+                    (this.currentBannerIndex - 1 + this.banners.length) % this.banners.length;
+            }
+        },
+        nextBanner() {
+            if (this.banners.length > 0) {
+                this.currentBannerIndex =
+                    (this.currentBannerIndex + 1) % this.banners.length;
+            }
         },
     },
     mounted() {
@@ -1142,7 +1182,7 @@ export default {
         gap: 10px;
         align-items: flex-start;
         margin-top: 20px;
-        transform: translateY(85px);
+        transform: translateY(90px);
 
         font-size: 12px;
         /* yozuvni kichikroq qiladi */
@@ -1150,7 +1190,7 @@ export default {
 
     .button-container button,
     .button-container a {
-        font-size: 10px;
+        font-size: 8px;
         /* tugma ichidagi yozuv */
         padding: 5px 9px;
         /* tugma o‘lchami */
@@ -1394,10 +1434,132 @@ export default {
 }
 
 @media (min-width: 770px) {
-  .button-container a {
-    margin-right: 12px;
-  }
+    .button-container a {
+        margin-right: 12px;
+    }
 }
 
+
+
+
+
+.banner-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 375px;
+}
+
+/* O‘tayotgan butun blok (banner + tugmalar + matn) */
+.banner-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Rasm */
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Transition effektlari */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.slide-fade-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+
+
+/* Navigatsiya tugmalari */
+.nav-arrow {
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background-color: rgb(0 0 0 / 0%);
+    color: #ffffff6e;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.left-arrow {
+    left: 20px;
+}
+
+.right-arrow {
+    right: 20px;
+}
+
+/* Mobil ekranlar */
+@media (max-width: 768px) {
+    .banner-wrapper {
+        height: auto;
+        aspect-ratio: 2048 / 630;
+    }
+
+    .banner-image {
+        object-fit: contain;
+    }
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: rgb(0 0 0 / 0%);
+  color: #ffffff6e;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.left-arrow {
+  left: 20px;
+}
+.right-arrow {
+  right: 20px;
+}
+
+
+/* Default: kompyuter (desktop) versiyasi */
+.button-container {
+    text-align: left;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+}
+
+/* Mobil uchun maxsus */
+@media (max-width: 768px) {
+    .button-container {
+        bottom: 98px;
+    }
+}
 
 </style>
