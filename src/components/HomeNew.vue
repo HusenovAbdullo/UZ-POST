@@ -1032,7 +1032,7 @@ export default {
                     this.currentBannerIndex =
                         (this.currentBannerIndex + 1) % this.banners.length;
                 }
-            }, 10000); // Har 5 soniyada bannerni o'zgartirish
+            }, 15000); // Har 5 soniyada bannerni o'zgartirish
         },
         prevBanner() {
             if (this.banners.length > 0) {

@@ -46,10 +46,10 @@
                                     <strong>{{ $t('country') }}</strong> <br />
                                     <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
                                 </p>
-                                <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-10">
+                                <!-- <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-10">
                                     <strong>{{ $t('address5') }}</strong> <br />
                                     <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
-                                </p>
+                                </p> -->
                                 <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
                                     <strong>{{ $t('postal_code') }}</strong> <br />
                                     <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
@@ -71,11 +71,11 @@
                                     <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
                                     }}</span>
                                 </p>
-                                <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
+                                <!-- <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
                                     <strong>{{ $t('address5') }}</strong> <br />
                                     <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
                                     }}</span>
-                                </p>
+                                </p> -->
                                 <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
                                     <strong>{{ $t('postal_code') }}</strong> <br />
                                     <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
