@@ -4,26 +4,27 @@
             <div class="header-wrapper banner-wrapper" style="position: relative; z-index: 1;">
                 <!-- Banner Image with transition -->
                 <transition name="slide-fade" mode="out-in">
-  <div class="banner-slide" :key="currentBannerIndex">
-    <img :src="currentImage" alt="" class="banner-image" />
+                    <div class="banner-slide" :key="currentBannerIndex" @mousedown="startDrag" @mouseup="endDrag"
+                        @mouseleave="endDrag" @touchstart="startTouch" @touchend="endTouch">
+                        <img :src="currentImage" alt="" class="banner-image" @dragstart.prevent />
 
-    <!-- Left/Right Arrows -->
-    <!-- <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
+                        <!-- Left/Right Arrows -->
+                        <!-- <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
     <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button> -->
 
-    <!-- Buttons -->
-    <div class="button-container">
-      <template v-for="(link, index) in currentLinks" :key="index">
-        <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
-          <span>{{ link.title }}</span>
-        </router-link>
-        <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
-          <span>{{ link.title }}</span>
-        </a>
-      </template>
-    </div>
-  </div>
-</transition>
+                        <!-- Buttons -->
+                        <div class="button-container">
+                            <template v-for="(link, index) in currentLinks" :key="index">
+                                <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
+                                    <span>{{ link.title }}</span>
+                                </router-link>
+                                <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
+                                    <span>{{ link.title }}</span>
+                                </a>
+                            </template>
+                        </div>
+                    </div>
+                </transition>
 
 
 
@@ -895,7 +896,11 @@ export default {
             banners: [], // API'dan kelayotgan bannerlar
             currentBannerIndex: 0, // Hozirgi ko'rsatilayotgan banner indeksi
             locale: this.$i18n.locale === "uz" ? "description_uz" : "description_ru",
-            partnerLogos: []
+            partnerLogos: [],
+            dragStartX: 0,
+            dragEndX: null,
+            isDragging: false,
+
         };
     },
     computed: {
@@ -941,6 +946,59 @@ export default {
         },
     },
     methods: {
+        startTouch(event) {
+            this.dragStartX = event.touches[0].clientX;
+            this.isDragging = true;
+        },
+        endTouch(event) {
+            if (!this.isDragging) return;
+            const dragEndX = event.changedTouches[0].clientX;
+            const diff = dragEndX - this.dragStartX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    this.prevBanner();
+                } else {
+                    this.nextBanner();
+                }
+            }
+
+            this.isDragging = false;
+            this.dragStartX = 0;
+        },
+
+
+        onDrag(event) {
+            if (!this.isDragging) return;
+            this.dragEndX = event.clientX;
+        },
+
+        startDrag(event) {
+            this.dragStartX = event.clientX;
+            this.isDragging = true;
+        },
+
+        endDrag(event) {
+            if (!this.isDragging) return;
+            const dragEndX = event.clientX;
+            const diff = dragEndX - this.dragStartX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    // O‘NGGA SURILDI (chapdan o‘ngga) => oldingi banner (chapdagi)
+                    this.prevBanner();
+                } else {
+                    // CHAPGA SURILDI (o‘ngdan chapga) => keyingi banner (o‘ngdagi)
+                    this.nextBanner();
+                }
+            }
+
+            // Reset
+            this.isDragging = false;
+            this.dragStartX = 0;
+        },
+
+
         async fetchPartnerLogos() {
             try {
                 const response = await axios.get("https://new.pochta.uz/api/v1/public/partners-logos/");
@@ -1444,43 +1502,43 @@ export default {
 
 
 .banner-wrapper {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 375px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 375px;
 }
 
 /* O‘tayotgan butun blok (banner + tugmalar + matn) */
 .banner-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* Rasm */
 .banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /* Transition effektlari */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: transform 0.6s ease, opacity 0.6s ease;
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
 .slide-fade-enter-from {
-  transform: translateX(100%);
-  opacity: 0;
+    transform: translateX(100%);
+    opacity: 0;
 }
 
 .slide-fade-leave-to {
-  transform: translateX(-100%);
-  opacity: 0;
+    transform: translateX(-100%);
+    opacity: 0;
 }
 
 
@@ -1526,23 +1584,24 @@ export default {
 }
 
 .nav-arrow {
-  position: absolute;
-  top: 60%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background-color: rgb(0 0 0 / 0%);
-  color: #ffffff6e;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  z-index: 2;
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background-color: rgb(0 0 0 / 0%);
+    color: #ffffff6e;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .left-arrow {
-  left: 20px;
+    left: 20px;
 }
+
 .right-arrow {
-  right: 20px;
+    right: 20px;
 }
 
 
@@ -1561,5 +1620,4 @@ export default {
         bottom: 98px;
     }
 }
-
 </style>
