@@ -73,16 +73,9 @@
                      <ul class="main-menu desktop-only">
                         <li v-for="menuItem in menuElementsItems" :key="menuItem.id">
                            <template v-if="menuItem.link_uz">
-                              <router-link :to="{
-                                 name: 'headeritem',
-                                 params: {
-                                    lang: $i18n.locale,
-                                    menu: generateSlug(menuItem.name_uz)
-                                 }
-                              }">
+                              <router-link :to="menuItem.link_uz">
                                  {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
                               </router-link>
-
                            </template>
                            <template v-else>
                               {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
@@ -236,7 +229,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -279,7 +272,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                                }}</span>
+                                             }}</span>
                                           </router-link>
                                        </li>
 
@@ -341,7 +334,7 @@
                                     <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -357,7 +350,7 @@
                                     <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('country') }}</strong> <br />
                                        <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                     <!-- <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('address5') }}</strong> <br />
@@ -367,7 +360,7 @@
                                     <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                          }}</span>
+                                       }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -438,7 +431,7 @@
                                              <li v-for="(event, index) in combinedTracking" :key="index">
                                                 <a class="d-flex align-items-center">
                                                    <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                   }}</span>
+                                                      }}</span>
                                                    <span class="cateicon">
                                                       <img
                                                          :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -449,10 +442,10 @@
                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                       event.data }}</span>
                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                   }}</span>
+                                                      }}</span>
                                                    <span>
                                                       <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                      }}</span>
+                                                         }}</span>
                                                       <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                          style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                          {{ event.malumot }}
@@ -512,7 +505,8 @@
 
       <!-- Profil -->
       <div class="profile-section">
-         <img src="https://new.pochta.uz/media/lets-icons_user-box-duotone_BLUE.png" alt="profile" />
+         <img src="https://new.pochta.uz/media/lets-icons_user-box-duotone_BLUE.png"
+            alt="profile" />
          <span>{{ $t('welcome') }}</span>
       </div>
 
@@ -629,7 +623,6 @@ export default {
          isMobileMenuOpen: false,
          selectedPersonType: 'individual', // 'individual' yoki 'legal'
          openedMenu: null,
-         showMobileProfileMenu: false, // mobil menyu uchun
       };
    },
    watch: {
@@ -713,35 +706,30 @@ export default {
          document.body.classList.toggle('hide-images', this.hideImages);
       },
       maybeReload(path) {
-         if (typeof path === 'string' && path.includes('/headeritem/')) {
+         if (path.includes('/headeritem/')) { // Faqat "/sahifalar/" yo'liga refresh beradi
             setTimeout(() => {
                window.location.reload();
             }, 100);
          }
-      }
-      ,
+      },
       isExternalLink(link) {
          return link.startsWith('http://') || link.startsWith('https://');
       },
       getLink(link) {
-         const lang = this.$i18n.locale || "uz";
+         const lang = this.$i18n.locale || "uz"; // Tilni aniqlash
 
          if (link.link_uz) {
             return {
-               path: link.link_uz
+               path: link.link_uz,
+               params: { name_uz: link.name_uz }, // name_uz parametrini uzatadi
             };
          }
 
-         // Slugga asoslangan path – query'siz!
          return {
-            name: 'headeritem',
-            params: {
-               lang: lang,
-               menu: this.generateSlug(link.name_uz),
-            },
+            path: `/${lang}/headeritem/${this.generateSlug(link.name_uz)}`, // Slug shaklida yo'naltirish
+            query: { id: link.id }, // id parametri bilan
          };
-      }
-      ,
+      },
       async fetchMenuElements() {
          try {
             const response = await axios.get("https://new.pochta.uz/api/v1/public/menu-elements/");
@@ -762,7 +750,6 @@ export default {
             .replace(/\s+/g, '-') // Bo'sh joylarni "-" bilan almashtiradi
             .replace(/[^a-z0-9-]/g, ''); // Maxsus belgilarni olib tashlaydi
       }
-
       ,
       changeLanguage(lang) {
          this.$i18n.locale = lang; // Vue-i18n orqali tilni o'zgartirish

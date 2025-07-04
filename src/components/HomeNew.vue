@@ -8,8 +8,8 @@
     <img :src="currentImage" alt="" class="banner-image" />
 
     <!-- Left/Right Arrows -->
-    <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
-    <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button>
+    <!-- <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
+    <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button> -->
 
     <!-- Buttons -->
     <div class="button-container">
@@ -28,8 +28,8 @@
 
 
                 <!-- Left/Right Arrows -->
-                <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
-                <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button>
+                <!-- <button class="nav-arrow left-arrow" @click="prevBanner">&#10094;</button>
+                <button class="nav-arrow right-arrow" @click="nextBanner">&#10095;</button> -->
 
                 <!-- Buttons under the banner -->
                 <!-- <div class="button-container">

@@ -1,20 +1,40 @@
 <template>
     <div>
-        <!-- Hero Section -->
-        <section class="banner__breadcumn ralt">
-            <div id="searchPopup" class="search__popup">
-                <form action="#" class="popup-content d-flex align-items-center">
-                    <input type="text" placeholder="Search Here" />
-                    <button id="closeButton">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </form>
+
+
+        <!-- Mobil menyu (chapdan ochiladi) -->
+        <transition name="slide">
+            <div v-if="isSidebarOpen" class="mobile-sidebar">
+                <div class="sidebar-header">
+                    <button @click="toggleSidebar" class="close-btn">&times;</button>
+                </div>
+                <div class="menu-list">
+                    <div v-for="subItem in allSubItems" :key="subItem.id" class="menu-item"
+                        :class="{ active: activeMenu === subItem.id }">
+                        <div class="menu-title" @click="toggleMenu(subItem.id)">
+                            <span>{{ subItem[`name_${locale}`] || subItem.name_uz }}</span>
+                            <img src="https://new.pochta.uz/media/sayt.svg" alt="arrow" class="arrow"
+                                :class="{ rotated: activeMenu === subItem.id }" />
+                        </div>
+
+                        <div v-if="activeMenu === subItem.id" class="submenu">
+                            <div v-for="page in subItem.pages_id" :key="page.id" class="submenu-item"
+                                @click="setActiveSubItemAndMenu(subItem.id, page.id)">
+                                {{ page[`title_${locale}`] || page.title_uz }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </transition>
+
+        <!-- Bosh sarlavha -->
+        <section class="banner__breadcumn ralt">
             <div class="breadcumnd__wrapper">
                 <div class="container">
                     <div class="profile__wrappers setting__breadcumnd">
                         <div class="row g-4 align-items-center justify-content-between">
-                            <div class="col-xxl-6 col-xl-6 col-lg-7 col-md-7 col-sm-7">
+                            <div class="col">
                                 <div class="breadcumnd__content">
                                     <span class="d41 mb-24">{{ MenuName }}</span>
                                 </div>
@@ -25,66 +45,73 @@
             </div>
         </section>
 
-        <div id="app">
-            <section class="setting__section pb-120">
-                <div class="container__customizemain pt-100 pb-120 round16">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="setting__tabs p-8 round16 border bgwhite">
-                                    <ul class="nav border-0 round16 nav-tabs" role="tablist">
-                                        <li class="nav-item" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
-                                            <button class="nav-link" :class="{ active: activeMenu === subItem.id }"
-                                                @click="toggleMenu(subItem.id)">
-                                                {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                            </button>
-                                            <div v-if="activeMenu === subItem.id" class="submenu">
-                                                <ul v-if="subItem.pages_id && subItem.pages_id.length">
-                                                    <li class="nav-item" role="presentation"
-                                                        v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex">
-                                                        <button
-                                                            :class="['nav-link', { active: activeSubItem === page.id }]"
-                                                            type="button" @click="setActiveSubItem(page.id)">
-                                                            <p class="title9">{{ page[`title_${$i18n.locale}`] ||
-                                                                page.title_uz }}</p>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="overview__gitwrapper bgwhite round16 border" v-if="pageData">
-                                    <h2 class="pb-40 bborderdash mb-20 title2">{{ pageData[`title_${$i18n.locale}`] ||
-                                        l }}</h2>
-                                    <div class="text-content" v-html="serviceText"></div>
-                                </div>
-                                <div v-else>
-                                    <div class="col-lg-12" v-for="(subItem, subIndex) in allSubItems" :key="subIndex">
-                                        <div v-if="(activeMenu === null && subItem.name_uz === MenuNameUz) || (activeMenu !== null && activeMenu === subItem.id)"
-                                            class="overview__gitwrapper bgwhite round16 border">
-                                            <h2 class="pb-40 bborderdash mb-20 title2">
-                                                {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                            </h2>
-                                            <div class="nav-item" role="presentation"
-                                                v-for="(page, pageIndex) in subItem.pages_id" :key="pageIndex"
-                                                :class="{ active: activeSubItem === page.id }">
-                                                <a href="javascript:void(0);" class="title2"
-                                                    @click="setActiveSubItemAndMenu(subItem.id, page.id)">
-                                                    {{ page[`title_${$i18n.locale}`] || page.title_uz }}
-                                                </a>
-                                            </div>
+        <!-- Asosiy kontent -->
+        <section class="setting__section pb-120">
+            <div class="container__customizemain pt-100 pb-120 round16">
+                <div class="container">
+                    <div class="row">
+                        <!-- Mobil menyu toggle tugmasi (faqat kichik ekranlarda) -->
+                        <div class="mobile-menu-toggle d-lg-none">
+                            <button @click="toggleSidebar" class="hamburger-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                        <!-- Desktop menyu -->
+                        <div class="col-lg-3 d-none d-lg-block">
+                            <div class="setting__tabs p-8 round16 border bgwhite">
+                                <ul class="nav border-0 round16 nav-tabs" role="tablist">
+                                    <li v-for="subItem in allSubItems" :key="subItem.id" class="nav-item">
+                                        <button class="nav-link" :class="{ active: activeMenu === subItem.id }"
+                                            @click="toggleMenu(subItem.id)">
+                                            {{ subItem[`name_${locale}`] || subItem.name_uz }}
+                                        </button>
+                                        <div v-if="activeMenu === subItem.id" class="submenu">
+                                            <ul v-if="subItem.pages_id?.length">
+                                                <li v-for="page in subItem.pages_id" :key="page.id" class="nav-item">
+                                                    <button :class="['nav-link', { active: activeSubItem === page.id }]"
+                                                        @click="setActiveSubItemAndMenu(subItem.id, page.id)">
+                                                        {{ page[`title_${locale}`] || page.title_uz }}
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <!-- Kontent paneli -->
+                        <div class="col-lg-9">
+                            <div v-if="pageData" class="overview__gitwrapper bgwhite round16 border">
+                                <h2 class="pb-40 bborderdash mb-20 title2">
+                                    {{ pageData[`title_${locale}`] || '...' }}
+                                </h2>
+                                <div class="text-content" v-html="serviceText"></div>
+                            </div>
+
+                            <!-- ESLint to‘g‘risi uchun filtrlangan elementlar -->
+                            <div v-else>
+                                <div v-for="subItem in filteredSubItems" :key="subItem.id"
+                                    class="overview__gitwrapper bgwhite round16 border">
+                                    <h2 class="pb-40 bborderdash mb-20 title2">
+                                        {{ subItem[`name_${locale}`] || subItem.name_uz }}
+                                    </h2>
+                                    <div v-for="page in subItem.pages_id" :key="page.id"
+                                        @click="setActiveSubItemAndMenu(subItem.id, page.id)" class="title2"
+                                        style="cursor: pointer">
+                                        {{ page[`title_${locale}`] || page.title_uz }}
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -94,179 +121,155 @@ import axios from "axios";
 export default {
     data() {
         return {
-            locale: this.$i18n.locale || 'uz', // Joriy til kodi
-
-            serviceText: '', // HTML formatidagi matn
+            locale: this.$i18n.locale || "uz",
+            serviceText: "",
             MenuName: null,
             MenuNameUz: null,
-            menus: [], // JSON ma'lumotlari
-            menuId: null, // Menu ID
-            activeMenu: null, // Dastlabki faol menyu
-            activeSubItem: null, // Dastlabki faol sub-item
-            pageData: null, // Olingan sahifa ma'lumotlari
+            menus: [],
+            menuId: null,
+            activeMenu: null,
+            activeSubItem: null,
+            pageData: null,
+            isSidebarOpen: false,
         };
     },
     computed: {
         allSubItems() {
             if (this.menus.length && this.menus[0].item_pages) {
-                console.log(this.menus[0].item_pages)
-                return this.menus[0].item_pages; // Faqat item_pages massivini qaytarish
+                return this.menus[0].item_pages;
             }
             return [];
         },
+        filteredSubItems() {
+            return this.allSubItems.filter(
+                (subItem) =>
+                    (this.activeMenu === null && subItem.name_uz === this.MenuNameUz) ||
+                    (this.activeMenu !== null && this.activeMenu === subItem.id)
+            );
+        },
     },
     async created() {
-        this.menuId = this.$route.query.id;
-        const id1 = this.$route.query.id1;
-        const id2 = this.$route.query.id2;
+        const { menu, submenu, page } = this.$route.params;
+        const found = await this.fetchAllMenusAndFindMatch(menu);
+        if (!found) return;
 
-        if (this.menuId) {
-            await this.fetchMenus(this.$i18n.locale);
-
-            if (id1) {
-                this.activeMenu = Number(id1);
-                const selectedMenu = this.allSubItems.find(item => item.id === Number(id1));
-                if (selectedMenu) {
-                    this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
-                }
+        if (submenu) {
+            const submenuObj = this.allSubItems.find(
+                (item) => this.slugify(item.name_uz) === submenu
+            );
+            if (submenuObj) {
+                this.activeMenu = submenuObj.id;
+                this.MenuName = submenuObj[`name_${this.locale}`] || submenuObj.name_uz;
             }
+        }
 
-            if (id2) {
-                this.activeSubItem = Number(id2);
-                this.fetchPageData(Number(id2), this.$i18n.locale);
+        if (page && this.activeMenu) {
+            const menuObj = this.allSubItems.find((item) => item.id === this.activeMenu);
+            if (menuObj?.pages_id) {
+                const pageObj = menuObj.pages_id.find(
+                    (p) => this.slugify(p.title_uz) === page
+                );
+                if (pageObj) {
+                    this.activeSubItem = pageObj.id;
+                    await this.fetchPageData(pageObj.id, this.locale);
+                }
             }
         }
     },
-    async mounted() {
-        this.fetchMenus(this.$i18n.locale);
-    },
     watch: {
-        '$i18n.locale'(newLocale) {
+        "$i18n.locale"(newLocale) {
             if (this.activeSubItem) {
                 this.fetchPageData(this.activeSubItem, newLocale);
             }
         },
     },
     methods: {
-        loadFontsFromText(text) {
-            // `font-family` qiymatini tahlil qilish uchun regex
-            const fontRegex = /font-family:\s*([^;"]+)/g;
-            let match;
-            const fonts = new Set();
-
-            // Matndagi barcha `font-family` qiymatlarini yig'ish
-            while ((match = fontRegex.exec(text)) !== null) {
-                fonts.add(match[1].trim());
-            }
-
-            // Har bir font uchun `.ttf` faylni yuklash
-            fonts.forEach((font) => {
-                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
-                this.loadFont(font, fontPath);
-            });
+        toggleSidebar() {
+            this.isSidebarOpen = !this.isSidebarOpen;
         },
-        loadFont(fontName, fontPath) {
-            // Fontni dinamik yuklash
-            const fontFace = new FontFace(fontName, `url(${fontPath})`);
-            fontFace
-                .load()
-                .then((loadedFont) => {
-                    document.fonts.add(loadedFont);
-                })
-                .catch(() => {
-                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
-                });
+        slugify(text) {
+            return text
+                .toString()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]+/g, "")
+                .replace(/--+/g, "-")
+                .replace(/^-+/, "")
+                .replace(/-+$/, "");
         },
-        toggleMenu(menuId) {
-            if (this.activeMenu === menuId) {
-                this.activeMenu = null;
-                this.activeSubItem = null;
-                this.pageData = null;
-                this.MenuName = null;
-
-                this.updateQueryParams({ id1: null, id2: null }); // id1 va id2 query'dan o'chadi
-            } else {
-                this.activeMenu = menuId;
-                this.activeSubItem = null;
-                this.pageData = null;
-
-                const selectedMenu = this.allSubItems.find(item => item.id === menuId);
-                if (selectedMenu) {
-                    this.MenuName = selectedMenu[`name_${this.$i18n.locale}`] || selectedMenu.name_uz;
-                }
-
-                this.updateQueryParams({ id1: menuId, id2: null }); // faqat id1 ni yangilaymiz
-            }
-        },
-
-        setActiveSubItemAndMenu(menuId, subItemId) {
-            this.activeMenu = menuId;
-            this.activeSubItem = subItemId;
-            this.fetchPageData(subItemId, this.$i18n.locale);
-
-            this.updateQueryParams({ id1: menuId, id2: subItemId });
-        },
-
-        setActiveSubItem(subItemId) {
-            if (this.activeSubItem === subItemId) {
-                this.activeSubItem = null;
-                this.pageData = null;
-                this.updateQueryParams({ id2: null }); // id2 query'dan o'chadi
-            } else {
-                this.activeSubItem = subItemId;
-                this.pageData = null;
-                this.fetchPageData(subItemId, this.$i18n.locale);
-                this.updateQueryParams({ id2: subItemId }); // id2 ni yangilaymiz
-            }
-        },
-
-        // Menyu elementlarini olish
-        async fetchMenus(locale) {
-
+        async fetchAllMenusAndFindMatch(menuSlug) {
             try {
-                const response = await axios.get(`https://new.pochta.uz/api/v1/public/menu-element-items/${this.menuId}/`);
-                if (response.data && response.data.item_pages) {
-                    this.menus = [response.data];
-                    this.MenuName = this.menus[0][`name_${locale}`] || ' '
-                    this.MenuNameUz = this.menus[0]['name_uz'] || ' '
+                const res = await axios.get("https://new.pochta.uz/api/v1/public/menu-element-items/");
+                const allMenus = res.data || [];
 
-                } else {
-                    console.error('API natijasi noto\'g\'ri formatda');
+                const matchedMenu = allMenus.find(
+                    (menu) => this.slugify(menu.name_uz) === menuSlug
+                );
+
+                if (matchedMenu) {
+                    this.menus = [matchedMenu];
+                    this.menuId = matchedMenu.id;
+                    this.MenuName = matchedMenu[`name_${this.locale}`] || matchedMenu.name_uz;
+                    this.MenuNameUz = matchedMenu.name_uz;
+                    return true;
                 }
+
+                return false;
             } catch (error) {
-                console.error('Menyu ma\'lumotlarini olishda xatolik:', error);
+                console.error("Menyularni yuklashda xatolik:", error);
+                return false;
             }
-        },
-        updateQueryParams(params) {
-            const currentQuery = { ...this.$route.query };
-
-            // Parametrlar qo‘shish yoki o‘chirish
-            for (const key in params) {
-                if (params[key] === null || params[key] === undefined) {
-                    delete currentQuery[key];
-                } else {
-                    currentQuery[key] = params[key];
-                }
-            }
-
-            this.$router.replace({ query: currentQuery }).catch(() => { });
         },
         async fetchPageData(subItemId, locale) {
             try {
-                const response = await axios.get(`https://new.pochta.uz/api/v1/public/menu-item-pages/${subItemId}/`);
+                const response = await axios.get(
+                    `https://new.pochta.uz/api/v1/public/menu-item-pages/${subItemId}/`
+                );
                 if (response.data) {
                     this.pageData = response.data;
-                    this.serviceText = this.pageData[`text_${locale}`] || '';
-                    this.loadFontsFromText(this.serviceText) // HTML formatidagi matn
-
+                    this.serviceText = this.pageData[`text_${locale}`] || "";
                 }
             } catch (error) {
-                console.error('Sahifa ma\'lumotlarini olishda xatolik:', error);
+                console.error("Sahifa ma'lumotlarini olishda xatolik:", error);
             }
+        },
+        toggleMenu(menuId) {
+            this.activeMenu = this.activeMenu === menuId ? null : menuId;
+        },
+        setActiveSubItem(id) {
+            this.activeSubItem = id;
+            this.fetchPageData(id, this.locale);
+        },
+        setActiveSubItemAndMenu(menuId, subItemId) {
+            const menuObj = this.allSubItems.find((item) => item.id === menuId);
+            const pageObj = menuObj?.pages_id?.find((p) => p.id === subItemId);
+            if (!menuObj || !pageObj) return;
+
+            this.activeMenu = menuId;
+            this.activeSubItem = subItemId;
+            this.fetchPageData(subItemId, this.locale);
+            this.isSidebarOpen = false;
+
+            this.$router.push({
+                name: "headeritem",
+                params: {
+                    lang: this.locale,
+                    menu: this.slugify(this.menus[0].name_uz), // yoki this.MenuNameUz
+                    submenu: this.slugify(menuObj.name_uz),
+                    page: this.slugify(pageObj.title_uz),
+                },
+            });
+
         },
     },
 };
 </script>
+
+
+
+
+
+
 
 <style scoped>
 .nav-link {
@@ -440,5 +443,417 @@ export default {
 .custom-container .text-uz span {
     font-family: inherit;
     /* Font topilmasa default fontni ishlatish */
+}
+
+.mobile-menu-toggle {
+    padding: 10px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+}
+
+.hamburger-btn span {
+    display: block;
+    height: 3px;
+    background: #000;
+    border-radius: 3px;
+}
+
+/* Sidebar menyu */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 270px;
+    height: 100vh;
+    background: #003b88;
+    color: #fff;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    margin-bottom: 15px;
+}
+
+.menu-title {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submenu-list {
+    padding-left: 15px;
+    margin-top: 5px;
+}
+
+.submenu-item a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    transform: translateX(-100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500&display=swap');
+
+.mobile-menu-toggle {
+    padding: 10px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.hamburger-btn span {
+    display: block;
+    height: 3px;
+    background-color: #003b88;
+    border-radius: 2px;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    transform: translateX(-100%);
+}
+
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 319px;
+    height: 100%;
+    background-color: #0D47A1;
+    padding: 10px 0;
+    overflow-y: auto;
+    z-index: 1000;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: white;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 10px;
+}
+
+.close-btn {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* .menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px;
+} */
+
+.menu-item {
+    border-bottom: 1px solid #386EC2;
+}
+
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.arrow {
+    transition: transform 0.3s;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0 10px 10px;
+    gap: 8px;
+}
+
+.submenu-item {
+    font-size: 16px;
+    color: #E7EDF6;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle {
+    padding: 10px;
+}
+
+.hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: #003B88;
+    /* ko‘k rang */
+    border: none;
+    border-radius: 4px;
+    /* burchaklar */
+    cursor: pointer;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #ffffff;
+    /* oq chiziq */
+    border-radius: 1px;
+}
+
+/* Sidebar konteyner */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 319px;
+    height: 100%;
+    background-color: #003580;
+    /* siz aytgan rang */
+    padding: 10px 0;
+    overflow-y: auto;
+    z-index: 1000;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: white;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Yopish tugmasi */
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 10px;
+}
+
+.close-btn {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Har bir menyu */
+/* .menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px;
+} */
+
+.menu-item {
+    border-bottom: 1px solid #386EC2;
+}
+
+/* Menyu sarlavhasi */
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+}
+
+.menu-title:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+}
+
+/* Strelka */
+.arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 14px;
+    transform: rotate(0deg);
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
+/* Submenu */
+.submenu {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0 10px 10px;
+    gap: 8px;
+}
+
+.submenu-item {
+    font-size: 16px;
+    color: #E7EDF6;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.submenu-item:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Slide transition */
+.slide-enter-active,
+.slide-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    transform: translateX(-100%);
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px 10px;
+}
+
+/* Har bir menyu elementi */
+.menu-item {
+    border-bottom: 1px solid #386EC2;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Faol (ochilgan) menyu */
+.menu-item.active {
+    background-color: #003580;
+}
+
+/* Menyu sarlavhasi */
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-title:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Strelka */
+.arrow {
+    transition: transform 0.3s ease;
+    font-size: 16px;
+    color: white;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
+/* Submenyular */
+.submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: #00358000;
+    animation: fadeIn 0.3s ease;
+}
+
+.submenu-item {
+    font-size: 16px;
+    color: #E7EDF6;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.submenu-item:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Faollashtirilgan menyu sarlavhasi */
+.menu-item.active .menu-title {
+    background-color: #0A4EB0;
+}
+
+/* Animatsiya */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>

@@ -476,11 +476,10 @@ const routes = [
     meta: { requiresReload: true }
   },
   {
-    path: '/:lang(uz|ru)/headeritem/:name_uz',
+    path: '/:lang(uz|ru)/headeritem/:menu/:submenu?/:page?',
     name: 'headeritem',
-    component: HeaderItemView,
-    meta: { requiresReload: true },
-  },
+    component: HeaderItemView
+  },  
   {
     path: '/:lang(uz|ru)/singin',
     name: 'singin',
