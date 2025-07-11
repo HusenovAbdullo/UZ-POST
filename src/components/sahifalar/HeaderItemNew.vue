@@ -119,151 +119,167 @@
 import axios from "axios";
 
 export default {
-    data() {
-        return {
-            locale: this.$i18n.locale || "uz",
-            serviceText: "",
-            MenuName: null,
-            MenuNameUz: null,
-            menus: [],
-            menuId: null,
-            activeMenu: null,
-            activeSubItem: null,
-            pageData: null,
-            isSidebarOpen: false,
-        };
+  data() {
+    return {
+      locale: this.$i18n.locale || "uz",
+      serviceText: "",
+      MenuName: null,
+      MenuNameUz: null,
+      menus: [],
+      menuId: null,
+      activeMenu: null,
+      activeSubItem: null,
+      pageData: null,
+      isSidebarOpen: false,
+    };
+  },
+  computed: {
+    allSubItems() {
+      return this.menus.length && this.menus[0].item_pages
+        ? this.menus[0].item_pages
+        : [];
     },
-    computed: {
-        allSubItems() {
-            if (this.menus.length && this.menus[0].item_pages) {
-                return this.menus[0].item_pages;
-            }
-            return [];
-        },
-        filteredSubItems() {
-            return this.allSubItems.filter(
-                (subItem) =>
-                    (this.activeMenu === null && subItem.name_uz === this.MenuNameUz) ||
-                    (this.activeMenu !== null && this.activeMenu === subItem.id)
-            );
-        },
+    filteredSubItems() {
+      return this.allSubItems.filter((subItem) =>
+        this.activeMenu === null
+          ? subItem.name_uz === this.MenuNameUz
+          : subItem.id === this.activeMenu
+      );
     },
-    async created() {
-        const { menu, submenu, page } = this.$route.params;
-        const found = await this.fetchAllMenusAndFindMatch(menu);
-        if (!found) return;
+  },
+  created() {
+    this.handleRouteChange(); // Birinchi yuklash
+  },
+  watch: {
+    "$route.params.menu": "handleRouteChange",
+    "$route.params.submenu": "handleRouteChange",
+    "$route.params.page": "handleRouteChange",
 
-        if (submenu) {
-            const submenuObj = this.allSubItems.find(
-                (item) => this.slugify(item.name_uz) === submenu
-            );
-            if (submenuObj) {
-                this.activeMenu = submenuObj.id;
-                this.MenuName = submenuObj[`name_${this.locale}`] || submenuObj.name_uz;
-            }
+    "$i18n.locale"(newLocale) {
+      this.locale = newLocale;
+      this.MenuName =
+        this.menus.length > 0
+          ? this.menus[0][`name_${newLocale}`] || this.menus[0].name_uz
+          : null;
+
+      if (this.activeSubItem) {
+        this.fetchPageData(this.activeSubItem, newLocale);
+      }
+    },
+  },
+  methods: {
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    },
+    slugify(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "")
+        .replace(/--+/g, "-")
+        .replace(/^-+/, "")
+        .replace(/-+$/, "");
+    },
+    async fetchAllMenusAndFindMatch(menuSlug) {
+      try {
+        const res = await axios.get(
+          "https://new.pochta.uz/api/v1/public/menu-element-items/"
+        );
+        const allMenus = res.data || [];
+
+        const matchedMenu = allMenus.find(
+          (menu) => this.slugify(menu.name_uz) === menuSlug
+        );
+
+        if (matchedMenu) {
+          this.menus = [matchedMenu];
+          this.menuId = matchedMenu.id;
+          this.MenuName =
+            matchedMenu[`name_${this.locale}`] || matchedMenu.name_uz;
+          this.MenuNameUz = matchedMenu.name_uz;
+          return true;
         }
 
-        if (page && this.activeMenu) {
-            const menuObj = this.allSubItems.find((item) => item.id === this.activeMenu);
-            if (menuObj?.pages_id) {
-                const pageObj = menuObj.pages_id.find(
-                    (p) => this.slugify(p.title_uz) === page
-                );
-                if (pageObj) {
-                    this.activeSubItem = pageObj.id;
-                    await this.fetchPageData(pageObj.id, this.locale);
-                }
-            }
+        return false;
+      } catch (error) {
+        console.error("Menyularni yuklashda xatolik:", error);
+        return false;
+      }
+    },
+    async fetchPageData(subItemId, locale) {
+      try {
+        const response = await axios.get(
+          `https://new.pochta.uz/api/v1/public/menu-item-pages/${subItemId}/`
+        );
+        if (response.data) {
+          this.pageData = response.data;
+          this.serviceText = this.pageData[`text_${locale}`] || "";
         }
+      } catch (error) {
+        console.error("Sahifa ma'lumotlarini olishda xatolik:", error);
+      }
     },
-    watch: {
-        "$i18n.locale"(newLocale) {
-            if (this.activeSubItem) {
-                this.fetchPageData(this.activeSubItem, newLocale);
-            }
-        },
+    async handleRouteChange() {
+      const { menu, submenu, page } = this.$route.params;
+
+      const found = await this.fetchAllMenusAndFindMatch(menu);
+      if (!found) return;
+
+      // submenu aniqlash
+      if (submenu) {
+        const submenuObj = this.allSubItems.find(
+          (item) => this.slugify(item.name_uz) === submenu
+        );
+        if (submenuObj) {
+          this.activeMenu = submenuObj.id;
+          this.MenuName =
+            submenuObj[`name_${this.locale}`] || submenuObj.name_uz;
+        }
+      }
+
+      // sahifa aniqlash
+      if (page && this.activeMenu) {
+        const menuObj = this.allSubItems.find(
+          (item) => item.id === this.activeMenu
+        );
+        const pageObj = menuObj?.pages_id?.find(
+          (p) => this.slugify(p.title_uz) === page
+        );
+        if (pageObj) {
+          this.activeSubItem = pageObj.id;
+          await this.fetchPageData(pageObj.id, this.locale);
+        }
+      } else {
+        this.pageData = null;
+        this.serviceText = "";
+      }
     },
-    methods: {
-        toggleSidebar() {
-            this.isSidebarOpen = !this.isSidebarOpen;
-        },
-        slugify(text) {
-            return text
-                .toString()
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^\w-]+/g, "")
-                .replace(/--+/g, "-")
-                .replace(/^-+/, "")
-                .replace(/-+$/, "");
-        },
-        async fetchAllMenusAndFindMatch(menuSlug) {
-            try {
-                const res = await axios.get("https://new.pochta.uz/api/v1/public/menu-element-items/");
-                const allMenus = res.data || [];
+    setActiveSubItemAndMenu(menuId, subItemId) {
+      const menuObj = this.allSubItems.find((item) => item.id === menuId);
+      const pageObj = menuObj?.pages_id?.find((p) => p.id === subItemId);
+      if (!menuObj || !pageObj) return;
 
-                const matchedMenu = allMenus.find(
-                    (menu) => this.slugify(menu.name_uz) === menuSlug
-                );
+      this.activeMenu = menuId;
+      this.activeSubItem = subItemId;
+      this.fetchPageData(subItemId, this.locale);
+      this.isSidebarOpen = false;
 
-                if (matchedMenu) {
-                    this.menus = [matchedMenu];
-                    this.menuId = matchedMenu.id;
-                    this.MenuName = matchedMenu[`name_${this.locale}`] || matchedMenu.name_uz;
-                    this.MenuNameUz = matchedMenu.name_uz;
-                    return true;
-                }
-
-                return false;
-            } catch (error) {
-                console.error("Menyularni yuklashda xatolik:", error);
-                return false;
-            }
+      // Routerga push qilish (til, menyu, submenu, page bilan)
+      this.$router.push({
+        name: "headeritem",
+        params: {
+          lang: this.locale,
+          menu: this.slugify(this.menus[0].name_uz),
+          submenu: this.slugify(menuObj.name_uz),
+          page: this.slugify(pageObj.title_uz),
         },
-        async fetchPageData(subItemId, locale) {
-            try {
-                const response = await axios.get(
-                    `https://new.pochta.uz/api/v1/public/menu-item-pages/${subItemId}/`
-                );
-                if (response.data) {
-                    this.pageData = response.data;
-                    this.serviceText = this.pageData[`text_${locale}`] || "";
-                }
-            } catch (error) {
-                console.error("Sahifa ma'lumotlarini olishda xatolik:", error);
-            }
-        },
-        toggleMenu(menuId) {
-            this.activeMenu = this.activeMenu === menuId ? null : menuId;
-        },
-        setActiveSubItem(id) {
-            this.activeSubItem = id;
-            this.fetchPageData(id, this.locale);
-        },
-        setActiveSubItemAndMenu(menuId, subItemId) {
-            const menuObj = this.allSubItems.find((item) => item.id === menuId);
-            const pageObj = menuObj?.pages_id?.find((p) => p.id === subItemId);
-            if (!menuObj || !pageObj) return;
-
-            this.activeMenu = menuId;
-            this.activeSubItem = subItemId;
-            this.fetchPageData(subItemId, this.locale);
-            this.isSidebarOpen = false;
-
-            this.$router.push({
-                name: "headeritem",
-                params: {
-                    lang: this.locale,
-                    menu: this.slugify(this.menus[0].name_uz), // yoki this.MenuNameUz
-                    submenu: this.slugify(menuObj.name_uz),
-                    page: this.slugify(pageObj.title_uz),
-                },
-            });
-
-        },
+      });
     },
+  },
 };
 </script>
+
 
 
 

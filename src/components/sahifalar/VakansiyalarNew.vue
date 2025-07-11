@@ -341,8 +341,11 @@
                             <div class="row g-4">
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
-                                        <label for="phone1" class="fz-18 fw-500 inter title mb-16">{{
-                                            $t('phone_number3') }}</label>
+                                        <label for="phone1" class="fz-18 fw-500 inter title mb-16">
+                                            {{ $t('phone_number3') }}
+                                            <span style="color: red;">*</span>
+                                        </label>
+
                                         <input v-model="resumeData.phone_number"
                                             :class="['form-control', phoneError ? 'input-error' : '']" type="text"
                                             id="phone1" :placeholder="$t('enter_phone2')" />
@@ -368,7 +371,7 @@
                                 <div class="col-lg-d">
                                     <div class="frm__grp">
                                         <label for="email" class="fz-18 fw-500 inter title mb-16">{{ $t('email')
-                                            }}</label>
+                                        }}</label>
                                         <input v-model="resumeData.email" type="text" id="email"
                                             :placeholder="$t('enter_email')">
                                     </div>
@@ -605,7 +608,16 @@ const goToContactStep = () => {
 // Formani yuborish
 const submitForm = async () => {
     phoneError.value = !resumeData.phone_number.trim()
-    additionalPhoneError.value = !resumeData.additional_phone_number.trim()
+
+    // agar foydalanuvchi qo'shimcha raqam kiritmagan bo‘lsa, avtomatik 12345 yuboriladi
+    if (!resumeData.additional_phone_number.trim()) {
+        resumeData.additional_phone_number = "+998000000000"
+        additionalPhoneError.value = false
+    }
+    else {
+        additionalPhoneError.value = !resumeData.additional_phone_number.trim()
+    }
+
     if (phoneError.value || additionalPhoneError.value) return
 
     try {
