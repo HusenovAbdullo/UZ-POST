@@ -171,6 +171,9 @@ export default {
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
+    toggleMenu(id) {
+    this.activeMenu = this.activeMenu === id ? null : id;
+  },
     slugify(text) {
       return text
         .toString()

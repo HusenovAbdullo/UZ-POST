@@ -72,54 +72,55 @@
                      </div>
                      <ul class="main-menu desktop-only">
                         <li v-for="menuItem in menuElementsItems" :key="menuItem.id">
-                           <template v-if="menuItem.link_uz">
-                              <router-link :to="{
-                                 name: 'headeritem',
-                                 params: {
-                                    lang: $i18n.locale,
-                                    menu: generateSlug(menuItem.name_uz)
-                                 }
-                              }">
-                                 {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
-                              </router-link>
+  <!-- Agar link_uz mavjud bo‘lsa -->
+  <template v-if="menuItem.link_uz">
+    <!-- Tashqi link bo‘lsa, <a> bilan alohida ochiladi -->
+    <a v-if="isExternalLink(menuItem.link_uz)"
+       :href="menuItem.link_uz"
+       target="_blank"
+       rel="noopener noreferrer">
+      {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    </a>
 
-                           </template>
-                           <template v-else>
-                              {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
-                              <i class="bi bi-chevron-down"></i>
+    <!-- Aks holda, ichki router-link orqali ochiladi -->
+    <router-link v-else
+                 :to="`/${$i18n.locale}${menuItem.link_uz}`">
+      {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    </router-link>
+  </template>
 
-                              <ul class="sub-menu" style="top: 60%;">
-                                 <li v-for="subItem in menuItem.elements" :key="subItem.id">
-                                    <template v-if="subItem.link_uz">
-                                       <!-- Agar link http yoki https bilan boshlansa, oddiy a tegini ishlatamiz -->
-                                       <a v-if="isExternalLink(subItem.link_uz)" :href="subItem.link_uz"
-                                          class="custom-link" target="_blank">
-                                          <span style="text-transform: none;">{{ subItem[`name_${$i18n.locale}`] ||
-                                             subItem.name_uz }}</span>
-                                       </a>
-                                       <!-- Agar link router uchun bo'lsa, router-link ishlatiladi -->
-                                       <router-link v-else :to="`/${$i18n.locale}${subItem.link_uz}`"
-                                          class="custom-link">
-                                          <span style="text-transform: none;">
-                                             {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                          </span>
-                                       </router-link>
+  <!-- Agar link_uz yo‘q bo‘lsa, sub-menu bilan -->
+  <template v-else>
+    {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    <i class="bi bi-chevron-down"></i>
+    <ul class="sub-menu" style="top: 60%;">
+      <li v-for="subItem in menuItem.elements" :key="subItem.id">
+        <template v-if="subItem.link_uz">
+          <a v-if="isExternalLink(subItem.link_uz)"
+             :href="subItem.link_uz"
+             class="custom-link"
+             target="_blank"
+             rel="noopener noreferrer">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </a>
+          <router-link v-else
+                       :to="`/${$i18n.locale}${subItem.link_uz}`"
+                       class="custom-link">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link :to="getLink(subItem)"
+                       class="custom-link"
+                       @click="maybeReload(getLink(subItem).path)">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </router-link>
+        </template>
+      </li>
+    </ul>
+  </template>
+</li>
 
-                                    </template>
-                                    <!-- Agar link_uz bo'lmasa, boshqa holatdagi linklar -->
-                                    <template v-else>
-                                       <router-link :to="getLink(subItem)" class="custom-link"
-                                          @click="maybeReload(getLink(subItem).path)">
-                                          <span style="text-transform: none;">
-                                             {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                          </span>
-                                       </router-link>
-                                    </template>
-
-                                 </li>
-                              </ul>
-                           </template>
-                        </li>
                      </ul>
                      <div class="menu__right__components d-flex align-items-center">
                         <div class="menu__components d-flex align-items-center" style="        gap: 5px;">
