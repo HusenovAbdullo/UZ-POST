@@ -54,8 +54,7 @@
                                             }}
                                         </span>
                                         <p class="title2 mb-0 text-end">
-                                            {{ vacancy.select_vacancy.price != null ? vacancy.select_vacancy.price.toLocaleString() : '0' }}&nbsp;{{ $t('summ') }}
-
+                                            {{ vacancy.select_vacancy.price.toLocaleString() }}&nbsp;{{ $t('summ') }}
 
                                         </p>
 
@@ -497,8 +496,8 @@
             <div class="d-flex flex-wrap gap-5 mt-3">
                 <!-- Chap ustun -->
                 <div class="left-col">
-                    <p class="title2 mb-0">{{ $t('salary') }}: {{ modalData.vacancy.select_vacancy.price != null ? modalData.vacancy.select_vacancy.price.toLocaleString() : '0' }} {{ $t('summ') }}
-                    </p>
+                    <p class="title2 mb-0">{{ $t('salary') }}: {{
+                        modalData.vacancy.select_vacancy.price.toLocaleString() }} {{ $t('summ') }}</p>
                     <p class="title2 mb-0">{{ $t('department') }}: {{ modalData.vacancy.section.name_uz }}</p>
                     <p class="title2 mb-0">{{ $t('experience1') }}: {{ modalData.vacancy.work_experience[0].name_uz }}
                     </p>
