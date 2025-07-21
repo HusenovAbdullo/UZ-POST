@@ -111,7 +111,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="content-column">
-                                                    <div class="status-text">{{ event.status }}</div>
+                                                    <div class="status-text">{{ event.location
+                                                   }}. {{ event.status }}</div>
                                                     <div class="date-text">{{ event.date.toLocaleDateString() }} / {{
                                                         event.date.toLocaleTimeString() }}</div>
                                                 </div>
