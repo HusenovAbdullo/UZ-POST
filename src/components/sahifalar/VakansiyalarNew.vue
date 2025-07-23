@@ -289,7 +289,8 @@
                                         {{ $t('upload_file') }}
                                     </span>
                                 </label>
-                                <input id="cv-upload" type="file" @change="onFileChange" style="display: none;" />
+                                <input id="cv-upload" type="file" @change="onFileChange" style="display: none;"
+       accept=".pdf,.doc,.docx,image/*" />
                             </div>
                         </div>
                         <span class="fz-12 ralt aiquestion__text text-center d-block fw-400 mt-40 mb-40 inter pra">
