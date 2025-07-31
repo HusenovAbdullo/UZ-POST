@@ -188,8 +188,16 @@
                               <label for="phone" class=" fw-500 inter title mb-16">
                                  {{ $t("phone_number") }} <span class="text-danger">*</span>
                               </label>
-                              <input type="text" id="phone" v-model="form.phone"
-                                 :placeholder="$t('phone_placeholder')" />
+                              <input
+  type="text"
+  id="phone"
+  v-model="form.phone"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  :placeholder="$t('phone_placeholder')"
+  @input="form.phone = form.phone.replace(/\D/g, '')"
+/>
+
                               <small v-if="errors.phone" class="text-danger">
                                  {{ errors.phone }}
                               </small>
