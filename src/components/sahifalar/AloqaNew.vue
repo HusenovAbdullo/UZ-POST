@@ -188,15 +188,9 @@
                               <label for="phone" class=" fw-500 inter title mb-16">
                                  {{ $t("phone_number") }} <span class="text-danger">*</span>
                               </label>
-                              <input
-  type="text"
-  id="phone"
-  v-model="form.phone"
-  inputmode="numeric"
-  pattern="[0-9]*"
-  :placeholder="$t('phone_placeholder')"
-  @input="form.phone = form.phone.replace(/\D/g, '')"
-/>
+                              <input type="text" id="phone" v-model="form.phone" inputmode="numeric" pattern="[0-9]*"
+                                 :placeholder="$t('phone_placeholder')"
+                                 @input="form.phone = form.phone.replace(/\D/g, '')" />
 
                               <small v-if="errors.phone" class="text-danger">
                                  {{ errors.phone }}
@@ -205,12 +199,14 @@
                         </div>
                         <div class="col-lg-12">
                            <div class="frm__grp">
-                              <label for="file-upload" class=" fw-500 inter title mb-16">
+                              <label for="file-upload" class="fw-500 inter title mb-16">
                                  {{ $t("file") }}
                               </label>
-                              <input type="file" id="file-upload" @change="handleFileUpload" />
+                              <input type="file" id="file-upload" @change="handleFileUpload"
+                                 accept=".pdf,.doc,.docx,image/*" />
                            </div>
                         </div>
+
                         <div class="col-lg-12">
                            <div class="frm__grp">
                               <label class=" fw-500 inter title mb-16">
@@ -272,81 +268,81 @@ export default {
       };
    },
    methods: {
-    handleFileUpload(event) {
-        this.form.file = event.target.files[0];
-    },
-    validateForm() {
-        this.errors = {
+      handleFileUpload(event) {
+         this.form.file = event.target.files[0];
+      },
+      validateForm() {
+         this.errors = {
             name: null,
             phone: null,
             message: null,
-        };
-        let valid = true;
+         };
+         let valid = true;
 
-        if (!this.form.name) {
+         if (!this.form.name) {
             this.errors.name = this.$t("enter_your_name");
             valid = false;
-        }
-        if (!this.form.phone) {
+         }
+         if (!this.form.phone) {
             this.errors.phone = this.$t("phone_placeholder");
             valid = false;
-        }
-        if (!this.form.message) {
+         }
+         if (!this.form.message) {
             this.errors.message = this.$t("message_placeholder");
             valid = false;
-        }
+         }
 
-        return valid;
-    },
-    resetForm() {
-        this.form = {
+         return valid;
+      },
+      resetForm() {
+         this.form = {
             name: "",
             email: "",
             phone: "",
             file: null,
             message: "",
-        };
-        this.errors = {
+         };
+         this.errors = {
             name: null,
             phone: null,
             message: null,
-        };
-    },
-    async submitForm() {
-        if (!this.validateForm()) return;
+         };
+      },
+      async submitForm() {
+         if (!this.validateForm()) return;
 
-        const formData = new FormData();
-        formData.append("full_name", this.form.name);
-        formData.append("phone_number", this.form.phone);
+         const formData = new FormData();
+         formData.append("full_name", this.form.name);
+         formData.append("phone_number", this.form.phone);
 
-        if (this.form.email) {
+         if (this.form.email) {
             formData.append("email", this.form.email);
-        }
-        if (this.form.file) {
+         }
+         if (this.form.file) {
             formData.append("file", this.form.file);
-        }
-        formData.append("description", this.form.message);
+         }
+         formData.append("description", this.form.message);
 
-        try {
+         try {
             await axios.post(
-                "https://new.pochta.uz/api/v1/public/userrequests/",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
+               "https://new.pochta.uz/api/v1/public/userrequests/",
+               formData,
+               {
+                  headers: {
+                     "Content-Type": "multipart/form-data",
+                  },
+               }
             );
             this.showPopup = true;
             this.resetForm(); // Formani tozalash
-        } catch (error) {
+         } catch (error) {
             alert(this.$t("form_submission_failed"));
-        }
-    },
-    closePopup() {
-        this.showPopup = false;
-    },
-},
+         }
+      },
+      closePopup() {
+         this.showPopup = false;
+      },
+   },
 
 };
 </script>
