@@ -103,7 +103,7 @@ export default {
           price: data[`price_${locale}`] || data.price_uz || "",
           count_number: data.count_number || "",
         };
-        this.serviceText =  data[`text_${locale}`] || ''
+        this.serviceText =  data[`description_${locale}`] || ''
         this.loadFontsFromText(this.serviceText)
 
       } catch (error) {
