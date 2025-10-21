@@ -17,9 +17,9 @@
 
          <!-- Header Here -->
          <div class="header__section__attachment">
-            <div class="">
+            <div class="aihire__headertopi">
                <div class="container">
-                  <div class="haderbar__top  align-items-center  justify-content-between">
+                  <div class="haderbar__top d-flex align-items-center  justify-content-between">
                      <div class="logo__left d-flex align-items-center">
                         <router-link to="/" class="logo-container" @click="refreshPage">
                            <img
@@ -37,42 +37,20 @@
                            {{ $t('for_legal_entities') }}
                         </router-link>
                         <!-- <a class="pra mdnone inter fw-400">{{ $t('for_legal_entities') }}</a> -->
-
-                        <div class="header__topsearch d-flex align-items-center">
-                           <form action="#"
-                              class="search__component mb-55 d-flex align-items-center justify-content-between wow fadeInUp"
-                              @submit.prevent="fetchTrackingData">
-                              <input type="text" id="trackingNumberInput" v-model="trackingNumber"
-                                 placeholder="CC123456789UZ" class="faded-placeholder" @keyup.enter="fetchTrackingData">
-                              <button type="button" class="cmn--btni1 d-flex align-items-center"
-                                 @click="fetchTrackingData">
-                                 <span><i class="bi bi-search fz-12"></i></span>
-                                 <span>{{ $t('tracking') }}</span>
-                              </button>
-                           </form>
-                        </div>
                      </div>
-
-
-
-
-                     <!-- HERO ichida, header-section dan YUQORIDA joylashtiring -->
-                     <!-- HERO ichida, header-section dan YUQORIDA joylashtiring -->
-                     <div class="persona-bar">
-                        <div class="container persona-switch">
-                           <router-link :to="`/${$i18n.locale}`" class="persona-link" :class="{ active: isIndividual }">
-                              {{ $t('for_individuals') }}
-                           </router-link>
-
-                           <router-link :to="`/${$i18n.locale}/yuridik`" class="persona-link"
-                              :class="{ active: isLegal }">
-                              {{ $t('for_legal_entities') }}
-                           </router-link>
-                        </div>
+                     <div class="header__topsearch d-flex align-items-center">
+                        <form action="#"
+                           class="search__component mb-55 d-flex align-items-center justify-content-between wow fadeInUp"
+                           @submit.prevent="fetchTrackingData">
+                           <input type="text" id="trackingNumberInput" v-model="trackingNumber"
+                              placeholder="CC123456789UZ" class="faded-placeholder" @keyup.enter="fetchTrackingData">
+                           <button type="button" class="cmn--btni1 d-flex align-items-center"
+                              @click="fetchTrackingData">
+                              <span><i class="bi bi-search fz-12"></i></span>
+                              <span>{{ $t('tracking') }}</span>
+                           </button>
+                        </form>
                      </div>
-
-
-
 
 
                   </div>
@@ -94,46 +72,54 @@
                      </div>
                      <ul class="main-menu desktop-only">
                         <li v-for="menuItem in menuElementsItems" :key="menuItem.id">
-                           <!-- Agar link_uz mavjud bo‘lsa -->
-                           <template v-if="menuItem.link_uz">
-                              <!-- Tashqi link bo‘lsa, <a> bilan alohida ochiladi -->
-                              <a v-if="isExternalLink(menuItem.link_uz)" :href="menuItem.link_uz" target="_blank"
-                                 rel="noopener noreferrer">
-                                 {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
-                              </a>
+  <!-- Agar link_uz mavjud bo‘lsa -->
+  <template v-if="menuItem.link_uz">
+    <!-- Tashqi link bo‘lsa, <a> bilan alohida ochiladi -->
+    <a v-if="isExternalLink(menuItem.link_uz)"
+       :href="menuItem.link_uz"
+       target="_blank"
+       rel="noopener noreferrer">
+      {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    </a>
 
-                              <!-- Aks holda, ichki router-link orqali ochiladi -->
-                              <router-link v-else :to="`/${$i18n.locale}${menuItem.link_uz}`">
-                                 {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
-                              </router-link>
-                           </template>
+    <!-- Aks holda, ichki router-link orqali ochiladi -->
+    <router-link v-else
+                 :to="`/${$i18n.locale}${menuItem.link_uz}`">
+      {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    </router-link>
+  </template>
 
-                           <!-- Agar link_uz yo‘q bo‘lsa, sub-menu bilan -->
-                           <template v-else>
-                              {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
-                              <i class="bi bi-chevron-down"></i>
-                              <ul class="sub-menu" style="top: 60%;">
-                                 <li v-for="subItem in menuItem.elements" :key="subItem.id">
-                                    <template v-if="subItem.link_uz">
-                                       <a v-if="isExternalLink(subItem.link_uz)" :href="subItem.link_uz"
-                                          class="custom-link" target="_blank" rel="noopener noreferrer">
-                                          {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                       </a>
-                                       <router-link v-else :to="`/${$i18n.locale}${subItem.link_uz}`"
-                                          class="custom-link">
-                                          {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                       </router-link>
-                                    </template>
-                                    <template v-else>
-                                       <router-link :to="getLink(subItem)" class="custom-link"
-                                          @click="maybeReload(getLink(subItem).path)">
-                                          {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
-                                       </router-link>
-                                    </template>
-                                 </li>
-                              </ul>
-                           </template>
-                        </li>
+  <!-- Agar link_uz yo‘q bo‘lsa, sub-menu bilan -->
+  <template v-else>
+    {{ menuItem[`name_${$i18n.locale}`] || menuItem.name_uz }}
+    <i class="bi bi-chevron-down"></i>
+    <ul class="sub-menu" style="top: 60%;">
+      <li v-for="subItem in menuItem.elements" :key="subItem.id">
+        <template v-if="subItem.link_uz">
+          <a v-if="isExternalLink(subItem.link_uz)"
+             :href="subItem.link_uz"
+             class="custom-link"
+             target="_blank"
+             rel="noopener noreferrer">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </a>
+          <router-link v-else
+                       :to="`/${$i18n.locale}${subItem.link_uz}`"
+                       class="custom-link">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link :to="getLink(subItem)"
+                       class="custom-link"
+                       @click="maybeReload(getLink(subItem).path)">
+            {{ subItem[`name_${$i18n.locale}`] || subItem.name_uz }}
+          </router-link>
+        </template>
+      </li>
+    </ul>
+  </template>
+</li>
 
                      </ul>
                      <div class="menu__right__components d-flex align-items-center">
@@ -251,7 +237,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_request')
-                                             }}</span>
+                                                }}</span>
                                           </router-link>
                                        </li>
                                     </ul>
@@ -294,7 +280,7 @@
                                              class="link d-flex align-items-center gap-2 dropdown-item">
                                              <i class="bi bi-file-earmark-plus fz-20"></i>
                                              <span class="d-block fz-16 pra fw-500 inter">{{ $t('send_inquiry')
-                                             }}</span>
+                                                }}</span>
                                           </router-link>
                                        </li>
 
@@ -356,7 +342,7 @@
                                     <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                       }}</span>
+                                          }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -372,7 +358,7 @@
                                     <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('country') }}</strong> <br />
                                        <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                       }}</span>
+                                          }}</span>
                                     </p>
                                     <!-- <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('address5') }}</strong> <br />
@@ -382,7 +368,7 @@
                                     <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
                                        <strong>{{ $t('postal_code') }}</strong> <br />
                                        <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                       }}</span>
+                                          }}</span>
                                     </p>
                                  </div>
                               </div>
@@ -416,7 +402,7 @@
                                                 </div>
                                                 <div class="content-column">
                                                    <div class="status-text">{{ event.location
-                                                      }}. {{ event.status }}</div>
+                                                   }}. {{ event.status }}</div>
                                                    <div class="date-text">{{ event.date.toLocaleDateString() }} / {{
                                                       event.date.toLocaleTimeString() }}</div>
                                                 </div>
@@ -454,7 +440,7 @@
                                              <li v-for="(event, index) in combinedTracking" :key="index">
                                                 <a class="d-flex align-items-center">
                                                    <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString()
-                                                      }}</span>
+                                                   }}</span>
                                                    <span class="cateicon">
                                                       <img
                                                          :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
@@ -465,10 +451,10 @@
                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
                                                       event.data }}</span>
                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                      }}</span>
+                                                   }}</span>
                                                    <span>
                                                       <span class="fz-12 fw-500 inter success2 d-block">{{ event.status
-                                                         }}</span>
+                                                      }}</span>
                                                       <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
                                                          style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
                                                          {{ event.malumot }}
@@ -516,21 +502,14 @@
 
 
 
-      <div class="track-search">
-         <label for="trackingNumberMobile" class="track-title">
-            {{ $t('track_by_code') }}
-         </label>
-
-         <form class="track-form-modern" @submit.prevent="fetchTrackingData">
-            <input id="trackingNumberMobile" v-model="trackingNumber" placeholder="CC123456789UZ"
-               @keyup.enter="fetchTrackingData" />
-            <button type="button" @click="fetchTrackingData">
-               <i class="bi bi-search"></i>
-               {{ $t('tracking') }}
-            </button>
-         </form>
-      </div>
-
+      <!-- Trek-kod bo‘yicha qidiruv -->
+      <form class="track-form-modern" @submit.prevent="fetchTrackingData">
+         <input v-model="trackingNumber" placeholder="CC123456789UZ" @keyup.enter="fetchTrackingData" />
+         <button type="button" @click="fetchTrackingData">
+            <i class="bi bi-search"></i>
+            {{ $t('tracking') }}
+         </button>
+      </form>
 
 
       <!-- Profil -->
@@ -689,19 +668,6 @@ export default {
          this.changeLanguage('uz');
       }
    },
-
-   computed: {
-      isLegal() {
-         return this.$route.path.replace(/^\/(uz|ru)/, '').startsWith('/yuridik');
-      },
-      isIndividual() {
-         return !this.isLegal;
-      }
-   }
-   ,
-
-
-
    methods: {
       closeMobileMenu() {
          this.isMobileMenuOpen = false;
@@ -816,78 +782,63 @@ export default {
          // Manzilni yangilash
          window.location.href = "/";
       },
-      // fetchTrackingData() {
-      //    this.loading = true;
-      //    this.trackingData = null;
-      //    this.combinedTracking = [];
-      //    this.errorMessage = null;
-
-         
-      //    if (this.isMobileMenuOpen) {
-      //       this.isMobileMenuOpen = false;
-      //    }
-
-      //    const trackingNumberPrefix = this.trackingNumber.substring(0, 2);
-      //    let apiUrl = '';
-
-      //    if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
-      //       apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
-      //    } else {
-      //       apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
-      //    }
-
-      //    const xhr = new XMLHttpRequest();
-      //    xhr.open('GET', apiUrl, true);
-      //    xhr.onload = () => {
-      //       this.loading = false;
-      //       if (xhr.status >= 200 && xhr.status < 300) {
-      //          const data = JSON.parse(xhr.responseText);
-      //          if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
-      //             const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-      //             this.trackingData = {
-      //                number: mailItem.InternationalId,
-      //                senderCountry: mailItem.OrigCountry.Name || '',
-      //                senderAddress: mailItem.OrigAddress || '',
-      //                senderPostcode: mailItem.OrigPostcode || '',
-      //                recipientCountry: mailItem.DestCountry.Name || '',
-      //                recipientAddress: mailItem.DestAddress || '',
-      //                recipientPostcode: mailItem.DestPostcode || ''
-      //             };
-
-      //             this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
-      //          } else {
-      //             this.processAlternativeData(data);
-      //          }
-      //       } else if (xhr.status === 404) {
-      //          this.trackingData = {
-      //             number: this.trackingNumber,
-      //             errorMessage: 'Ma\'lumot topilmadi'
-      //          };
-      //       } else {
-      //          this.errorMessage = 'Ma\'lumot topilmadi';
-      //       }
-      //    };
-      //    xhr.onerror = () => {
-      //       this.loading = false;
-      //       this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
-      //    };
-      //    xhr.send();
-      // },
-
       fetchTrackingData() {
-    const code = (this.trackingNumber || '').trim().toUpperCase();
-    if (!code) return;
+         this.loading = true;
+         this.trackingData = null;
+         this.combinedTracking = [];
+         this.errorMessage = null;
 
-    // Mobil menyuni yopib qo'yamiz
-    if (this.isMobileMenuOpen) this.isMobileMenuOpen = false;
+         // 📌 Mobil menyuni yopish
+         if (this.isMobileMenuOpen) {
+            this.isMobileMenuOpen = false;
+         }
 
-    // Agar marshrutlar til prefiksi bilan ishlayotgan bo'lsa (masalan /uz yoki /ru),
-    // avtomatik ravishda shu prefiksni qo‘shamiz. Aks holda oddiy /tracking/.../ ga o'tamiz.
-    const hasLangPrefix = /^\/(uz|ru)(\/|$)/.test(this.$route.path);
-    const base = hasLangPrefix ? `/${this.$i18n.locale}` : '';
+         const trackingNumberPrefix = this.trackingNumber.substring(0, 2);
+         let apiUrl = '';
 
-    this.$router.push(`${base}/tracking/${encodeURIComponent(code)}/`);
-  },
+         if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
+         } else {
+            apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
+         }
+
+         const xhr = new XMLHttpRequest();
+         xhr.open('GET', apiUrl, true);
+         xhr.onload = () => {
+            this.loading = false;
+            if (xhr.status >= 200 && xhr.status < 300) {
+               const data = JSON.parse(xhr.responseText);
+               if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+                  const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
+                  this.trackingData = {
+                     number: mailItem.InternationalId,
+                     senderCountry: mailItem.OrigCountry.Name || '',
+                     senderAddress: mailItem.OrigAddress || '',
+                     senderPostcode: mailItem.OrigPostcode || '',
+                     recipientCountry: mailItem.DestCountry.Name || '',
+                     recipientAddress: mailItem.DestAddress || '',
+                     recipientPostcode: mailItem.DestPostcode || ''
+                  };
+
+                  this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
+               } else {
+                  this.processAlternativeData(data);
+               }
+            } else if (xhr.status === 404) {
+               this.trackingData = {
+                  number: this.trackingNumber,
+                  errorMessage: 'Ma\'lumot topilmadi'
+               };
+            } else {
+               this.errorMessage = 'Ma\'lumot topilmadi';
+            }
+         };
+         xhr.onerror = () => {
+            this.loading = false;
+            this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
+         };
+         xhr.send();
+      },
 
       processEvents(events, countryCode) {
          const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
@@ -1897,267 +1848,5 @@ span:first-letter {
    background-color: #386EC2;
    color: #ffffff;
    /* font-weight: bold; */
-}
-
-/* Yuqori panel – 2-rasmdagi kabi och ko‘k fon */
-.persona-bar {
-   /* background: #e9f0fb; */
-   /* 2-rasmdagi fon */
-   /* border-bottom: 1px solid rgba(0, 0, 0, .05); */
-}
-
-.persona-switch {
-   display: flex;
-   justify-content: center;
-   /* markazda joylashsin */
-   gap: 56px;
-   /* ikki matn orasidagi masofa */
-   padding: 8px 0;
-   /* yupqa balandlik */
-}
-
-/* Matn ko‘rinishi */
-.persona-link {
-   font-size: 14px;
-   line-height: 0;
-   font-style: italic;
-   /* 2-rasmdagi kursiv */
-   color: #183e98;
-   text-decoration: none;
-   opacity: .9;
-   padding-bottom: 6px;
-   border-bottom: 1px solid transparent;
-   /* faqat active-da chiziq */
-   transition: opacity .2s ease;
-}
-
-.persona-link:hover {
-   opacity: 1;
-}
-
-/* Aktiv – pastidan chizilgan, biroz qalinroq */
-.persona-link.active {
-   border-bottom-color: #183e98;
-   font-weight: 600;
-}
-
-/* Kichik ekranlar */
-@media (max-width:576px) {
-   .persona-switch {
-      gap: 28px;
-   }
-
-   .persona-link {
-      font-size: 12px;
-   }
-}
-
-.header__topsearch {
-   display: none;
-}
-
-/* Aslida panelni doimiy yashirib qo‘yamiz */
-.persona-bar {
-   display: none;
-}
-
-/* Faqat 765px va kichik ekranlarda ko‘rsatamiz */
-@media (max-width: 990px) {
-   .persona-bar {
-      display: block;
-      background: #e9f0fb;
-      border-bottom: 1px solid rgba(0, 0, 0, .05);
-   }
-
-   .persona-switch {
-      display: flex;
-      justify-content: center;
-      gap: 56px;
-      padding: 8px 0;
-   }
-
-   .persona-link {
-      font-style: italic;
-      color: #183e98;
-      text-decoration: none;
-      padding-bottom: 6px;
-      transition: opacity .2s ease;
-   }
-
-   .persona-link.active {
-      border-bottom-color: #183e98;
-      font-weight: 600;
-   }
-}
-
-/* 990px dan kichik — ko‘rinmasin */
-@media (max-width: 989.98px) {
-   .header__topsearch {
-      display: none !important;
-   }
-}
-
-/* 990px va katta — ko‘rinsin */
-@media (min-width: 990px) {
-   .header__topsearch {
-      display: flex !important;
-      /* sizda d-flex bor, baribir qat’iy belgilab qo‘yamiz */
-   }
-}
-
-
-/* 990px dan kichik — ko‘rinmasin */
-@media (max-width: 989.98px) {
-   .logo-container {
-      display: none !important;
-   }
-}
-
-/* 990px va katta — ko‘rinsin */
-@media (min-width: 990px) {
-   .logo-container {
-      display: flex !important;
-      /* sizda d-flex bor, baribir qat’iy belgilab qo‘yamiz */
-   }
-}
-
-
-/* 990px dan kichik — matnli linklar va qidiruvni yashiramiz */
-@media (max-width: 989.98px) {
-   .logo__left .pra.mdnone.inter.fw-400 {
-      display: none !important;
-      /* “for_individuals” va “for_legal_entities” */
-   }
-
-   .header__topsearch {
-      display: none !important;
-      /* qidiruv */
-   }
-}
-
-/* 990px va katta — odatdagidek ko‘rinsin */
-@media (min-width: 990px) {
-   .logo__left .pra.mdnone.inter.fw-400 {
-      display: inline-flex !important;
-   }
-
-   .header__topsearch {
-      display: flex !important;
-   }
-}
-
-
-/* Qidiruvni o‘ng tomonga surish (faqat katta ekranlarda ko‘rinadi) */
-@media (min-width: 990px) {
-   .logo__left {
-      display: flex;
-      align-items: center;
-      flex: 1 1 auto;
-      /* qatorni to‘ldirsin */
-   }
-
-   .header__topsearch {
-      margin-left: auto !important;
-      /* o‘ngga yopishadi */
-   }
-}
-
-
-@media (max-width: 990px) {
-   .persona-bar .persona-link {
-      padding-top: 6px;
-      /* faqat tepaga bo‘shliq */
-      display: inline-block;
-   }
-}
-
-/* 2-rasmdagi qidiruv dizayni */
-.track-form-modern {
-   position: relative;
-   display: flex;
-   align-items: center;
-   width: 100%;
-   max-width: 480px;
-   border: 1px solid rgba(255, 255, 255, .9);
-   border-radius: 4px;
-   background: transparent;
-   overflow: hidden;
-}
-
-/* Matn qismi – shaffof fon, oq matn/seryoyi placeholder */
-.track-form-modern input {
-   flex: 1;
-   height: 40px;
-   padding: 0 14px;
-   border: 0;
-   outline: 0;
-   background: transparent;
-   color: #fff;
-}
-
-.track-form-modern input::placeholder {
-   color: rgba(255, 255, 255, .55);
-}
-
-/* O‘ng tugma – oq kapsula, faqat lupa ko‘rinsin */
-.track-form-modern button {
-   height: 36px;
-   width: 48px;
-   /* kichik kapsula */
-   /* margin: 2px;               */
-   border: 0;
-   border-radius: 4px;
-   background: #fff;
-   color: #003580;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-
-   /* tugmadagi matnni yashirish (lupa qoladi) */
-   font-size: 0;
-}
-
-.track-form-modern button i {
-   font-size: 18px;
-   /* lupani qayta ko‘rsatish */
-   line-height: 1;
-}
-
-/* Istasangiz: kichik ekranlarda balandlikni biroz kamaytirish */
-@media (max-width: 420px) {
-   .track-form-modern input {
-      height: 36px;
-   }
-
-   /* .track-form-modern button{ height: 32px; width: 44px; } */
-}
-
-.mb-55 {
-   margin-bottom: 8px;
-   margin-top: 8px;
-}
-
-
-.track-search {
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-}
-
-.track-title {
-   color: #fff;
-   font-size: 12px;
-   line-height: 20px;
-   font-weight: 500;
-   margin: 0 0 6px 4px;
-   /* inputdan biroz yuqorida turadi */
-   opacity: .9;
-}
-
-/* mobil menyudagi fon ham ko‘k – rangni saqlaymiz */
-.mobile-fullscreen-menu .track-title {
-   color: #fff;
-   margin-left: 2px;
 }
 </style>

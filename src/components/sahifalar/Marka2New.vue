@@ -41,14 +41,23 @@
                 <p class="fz-32 pb-40 bborderdash mb-20 title2">
                   {{ marka.title }}
                 </p>
+
                 <div class="accordion-body" style="color: black;">
-                  <p class="title2">{{ $t('Release_date') }}: {{ marka.years }}</p>
-                  <p class="title2">{{ $t('Quantity') }}: {{ marka.count_number }}</p>
-                  <p class="title2">{{ $t('Nominal') }}: {{ marka.price }} {{ $t('summ') }}</p>
+                  <p class="title2">
+                    {{ $t('Release_date') }}: {{ marka.years }}
+                  </p>
+                  <p class="title2">
+                    {{ $t('Quantity') }}: {{ formatInt(marka.count_number) }}
+                  </p>
+                  <p class="title2">
+                    {{ $t('Nominal') }}: {{ formatMoney(marka.price) }} {{ $t('summ') }}
+                  </p>
                 </div>
+
                 <div class="divider">
                   <span>{{ $t('stamp_info') }}</span>
                 </div>
+
                 <div class="text-content" v-html="serviceText"></div>
               </div>
             </div>
@@ -58,6 +67,7 @@
       </div>
     </div>
   </section>
+
   <div v-else class="loading text-center">
     <p>{{ $t('Yuklanmoqda...') }}</p>
   </div>
@@ -71,86 +81,127 @@ export default {
   data() {
     return {
       marka: null,
-      serviceText: '',      // API'dan olingan ma'lumotlar
+      serviceText: "",
     };
   },
+
   watch: {
-    '$i18n.locale'(newLocale) {
+    "$i18n.locale"(newLocale) {
       this.fetchData(newLocale);
-    }
+    },
+    "$route.params.id"() {
+      this.fetchData(this.$i18n.locale);
+    },
   },
+
   async mounted() {
     this.fetchData(this.$i18n.locale);
   },
+
   methods: {
     async fetchData(locale) {
       try {
-        // Router'dan ID ni olish
         const id = this.$route.params.id;
+        const { data } = await axios.get(
+          `https://new.pochta.uz/api/v1/public/marks-page/${id}/`
+        );
 
-        // API'ga so'rov yuborish
-        const response = await axios.get(`https://new.pochta.uz/api/v1/public/marks-page/${id}/`);
+        // Sarlavha (til bo'yicha)
+        const title =
+          data[`title_${locale}`] ||
+          data.title_uz ||
+          data.title_ru ||
+          data.title_en ||
+          "";
 
-        // API'dan ma'lumotlarni olish
-        const data = response.data;
+        // Rasmni tanlash va http -> https
+        const secureUrl = (u) => (typeof u === "string" ? u.replace(/^http:\/\//, "https://") : "");
+        let img = data.save_image_uz ? secureUrl(data.save_image_uz) : "";
+        if (!img && Array.isArray(data.images) && data.images.length) {
+          img = secureUrl(data.images[0]?.imge);
+        }
+        if (!img) img = "default.jpg";
 
-        // Ma'lumotlarni tanlangan tilga moslashtirish
+        // Narx: faqat main_price (son ko'rinishida)
+        const mainPriceRaw = data.main_price;
+        const mainPrice =
+          typeof mainPriceRaw === "number"
+            ? mainPriceRaw
+            : parseInt(String(mainPriceRaw || "0").replace(/[^\d]/g, ""), 10);
+
+        // Miqdor: count_number (son)
+        const countRaw = data.count_number;
+        const count =
+          typeof countRaw === "number"
+            ? countRaw
+            : parseInt(String(countRaw || "0").replace(/[^\d]/g, ""), 10);
 
         this.marka = {
-          save_image: data.save_image_uz ? data.save_image_uz.replace("http://", "https://") : "default.jpg",
-          title: data[`title_${locale}`] || data.title_uz || "",
+          save_image: img,
+          title,
           years: data.years || "",
-          price: data[`price_${locale}`] || data.price_uz || "",
-          count_number: data.count_number || "",
+          price: Number.isFinite(mainPrice) ? mainPrice : 0,
+          count_number: Number.isFinite(count) ? count : 0,
         };
-        this.serviceText =  data[`description_${locale}`] || ''
-        this.loadFontsFromText(this.serviceText)
 
+        this.serviceText = data[`description_${locale}`] || "";
+        this.loadFontsFromText(this.serviceText);
       } catch (error) {
         console.error("API'dan ma'lumotlarni yuklashda xatolik:", error);
-        this.marka = null; // Xatolik yuz bersa, bo'sh qiymat qoldiramiz
+        this.marka = null;
       }
     },
+
+    // Matn ichida CSS font-family topib, local /assets/css/fonts/*.ttf dan yuklash
     loadFontsFromText(text) {
-            const fontRegex = /font-family:\s*([^;"]+)/g;
-            let match;
-            const fonts = new Set();
+      const fontRegex = /font-family:\s*([^;"]+)/g;
+      let match;
+      const fonts = new Set();
 
-            // Matndagi barcha `font-family` qiymatlarini yig'ish
-            while ((match = fontRegex.exec(text)) !== null) {
-                fonts.add(match[1].trim());
-            }
+      while ((match = fontRegex.exec(text)) !== null) {
+        // "Arial, sans-serif" ko‘rinishida bo‘lsa — faqat birinchi nomni olamiz
+        const first = match[1].split(",")[0].replace(/["']/g, "").trim();
+        if (first) fonts.add(first);
+      }
 
-            // Har bir font uchun `.ttf` faylni yuklash
-            fonts.forEach((font) => {
-                const fontPath = `/assets/css/fonts/${font}.ttf`; // To'g'ri interpolatsiya
-                this.loadFont(font, fontPath);
-            });
-        },
-        loadFont(fontName, fontPath) {
-            const fontFace = new FontFace(fontName, `url(${fontPath})`);
-            fontFace
-                .load()
-                .then((loadedFont) => {
-                    document.fonts.add(loadedFont);
-                })
-                .catch(() => {
-                    console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
-                });
-        },
-  }
+      fonts.forEach((font) => {
+        const fontPath = `/assets/css/fonts/${font}.ttf`;
+        this.loadFont(font, fontPath);
+      });
+    },
+
+    loadFont(fontName, fontPath) {
+      try {
+        const fontFace = new FontFace(fontName, `url(${fontPath})`);
+        fontFace
+          .load()
+          .then((loadedFont) => {
+            document.fonts.add(loadedFont);
+          })
+          .catch(() => {
+            console.warn(`${fontName} font mavjud emas. Stilda asl font ishlatiladi.`);
+          });
+      } catch {
+        // Ba'zi eski brauzerlarda FontFace bo‘lmasligi mumkin
+      }
+    },
+
+    formatMoney(v) {
+      return new Intl.NumberFormat("uz-UZ").format(Number(v || 0));
+    },
+    formatInt(v) {
+      return new Intl.NumberFormat("uz-UZ").format(Number(v || 0));
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* Stil yozish joyi */
 .loading {
   font-size: 20px;
   font-weight: bold;
   color: #555;
 }
-
-
 
 .text-content {
   font-size: 1rem;

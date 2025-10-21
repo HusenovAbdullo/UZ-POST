@@ -72,18 +72,20 @@ export default {
       try {
         const { data } = await axios.get("https://new.pochta.uz/api/v1/public/category-services/");
         this.categories = (data || [])
-          .filter(cat => cat && cat.fizlitso_status === true) // faqat jismoniy shaxslar (fizlitso)
+          .filter(cat => cat && cat.yurlitso_status === true) // faqat yuridik (yurlitso) bo‘limlari
           .map(category => {
-            const services = Array.isArray(category.services_id) ? category.services_id : [];
-            category.services_id = services.map(service => {
-              if (service?.save_image) {
-                service.save_image = this.convertToHttps(service.save_image);
-              }
-              return service;
-            });
+            if (Array.isArray(category.services_id)) {
+              category.services_id = category.services_id.map(service => {
+                if (service.save_image) {
+                  service.save_image = this.convertToHttps(service.save_image);
+                }
+                return service;
+              });
+            } else {
+              category.services_id = [];
+            }
             return category;
-          })
-          .filter(cat => cat.services_id.length > 0); // bo‘sh kategoriyalarni chiqarib tashlash (ixtiyoriy)
+          });
       } catch (error) {
         console.error("API dan ma'lumotlarni olishda xatolik:", error);
       }

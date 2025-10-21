@@ -4,6 +4,7 @@ import HomeView from '@/views/HomeView.vue';
 
 import ProfilView from '@/views/ProfilView.vue';
 import XizmatlarView from '@/views/XizmatlarView.vue';
+import XizmatlaryuridikView from '@/views/XizmatlaryuridikView.vue';
 import XizmatView from '@/views/XizmatView.vue';
 import TariflarView from '@/views/TariflarView.vue';
 import TarifView from '@/views/TarifView.vue';
@@ -123,6 +124,12 @@ const routes = [
     path: '/:lang(uz|ru)/xizmatlar',
     name: 'xizmatlar',
     component: XizmatlarView,
+    meta: { requiresReload: true }
+  },
+  {
+    path: '/:lang(uz|ru)/xizmatlaryuridik',
+    name: 'xizmatlaryuridik',
+    component: XizmatlaryuridikView,
     meta: { requiresReload: true }
   },
   {

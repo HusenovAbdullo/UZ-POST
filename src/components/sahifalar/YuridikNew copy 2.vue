@@ -1,24 +1,29 @@
 <template>
    <section class="slideshow-container" id="slideshow">
-  <div class="container">
-    <div class="header-wrapper banner-wrapper" style="position: relative; z-index: 1;">
-      <img :src="currentImage" alt="" class="banner-image" />
-
-      <!-- faqat bitta button-container qoldiramiz -->
-      <div class="button-container">
-        <template v-for="(link, index) in currentLinks" :key="index">
-          <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
-            <span>{{ link.title }}</span>
-          </router-link>
-          <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
-            <span>{{ link.title }}</span>
-          </a>
-        </template>
+      <div class="container">
+         <div class="header-wrapper" style="position: relative; z-index: 1;">
+            <!-- Slideshow -->
+            <img :src="currentImage" alt="" class="banner-image" />
+            <div class="button-container">
+               <!-- Tugmalarni API'dan kelayotgan ma'lumotlar asosida yaratish -->
+               <!-- <router-link v-for="(link, index) in currentLinks" :key="index" :to="link.url"
+                  class="cmn--btn custom-button">
+                  <span>{{ link.title }}</span>
+               </router-link> -->
+            </div>
+            <div class="button-container">
+               <template v-for="(link, index) in currentLinks" :key="index">
+                  <router-link v-if="!link.external" :to="link.url" class="cmn--btn custom-button">
+                     <span>{{ link.title }}</span>
+                  </router-link>
+                  <a v-else :href="link.url" target="_blank" class="cmn--btn custom-button">
+                     <span>{{ link.title }}</span>
+                  </a>
+               </template>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
-</section>
-
+   </section>
 
    <!-- task categorish Section Here -->
    <section class="app__section ralt bg__all2 pb-120 pt-120">
@@ -85,59 +90,6 @@
    </section>
    <!-- task categorish Section End -->
 
-   <!-- task categorish Section Here -->
-   <section class="app__section ralt bg__all2 pt-12">
-      <div class="container">
-         <div class="row justify-content-center">
-            <div class="col-xxl-6 col-xl-8 col-lg-8">
-               <div class="section__title text-center ralt mb-60">
-                  <h4 class="sub ralt base mb-16"></h4>
-                  <h2 class="title2 mb-24">
-                     {{ $t('services') }}
-                  </h2>
-                  <p class="pra fz-16 inter fw-400"></p>
-               </div>
-            </div>
-         </div>
-
-         <div class="row ralt g-4">
-            <div v-for="service in filteredYurlitServices.slice(-4)" :key="service.id"
-               class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown">
-               <div class="task__item round16 bgwhite d-flex align-items-center">
-                  <div class="thumb">
-                     <img v-if="service.save_image" :src="ensureHttps(service.save_image)"
-                        :alt="service[`title_${$i18n.locale}`] || service.title_uz" />
-                  </div>
-                  <div class="content">
-                     <h3 class="inter title mb-24">
-                        {{ service[`title_${$i18n.locale}`] || service.title_uz }}
-                     </h3>
-                     <p class="fz-14 fw-400 inter pra mb-40">
-                        {{ service[`description_${$i18n.locale}`] || service.description_uz || '' }}
-                     </p>
-                     <router-link :to="`/${$i18n.locale}/xizmat/${service.id}`" class="cmn--btn outline__btn">
-                        <span>{{ $t('more_details') }}</span>
-                        <span><i class="bi bi-arrow-up-right"></i></span>
-                     </router-link>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="text-center mt-40">
-            <router-link to="/xizmatlaryuridik" class="cmn--btn outline__btn">
-               <span>{{ $t('view_all') }}</span>
-               <span class="ps-1"><i class="bi bi-arrow-up-right"></i></span>
-            </router-link>
-         </div>
-      </div>
-
-      <br /><br /><br /><br />
-   </section>
-   <!-- task categorish Section End -->
-
-   <!-- task categorish Section End -->
-
    <!-- App Here -->
    <section class="app__section ralt bg__all pb-120 pt-120">
       <div class="container">
@@ -169,7 +121,54 @@
    </section>
    <!-- App End -->
 
-   
+   <!-- task categorish Section Here -->
+   <!-- <section class="app__section ralt bg__all2 pb-120 pt-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-8 col-lg-8">
+          <div class="section__title text-center ralt mb-60">
+            <h4 class="sub ralt base mb-16 wow fadeInUp" data-wow-duration="1.1s"></h4>
+            <h2 class="title2 wow fadeInUp mb-24" data-wow-duration="1.2s">
+               {{ $t('services') }}
+            </h2>
+            <p class="pra fz-16 inter fw-400"></p>
+          </div>
+        </div>
+      </div>
+      <div class="row ralt g-4">
+        <div
+          v-for="service in services"
+          :key="service.id"
+          class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 wow fadeInDown"
+        >
+          <div class="task__item round16 bgwhite d-flex align-items-center">
+            <div class="thumb">
+              <img :src="service.image" :alt="service[`title_${$i18n.locale}`] || service.title_uz" />
+            </div>
+            <div class="content">
+              <h3 class="inter title mb-24">
+                {{ service[`title_${$i18n.locale}`] || service.title_uz }}
+              </h3>
+              <p class="fz-14 fw-400 inter pra mb-40">
+                {{ service[`description_${$i18n.locale}`] || service.description_uz || "" }}
+              </p>
+              <router-link :to="`/xizmat/${service.id}`" class="cmn--btn outline__btn">
+                <span>Batafsil</span>
+                <span><i class="bi bi-arrow-up-right"></i></span>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+
+   </section> -->
+   <!-- task categorish Section End -->
 
    <section class="company__sectioni bgwhite pb-060 pt-060">
       <div class="container">
@@ -241,34 +240,26 @@ export default {
       };
    },
    computed: {
+      // Hozirgi ko'rsatilayotgan bannerning rasmi
       currentImage() {
-    const locale = this.$i18n.locale || "uz";
-    if (this.banners.length) {
-      const b = this.banners[this.currentBannerIndex];
-      return locale === "ru" ? b.image_ru : b.image_uz;
-    }
-    return "";
-  },
-  currentLinks() {
-    const locale = this.$i18n.locale || "uz";
-    if (!this.banners.length) return [];
-    const b = this.banners[this.currentBannerIndex];
-
-    return (b.links || []).map(l => {
-      let url = locale === "ru" ? l.link_ru : l.link_uz;
-      const title = locale === "ru" ? l.title_ru : l.title_uz;
-
-      if (!url) return { title, url: "#", external: false };
-      if (url.startsWith("http")) return { title, url, external: true };
-      if (!url.startsWith("/uz") && !url.startsWith("/ru")) url = `/${locale}${url}`;
-      return { title, url, external: false };
-    });
-  },
-      // Yuridiklar uchun xizmatlar filtri
-      filteredYurlitServices() {
-         return (this.services || [])
-            .filter(s => s && s.status && s.yurlitso_status === true)
-            .sort((a, b) => (a.position ?? 999) - (b.position ?? 999));
+         const locale = this.$i18n.locale || "uz";
+         if (this.banners.length > 0) {
+            const currentBanner = this.banners[this.currentBannerIndex];
+            return locale === "ru" ? currentBanner.image_ru : currentBanner.image_uz;
+         }
+         return "";
+      },
+      // Hozirgi banner uchun tugmalar
+      currentLinks() {
+         const locale = this.$i18n.locale || "uz";
+         if (this.banners.length > 0) {
+            const currentBanner = this.banners[this.currentBannerIndex];
+            return currentBanner.links.map(link => ({
+               title: locale === "ru" ? link.title_ru : link.title_uz,
+               url: locale === "ru" ? link.link_ru : link.link_uz,
+            }));
+         }
+         return [];
       },
    },
    methods: {
@@ -306,14 +297,24 @@ export default {
       // Xizmatlar ma'lumotlarini olish
       async fetchServices() {
          try {
-            const { data } = await axios.get("https://new.pochta.uz/api/v1/public/services/");
-            // Xom ro‘yxatni saqlaymiz — barcha maydonlar, jumladan yurlitso_status ham qoladi
-            this.services = data;
+            const response = await axios.get(
+               "https://new.pochta.uz/api/v1/public/services/"
+            );
+            this.services = response.data
+               .filter((item) => item.status)
+               .slice(-4)
+               .map((item) => ({
+                  id: item.id,
+                  title_uz: item.title_uz,
+                  title_ru: item.title_ru,
+                  description_uz: item.description_uz,
+                  description_ru: item.description_ru,
+                  image: item.save_image.replace("http://", "https://"),
+               }));
          } catch (error) {
             console.error("Xizmatlarni yuklashda xatolik:", error);
          }
       },
-
    },
    created() {
       // Xizmatlarni olish
@@ -971,73 +972,4 @@ export default {
    border-radius: 4px;
    cursor: pointer;
 }
-
-/* Banner konteyneri va rasm */
-.header-wrapper.banner-wrapper{
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 375px;
-}
-.banner-image{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Tugmalar – pastdan chap tomonda, qatorga ajralgan */
-.button-container{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 70px;
-  display: flex !important;      /* har doim ko‘rinsin */
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 0 12px;               /* chetlardan ozgina ichki bo‘shliq */
-  justify-content: flex-start;   /* chapga tekis */
-}
-.button-container .cmn--btn{ text-transform: none; }
-
-/* Desktopda tugmalar orasida ozgina masofa */
-@media (min-width: 770px){
-  .button-container a,
-  .button-container .cmn--btn{ margin-right: 12px; }
-}
-
-/* Mobil ko‘rinish – rasm aspect-ratio va tugma o‘lchami */
-@media (max-width: 768px){
-  .header-wrapper.banner-wrapper{
-    height: auto;
-    aspect-ratio: 2048 / 630;
-  }
-  .banner-image{ object-fit: contain; }
-  .button-container{
-    bottom: 85px;               /* birinchi rasmga o‘xshash joylashuv */
-    gap: 10px;
-  }
-  .button-container .cmn--btn{
-    font-size: 10px;
-    padding: 5px 9px;
-    min-width: auto;
-    height: auto;
-  }
-}
-
-/* ESKI qoidani OLIB TASHLANG:
-@media screen and (max-width: 1000px){
-  .button-container{ display:none; }
-}
-*/
-.pb-120 {
-    padding-bottom: 50px;
-}
-
-@media (max-width: 991px) {
-    .pb-120 {
-        padding-bottom: 50px;
-    }
-}
-
 </style>

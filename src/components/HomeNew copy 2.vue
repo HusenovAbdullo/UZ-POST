@@ -57,25 +57,17 @@
         <div class="background-overlay"></div>
 
         <div class="container">
-            <div class="header__topsearch d-flex align-items-center justify-content-center">
-                <div class="track-wrap">
-                    <label for="trackingNumberInput" class="track-label">
-                        {{ $t('track_by_code') || 'Trek-kod bo‘yicha kuzatish' }}
-                    </label>
-
-                    <form class="search__component" @submit.prevent="goToTracking">
-                        <input id="trackingNumberInput" v-model="trackingNumber" placeholder="CC123456789UZ"
-                            class="faded-placeholder" />
-                        <button type="button" class="cmn--btni1" @click="goToTracking">
-                            <i class="bi bi-search fz-12"></i>
-                            <span>{{ $t('tracking') }}</span>
-                        </button>
-                    </form>
-
-
-                </div>
+            <div class="header__topsearch d-flex align-items-center">
+                <form class="search__component mb-55 d-flex align-items-center justify-content-between wow fadeInUp"
+                    @submit.prevent="fetchTrackingData">
+                    <input id="trackingNumberInput" v-model="trackingNumber" placeholder="CC123456789UZ"
+                        class="faded-placeholder" />
+                    <button type="submit" class="cmn--btni1 d-flex align-items-center">
+                        <span><i class="bi bi-search fz-12"></i></span>
+                        <span>{{ $t('tracking') }}</span>
+                    </button>
+                </form>
             </div>
-
             <!-- TRACKING POPUP (Header dagidek) -->
             <teleport to="body">
                 <div v-if="trackingData && isMobile" id="trackingPopup" class="popup" @click.self="closePopup">
@@ -463,7 +455,7 @@
                 </div>
             </div>
             <div class="row ralt g-4">
-                <div v-for="service in filteredServices.slice(-4)" :key="service.id"
+                <div v-for="service in services.slice(-4)" :key="service.id"
                     class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 wow fadeInDown">
                     <div class="task__item round16 bgwhite d-flex align-items-center">
                         <div class="thumb">
@@ -1128,15 +1120,6 @@ export default {
             }
             return [];
         },
-
-        filteredServices() {
-            return (this.services || [])
-                .filter(s => s && s.status && s.fizlitso_status === true)
-                // ixtiyoriy: pozitsiya bo‘yicha chiroyli tartiblash
-                .sort((a, b) => (a.position ?? 999) - (b.position ?? 999));
-        },
-
-
     },
     methods: {
         updateIsMobile() {
@@ -1330,21 +1313,6 @@ export default {
             }
         },
 
-        goToTracking() {
-            const tn = (this.trackingNumber || '').trim().toUpperCase();
-            if (!tn) return;
-
-            // Agar yo‘lingiz locale bilan bo‘lsa: "/uz/tracking/:code"
-            const prefix = this.$i18n?.locale ? `/${this.$i18n.locale}` : '';
-
-            // Variant A: path bilan
-            this.$router.push(`${prefix}/tracking/${encodeURIComponent(tn)}`);
-
-            // (ixtiyoriy) Agar sizda nomlangan route bo‘lsa, quyidagisi ham ishlaydi:
-            // this.$router.push({ name: 'tracking', params: { locale: this.$i18n.locale, code: tn } });
-        },
-
-
         // NEW: statusni joriy tilga mos qaytarish
         getLocalizedStatus(data, forceLang) {
             const lang = forceLang || this.$i18n?.locale || 'uz';
@@ -1365,21 +1333,21 @@ export default {
 
         // (ixtiyoriy) popupni yopish
         closePopup() {
-            if (this.currentXhr) {
-                try {
-                    if (this.currentXhr.readyState !== 4) this.currentXhr.abort();
-                } catch (err) {
-                    // allaqachon tugagan/aborted — e’tiborsiz qoldiramiz
-                    console.debug('Abort on close ignored:', err);
-                }
-                this.currentXhr = null;
-            }
+  if (this.currentXhr) {
+    try {
+      if (this.currentXhr.readyState !== 4) this.currentXhr.abort();
+    } catch (err) {
+      // allaqachon tugagan/aborted — e’tiborsiz qoldiramiz
+      console.debug('Abort on close ignored:', err);
+    }
+    this.currentXhr = null;
+  }
 
-            this.trackingData = null;
-            this.combinedTracking = [];
-            document.documentElement.classList.remove('no-scroll');
-            document.body.classList.remove('no-scroll');
-        },
+  this.trackingData = null;
+  this.combinedTracking = [];
+  document.documentElement.classList.remove('no-scroll');
+  document.body.classList.remove('no-scroll');
+},
 
         onEsc(e) {
             if (e.key === 'Escape' && this.trackingData && this.isMobile) this.closePopup();
@@ -2178,93 +2146,5 @@ export default {
 html.no-scroll .site-header,
 html.no-scroll header {
     pointer-events: none;
-}
-
-
-/* 991px va undan katta ekranlarda kuzatish blokini yashirish */
-@media (min-width: 991px) {
-    .header__topsearch {
-        display: none !important;
-    }
-}
-
-/* Blok markazda va kenglik nazorati */
-.header__topsearch {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.track-wrap {
-    width: 100%;
-    max-width: 560px;
-    margin: 8px auto 18px;
-}
-
-/* 12px sarlavha — tashqarida, chapga tekis */
-.track-label {
-    display: block;
-    font-size: 11px;
-    line-height: 1.2;
-    font-weight: 600;
-    color: #183E98;
-    margin: 0 0 6px 2px;
-}
-
-/* Input+button bitta kapsul ichida, radius va borderni ushlash */
-.search__component {
-    display: flex;
-    align-items: center;
-    border: 1px solid #183E98;
-    border-radius: 4px;
-    background: #fff;
-    overflow: hidden;
-    /* radiusni “butun” saqlaydi */
-    padding: 0;
-    margin: 0 auto;
-}
-
-/* Input */
-.search__component input {
-    flex: 1;
-    min-width: 0;
-    height: 40px;
-    padding: 0 12px;
-    border: 0;
-    outline: none;
-    box-shadow: none;
-    font-size: 14px;
-}
-
-/* Tugma (ko‘k blok) */
-.search__component .cmn--btni1 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 40px;
-    padding: 0 14px;
-    background: #183E98 !important;
-    color: #fff;
-    border: 0;
-    border-radius: 0;
-    /* radiusni kapsulga topshiramiz */
-}
-
-/* Placeholder rangi */
-.faded-placeholder::placeholder {
-    color: #9aa7b2;
-}
-
-/* 991px+ da yashirish (oldingi talabingiz) */
-@media (min-width: 991px) {
-    .header__topsearch {
-        display: none !important;
-    }
-}
-
-
-.header__topsearch {
-    padding: 4px 8px 4px 4px;
-    margin: 04px 8px 4px 0px;
 }
 </style>

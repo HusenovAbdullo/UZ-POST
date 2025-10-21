@@ -345,4 +345,5 @@ export default {
   map1: "Карта",
   help1: "Помощь",
   accessibility: "Специальные возможности",
+  track_by_code: 'Отслеживание по трек-коду',
 };

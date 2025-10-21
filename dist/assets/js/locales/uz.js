@@ -345,4 +345,5 @@ export default {
   map1: "Xarita",
   help1: "Yordam",
   accessibility: "Maxsus imkoniyatlar",
+  track_by_code: 'Trek-kod bo‘yicha kuzatish',
 };
