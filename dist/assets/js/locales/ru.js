@@ -104,7 +104,7 @@ export default {
   profile: "ПРОФИЛЬ",
   send_request: "ОТПРАВИТЬ ЗАПРОС",
   chat: "ЧАТ",
-  marks_catalog: "Каталог марог",
+  marks_catalog: "Каталог марок",
   min_year: "С года",
   max_year: "До года",
   filter: "Фильтр",
