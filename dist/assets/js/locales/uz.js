@@ -346,4 +346,13 @@ export default {
   help1: "Yordam",
   accessibility: "Maxsus imkoniyatlar",
   track_by_code: 'Trek-kod bo‘yicha kuzatish',
+  tracking5: "Kuzatish",
+  kuzatuv5: "Kuzatuv",
+  sender5: "Yuboruvchi",
+  receiver5: "Qabul qiluvchi",
+  country5: "Davlat",
+  postal_code5: "Pochta indeksi",
+  not_found5: "Maʼlumot topilmadi",
+  request_error5: "Soʻrovni yuborishda xatolik yuz berdi",
+  status_unknown5: "Status noaniq"
 };

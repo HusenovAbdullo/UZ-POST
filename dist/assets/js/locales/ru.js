@@ -346,4 +346,13 @@ export default {
   help1: "Помощь",
   accessibility: "Специальные возможности",
   track_by_code: 'Отслеживание по трек-коду',
+  tracking5: "Отследить",
+  kuzatuv5: "Отслеживание",
+  sender5: "Отправитель",
+  receiver5: "Получатель",
+  country5: "Страна",
+  postal_code5: "Почтовый индекс",
+  not_found5: "Данные не найдены",
+  request_error5: "Произошла ошибка при отправке запроса",
+  status_unknown5: "Статус неизвестен"
 };

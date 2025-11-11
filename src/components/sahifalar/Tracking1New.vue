@@ -1,432 +1,439 @@
 <template>
     <section class="task__sectiontop ralt pt-120 pb-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xxl-6 col-xl-8 col-lg-8">
-                    <div class="section__title text-center ralt mb-60">
-                        <form action="#"
-                            class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp"
-                            @submit.prevent="fetchTrackingData">
-                            <input v-model="trackingNumber" id="trackingNumberInput" placeholder="CC123456789UZ"
-                                class="faded-placeholder" @keyup.enter="fetchTrackingData">
-                            <button type="button" class="cmn--btn d-flex align-items-center" @click="fetchTrackingData">
-                                <span>{{ $t('tracking') }}</span>
-                                <span><i class="bi bi-search fz-12"></i></span>
-                            </button>
-                        </form>
-
-                        <div v-if="loading" class="loader truckWrapper" id="loader">
-                            <img src="https://new.pochta.uz/media/animatsion.gif" alt="Yuklanmoqda..."
-                                class="loaderImage">
-                        </div>
-
-                        <div v-else>
-                            <!-- Header End -->
-                            <!-- Include your popup section here -->
-                        </div>
-
-                        <!-- Error message if no data is found -->
-                        <div v-if="errorMessage" class="error-text">
-                            <span>{{ errorMessage }}</span>
-                        </div>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xxl-6 col-xl-8 col-lg-8">
+            <div class="section__title text-center ralt mb-60">
+              <form
+                action="#"
+                class="search__component mb-24 d-flex align-items-center justify-content-between wow fadeInUp"
+                @submit.prevent="fetchTrackingData"
+              >
+                <input
+                  v-model.trim="trackingNumber"
+                  id="trackingNumberInput"
+                  placeholder="CC123456789UZ"
+                  class="faded-placeholder"
+                  @keyup.enter="fetchTrackingData"
+                  :disabled="loading"
+                />
+                <button
+                  type="button"
+                  class="cmn--btn d-flex align-items-center"
+                  @click="fetchTrackingData"
+                  :disabled="loading || !trackingNumber"
+                >
+                  <span>{{ $t('tracking5') }}</span>
+                  <span><i class="bi bi-search fz-12"></i></span>
+                </button>
+              </form>
+  
+              <div v-if="loading" class="loader truckWrapper" id="loader">
+                <img
+                  src="https://new.pochta.uz/media/animatsion.gif"
+                  alt="Yuklanmoqda..."
+                  class="loaderImage"
+                />
+              </div>
+  
+              <div v-else>
+                <!-- Header End -->
+                <!-- Include your popup section here -->
+              </div>
+  
+              <!-- Lokalizatsiyalangan xatolik -->
+              <div v-if="errorKey" class="error-text">
+                <span>{{ $t(errorKey) }}</span>
+              </div>
             </div>
-            <div class="row ralt g-4" v-if="trackingData">
-                <h2 class="title wow fadeInUp mb-24 center" id="trackingNumberDisplay">{{ trackingData.number }}</h2>
-                <div class="row d-flex align-items-stretch">
-                    <div v-if="trackingData.senderCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
-                        <div class="task__item round16 bgwhite d-flex align-items-center h-100">
-                            <div class="thumb">
-                                <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
-                            </div>
-                            <div class="content">
-                                <h3 class="inter title2 mb-24">{{ $t('sender') }}</h3>
-                                <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('country') }}</strong> <br />
-                                    <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
-                                </p>
-                                <!-- <p v-if="trackingData.senderAddress" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('address5') }}</strong> <br />
-                                    <span id="senderAddress" class="textrang">{{ trackingData.senderAddress }}</span>
-                                </p> -->
-                                <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('postal_code') }}</strong> <br />
-                                    <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode
-                                    }}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="trackingData.recipientCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
-                        <div class="task__item round16 bgwhite d-flex align-items-center h-100">
-                            <div class="thumb">
-                                <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
-                            </div>
-                            <div class="content">
-                                <h3 class="inter title2 mb-24">{{ $t('receiver') }}</h3>
-                                <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('country') }}</strong> <br />
-                                    <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry
-                                    }}</span>
-                                </p>
-                                <!-- <p v-if="trackingData.recipientAddress" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('address5') }}</strong> <br />
-                                    <span id="recipientAddress" class="textrang">{{ trackingData.recipientAddress
-                                    }}</span>
-                                </p> -->
-                                <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
-                                    <strong>{{ $t('postal_code') }}</strong> <br />
-                                    <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode
-                                    }}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mobile-timeline" v-show="isMobile">
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="service__detailswrapper">
-                            <div class="trending__based mb-40 bgwhite round16 shadow1">
-                                <div class="based__content border round16 bgwhite">
-                                    <div class="freelancer__education bborderdash pb-30 mb-30">
-                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
-                                            style="color: red; font-size: 20px;">
-                                            {{ trackingData.errorMessage }}
-                                        </h1>
-
-                                        <!-- Timeline Tracking Start -->
-                                        <div class="timeline-wrapper">
-                                            <div v-for="(event, index) in combinedTracking" :key="index"
-                                                class="timeline-row">
-                                                <div class="icon-column">
-                                                    <img v-if="index === 0"
-                                                        src="https://new.pochta.uz/media/circle1.svg"
-                                                        class="icon-main" />
-                                                    <img v-else src="https://new.pochta.uz/media/circle.svg"
-                                                        class="icon-circle" />
-                                                    <div v-if="index !== combinedTracking.length - 1" class="icon-line">
-                                                    </div>
-                                                </div>
-                                                <div class="content-column">
-                                                    <div class="status-text">{{ event.location
-                                                   }}. {{ event.status }}</div>
-                                                    <div class="date-text">{{ event.date.toLocaleDateString() }} / {{
-                                                        event.date.toLocaleTimeString() }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-
-                                        <!-- Timeline Tracking End -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mobilga mo‘ljallangan timeline kodlari shu yerda -->
-                </div>
-                <div class="desktop-timeline" v-show="!isMobile">
-
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="service__detailswrapper">
-                            <div class="trending__based mb-40 bgwhite round16 shadow1">
-                                <div class="based__content border round16 bgwhite">
-                                    <div class="freelancer__education bborderdash pb-30 mb-30">
-                                        <h3 class="title2">{{ $t('kuzatuv') }}</h3>
-                                        <h1 v-if="trackingData.errorMessage" class="title wow fadeInUp mb-24 center"
-                                            style="color: red; font-size: 20px;">
-                                            {{ trackingData.errorMessage }}
-                                        </h1>
-                                        <ul class="blog__categories" id="combinedTracking">
-                                            <li v-for="(event, index) in combinedTracking" :key="index">
-                                                <a class="d-flex align-items-center">
-                                                    <span class="fz-12 fw-500 title inter">{{
-                                                        event.date.toLocaleString()
-                                                        }}</span>
-                                                    <span class="cateicon">
-                                                        <img :src="`https://uz.post/assets/img/flags/${event.country_code.toLowerCase()}.svg`"
-                                                            alt="flag" class="flag-icon">
-                                                    </span>
-                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
-                                                        event.region }}</span>
-                                                    <span class="fz-12 d-block fw-500 inter success2 region-info">{{
-                                                        event.data }}</span>
-                                                    <span class="fz-12 fw-500 inter title d-block">{{ event.location
-                                                    }}</span>
-                                                    <span>
-                                                        <span class="fz-12 fw-500 inter success2 d-block">{{
-                                                            event.status
-                                                            }}</span>
-                                                        <span v-if="event.malumot" class="fz-12 fw-500 inter success2"
-                                                            style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
-                                                            {{ event.malumot }}
-                                                        </span>
-                                                        <span v-if="event.malumot2" class="fz-12 fw-500 inter success2"
-                                                            style="color: brown; display: block; font-size: 10px; opacity: 0.6;">
-                                                            {{ event.malumot2 }}
-                                                        </span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Kompyuterga mo‘ljallangan list ko‘rinishdagi kodlar shu yerda -->
-                </div>
-                <div class="col-xl-4 col-lg-4">
-                    <div class="basic__skilled__wrapper">
-                        <div class="darrell__profile round16 bgwhite">
-                            <div id="adCarousel" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <a href="https://uz.post" target="_blank">
-                                            <img src="https://uz.post/assets/img/reklama/11.png" class="d-block w-100"
-                                                alt="ad1">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a href="https://uz.post" target="_blank">
-                                            <img src="https://uz.post/assets/img/reklama/12.png" class="d-block w-100"
-                                                alt="ad2">
-                                        </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a href="https://uz.post" target="_blank">
-                                            <img src="https://uz.post/assets/img/reklama/13.png" class="d-block w-100"
-                                                alt="ad3">
-                                        </a>
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel"
-                                    data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#adCarousel"
-                                    data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+  
+        <div class="row ralt g-4" v-if="trackingData">
+          <h2 class="title wow fadeInUp mb-24 center" id="trackingNumberDisplay">
+            {{ trackingData.number }}
+          </h2>
+  
+          <div class="row d-flex align-items-stretch">
+            <div v-if="trackingData.senderCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
+              <div class="task__item round16 bgwhite d-flex align-items-center h-100">
+                <div class="thumb">
+                  <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
+                </div>
+                <div class="content">
+                  <h3 class="inter title2 mb-24">{{ $t('sender5') }}</h3>
+                  <p v-if="trackingData.senderCountry" class="fz-16 fw-400 inter pra mb-10">
+                    <strong>{{ $t('country5') }}</strong> <br />
+                    <span id="senderCountry" class="textrang">{{ trackingData.senderCountry }}</span>
+                  </p>
+                  <p v-if="trackingData.senderPostcode" class="fz-16 fw-400 inter pra mb-10">
+                    <strong>{{ $t('postal_code5') }}</strong> <br />
+                    <span id="senderPostcode" class="textrang">{{ trackingData.senderPostcode }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+  
+            <div v-if="trackingData.recipientCountry" class="col-xl-6 col-lg-6 col-md-12 mb-4">
+              <div class="task__item round16 bgwhite d-flex align-items-center h-100">
+                <div class="thumb">
+                  <img src="https://uz.post/assets/img/bn/profile.png" alt="img" />
+                </div>
+                <div class="content">
+                  <h3 class="inter title2 mb-24">{{ $t('receiver5') }}</h3>
+                  <p v-if="trackingData.recipientCountry" class="fz-16 fw-400 inter pra mb-10">
+                    <strong>{{ $t('country5') }}</strong> <br />
+                    <span id="recipientCountry" class="textrang">{{ trackingData.recipientCountry }}</span>
+                  </p>
+                  <p v-if="trackingData.recipientPostcode" class="fz-16 fw-400 inter pra mb-10">
+                    <strong>{{ $t('postal_code5') }}</strong> <br />
+                    <span id="recipientPostcode" class="textrang">{{ trackingData.recipientPostcode }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Mobile timeline -->
+          <div class="mobile-timeline" v-show="isMobile">
+            <div class="col-xl-12 col-lg-12">
+              <div class="service__detailswrapper">
+                <div class="trending__based mb-40 bgwhite round16 shadow1">
+                  <div class="based__content border round16 bgwhite">
+                    <div class="freelancer__education bborderdash pb-30 mb-30">
+                      <h3 class="title2">{{ $t('kuzatuv5') }}</h3>
+                      <h1
+                        v-if="trackingData.errorKey"
+                        class="title wow fadeInUp mb-24 center"
+                        style="color: red; font-size: 20px;"
+                      >
+                        {{ $t(trackingData.errorKey) }}
+                      </h1>
+  
+                      <div class="timeline-wrapper">
+                        <div v-for="(event, index) in combinedTracking" :key="index" class="timeline-row">
+                          <div class="icon-column">
+                            <img
+                              v-if="index === 0"
+                              src="https://new.pochta.uz/media/circle1.svg"
+                              class="icon-main"
+                            />
+                            <img v-else src="https://new.pochta.uz/media/circle.svg" class="icon-circle" />
+                            <div v-if="index !== combinedTracking.length - 1" class="icon-line"></div>
+                          </div>
+                          <div class="content-column">
+                            <div class="status-text">
+                              {{ event.location }}. {{ event.status }}
+                            </div>
+                            <div class="date-text">
+                              {{ event.date.toLocaleDateString() }} / {{ event.date.toLocaleTimeString() }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Timeline end -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Desktop timeline -->
+          <div class="desktop-timeline" v-show="!isMobile">
+            <div class="col-xl-12 col-lg-12">
+              <div class="service__detailswrapper">
+                <div class="trending__based mb-40 bgwhite round16 shadow1">
+                  <div class="based__content border round16 bgwhite">
+                    <div class="freelancer__education bborderdash pb-30 mb-30">
+                      <h3 class="title2">{{ $t('kuzatuv5') }}</h3>
+                      <h1
+                        v-if="trackingData.errorKey"
+                        class="title wow fadeInUp mb-24 center"
+                        style="color: red; font-size: 20px;"
+                      >
+                        {{ $t(trackingData.errorKey) }}
+                      </h1>
+                      <ul class="blog__categories" id="combinedTracking">
+                        <li v-for="(event, index) in combinedTracking" :key="index">
+                          <a class="d-flex align-items-center">
+                            <span class="fz-12 fw-500 title inter">{{ event.date.toLocaleString() }}</span>
+                            <span class="cateicon">
+                              <img
+                                :src="`https://uz.post/assets/img/flags/${String(event.country_code || 'uz').toLowerCase()}.svg`"
+                                alt="flag"
+                                class="flag-icon"
+                              />
+                            </span>
+                            <span class="fz-12 d-block fw-500 inter success2 region-info">{{ event.region }}</span>
+                            <span class="fz-12 d-block fw-500 inter success2 region-info">{{ event.data }}</span>
+                            <span class="fz-12 fw-500 inter title d-block">{{ event.location }}</span>
+                            <span>
+                              <span class="fz-12 fw-500 inter success2 d-block">{{ event.status }}</span>
+                              <span
+                                v-if="event.malumot"
+                                class="fz-12 fw-500 inter success2"
+                                style="color: brown; display: block; font-size: 10px; opacity: 0.6;"
+                              >
+                                {{ event.malumot }}
+                              </span>
+                              <span
+                                v-if="event.malumot2"
+                                class="fz-12 fw-500 inter success2"
+                                style="color: brown; display: block; font-size: 10px; opacity: 0.6;"
+                              >
+                                {{ event.malumot2 }}
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Ads -->
+          <div class="col-xl-4 col-lg-4">
+            <div class="basic__skilled__wrapper">
+              <div class="darrell__profile round16 bgwhite">
+                <div id="adCarousel" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <a href="https://uz.post" target="_blank">
+                        <img src="https://uz.post/assets/img/reklama/11.png" class="d-block w-100" alt="ad1" />
+                      </a>
+                    </div>
+                    <div class="carousel-item">
+                      <a href="https://uz.post" target="_blank">
+                        <img src="https://uz.post/assets/img/reklama/12.png" class="d-block w-100" alt="ad2" />
+                      </a>
+                    </div>
+                    <div class="carousel-item">
+                      <a href="https://uz.post" target="_blank">
+                        <img src="https://uz.post/assets/img/reklama/13.png" class="d-block w-100" alt="ad3" />
+                      </a>
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Ads -->
+        </div>
+      </div>
     </section>
-</template>
-
-<script>
-
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-
-const isMobile = ref(false)
-
-function checkIsMobile() {
-    isMobile.value = window.innerWidth < 768
-}
-
-onMounted(() => {
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-})
-
-onBeforeUnmount(() => {
-    window.removeEventListener('resize', checkIsMobile)
-})
-
-
-export default {
+  </template>
+  
+  <script>
+  export default {
     data() {
-        return {
-            trackingNumber: '',
-            loading: false,
-            trackingData: null,
-            combinedTracking: [],
-            errorMessage: null,
-            language: localStorage.getItem('language') || 'uz' // Sahifa tilini saqlash
-        };
+      return {
+        trackingNumber: '',
+        loading: false,
+        trackingData: null,
+        combinedTracking: [],
+        errorKey: null,               // lokalizatsiya kaliti (masalan: 'errors.not_found')
+        isMobile: window.innerWidth < 768,
+        language: localStorage.getItem('language') || 'uz'
+      };
     },
     methods: {
-        fetchTrackingData() {
-            this.loading = true;
-            this.trackingData = null;
-            this.combinedTracking = [];
-            this.errorMessage = null;
-
-            // Check if the tracking number starts with CZ, RZ, or E
-            const trackingNumberPrefix = this.trackingNumber.substring(0, 2); // Get the first 2 characters of the tracking number
-            let apiUrl = '';
-
-            if (['CZ', 'RZ', 'E'].includes(trackingNumberPrefix)) {
-                apiUrl = `https://tracking.pochta.uz/api/v1/public/new/${this.trackingNumber}/`;
-            } else {
-                apiUrl = `https://tracking.pochta.uz/api/v1/public/test/${this.trackingNumber}/`;
-            }
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', apiUrl, true);
-            xhr.onload = () => {
-                this.loading = false;
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const data = JSON.parse(xhr.responseText);
-                    console.log(data)
-                    if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
-                        const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning[0];
-                        this.trackingData = {
-                            number: mailItem.InternationalId,
-                            senderCountry: mailItem.OrigCountry.Name || '',
-                            senderAddress: mailItem.OrigAddress || '',
-                            senderPostcode: mailItem.OrigPostcode || '',
-                            recipientCountry: mailItem.DestCountry.Name || '',
-                            recipientAddress: mailItem.DestAddress || '',
-                            recipientPostcode: mailItem.DestPostcode || ''
-                        };
-
-                        this.processEvents(mailItem.Events.TMailitemEventScanning, mailItem.DestCountry.Code);
-                    } else {
-                        this.processAlternativeData(data);
-                    }
-                } else if (xhr.status === 404) {
-                    // 404 xatolik uchun popup ko‘rsatish
-                    this.trackingData = {
-                        number: this.trackingNumber,
-                        errorMessage: 'Ma\'lumot topilmadi' // Xatolik xabari
-                    };
-                } else {
-                    this.errorMessage = 'Ma\'lumot topilmadi';
-                }
-            };
-            xhr.onerror = () => {
-                this.loading = false;
-                this.errorMessage = 'So\'rovni yuborishda xatolik yuz berdi';
-            };
-            xhr.send();
-        },
-
-        processEvents(events, countryCode) {
-            const lang = this.$i18n?.locale || 'uz'; // Masalan, Vue I18n ishlatsangiz
-            this.combinedTracking = events.map(event => ({
-                date: new Date(event.LocalDateTime),
-                date1: new Date(event.GmtDateTime),
-                location: event.EventOffice.Name,
-                status: this.getLocalizedStatus(event.IPSEventType, lang), // Statusni lokalizatsiya qilish
-                malumot: event.RetentionReason?.Name || '',
-                malumot2: event.NonDeliveryReason?.Name || '',
-                country_code: countryCode
-            })).sort((a, b) => b.date - a.date);
-        },
-
-
-        processAlternativeData(data) {
+      updateViewport() {
+        this.isMobile = window.innerWidth < 768;
+      },
+  
+      async fetchTrackingData() {
+        if (!this.trackingNumber) return;
+  
+        this.loading = true;
+        this.trackingData = null;
+        this.combinedTracking = [];
+        this.errorKey = null;
+  
+        const tn = this.trackingNumber.toUpperCase().trim();
+        const prefix2 = tn.slice(0, 2);
+        const prefix1 = tn.slice(0, 1);
+  
+        // E* (masalan, EB123..., EA..., EC...) ham to‘g‘ri aniqlansin
+        const useNewApi = ['CZ', 'RZ'].includes(prefix2) || prefix1 === 'E';
+        const apiUrl = useNewApi
+          ? `https://tracking.pochta.uz/api/v1/public/new/${tn}/`
+          : `https://tracking.pochta.uz/api/v1/public/test/${tn}/`;
+  
+        try {
+          const res = await fetch(apiUrl, { method: 'GET' });
+          this.loading = false;
+  
+          if (res.status === 404) {
+            this.trackingData = { number: tn, errorKey: 'not_found5' };
+            return;
+          }
+          if (!res.ok) {
+            this.errorKey = 'not_found5';
+            return;
+          }
+  
+          const data = await res.json();
+          // IPS format
+          if (Array.isArray(data) && data.length > 0 && data[0].OperationalMailitems) {
+            const mailItem = data[0].OperationalMailitems.TMailitemInfoFromScanning?.[0] || {};
             this.trackingData = {
-                number: data.header?.data?.order_number || data.gdeposilka?.data?.tracking_number || 'Ma\'lumot yo\'q',
-                senderCountry: data.header?.data?.locations?.[0]?.address_city || '',
-                senderAddress: data.header?.data?.locations?.[0]?.address || '',
-                senderPostcode: data.header?.data?.locations?.[0]?.postcode || '',
-                recipientCountry: data.header?.data?.locations?.[1]?.address_city || '',
-                recipientAddress: data.header?.data?.locations?.[1]?.address || '',
-                recipientPostcode: data.header?.data?.locations?.[1]?.postcode || ''
+              number: mailItem.InternationalId || tn,
+              senderCountry: mailItem.OrigCountry?.Name || '',
+              senderAddress: mailItem.OrigAddress || '',
+              senderPostcode: mailItem.OrigPostcode || '',
+              recipientCountry: mailItem.DestCountry?.Name || '',
+              recipientAddress: mailItem.DestAddress || '',
+              recipientPostcode: mailItem.DestPostcode || ''
             };
-            let TemuList = [];
-            let shipoxList = [];
-            let gdeposilkaList = [];
-            if (data.data) {
-                TemuList = data.data.map(item => {
-                    let date = new Date(item.date);
-
-                    // Sekundlarni olib tashlash
-                    date.setSeconds(0, 0);
-
-                    // Soatga 5 qo'shish
-
-                    return {
-                        date: date, // Mana, endi o'zgartirilgan `Date` ob'ekti chiqadi
-                        data: item.data || 'UzPost',
-                        location: item.warehouse?.name || '',
-                        status: item["IPSEventType"]["Name"],
-                        country_code: 'UZ'
-                    };
-                });
-                TemuList = TemuList.reverse();
-            }
-
-            if (data.shipox?.data?.list) {
-                shipoxList = data.shipox.data.list.map(item => ({
-                    date: new Date(item.date),
-                    data: item.data || 'UzPost',
-                    location: item.warehouse?.name || '',
-                    status: this.getLocalizedStatus(item),
-                    country_code: 'UZ'
-                }));
-            }
-
-            if (data.gdeposilka?.data?.checkpoints) {
-                gdeposilkaList = data.gdeposilka.data.checkpoints.map(item => ({
-                    date: new Date(item.time),
-                    location: item.location_translated,
-                    region: item.courier.name,
-                    status: this.getLocalizedStatus(item),
-                    country_code: item.courier.country_code
-                }));
-            }
-
-            const sortedShipoxList = shipoxList.sort((a, b) => new Date(b.date) - new Date(a.date));
-            const sortedGdeposilkaList = gdeposilkaList.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            if (TemuList.length === 0) {
-                // Agar TemuList bo'sh bo'lsa, shipoxList va gdeposilkaList-ni sanaga qarab birlashtiramiz
-                this.combinedTracking =
-                    new Date(sortedShipoxList[0]?.date) > new Date(sortedGdeposilkaList[0]?.date)
-                        ? [...sortedShipoxList, ...sortedGdeposilkaList]
-                        : [...sortedGdeposilkaList, ...sortedShipoxList];
-            } else {
-                // Agar TemuList bo'sh bo'lmasa, TemuList-ni combinedTracking-ga qo'shamiz
-                this.combinedTracking = [...TemuList];
-            }
-        },
-        getLocalizedStatus(data) {
-            const lang = this.$i18n.locale; // Hozirgi tilni aniqlash
-            if (!data) return 'Status noaniq';
-
-            if ('LocalName_uz' in data || 'LocalName_ru' in data || 'Name' in data) {
-                if (lang === 'uz') return data.LocalName_uz || data.Name;
-                if (lang === 'ru') return data.LocalName_ru || data.Name;
-                return data.Name;
-            }
-
-            if ('status_uz' in data || 'status_ru' in data || 'status_desc' in data) {
-                if (lang === 'uz') return data.status_uz;
-                if (lang === 'ru') return data.status_ru;
-                return data.status_desc || 'Status unknown';
-            }
-
-            return 'Status noaniq';
-        },
-        getStatusText(statusDesc) {
-            return statusDesc || 'Status noaniq';
-        },
-    },
-    mounted() {
-        if (this.$route?.params?.trackingNumber) {
-            this.trackingNumber = this.$route.params.trackingNumber;
-            this.fetchTrackingData();
+            const events = mailItem.Events?.TMailitemEventScanning || [];
+            this.processEvents(events, mailItem.DestCountry?.Code || 'UZ');
+          } else {
+            // Muqobil formatlar (Temu/Shipox/Gdeposilka)
+            this.processAlternativeData(data, tn);
+          }
+        } catch (e) {
+          this.loading = false;
+          this.errorKey = 'request_error5';
         }
+      },
+  
+      processEvents(events, countryCode) {
+        const lang = this.$i18n?.locale || 'uz';
+        this.combinedTracking = (events || [])
+          .map((event) => ({
+            date: new Date(event.LocalDateTime),
+            date1: new Date(event.GmtDateTime),
+            location: event.EventOffice?.Name || '',
+            status: this.getLocalizedStatus(event.IPSEventType, lang),
+            malumot: event.RetentionReason?.Name || '',
+            malumot2: event.NonDeliveryReason?.Name || '',
+            country_code: countryCode || 'UZ',
+            region: ''
+          }))
+          .sort((a, b) => b.date - a.date);
+      },
+  
+      processAlternativeData(data, tn) {
+        this.trackingData = {
+          number: data?.header?.data?.order_number ||
+                  data?.gdeposilka?.data?.tracking_number ||
+                  tn,
+          senderCountry: data?.header?.data?.locations?.[0]?.address_city || '',
+          senderAddress: data?.header?.data?.locations?.[0]?.address || '',
+          senderPostcode: data?.header?.data?.locations?.[0]?.postcode || '',
+          recipientCountry: data?.header?.data?.locations?.[1]?.address_city || '',
+          recipientAddress: data?.header?.data?.locations?.[1]?.address || '',
+          recipientPostcode: data?.header?.data?.locations?.[1]?.postcode || ''
+        };
+  
+        let temuList = [];
+        let shipoxList = [];
+        let gdeList = [];
+  
+        if (Array.isArray(data?.data)) {
+          temuList = data.data.map((item) => {
+            const date = new Date(item.date);
+            date.setSeconds(0, 0);
+            return {
+              date,
+              data: item.data || 'UzPost',
+              location: item.warehouse?.name || '',
+              status: this.getLocalizedStatus(item.IPSEventType),
+              country_code: 'UZ',
+              region: ''
+            };
+          }).reverse();
+        }
+  
+        if (Array.isArray(data?.shipox?.data?.list)) {
+          shipoxList = data.shipox.data.list.map((item) => ({
+            date: new Date(item.date),
+            data: item.data || 'UzPost',
+            location: item.warehouse?.name || '',
+            status: this.getLocalizedStatus(item),
+            country_code: 'UZ',
+            region: ''
+          }));
+        }
+  
+        if (Array.isArray(data?.gdeposilka?.data?.checkpoints)) {
+          gdeList = data.gdeposilka.data.checkpoints.map((item) => ({
+            date: new Date(item.time),
+            location: item.location_translated,
+            region: item.courier?.name,
+            status: this.getLocalizedStatus(item),
+            country_code: item.courier?.country_code || 'UZ',
+            data: ''
+          }));
+        }
+  
+        const sortedShipox = shipoxList.sort((a, b) => b.date - a.date);
+        const sortedGde = gdeList.sort((a, b) => b.date - a.date);
+  
+        if (temuList.length === 0) {
+          const pickShipox = sortedShipox[0]?.date || 0;
+          const pickGde = sortedGde[0]?.date || 0;
+          this.combinedTracking = pickShipox > pickGde
+            ? [...sortedShipox, ...sortedGde]
+            : [...sortedGde, ...sortedShipox];
+        } else {
+          this.combinedTracking = [...temuList];
+        }
+      },
+  
+      getLocalizedStatus(dataLike) {
+        const lang = this.$i18n?.locale || 'uz';
+        if (!dataLike) return this.$t?.('status_unknown5') || 'Status noaniq';
+  
+        // IPS obyektlari: { LocalName_uz, LocalName_ru, Name }
+        if (typeof dataLike === 'object') {
+          if ('LocalName_uz' in dataLike || 'LocalName_ru' in dataLike || 'Name' in dataLike) {
+            if (lang === 'uz') return dataLike.LocalName_uz || dataLike.Name || this.$t('status_unknown5');
+            if (lang === 'ru') return dataLike.LocalName_ru || dataLike.Name || this.$t('status_unknown5');
+            return dataLike.Name || this.$t('status_unknown5');
+          }
+          // Muqobil formatlar: { status_uz, status_ru, status_desc }
+          if ('status_uz' in dataLike || 'status_ru' in dataLike || 'status_desc' in dataLike) {
+            if (lang === 'uz') return dataLike.status_uz || dataLike.status_desc || this.$t('status_unknown5');
+            if (lang === 'ru') return dataLike.status_ru || dataLike.status_desc || this.$t('status_unknown5');
+            return dataLike.status_desc || this.$t('status_unknown5');
+          }
+          // Baʼzi hollarda satr bo‘lishi mumkin
+          const guessName = dataLike.name || dataLike.title || dataLike.description;
+          if (guessName) return guessName;
+        }
+  
+        if (typeof dataLike === 'string') return dataLike;
+        return this.$t?.('status_unknown5') || 'Status noaniq';
+      }
+    },
+  
+    mounted() {
+      window.addEventListener('resize', this.updateViewport);
+  
+      if (this.$route?.params?.trackingNumber) {
+        this.trackingNumber = this.$route.params.trackingNumber;
+        this.fetchTrackingData();
+      }
+    },
+  
+    beforeUnmount() {
+      window.removeEventListener('resize', this.updateViewport);
     }
-};
-</script>
+  };
+  </script>
 
 
 
