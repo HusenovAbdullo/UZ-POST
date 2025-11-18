@@ -20,32 +20,59 @@
                               </label>
 
                               <div style="display: flex; align-items: center">
-                                 <input v-model="phoneInput" type="text" id="phoneInput" placeholder="+998 __ ___ __ __"
-                                    maxlength="19" @input="formatPhoneInput" class="form-control"
-                                    style="width: 60%; margin-right: 10px" />
+                                 <input
+                                    v-model="phoneInput"
+                                    type="text"
+                                    id="phoneInput"
+                                    placeholder="+998 __ ___ __ __"
+                                    maxlength="19"
+                                    @input="formatPhoneInput"
+                                    class="form-control"
+                                    style="width: 60%; margin-right: 10px"
+                                 />
 
-                                 <!-- 6 xonali, harf va raqam yozish mumkin -->
-                                 <input v-model="smsCode" type="text" id="smsCode" placeholder="_ _ _ _ _ _"
-                                    maxlength="6" class="form-control" style="width: 20%" v-if="smsSent" />
+                                 <!-- 6 xonali kod inputi faqat showSmsControls true bo‘lganda -->
+                                 <input
+                                    v-if="smsSent && showSmsControls"
+                                    v-model="smsCode"
+                                    type="text"
+                                    id="smsCode"
+                                    placeholder="_ _ _ _ _ _"
+                                    maxlength="6"
+                                    class="form-control"
+                                    style="width: 20%"
+                                 />
                               </div>
 
-                              <p v-if="smsSent && !codeVerified"
-                                 style="font-size: 14px; padding-top: 20px; color: green">
+                              <!-- "SMS yubordik" va timer faqat showSmsControls true bo‘lganda -->
+                              <p
+                                 v-if="smsSent && !codeVerified && showSmsControls"
+                                 style="font-size: 14px; padding-top: 20px; color: green"
+                              >
                                  {{ $t("sms_sent") }}
                               </p>
 
-                              <p v-if="smsSent && !codeVerified" class="timer" id="timer">
+                              <p
+                                 v-if="smsSent && !codeVerified && showSmsControls"
+                                 class="timer"
+                                 id="timer"
+                              >
                                  {{ formattedTimer }}
                               </p>
 
                               <!-- 2 daqiqadan keyin chiqadigan "Kodni qayta yuborish" tugmasi -->
-                              <button v-if="
-                                 smsSent &&
-                                 !codeVerified &&
-                                 canResend &&
-                                 attemptCount < maxAttempts
-                              " type="button" class="cmn--btn basebor outline__btn resend-btn" :disabled="loading"
-                                 @click="handleSmsRequest(true)">
+                              <button
+                                 v-if="
+                                    smsSent &&
+                                    !codeVerified &&
+                                    canResend &&
+                                    attemptCount < maxAttempts
+                                 "
+                                 type="button"
+                                 class="cmn--btn basebor outline__btn resend-btn"
+                                 :disabled="loading"
+                                 @click="handleSmsRequest(true)"
+                              >
                                  <span>{{ $t("resend_code") }}</span>
                               </button>
                            </div>
@@ -65,37 +92,66 @@
                         <!-- Kod tasdiqlangandan keyin ochiladigan qism -->
                         <div v-if="codeVerified" class="col-lg-12">
                            <div class="frm__grp" style="margin-top: 20px">
-                              <label for="nameInput" class="fz-18 fw-500 inter title mb-16" style="margin-bottom: 1px">
+                              <label
+                                 for="nameInput"
+                                 class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px"
+                              >
                                  {{ $t("your_name") }}
                               </label>
-                              <input v-model="name" type="text" id="nameInput" :placeholder="$t('enter_your_name')"
-                                 class="form-control" />
+                              <input
+                                 v-model="name"
+                                 type="text"
+                                 id="nameInput"
+                                 :placeholder="$t('enter_your_name')"
+                                 class="form-control"
+                              />
                            </div>
 
                            <div class="frm__grp" style="margin-top: 16px">
-                              <label for="passwordInput" class="fz-18 fw-500 inter title mb-16"
-                                 style="margin-bottom: 1px">
+                              <label
+                                 for="passwordInput"
+                                 class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px"
+                              >
                                  {{ $t("password") }}
                               </label>
-                              <input v-model="password" type="password" id="passwordInput"
-                                 :placeholder="$t('enter_password1')" class="form-control" />
+                              <input
+                                 v-model="password"
+                                 type="password"
+                                 id="passwordInput"
+                                 :placeholder="$t('enter_password1')"
+                                 class="form-control"
+                              />
                            </div>
 
                            <div class="frm__grp" style="margin-top: 16px">
-                              <label for="confirmPasswordInput" class="fz-18 fw-500 inter title mb-16"
-                                 style="margin-bottom: 1px">
+                              <label
+                                 for="confirmPasswordInput"
+                                 class="fz-18 fw-500 inter title mb-16"
+                                 style="margin-bottom: 1px"
+                              >
                                  {{ $t("repeat_password") }}
                               </label>
-                              <input v-model="confirmPassword" type="password" id="confirmPasswordInput"
-                                 :placeholder="$t('reenter_password')" class="form-control" />
+                              <input
+                                 v-model="confirmPassword"
+                                 type="password"
+                                 id="confirmPasswordInput"
+                                 :placeholder="$t('reenter_password')"
+                                 class="form-control"
+                              />
                            </div>
                         </div>
 
                         <!-- SMS / VERIFY / REGISTER tugmasi -->
                         <div class="col-lg-6" style="width: 300%">
                            <div class="frm__grp">
-                              <button type="button" class="cmn--btn basebor outline__btn" :disabled="loading"
-                                 @click="handleSmsRequest()">
+                              <button
+                                 type="button"
+                                 class="cmn--btn basebor outline__btn"
+                                 :disabled="loading"
+                                 @click="handleSmsRequest()"
+                              >
                                  <span>
                                     {{
                                        smsSent
@@ -120,8 +176,11 @@
             <!-- Rasm qismi -->
             <div class="col-xl-5 col-lg-6">
                <div class="signup__thumb">
-                  <img src="https://new.pochta.uz/media/signup_1.png" alt="Signup"
-                     style="width: 100%; height: 500px; object-fit: cover" />
+                  <img
+                     src="https://new.pochta.uz/media/signup_1.png"
+                     alt="Signup"
+                     style="width: 100%; height: 500px; object-fit: cover"
+                  />
                </div>
             </div>
          </div>
@@ -160,8 +219,9 @@ export default {
 
          // Yangi logika:
          attemptCount: 0, // nechta marta SMS yuborilgan (birinchi + qayta yuborishlar)
-         maxAttempts: 3,  // maksimal 3 marta (1-bosqich + 2 marta qayta)
-         canResend: false // 2 daqiqa tugagandan keyin true bo‘ladi
+         maxAttempts: 3, // maksimal 3 marta (1-bosqich + 2 marta qayta)
+         canResend: false, // 2 daqiqa tugagandan keyin true bo‘ladi
+         showSmsControls: false // kod inputi, "SMS yubordik" va timer ko‘rinish-korinmasligi
       };
    },
 
@@ -169,9 +229,10 @@ export default {
       formattedTimer() {
          const minutes = Math.floor(this.timer / 60);
          const seconds = this.timer % 60;
-         return `${String(minutes).padStart(2, "0")}:${String(
-            seconds
-         ).padStart(2, "0")}`;
+         return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+            2,
+            "0"
+         )}`;
       }
    },
 
@@ -208,6 +269,7 @@ export default {
          }
          this.timer = 120;
          this.canResend = false;
+         this.showSmsControls = true; // yangi kod yuborilganda hammasi yana ko‘rinadi
 
          this.timerInterval = setInterval(() => {
             if (this.timer > 0) {
@@ -221,6 +283,7 @@ export default {
                   window.location.reload();
                } else {
                   this.canResend = true;
+                  this.showSmsControls = false; // 2 daqiqa tugagach kod inputi va timer yo‘qoladi
                }
             }
          }, 1000);
@@ -263,7 +326,7 @@ export default {
             if (!captchaResponse) {
                this.showPopup(
                   this.$t("accept_terms") ||
-                  "Iltimos, reCAPTCHA testini bajaring."
+                     "Iltimos, reCAPTCHA testini bajaring."
                );
                return;
             }
@@ -291,18 +354,17 @@ export default {
                }
             );
 
-            // Backenddan kelgan javobni o‘qiymiz
             const data = await response.json().catch(() => null);
+            console.log("register/1 error data:", data);
 
             if (!response.ok) {
-               // Backend berayotgan real xabarni olamiz
                const backendMsg =
                   (data && (data.message || data.detail || data.error)) || null;
 
                throw new Error(
                   backendMsg ||
-                  this.$t("sms_send_error") ||
-                  "SMS yuborishda xatolik yuz berdi!"
+                     this.$t("sms_send_error") ||
+                     "SMS yuborishda xatolik yuz berdi!"
                );
             }
 
@@ -323,9 +385,7 @@ export default {
             }
          } catch (error) {
             console.error("SMS request error:", error);
-            this.showPopup(
-               error.message || "SMS yuborishda xatolik yuz berdi!"
-            );
+            this.showPopup(error.message || "SMS yuborishda xatolik yuz berdi!");
          } finally {
             this.loading = false;
          }
@@ -339,6 +399,14 @@ export default {
 
          // 2-bosqich: SMS kodni tasdiqlash
          if (!this.codeVerified) {
+            // Agar timer tugagan bo‘lsa, kodni tekshirtirmaymiz
+            if (this.canResend && !this.showSmsControls) {
+               this.showPopup(
+                  "Kodning amal qilish muddati tugadi. Yangi kodni qayta so'rang."
+               );
+               return;
+            }
+
             this.loading = true;
 
             fetch("https://new.pochta.uz/api/v1/public/register/2/", {
@@ -360,11 +428,13 @@ export default {
                .then(() => {
                   this.codeVerified = true;
 
-                  // Kod tasdiqlangach, timer to‘xtatiladi
+                  // Kod tasdiqlangach, timer to‘xtatiladi va SMS qismi yopiladi
                   if (this.timerInterval) {
                      clearInterval(this.timerInterval);
                      this.timerInterval = null;
                   }
+                  this.showSmsControls = false;
+                  this.canResend = false;
                })
                .catch((error) => {
                   this.showPopup(
@@ -409,8 +479,8 @@ export default {
             .catch((error) => {
                this.showPopup(
                   error.response?.data?.message ||
-                  error.message ||
-                  "Xatolik yuz berdi!"
+                     error.message ||
+                     "Xatolik yuz berdi!"
                );
             })
             .finally(() => {

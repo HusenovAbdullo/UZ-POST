@@ -354,5 +354,7 @@ export default {
   postal_code5: "Почтовый индекс",
   not_found5: "Данные не найдены",
   request_error5: "Произошла ошибка при отправке запроса",
-  status_unknown5: "Статус неизвестен"
+  status_unknown5: "Статус неизвестен",
+  sms_send_error: "Не удалось отправить SMS. Попробуйте позже.",
+  resend_code: "Отправить повторно"
 };

@@ -354,5 +354,7 @@ export default {
   postal_code5: "Pochta indeksi",
   not_found5: "Maʼlumot topilmadi",
   request_error5: "Soʻrovni yuborishda xatolik yuz berdi",
-  status_unknown5: "Status noaniq"
+  status_unknown5: "Status noaniq",
+  sms_send_error: "SMS yuborilmadi. Iltimos, birozdan so‘ng qayta urinib ko‘ring.",
+  resend_code: "Qayta yuborish"
 };
