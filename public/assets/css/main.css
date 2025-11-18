@@ -6960,9 +6960,9 @@ p {
 
 iframe {
   width: 100%;
-  height: 500px;
+  /* height: 500px; */
 }
-@media (max-width: 991px) {
+/* @media (max-width: 991px) {
   iframe {
     height: 400px;
   }
@@ -6976,7 +6976,7 @@ iframe {
   iframe {
     height: 280px;
   }
-}
+} */
 
 @keyframes cir90 {
   50% {
