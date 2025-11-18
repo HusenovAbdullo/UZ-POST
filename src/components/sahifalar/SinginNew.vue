@@ -15,8 +15,7 @@
                             <div class="row g-4">
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
-                                        <label for="phone" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_phone')
-                                        }}</label>
+                                        <label for="phone" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_phone')}}</label>
                                         <input type="tel" id="phone" v-model="phone_number" @focus="prependCountryCode"
                                             @input="formatPhone" placeholder="+998 XX XXX XX XX" />
                                     </div>
@@ -25,8 +24,7 @@
                                 <br>
                                 <div class="col-lg-12">
                                     <div class="frm__grp">
-                                        <label for="pas" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_password')
-                                        }}</label>
+                                        <label for="pas" class="fz-18 fw-500 inter title mb-16">{{ $t('enter_password')}}</label>
                                         <div class="password-wrapper">
                                             <input :type="showPassword ? 'text' : 'password'" id="pas"
                                                 v-model="password" placeholder="">
