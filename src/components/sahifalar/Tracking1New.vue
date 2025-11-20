@@ -423,7 +423,7 @@ export default {
 
     const useNewApi = ['CZ', 'RZ'].includes(prefix2) || prefix1 === 'E';
     const apiUrl = useNewApi
-      ? `https://tracking.pochta.uz/api/v1/public/new/${tn}/`
+      ? `https://tracking.pochta.uz/api/v1/public/test/${tn}/`
       : `https://tracking.pochta.uz/api/v1/public/test/${tn}/`;
 
     try {
