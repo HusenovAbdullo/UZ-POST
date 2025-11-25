@@ -66,7 +66,8 @@
                                     smsSent &&
                                     !codeVerified &&
                                     canResend &&
-                                    attemptCount < maxAttempts
+                                    attemptCount < maxAttempts &&
+                                    !codeLocked
                                  "
                                  type="button"
                                  class="cmn--btn basebor outline__btn resend-btn"
@@ -226,7 +227,7 @@ export default {
          // KODNI KIRITISH URINISHLARI (register/2)
          codeAttemptCount: 0, // ketma-ket noto‘g‘ri kod kiritishlar soni
          maxCodeAttempts: 3, // maksimal 3 marta xato
-         codeLocked: false // 3 marta xato bo‘lgach, kod kiritish bloklanadi
+         codeLocked: false // 3 marta xato bo‘lgach, kod kiritish va resend bloklanadi
       };
    },
 
@@ -304,13 +305,22 @@ export default {
             return;
          }
 
+         // 3 marta xato kod kiritilgandan keyin umuman resend bo'lmaydi
+         if (isResend && this.codeLocked) {
+            this.showPopup(
+               this.$t("code_attempts_limit") ||
+                  "Siz 3 marta noto'g'ri kod kiritdingiz. SMS kodni qayta yuborish imkoni bloklangan."
+            );
+            return;
+         }
+
          // SMS allaqachon yuborilgan bo‘lsa va bu resend bo‘lmasa – verify / register
          if (this.smsSent && !isResend) {
             this.handleSubmit();
             return;
          }
 
-         // Maksimal 3 urinish
+         // Maksimal 3 urinish (SMS yuborish bo‘yicha)
          if (this.attemptCount >= this.maxAttempts) {
             this.showPopup(
                "SMS kodni qayta so'rash limiti tugadi. Iltimos, birozdan so'ng qayta urinib ko'ring."
@@ -380,6 +390,7 @@ export default {
 
             // Yangi SMS kelganida kod urinishlari qayta hisoblanadi
             this.codeAttemptCount = 0;
+            // E’TIBOR: codeLocked ni true holatidan qaytarishni xohlamasangiz, bu qatorni O‘CHIRIB tashlashingiz mumkin
             this.codeLocked = false;
 
             this.startTimer();
@@ -414,7 +425,7 @@ export default {
                this.codeLocked = true;
                this.showPopup(
                   this.$t("code_attempts_limit") ||
-                     "Siz 3 marta noto'g'ri kod kiritdingiz. Yangi kodni qayta so'rash uchun 'Kodni qayta yuborish' tugmasidan foydalaning."
+                     "Siz 3 marta noto'g'ri kod kiritdingiz. Yangi kodni qayta so'rash imkoni yo'q."
                );
                return;
             }
@@ -423,7 +434,7 @@ export default {
             if (this.canResend && !this.showSmsControls) {
                this.showPopup(
                   this.$t("code_expired") ||
-                     "Kodning amal qilish muddati tugadi. Yangi kodni qayta so'rang."
+                     "Kodning amal qilish muddati tugadi. Yangi kodni qayta so'rash imkoni yo'q."
                );
                return;
             }
@@ -462,7 +473,7 @@ export default {
                      this.showSmsControls = false; // inputni butunlay yopamiz
                      throw new Error(
                         this.$t("code_attempts_limit") ||
-                           "Siz 3 marta noto'g'ri kod kiritdingiz. 2 daqiqadan so'ng yangi kodni qayta so'rashingiz mumkin."
+                           "Siz 3 marta noto'g'ri kod kiritdingiz. SMS kodni qayta yuborish imkoni bloklangan."
                      );
                   }
 

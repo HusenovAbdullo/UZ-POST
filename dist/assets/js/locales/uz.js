@@ -360,4 +360,5 @@ export default {
   code_attempts_limit: "Siz kodni 3 marta noto‘g‘ri kiritdingiz. 2 soatdan so‘ng qayta urinib ko‘ring.",
   code_expired: "Kodni amal qilish muddati tugadi. Yangi kodni qayta so‘rang.",
   enter_full_code: "Iltimos, 6 xonali SMS-kodni to‘liq kiriting.",
+  code_not_verified: "Kod tasdiqlanmadi, qayta urinib ko‘ring!",
 };
