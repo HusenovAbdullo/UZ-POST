@@ -356,5 +356,8 @@ export default {
   request_error5: "Soʻrovni yuborishda xatolik yuz berdi",
   status_unknown5: "Status noaniq",
   sms_send_error: "SMS yuborilmadi. Iltimos, birozdan so‘ng qayta urinib ko‘ring.",
-  resend_code: "Qayta yuborish"
+  resend_code: "Qayta yuborish",
+  code_attempts_limit: "Siz kodni 3 marta noto‘g‘ri kiritdingiz. 2 soatdan so‘ng qayta urinib ko‘ring.",
+  code_expired: "Kodni amal qilish muddati tugadi. Yangi kodni qayta so‘rang.",
+  enter_full_code: "Iltimos, 6 xonali SMS-kodni to‘liq kiriting.",
 };
