@@ -73,8 +73,8 @@
           <img
             :src="
               currentLang === 'ru'
-                ? 'https://new.pochta.uz/media/tracking-rus.jpg'
-                : 'https://new.pochta.uz/media/tracking-uzb.jpg'
+                ? 'https://new.pochta.uz/media/rus.png'
+                : 'https://new.pochta.uz/media/uzb.png'
             "
             alt="Tracking maʼlumot topilmadi"
             class="tracking-empty-image img-fluid"

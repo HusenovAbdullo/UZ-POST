@@ -51,8 +51,8 @@
      },
      errorImage() {
        return this.currentLang === 'ru'
-         ? 'https://new.pochta.uz/media/error-rus.jpg'
-         : 'https://new.pochta.uz/media/error-uzb.jpg';
+         ? 'https://new.pochta.uz/media/404-rus.png'
+         : 'https://new.pochta.uz/media/404-uzb.png';
      }
    },
    methods: {

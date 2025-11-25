@@ -217,16 +217,11 @@ export default {
          // reCAPTCHA v2 site key
          siteKey: "6Ld8RBAsAAAAAA9h4OVX4_05JexEZipB-Ax6kZSM",
 
-         // SMS yuborish urinishlari (register/1)
+         // Yangi logika:
          attemptCount: 0, // nechta marta SMS yuborilgan (birinchi + qayta yuborishlar)
          maxAttempts: 3, // maksimal 3 marta (1-bosqich + 2 marta qayta)
          canResend: false, // 2 daqiqa tugagandan keyin true bo‘ladi
-         showSmsControls: false, // kod inputi, "SMS yubordik" va timer ko‘rinish-korinmasligi
-
-         // KODNI KIRITISH URINISHLARI (register/2)
-         codeAttemptCount: 0, // ketma-ket noto‘g‘ri kod kiritishlar soni
-         maxCodeAttempts: 3, // maksimal 3 marta xato
-         codeLocked: false // 3 marta xato bo‘lgach, kod kiritish bloklanadi
+         showSmsControls: false // kod inputi, "SMS yubordik" va timer ko‘rinish-korinmasligi
       };
    },
 
@@ -377,11 +372,6 @@ export default {
             this.smsSent = true;
             this.smsCode = "";
             this.attemptCount += 1;
-
-            // Yangi SMS kelganida kod urinishlari qayta hisoblanadi
-            this.codeAttemptCount = 0;
-            this.codeLocked = false;
-
             this.startTimer();
 
             this.$nextTick(() => {
@@ -402,145 +392,100 @@ export default {
       },
 
       // 2-bosqich (kodni tekshirish) va 3-bosqich (ro'yxatdan o'tkazish)
-      async handleSubmit() {
+      handleSubmit() {
          if (!this.smsSent) return;
 
          const phoneNumber = this.phoneInput.replace(/[^\d]/g, "").substring(3);
 
          // 2-bosqich: SMS kodni tasdiqlash
          if (!this.codeVerified) {
-            // Kod urinishlari limiti tekshiruvi
-            if (this.codeLocked || this.codeAttemptCount >= this.maxCodeAttempts) {
-               this.codeLocked = true;
-               this.showPopup(
-                  this.$t("code_attempts_limit") ||
-                     "Siz 3 marta noto'g'ri kod kiritdingiz. Yangi kodni qayta so'rash uchun 'Kodni qayta yuborish' tugmasidan foydalaning."
-               );
-               return;
-            }
-
             // Agar timer tugagan bo‘lsa, kodni tekshirtirmaymiz
             if (this.canResend && !this.showSmsControls) {
                this.showPopup(
-                  this.$t("code_expired") ||
-                     "Kodning amal qilish muddati tugadi. Yangi kodni qayta so'rang."
-               );
-               return;
-            }
-
-            if (!this.smsCode || this.smsCode.length !== 6) {
-               this.showPopup(
-                  this.$t("enter_full_code") ||
-                     "Iltimos, 6 xonali SMS kodni to'liq kiriting."
+                  "Kodning amal qilish muddati tugadi. Yangi kodni qayta so'rang."
                );
                return;
             }
 
             this.loading = true;
 
-            try {
-               const response = await fetch(
-                  "https://new.pochta.uz/api/v1/public/register/2/",
-                  {
-                     method: "POST",
-                     headers: {
-                        "Content-Type": "application/json"
-                     },
-                     body: JSON.stringify({
-                        phone_number: phoneNumber,
-                        code: this.smsCode
-                     })
+            fetch("https://new.pochta.uz/api/v1/public/register/2/", {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json"
+               },
+               body: JSON.stringify({
+                  phone_number: phoneNumber,
+                  code: this.smsCode
+               })
+            })
+               .then((response) => {
+                  if (!response.ok) {
+                     throw new Error("Kod tasdiqlanmadi, qayta urinib ko'ring!");
                   }
-               );
+                  return response.json();
+               })
+               .then(() => {
+                  this.codeVerified = true;
 
-               if (!response.ok) {
-                  // xato kod urinishini hisoblaymiz
-                  this.codeAttemptCount += 1;
-
-                  if (this.codeAttemptCount >= this.maxCodeAttempts) {
-                     this.codeLocked = true;
-                     this.showSmsControls = false; // inputni butunlay yopamiz
-                     throw new Error(
-                        this.$t("code_attempts_limit") ||
-                           "Siz 3 marta noto'g'ri kod kiritdingiz. 2 daqiqadan so'ng yangi kodni qayta so'rashingiz mumkin."
-                     );
+                  // Kod tasdiqlangach, timer to‘xtatiladi va SMS qismi yopiladi
+                  if (this.timerInterval) {
+                     clearInterval(this.timerInterval);
+                     this.timerInterval = null;
                   }
-
-                  throw new Error(
-                     this.$t("code_not_verified") ||
-                        "Kod tasdiqlanmadi, qayta urinib ko'ring!"
+                  this.showSmsControls = false;
+                  this.canResend = false;
+               })
+               .catch((error) => {
+                  this.showPopup(
+                     error.message || "Kod tasdiqlashda xatolik yuz berdi!"
                   );
-               }
-
-               await response.json();
-
-               this.codeVerified = true;
-               this.codeAttemptCount = 0;
-               this.codeLocked = false;
-
-               // Kod tasdiqlangach, timer to‘xtatiladi va SMS qismi yopiladi
-               if (this.timerInterval) {
-                  clearInterval(this.timerInterval);
-                  this.timerInterval = null;
-               }
-               this.showSmsControls = false;
-               this.canResend = false;
-            } catch (error) {
-               this.showPopup(
-                  error.message ||
-                     this.$t("code_verify_error") ||
-                     "Kod tasdiqlashda xatolik yuz berdi!"
-               );
-            } finally {
-               this.loading = false;
-            }
+               })
+               .finally(() => {
+                  this.loading = false;
+               });
 
             return;
          }
 
          // 3-bosqich: ism + parol bilan ro'yxatdan o'tkazish
          if (!this.name || !this.password || !this.confirmPassword) {
-            this.showPopup(
-               this.$t("fill_all_fields") || "Barcha maydonlarni to'ldiring!"
-            );
+            this.showPopup("Barcha maydonlarni to'ldiring!");
             return;
          }
 
          if (this.password !== this.confirmPassword) {
-            this.showPopup(
-               this.$t("passwords_not_match") || "Parollar bir xil emas!"
-            );
+            this.showPopup("Parollar bir xil emas!");
             return;
          }
 
          this.loading = true;
 
-         try {
-            const response = await axios.post(
-               "https://new.pochta.uz/api/v1/public/register/3/",
-               {
-                  phone_number: phoneNumber,
-                  first_name: this.name,
-                  code: this.smsCode,
-                  password: this.password
+         axios
+            .post("https://new.pochta.uz/api/v1/public/register/3/", {
+               phone_number: phoneNumber,
+               first_name: this.name,
+               code: this.smsCode,
+               password: this.password
+            })
+            .then((response) => {
+               const data = response.data;
+               if (data) {
+                  window.location.href = "/profil";
+               } else {
+                  throw new Error("Token topilmadi yoki noto'g'ri format!");
                }
-            );
-
-            const data = response.data;
-            if (data) {
-               window.location.href = "/profil";
-            } else {
-               throw new Error("Token topilmadi yoki noto'g'ri format!");
-            }
-         } catch (error) {
-            this.showPopup(
-               error.response?.data?.message ||
-                  error.message ||
-                  "Xatolik yuz berdi!"
-            );
-         } finally {
-            this.loading = false;
-         }
+            })
+            .catch((error) => {
+               this.showPopup(
+                  error.response?.data?.message ||
+                     error.message ||
+                     "Xatolik yuz berdi!"
+               );
+            })
+            .finally(() => {
+               this.loading = false;
+            });
       }
    },
 
