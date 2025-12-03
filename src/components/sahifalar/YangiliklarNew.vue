@@ -43,12 +43,20 @@
                 </video>
               </div>
               <div class="blog__content">
-                <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
+                <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center gap-4">
+                  <!-- Sana -->
                   <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
                     <i class="bi bi-calendar3 ptext2"></i>
                     {{ formatDate(item.date) }}
                   </li>
+
+                  <!-- Ko‘rishlar soni -->
+                  <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+                    <i class="bi bi-eye ptext2"></i>
+                    {{ item.views_count || 0 }}
+                  </li>
                 </ul>
+
                 <h3 class="title mb-24">
                   <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`" class="title">
                     {{ item[`title_${$i18n.locale}`] || item.title_uz }}
@@ -57,7 +65,8 @@
                 <p v-if="item[`description_${$i18n.locale}`]" class="fz-16 fw-400 mb-40 ptext2 inter">
                   {{ item[`description_${$i18n.locale}`] || item.description_uz }}
                 </p>
-                <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`" class="cmn--btn d-flex align-items-center gap-2 outline__btn">
+                <router-link :to="`/${$i18n.locale}/yangilik/${item.id}`"
+                  class="cmn--btn d-flex align-items-center gap-2 outline__btn">
                   <span>{{ $t('more_details') }}</span>
                   <span class="mt-1"><i class="bi bi-arrow-up-right"></i></span>
                 </router-link>
@@ -155,6 +164,11 @@
                       <span class="d-block fz-18 fw-400 base inter">
                         {{ formatDate(item.date) }}
                       </span>
+                      <span class="d-block fz-16 fw-400 ptext2 inter d-flex align-items-center gap-1">
+                        <i class="bi bi-eye ptext2"></i>
+                        {{ item.views_count || 0 }}
+                      </span>
+
                     </span>
                   </router-link>
 

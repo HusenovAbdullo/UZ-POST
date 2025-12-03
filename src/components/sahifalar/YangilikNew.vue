@@ -48,12 +48,20 @@
               </template>
             </div>
             <div class="blog__content">
-              <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center">
-                <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
-                  <i class="bi bi-calendar3 ptext2"></i>
-                  {{ formatDate(newsItem.date) }}
-                </li>
-              </ul>
+              <ul class="blog__addmin flex-wrap mb-24 d-flex align-items-center gap-4">
+  <!-- Sana -->
+  <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+    <i class="bi bi-calendar3 ptext2"></i>
+    {{ formatDate(newsItem.date) }}
+  </li>
+
+  <!-- Ko‘rishlar soni -->
+  <li class="fz-18 ralt fw-400 inter ptext2 d-flex align-items-center gap-2">
+    <i class="bi bi-eye ptext2"></i>
+    {{ newsItem.views_count || 0 }}
+  </li>
+</ul>
+
               <h3 class="title mb-24">
                 {{ newsItem[`title_${$i18n.locale}`] || newsItem.title_uz }}
               </h3>
